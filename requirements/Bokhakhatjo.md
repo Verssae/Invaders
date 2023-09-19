@@ -20,7 +20,7 @@ Suho Lee :
 
 YeoNyeong Lee :
 
-Taejune Jeong : 
+Taejune Jeong : Bullet interval, bullet speed, player deceleration, player confusion, player stun
 
 
 <h1>Dependencies on Other Teams :</h1>
