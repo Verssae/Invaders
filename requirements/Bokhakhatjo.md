@@ -16,7 +16,7 @@ Kim Hyun Min: GitHub overall management (main, develop, hotfix), development of 
 
 Yongjae Kim : 
 
-Suho Lee : 
+Suho Lee : Bullet interval, bullet speed, player decelaeration, player confusion, player stun
 
 YeoNyeong Lee :
 
@@ -27,5 +27,4 @@ Taejune Jeong : Bullet interval, bullet speed, player deceleration, player confu
 
 1. Visual Team, I request the creation of item object sprites(splash bullet, 3-shot bullet, item object, etc..) depicting their destruction.
 2. HUD team, we need to request the display of the remaining duration of the item and its placement.
-3. Sound Effect team, we need to request the bullet-shot sounds and item picking sound. 
-
+3. Sound Effect team, we need to request the bullet-shot sounds and item picking sound.
