@@ -1,6 +1,6 @@
 # Team Introduction
 - Team Member
-- 1) Suh Hyung Chan(Artificial Intelligence)
+  1) Suh Hyung Chan(Artificial Intelligence)
   2) Lee Na Young(Artificial Intelligence)
   3) Kim Min Seo(Artificial Intelligence)
   4) Kim A Reum(Artificial Intelligence)
@@ -11,7 +11,7 @@ Our team's goal and vision is to improve the game experience by creating an in-g
 Based on these goals and visions, our team will work together to design and realize a realistic and effective Gameplay HUD.
 
 # Team Requirements
-- 1. Improved Player Experience: Our main goal is to develop HUDs that help players enjoy the game more. This increases the game's interest and interest, allowing players to enjoy the game for longer periods of time.
+1. Improved Player Experience: Our main goal is to develop HUDs that help players enjoy the game more. This increases the game's interest and interest, allowing players to enjoy the game for longer periods of time.
 
 2. Visual Consistency: HUD must maintain visual consistency in the game. It needs to be designed to match the game's style and theme, allowing players to become more immersed in the game world.
 
