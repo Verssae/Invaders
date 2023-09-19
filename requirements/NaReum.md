@@ -1,7 +1,7 @@
 # Team Introduction
   - 
 # Team Requirements
-
+- Gameplay HUD
 # Detailed Requirements
   - Lee Na Young : Level
   - Kim Min Seo : Timer
