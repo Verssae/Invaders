@@ -23,4 +23,5 @@ such as background music, buttons sounds, combat situations, stage transitions, 
 
 ## Dependencies on Other Teams
 
-
+- Team 3 (Two-Player mode) : Two-Player mode BGM
+- Team 7 (Gameplay HUD) : Add volume controller
