@@ -1,9 +1,9 @@
 # Team Introduction
 - Team Member
-  1) Suh Hyung Chan(Artificial Intelligence)
-  2) Lee Na Young(Artificial Intelligence)
-  3) Kim Min Seo(Artificial Intelligence)
-  4) Kim A Reum(Artificial Intelligence)
+  1) Suh Hyung Chan, Dept. of Artificial Intelligence Hanyang University ERICA
+  2) Lee Na Young, Dept. of Artificial Intelligence Hanyang University ERICA
+  3) Kim Min Seo, Dept. of Artificial Intelligence Hanyang University ERICA
+  4) Kim A Reum, Dept. of Artificial Intelligence Hanyang University ERICA
   5) Oh Seung Jun(Computer Science)
   
 Our team's goal and vision is to improve the game experience by creating an in-game user interface (HUD) to provide convenience and fun for players. The main goal is to improve the player's experience value and optimize the game's performance. It also maintains visual consistency in the game, communicates information effectively, and allows players to modify the HUD to suit each play style and environment.
