@@ -15,7 +15,7 @@ Please list your team name and members in the table below. In addition, submit y
 | No. | Name                                | Members                                                                                                                                                                              | Requirements      |
 |-----|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
 | 0   | [Instructors](https://github.com/Verssae/Invaders) | [Scott Uk-Jin Lee](https://github.com/scottukjinlee/scottukjinlee), [Hansae Ju](https://github.com/Verssae/Verssae), [Joonwoo Lee](https://github.com/PurpleBananass/PurpleBananass) | [Instruct students](requirements/instruct.md) |
-|     |                                     |                                                                                                                                                                                      |                   |
+| 1   | [redavni](https://github.com/redavni1/Invaders) | [이민정](https://github.com/minjung0067/minjung0067), [김서현](https://github.com/Deep-of-Machine/Deep-of-Machine), [신의성](https://github.com/Eui-seong/Eui-seong), [우수한](https://github.com/Woo-Su-Han/Woo-Su-Han), [이효민](https://github.com/daxnii/daxnii), [김준서](https://github.com/sseeoo81/sseeoo81), | [Sound Effects/BGM](requirements/redavni.md) |
 
 
 ## Screenshots
