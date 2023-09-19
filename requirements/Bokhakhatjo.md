@@ -14,7 +14,8 @@ We will make it so that enemies drop items when killed. These items include debu
 
 Kim Hyun Min: GitHub overall management (main, develop, hotfix), development of collaboration system, development of overall Item Class.
 
-Yongjae Kim : 
+Yongjae Kim : Development of bullet-enhancing items
+                (Splash Bullet, Spread Bullet)
 
 Suho Lee : Bullet interval, bullet speed, player decelaeration, player confusion, player stun
 
