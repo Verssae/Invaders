@@ -29,5 +29,8 @@ Based on these goals and visions, our team will work together to design and real
   - Oh Seung Jun : 
 line of sight
 # Dependencies on Other Teams
-
+- time limit function
+- Bullet number limit function ( 
+Different number of bullets for each level )
+- change the way player live
 {Brief description of the requirement}
