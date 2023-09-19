@@ -19,4 +19,4 @@ current space invader has only 2
 - Kim Dongmin : manage enemy sprite
 - Lee Dayeon : manage enemy sprite
 
-## Dependencies on Other Teams: 
+## Dependencies on Other Teams: .
