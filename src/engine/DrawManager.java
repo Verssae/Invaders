@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -276,6 +277,37 @@ public final class DrawManager {
 	}
 
 	/**
+     * Creates blinking colors like an arcade screen.
+	 * 
+	 * @param screen
+	 */
+
+	 private Color blinkingColor(String color) {
+		if (color == "HIGH_SCORES") {
+			int R = (int) (Math.pow(Math.random() * (15 - 0), 2));
+			int G = (int) (Math.random() * (255 - 0));
+			int B = (int) 3.3 * LocalTime.now().getSecond();
+			Color title = new Color(R, G, B);
+			return title;
+		}
+		if (color == "GREEN") {
+			Color green = new Color(0, (int) (Math.random() * (255 - 155) + 155), 0);
+			return green;
+		}
+		if (color == "WHITE") {
+			int RGB = (int) (Math.random() * (255 - 155) + 155);
+			Color white = new Color(RGB, RGB, RGB);
+			return white;
+		}
+		if (color == "GRAY") {
+			int RGB = (int) (Math.random() * (160 - 100) + 100);
+			Color gray = new Color(RGB, RGB, RGB);
+			return gray;
+		}
+		return Color.WHITE;
+	}
+
+	/**
 	 * Draws game title.
 	 * 
 	 * @param screen
@@ -284,13 +316,13 @@ public final class DrawManager {
 	public void drawTitle(final Screen screen) {
 		String titleString = "Invaders";
 		String instructionsString =
-				"select with w+s / arrows, confirm with space";
+				"Select with W + S, confirm with SPACE.";
 
-		backBufferGraphics.setColor(Color.GRAY);
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, instructionsString,
 				screen.getHeight() / 2);
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(blinkingColor("GREEN"));
 		drawCenteredBigString(screen, titleString, screen.getHeight() / 3);
 	}
 
@@ -303,26 +335,26 @@ public final class DrawManager {
 	 *            Option selected.
 	 */
 	public void drawMenu(final Screen screen, final int option) {
-		String playString = "Play";
-		String highScoresString = "High scores";
-		String exitString = "exit";
+		String playString = "P L A Y";
+		String highScoresString = "H I G H  S C O R E S";
+		String exitString = "E X I T";
 
 		if (option == 2)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
-			backBufferGraphics.setColor(Color.WHITE);
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, playString,
 				screen.getHeight() / 3 * 2);
 		if (option == 3)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
-			backBufferGraphics.setColor(Color.WHITE);
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
 		if (option == 0)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
-			backBufferGraphics.setColor(Color.WHITE);
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 4);
 	}
@@ -456,10 +488,10 @@ public final class DrawManager {
 		String highScoreString = "High Scores";
 		String instructionsString = "Press Space to return";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
 		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
 
-		backBufferGraphics.setColor(Color.GRAY);
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, instructionsString,
 				screen.getHeight() / 5);
 	}
@@ -474,7 +506,7 @@ public final class DrawManager {
 	 */
 	public void drawHighScores(final Screen screen,
 			final List<Score> highScores) {
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(blinkingColor("WHITE"));
 		int i = 0;
 		String scoreString = "";
 
