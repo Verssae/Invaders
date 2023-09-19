@@ -19,7 +19,8 @@ Yongjae Kim : Development of bullet-enhancing items
 
 Suho Lee : Bullet interval, bullet speed, player decelaeration, player confusion, player stun
 
-YeoNyeong Lee :
+YeoNyeong Lee : Development of bullet-enhancing items
+		(Bullet Speed Increase Item, Spread Bullet Item)
 
 Taejune Jeong : Bullet interval, bullet speed, player deceleration, player confusion, player stun
 
