@@ -14,7 +14,7 @@ Please list your team name and members in the table below. In addition, submit y
 
 | No. | Name                                | Members                                                                                                                                                                              | Requirements      |
 |-----|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
-| 0   | [Instructors](https://github.com/Verssae/Invaders) | [Scott Uk-Jin Lee](https://github.com/scottukjinlee/scottukjinlee), [Hansae Ju](https://github.com/Verssae/Verssae), [Joonwoo Lee](https://github.com/PurpleBananass/PurpleBananass) | [Instruct students](requirements/instruct.md) |
+| 0   | [Bokhakhatjo](https://github.com/khmrang2/Invaders) | [Hyunmin Kim](https://github.com/khmrang2/kimhyunmin#kimhyunmin), [Suho Lee](https://github.com/suhoco/TempRepository), [Yeonyeong Lee](https://github.com/LeeYeoNyeong/Invaders), [Yongjae Kim](https://github.com/Songforthesilent/Songforthesilent.git), [Taejune Jeong](https://github.com/jtaejune1159/jtaejune1159) | [Item System](https://github.com/khmrang2/Invaders/blob/main/requirements/Bokhakhatjo.md) |
 |     |                                     |                                                                                                                                                                                      |                   |
 
 
