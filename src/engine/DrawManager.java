@@ -278,6 +278,7 @@ public final class DrawManager {
 
 	/**
      * Creates blinking colors like an arcade screen.
+	 * [Clean Code Team] This method was created by highlees.
 	 * 
 	 * @param screen
 	 */
