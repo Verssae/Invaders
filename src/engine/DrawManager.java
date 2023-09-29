@@ -267,10 +267,10 @@ public final class DrawManager {
 	 *            Current score.
 	 */
 	public void drawScore(final Screen screen, final int score) {
-		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setFont(fontBig);
 		backBufferGraphics.setColor(scoreColor(score));
 		String scoreString = String.format("%04d", score);
-		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
+		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
 	/**
