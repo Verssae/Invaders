@@ -275,7 +275,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(scoreColor(4000));
 			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
 		}
-		else {
+		if (score >= 4800) {
 			backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
 			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
 		}
