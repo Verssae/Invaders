@@ -230,6 +230,22 @@ public final class DrawManager {
 	}
 
 	/**
+	 * The color changes slightly depending on the score.
+	 * [Clean Code Team] This method was created by highlees.
+	 * 
+	 * @param score
+	 */
+	private Color scoreColor(final int score) {
+		if (score < 800) return Color.WHITE;
+		if (score >= 800 && score < 1600) return new Color(206, 255, 210);
+		if (score >= 1600 && score < 2400) return new Color(151, 255, 158);
+		if (score >= 2400 && score < 3200) return new Color(88, 255, 99);
+		if (score >= 3200 && score < 4000) return new Color(50, 255, 64);
+		if (score >= 4800 && score < 5600) return new Color(0, 255, 17);
+		else return blinkingColor("HIGH_SCORES");
+	}
+
+	/**
 	 * The emoji changes slightly depending on the score.
 	 * [Clean Code Team] This method was created by highlees.
 	 * 
@@ -238,6 +254,7 @@ public final class DrawManager {
 	 * 
 	 */
 	public void scoreEmoji(final Screen screen, final int score) {
+		backBufferGraphics.setFont(fontRegular);
 
 	}
 
@@ -251,7 +268,7 @@ public final class DrawManager {
 	 */
 	public void drawScore(final Screen screen, final int score) {
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(scoreColor(score));
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
 	}
