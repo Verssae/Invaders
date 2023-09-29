@@ -241,7 +241,7 @@ public final class DrawManager {
 		if (score >= 1600 && score < 2400) return new Color(151, 255, 158);
 		if (score >= 2400 && score < 3200) return new Color(88, 255, 99);
 		if (score >= 3200 && score < 4000) return new Color(50, 255, 64);
-		if (score >= 4800 && score < 5600) return new Color(0, 255, 17);
+		if (score >= 4000 && score < 4800) return new Color(0, 255, 17);
 		else return blinkingColor("HIGH_SCORES");
 	}
 
