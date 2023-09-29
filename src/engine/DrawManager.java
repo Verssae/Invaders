@@ -230,6 +230,18 @@ public final class DrawManager {
 	}
 
 	/**
+	 * The emoji changes slightly depending on the score.
+	 * [Clean Code Team] This method was created by highlees.
+	 * 
+	 * @param screen
+	 * @param score
+	 * 
+	 */
+	public void scoreEmoji(final Screen screen, final int score) {
+
+	}
+
+	/**
 	 * Draws current score on screen.
 	 * 
 	 * @param screen
