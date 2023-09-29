@@ -255,7 +255,30 @@ public final class DrawManager {
 	 */
 	public void scoreEmoji(final Screen screen, final int score) {
 		backBufferGraphics.setFont(fontRegular);
-
+		if (score >= 800 && score < 1600) {
+			backBufferGraphics.setColor(scoreColor(800));
+			backBufferGraphics.drawString(" Z...z..    ( _ . _ )", screen.getWidth() - 250, 25);
+		}
+		if (score >= 1600 && score < 2400) {
+			backBufferGraphics.setColor(scoreColor(1600));
+			backBufferGraphics.drawString("  ??...?..    ( o . o )", screen.getWidth() - 240, 25);
+		}
+		if (score >= 2400 && score < 3200) {
+			backBufferGraphics.setColor(scoreColor(2400));
+			backBufferGraphics.drawString("         !!...!..  ) O . O )", screen.getWidth() - 240, 25);
+		}
+		if (score >= 3200 && score < 4000) {
+			backBufferGraphics.setColor(scoreColor(3200));
+			backBufferGraphics.drawString("            (_/ 0 ^ 0 )_/", screen.getWidth() - 250, 25);
+		}
+		if (score >= 4000 && score < 4800) {
+			backBufferGraphics.setColor(scoreColor(4000));
+			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
+		}
+		else {
+			backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
+			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
+		}
 	}
 
 	/**
