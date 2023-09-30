@@ -230,6 +230,58 @@ public final class DrawManager {
 	}
 
 	/**
+	 * The color changes slightly depending on the score.
+	 * [Clean Code Team] This method was created by highlees.
+	 * 
+	 * @param score
+	 */
+	private Color scoreColor(final int score) {
+		if (score < 800) return Color.WHITE;
+		if (score >= 800 && score < 1600) return new Color(206, 255, 210);
+		if (score >= 1600 && score < 2400) return new Color(151, 255, 158);
+		if (score >= 2400 && score < 3200) return new Color(88, 255, 99);
+		if (score >= 3200 && score < 4000) return new Color(50, 255, 64);
+		if (score >= 4000 && score < 4800) return new Color(0, 255, 17);
+		else return blinkingColor("HIGH_SCORES");
+	}
+
+	/**
+	 * The emoji changes slightly depending on the score.
+	 * [Clean Code Team] This method was created by highlees.
+	 * 
+	 * @param screen
+	 * @param score
+	 * 
+	 */
+	public void scoreEmoji(final Screen screen, final int score) {
+		backBufferGraphics.setFont(fontRegular);
+		if (score >= 800 && score < 1600) {
+			backBufferGraphics.setColor(scoreColor(800));
+			backBufferGraphics.drawString(" Z...z..    ( _ . _ )", screen.getWidth() - 250, 25);
+		}
+		if (score >= 1600 && score < 2400) {
+			backBufferGraphics.setColor(scoreColor(1600));
+			backBufferGraphics.drawString("  ??...?..    ( o . o )", screen.getWidth() - 240, 25);
+		}
+		if (score >= 2400 && score < 3200) {
+			backBufferGraphics.setColor(scoreColor(2400));
+			backBufferGraphics.drawString("         !!...!..  ) O . O )", screen.getWidth() - 240, 25);
+		}
+		if (score >= 3200 && score < 4000) {
+			backBufferGraphics.setColor(scoreColor(3200));
+			backBufferGraphics.drawString("            (_/ 0 ^ 0 )_/", screen.getWidth() - 250, 25);
+		}
+		if (score >= 4000 && score < 4800) {
+			backBufferGraphics.setColor(scoreColor(4000));
+			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
+		}
+		if (score >= 4800) {
+			backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
+			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
+		}
+	}
+
+	/**
 	 * Draws current score on screen.
 	 * 
 	 * @param screen
@@ -238,10 +290,10 @@ public final class DrawManager {
 	 *            Current score.
 	 */
 	public void drawScore(final Screen screen, final int score) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(scoreColor(score));
 		String scoreString = String.format("%04d", score);
-		backBufferGraphics.drawString(scoreString, screen.getWidth() - 60, 25);
+		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
 	/**
