@@ -251,11 +251,10 @@ public class GameScreen extends Screen {
 
 
 
-			// temporary remove for drawing countdown arc
-			/*drawManager.drawHorizontalLine(this, this.height / 2 - this.height
-					/ 12);
-			drawManager.drawHorizontalLine(this, this.height / 2 + this.height
-					/ 12);*/
+			/* this code is modified with Clean Code (dodo_kdy)  */
+			  //drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
+			  //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
+
 		}
 
 		drawManager.completeDrawing(this);
