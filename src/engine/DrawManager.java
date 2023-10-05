@@ -655,6 +655,7 @@ public final class DrawManager {
 								+ fontBigMetrics.getHeight() / 3);
 			}
 		else if (number != 0) {
+			/* this if-else is modified with Clean Code (dodo_kdy)  */
 			if (isFirst) drawLoading(screen.getHeight()/6, screen.getHeight()/3, screen);
 			else {
 				if ( (25 + 20 * (3-number) < timercount && timercount <40 + 20 * (3-number)) )
@@ -679,7 +680,7 @@ public final class DrawManager {
 	/**
 	 * Creates a loading string with blink effect on the loading box.
 	 *
-	 * [Clean Code Team] This method was created by doyoon323.
+	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param screen
 	 */
@@ -698,7 +699,7 @@ public final class DrawManager {
 	/**
 	 *  Creates a loading progress bar/
 	 *
-	 *  [Clean Code Team] This method was created by doyoon323.
+	 *  [Clean Code Team] This method was created by dodo_kdy.
 	 * @param startX
 	 * @param startY
 	 * @param endX
@@ -720,7 +721,7 @@ public final class DrawManager {
 	/**
 	 * Creates a loading box for 3 seconds.
 	 *
-	 * [Clean Code Team] This method was created by doyoon323.
+	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param x
 	 * @param y
@@ -769,7 +770,7 @@ public final class DrawManager {
 	/**
 	 * Creates an animation of monster.
 	 *
-	 * [Clean Code Team] This method was created by doyoon323.
+	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param x
 	 * @param y
