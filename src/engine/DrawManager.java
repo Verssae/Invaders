@@ -367,7 +367,7 @@ public final class DrawManager {
 	 *            Screen to draw on.
 	 */
 	public void drawTitle(final Screen screen) {
-		String titleString = "Invaders";
+		String titleString = "I N V A D E R S";
 		String instructionsString =
 				"Select with W + S, confirm with SPACE.";
 
@@ -431,11 +431,11 @@ public final class DrawManager {
 	public void drawResults(final Screen screen, final int score,
 			final int livesRemaining, final int shipsDestroyed,
 			final float accuracy, final boolean isNewRecord) {
-		String scoreString = String.format("score %04d", score);
-		String livesRemainingString = "lives remaining " + livesRemaining;
-		String shipsDestroyedString = "enemies destroyed " + shipsDestroyed;
+		String scoreString = String.format("Score %04d", score);
+		String livesRemainingString = "Lives remaining " + livesRemaining;
+		String shipsDestroyedString = "Enemies destroyed " + shipsDestroyed;
 		String accuracyString = String
-				.format("accuracy %.2f%%", accuracy * 100);
+				.format("Accuracy %.2f%%", accuracy * 100);
 
 		int height = isNewRecord ? 4 : 2;
 
@@ -464,7 +464,7 @@ public final class DrawManager {
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
 			final int nameCharSelected) {
-		String newRecordString = "New Record!";
+		String newRecordString = "NEW RECORD!";
 		String introduceNameString = "Introduce name:";
 
 		backBufferGraphics.setColor(Color.GREEN);
@@ -513,9 +513,9 @@ public final class DrawManager {
 	 */
 	public void drawGameOver(final Screen screen, final boolean acceptsInput,
 			final boolean isNewRecord) {
-		String gameOverString = "Game Over";
+		String gameOverString = "G A M E  O V E R";
 		String continueOrExitString =
-				"Press Space to play again, Escape to exit";
+				"Press SPACE to play again, ESC to exit";
 
 		int height = isNewRecord ? 4 : 2;
 
@@ -539,7 +539,7 @@ public final class DrawManager {
 	 */
 	public void drawHighScoreMenu(final Screen screen) {
 		String highScoreString = "High Scores";
-		String instructionsString = "Press Space to return";
+		String instructionsString = "Press SPACE to return";
 
 		backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
 		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
