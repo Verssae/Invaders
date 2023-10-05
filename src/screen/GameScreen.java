@@ -1,5 +1,6 @@
 package screen;
 
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +15,8 @@ import entity.EnemyShip;
 import entity.EnemyShipFormation;
 import entity.Entity;
 import entity.Ship;
+
+import javax.swing.*;
 
 /**
  * Implements the game screen, where the action happens.
@@ -70,6 +73,8 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -240,12 +245,16 @@ public class GameScreen extends Screen {
 			int countdown = (int) ((INPUT_DELAY
 					- (System.currentTimeMillis()
 							- this.gameStartTime)) / 1000);
+
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
-			drawManager.drawHorizontalLine(this, this.height / 2 - this.height
-					/ 12);
-			drawManager.drawHorizontalLine(this, this.height / 2 + this.height
-					/ 12);
+
+
+
+			/* this code is modified with Clean Code (dodo_kdy)  */
+			  //drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
+			  //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
+
 		}
 
 		drawManager.completeDrawing(this);
