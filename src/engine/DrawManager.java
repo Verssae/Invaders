@@ -438,8 +438,8 @@ public final class DrawManager {
 	 *            If the score is a new high score.
 	 */
 	public void drawResults(final Screen screen, final int score,
-			final int livesRemaining, final int shipsDestroyed,
-			final float accuracy, final boolean isNewRecord) {
+							final int livesRemaining, final int shipsDestroyed,
+							final float accuracy, final boolean isNewRecord) {
 		String scoreString = String.format("Score %04d", score);
 		String livesRemainingString = "Lives remaining " + livesRemaining;
 		String shipsDestroyedString = "Enemies destroyed " + shipsDestroyed;
@@ -472,7 +472,7 @@ public final class DrawManager {
 	 *            Current character selected for modification.
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
-			final int nameCharSelected) {
+							  final int nameCharSelected) {
 		String newRecordString = "NEW RECORD!";
 		String introduceNameString = "Introduce name:";
 
@@ -521,7 +521,7 @@ public final class DrawManager {
 	 *            If the score is a new high score.
 	 */
 	public void drawGameOver(final Screen screen, final boolean acceptsInput,
-			final boolean isNewRecord) {
+							 final boolean isNewRecord) {
 		String gameOverString = "G A M E  O V E R";
 		String continueOrExitString =
 				"Press SPACE to play again, ESC to exit";
