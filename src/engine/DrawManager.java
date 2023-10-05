@@ -788,10 +788,10 @@ public final class DrawManager {
 		else if (70<timercount && timercount <90) y1-=5;
 		else x1-=5;
 
-		backBufferGraphics.drawImage( img1, x1+15, y1,35,35, null );
-		backBufferGraphics.drawImage( img2, x1+60, y2,30,25, null );
-		backBufferGraphics.drawImage( img3, x1+100, y1+5,30,25, null );
-		backBufferGraphics.drawImage( img4, x1+140, y2,30,25, null );
+		backBufferGraphics.drawImage( img1, x1+15, y1,34,34, null );
+		backBufferGraphics.drawImage( img2, x1+60, y2-2,30,24, null );
+		backBufferGraphics.drawImage( img3, x1+100, y1 - 10 , 38,55, null );
+		backBufferGraphics.drawImage( img4, x1+145, y2,32,27, null );
 		return 1;
 	}
 }
