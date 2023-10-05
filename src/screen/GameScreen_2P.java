@@ -301,7 +301,7 @@ public class GameScreen_2P extends Screen {
         }
 
         this.bullets_1P.removeAll(recyclable);
-        this.bullets_1P.removeAll(recyclable);
+        this.bullets_2P.removeAll(recyclable);
         BulletPool.recycle(recyclable);
     }
 
