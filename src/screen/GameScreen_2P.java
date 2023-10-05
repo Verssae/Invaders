@@ -56,8 +56,7 @@ public class GameScreen_2P extends Screen {
     /** Time from finishing the level to screen change. */
     private Cooldown screenFinishedCooldown;
     /** Set of all bullets fired by on screen ships. */
-    private Set<Bullet> bullets_1P;
-    private Set<Bullet> bullets_2P;
+    private Set<Bullet> bullets;
     /** Current score. */
     private int score;
     /** Player lives left. */
@@ -122,8 +121,7 @@ public class GameScreen_2P extends Screen {
         this.enemyShipSpecialExplosionCooldown = Core
                 .getCooldown(BONUS_SHIP_EXPLOSION);
         this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
-        this.bullets_1P = new HashSet<Bullet>();
-        this.bullets_2P = new HashSet<Bullet>();
+        this.bullets = new HashSet<Bullet>();
 
         // Special input delay / countdown.
         this.gameStartTime = System.currentTimeMillis();
@@ -169,7 +167,7 @@ public class GameScreen_2P extends Screen {
                     this.ship_1P.moveLeft();
                 }
                 if (inputManager.isKeyDown(KeyEvent.VK_SHIFT))
-                    if (this.ship_1P.shoot(this.bullets_1P))
+                    if (this.ship_1P.shoot(this.bullets))
                         this.bulletsShot++;
             }
             if (!this.ship_2P.isDestroyed()) {
@@ -188,7 +186,7 @@ public class GameScreen_2P extends Screen {
                     this.ship_2P.moveLeft();
                 }
                 if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-                    if (this.ship_2P.shoot(this.bullets_2P))
+                    if (this.ship_2P.shoot(this.bullets))
                         this.bulletsShot++;
             }
 
@@ -214,11 +212,11 @@ public class GameScreen_2P extends Screen {
             this.ship_1P.update();
             this.ship_2P.update();
             this.enemyShipFormation.update();
-            this.enemyShipFormation.shoot(this.bullets_1P);
-            this.enemyShipFormation.shoot(this.bullets_2P);
+            this.enemyShipFormation.shoot(this.bullets);
         }
 
         manageCollisions();
+
         cleanBullets();
         draw();
 
@@ -252,13 +250,10 @@ public class GameScreen_2P extends Screen {
 
         enemyShipFormation.draw();
 
-        for (Bullet bullet : this.bullets_1P)
+        for (Bullet bullet : this.bullets)
             drawManager.drawEntity(bullet, bullet.getPositionX(),
                     bullet.getPositionY());
 
-        for (Bullet bullet : this.bullets_2P)
-            drawManager.drawEntity(bullet, bullet.getPositionX(),
-                    bullet.getPositionY());
 
         // Interface.
         drawManager.drawScore(this, this.score);
@@ -287,22 +282,14 @@ public class GameScreen_2P extends Screen {
      */
     private void cleanBullets() {
         Set<Bullet> recyclable = new HashSet<Bullet>();
-        for (Bullet bullet : this.bullets_1P) {
+        for (Bullet bullet : this.bullets) {
             bullet.update();
             if (bullet.getPositionY() < SEPARATION_LINE_HEIGHT
                     || bullet.getPositionY() > this.height)
                 recyclable.add(bullet);
         }
 
-        for (Bullet bullet : this.bullets_2P) {
-            bullet.update();
-            if (bullet.getPositionY() < SEPARATION_LINE_HEIGHT
-                    || bullet.getPositionY() > this.height)
-                recyclable.add(bullet);
-        }
-
-        this.bullets_1P.removeAll(recyclable);
-        this.bullets_2P.removeAll(recyclable);
+        this.bullets.removeAll(recyclable);
         BulletPool.recycle(recyclable);
     }
 
@@ -311,7 +298,7 @@ public class GameScreen_2P extends Screen {
      */
     private void manageCollisions() {
         Set<Bullet> recyclable = new HashSet<Bullet>();
-        for (Bullet bullet : this.bullets_1P)
+        for (Bullet bullet : this.bullets)
             if (bullet.getSpeed() > 0) {
                 if (checkCollision(bullet, this.ship_1P) && !this.levelFinished) {
                     recyclable.add(bullet);
@@ -322,28 +309,7 @@ public class GameScreen_2P extends Screen {
                                 + " lives remaining.");
                     }
                 }
-            } else {
-                for (EnemyShip enemyShip : this.enemyShipFormation)
-                    if (!enemyShip.isDestroyed()
-                            && checkCollision(bullet, enemyShip)) {
-                        this.score += enemyShip.getPointValue();
-                        this.shipsDestroyed++;
-                        this.enemyShipFormation.destroy(enemyShip);
-                        recyclable.add(bullet);
-                    }
-                if (this.enemyShipSpecial != null
-                        && !this.enemyShipSpecial.isDestroyed()
-                        && checkCollision(bullet, this.enemyShipSpecial)) {
-                    this.score += this.enemyShipSpecial.getPointValue();
-                    this.shipsDestroyed++;
-                    this.enemyShipSpecial.destroy();
-                    this.enemyShipSpecialExplosionCooldown.reset();
-                    recyclable.add(bullet);
-                }
-            }
-        for (Bullet bullet : this.bullets_2P)
-            if (bullet.getSpeed() > 0) {
-                if (checkCollision(bullet, this.ship_2P) && !this.levelFinished) {
+                else if (checkCollision(bullet, this.ship_2P) && !this.levelFinished) {
                     recyclable.add(bullet);
                     if (!this.ship_2P.isDestroyed()) {
                         this.ship_2P.destroy();
@@ -371,10 +337,12 @@ public class GameScreen_2P extends Screen {
                     recyclable.add(bullet);
                 }
             }
-        this.bullets_1P.removeAll(recyclable);
-        this.bullets_2P.removeAll(recyclable);
+
+        this.bullets.removeAll(recyclable);
         BulletPool.recycle(recyclable);
     }
+
+
 
     /**
      * Checks if two entities are colliding.
