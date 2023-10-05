@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import screen.GameScreen;
+import screen.GameScreen_2P;
 import screen.HighScoreScreen;
 import screen.ScoreScreen;
 import screen.Screen;
@@ -216,7 +217,7 @@ public final class Core {
 								% EXTRA_LIFE_FRECUENCY == 0
 								&& gameState.getLivesRemaining() < MAX_LIVES;
 
-						currentScreen = new GameScreen(gameState,
+						currentScreen = new GameScreen_2P(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
