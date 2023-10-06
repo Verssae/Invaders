@@ -171,5 +171,5 @@ log*
 .checkstyle
 # intelliJ Files
 *.iml
-.idea
+*.idea
 out
