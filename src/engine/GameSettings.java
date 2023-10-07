@@ -16,6 +16,8 @@ public class GameSettings {
 	private int baseSpeed;
 	/** Frequency of enemy shootings, +/- 30%. */
 	private int shootingFrecuency;
+	/** Difficulty of Game */
+	private double difficulty;
 
 	/**
 	 * Constructor.
@@ -28,13 +30,16 @@ public class GameSettings {
 	 *            Speed of the enemies.
 	 * @param shootingFrecuency
 	 *            Frecuency of enemy shootings, +/- 30%.
+	 * @param  difficulty
+	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
 	 */
 	public GameSettings(final int formationWidth, final int formationHeight,
-			final int baseSpeed, final int shootingFrecuency) {
+			final int baseSpeed, final int shootingFrecuency, final int difficulty) {
 		this.formationWidth = formationWidth;
 		this.formationHeight = formationHeight;
 		this.baseSpeed = baseSpeed;
 		this.shootingFrecuency = shootingFrecuency;
+		this.difficulty = difficulty;
 	}
 
 	/**
@@ -55,14 +60,30 @@ public class GameSettings {
 	 * @return the baseSpeed
 	 */
 	public final int getBaseSpeed() {
-		return baseSpeed;
+		if (this.difficulty == 0)
+			return (int)((double)this.baseSpeed * 0.5);
+		else if (this.difficulty == 1)
+			return this.baseSpeed;
+		else
+			return (int)((double)this.baseSpeed * 2);
 	}
 
 	/**
 	 * @return the shootingFrecuency
 	 */
-	public final int getShootingFrecuency() {
-		return shootingFrecuency;
+	public final int getShootingFrecuency(){
+		if (this.difficulty == 0)
+			return (int)((double)this.shootingFrecuency * 1.5);
+		else if (this.difficulty == 1)
+			return this.shootingFrecuency;
+		else
+			return (int)((double)this.shootingFrecuency * 0.5);
 	}
 
+	/**
+	 * Set difficulty
+	 */
+	public final void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
+	}
 }
