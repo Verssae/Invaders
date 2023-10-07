@@ -45,6 +45,8 @@ public class ScoreScreen extends Screen {
 	private int nameCharSelected;
 	/** Time between changes in user selection. */
 	private Cooldown selectionCooldown;
+	/** Game Difficulty. */
+	private int difficulty;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -59,9 +61,9 @@ public class ScoreScreen extends Screen {
 	 *            Current game state.
 	 */
 	public ScoreScreen(final int width, final int height, final int fps,
-			final GameState gameState) {
+			final GameState gameState, final int difficulty) {
 		super(width, height, fps);
-
+		this.difficulty = difficulty;
 		this.score = gameState.getScore();
 		this.livesRemaining = gameState.getLivesRemaining();
 		this.bulletsShot = gameState.getBulletsShot();
@@ -172,7 +174,7 @@ public class ScoreScreen extends Screen {
 		drawManager.drawGameOver(this, this.inputDelay.checkFinished(),
 				this.isNewRecord);
 		drawManager.drawResults(this, this.score, this.livesRemaining,
-				this.shipsDestroyed, (float) this.shipsDestroyed
+				this.shipsDestroyed, this.difficulty, (float) this.shipsDestroyed
 						/ this.bulletsShot, this.isNewRecord);
 
 		if (this.isNewRecord)
