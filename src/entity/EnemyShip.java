@@ -52,20 +52,22 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
-		this.EnemyLife = 1;
 
 		switch (this.spriteType) {
 		case EnemyShipA1:
 		case EnemyShipA2:
 			this.pointValue = A_TYPE_POINTS;
+			this.EnemyLife = 1;
 			break;
 		case EnemyShipB1:
 		case EnemyShipB2:
 			this.pointValue = B_TYPE_POINTS;
+			this.EnemyLife = 1;
 			break;
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			this.EnemyLife = 2;
 			break;
 		default:
 			this.pointValue = 0;
