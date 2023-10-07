@@ -6,6 +6,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
 
+
 /**
  * Implements a enemy ship, to be destroyed by the player.
  * 
@@ -22,6 +23,8 @@ public class EnemyShip extends Entity {
 	private static final int C_TYPE_POINTS = 30;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
+	/** Point value of a boss enemy. */
+	private static final int BOSS_TYPE_POINTS = 1000;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -29,6 +32,8 @@ public class EnemyShip extends Entity {
 	private boolean isDestroyed;
 	/** Values of the ship, in points, when destroyed. */
 	private int pointValue;
+	/** Lives of ship, ship will be destroyed when life becomes 0. */
+	private int EnemyLife;
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -47,6 +52,7 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
+		this.EnemyLife = 1;
 
 		switch (this.spriteType) {
 		case EnemyShipA1:
@@ -77,6 +83,23 @@ public class EnemyShip extends Entity {
 		this.spriteType = SpriteType.EnemyShipSpecial;
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
+		this.EnemyLife = 1;
+	}
+
+	/**
+	 * Constructor, establishes the ship's properties for a boss ship.
+	 *
+	 * @param enemylife
+	 *            Lives of the ship.
+	 */
+	public EnemyShip(final int enemylife) {
+		super(224, 100, 25 * 2, 14 * 2, Color.PINK);
+
+		this.spriteType = SpriteType.Boss;
+		this.isDestroyed = false;
+		this.EnemyLife = enemylife;
+		this.pointValue = BOSS_TYPE_POINTS;
+
 	}
 
 	/**
@@ -131,6 +154,21 @@ public class EnemyShip extends Entity {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Reduces enemy's life when hit
+	 */
+	public final void reduceEnemyLife() {
+		this.EnemyLife -= 1;
+	}
+	/**
+	 * Getter for the life of enemyship.
+	 *
+	 * @return the rest of the enemy's life.
+	 */
+	public final int getEnemyLife() {
+		return this.EnemyLife;
 	}
 
 	/**
