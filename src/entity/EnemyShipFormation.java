@@ -1,10 +1,6 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 import screen.Screen;
@@ -94,6 +90,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private List<EnemyShip> shooters;
 	/** Number of not destroyed ships. */
 	private int shipCount;
+	/** Difficulty of game. */
+	private double difficulty;
+
 
 	/** Directions the formation can move. */
 	private enum Direction {
@@ -126,6 +125,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		this.movementSpeed = this.baseSpeed;
 		this.positionX = INIT_POS_X;
 		this.positionY = INIT_POS_Y;
+		this.difficulty = gameSettings.getDifficulty();
 		this.shooters = new ArrayList<EnemyShip>();
 		SpriteType spriteType;
 
@@ -332,13 +332,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 */
 	public final void shoot(final Set<Bullet> bullets) {
 		// For now, only ships in the bottom row are able to shoot.
-		int index = (int) (Math.random() * this.shooters.size());
-		EnemyShip shooter = this.shooters.get(index);
-
+		Set<EnemyShip> shooters = numberOfShooters();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			bullets.add(BulletPool.getBullet(shooter.getPositionX()
-					+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			for(EnemyShip shooter : shooters){
+				bullets.add(BulletPool.getBullet(shooter.getPositionX()
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+			};
 		}
 	}
 
@@ -426,4 +426,40 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	public final boolean isEmpty() {
 		return this.shipCount <= 0;
 	}
+
+	/**
+	 * Set the number of Shooters according to the Difficulty && LEVEL
+	 */
+	public final Set<EnemyShip> numberOfShooters(){
+
+		List<Integer> indexList = new ArrayList<Integer>();
+		Set<EnemyShip> shooterSet = new HashSet<EnemyShip>();
+		/** 난이도별 EnemyShipFormation의 default shooter 수 */
+		int defaultShooters = 0;
+		switch ((int) this.difficulty) {
+			case 0:
+			case 1:
+				defaultShooters = 1;
+				break;
+			case 2:
+			case 3:
+				defaultShooters = 2;
+				break;
+			default:
+				break;
+		}
+		/** shooter의 수는 shooter의 크기와 defaultShooters 둘다 의존. 최솟 값 이용  */
+		int shootersAvailable = 0;
+		shootersAvailable = Math.min(defaultShooters, this.shooters.size());
+		for(int i = 0; i < this.shooters.size(); i++){
+			indexList.add(i);
+		}
+		/** indexList를 섞어 랜덤하게 배열 */
+		Collections.shuffle(indexList);
+		for(int i = 0; i < shootersAvailable; i++){
+			shooterSet.add(this.shooters.get(indexList.get(i)));
+		}
+		return shooterSet;
+	}
 }
+

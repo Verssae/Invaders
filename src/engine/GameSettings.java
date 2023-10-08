@@ -86,4 +86,9 @@ public class GameSettings {
 	public final void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
 	}
+
+	/**
+	 * @return the difficulty
+	 */
+	public final double getDifficulty() { return this.difficulty; }
 }
