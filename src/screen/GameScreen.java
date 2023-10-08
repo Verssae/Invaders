@@ -77,6 +77,8 @@ public class GameScreen extends Screen {
 
 	/** Checks if the game is paused. */
 	private boolean pause;
+	/** Set of all items.*/
+	private Set<Item> items;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -130,6 +132,7 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
+		this.items = new HashSet<Item>();
 
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
@@ -216,6 +219,7 @@ public class GameScreen extends Screen {
 
 			manageCollisions();
 			cleanBullets();
+			cleanItems();
 			draw();
 		}
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
@@ -243,7 +247,9 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
-
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());
 		enemyShipFormation.draw();
 
 		for (Bullet bullet : this.bullets)
@@ -296,16 +302,30 @@ public class GameScreen extends Screen {
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
 	}
-
+	/**
+	 * update and Cleans items that end the Living-Time
+	 */
+	private void cleanItems() {
+		Set<Item> recyclable = new HashSet<Item>();
+		for (Item item : this.items) {
+			item.update(this.getWidth(), this.getHeight(), SEPARATION_LINE_HEIGHT);
+			if (item.islivingTimeEnd()){
+				recyclable.add(item);
+			}
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
+	}
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
 	private void manageCollisions() {
-		Set<Bullet> recyclable = new HashSet<Bullet>();
+		Set<Bullet> recyclableBullet = new HashSet<Bullet>();
+		Set<Item> recyclableItem = new HashSet<Item>();
 		for (Bullet bullet : this.bullets)
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
-					recyclable.add(bullet);
+					recyclableBullet.add(bullet);
 					if (!this.ship.isDestroyed()) {
 						this.ship.destroy();
 						this.lives--;
@@ -322,8 +342,10 @@ public class GameScreen extends Screen {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip);
+							this.items.add(ItemPool.getItem(enemyShip.getPositionX(), enemyShip.getPositionY()));
+							this.logger.info("Item drop");
 						}
-						recyclable.add(bullet);
+						recyclableBullet.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
@@ -335,12 +357,23 @@ public class GameScreen extends Screen {
 						this.enemyShipSpecial.destroy();
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
-					recyclable.add(bullet);
+					recyclableBullet.add(bullet);
 				}
 			}
-		this.bullets.removeAll(recyclable);
-		BulletPool.recycle(recyclable);
+		for (Item item : this.items){
+			if(checkCollision(item, this.ship) && !this.levelFinished){
+				recyclableItem.add(item);
+				this.logger.info("Get Item ");
+				this.score += 10;
+			}
+		}
+
+		this.items.removeAll(recyclableItem);
+		this.bullets.removeAll(recyclableBullet);
+		ItemPool.recycle(recyclableItem);
+		BulletPool.recycle(recyclableBullet);
 	}
+
 
 	/**
 	 * Checks if two entities are colliding.
