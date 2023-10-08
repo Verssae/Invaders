@@ -106,6 +106,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/** Difficulty of game. */
 	private double difficulty;
+	/** Current difficulty level number. */
+	private int level;
 
 
 	/** Directions the formation can move. */
@@ -143,6 +145,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.positionX = INIT_POS_X;
 			this.positionY = INIT_POS_Y;
 			this.extend_check =1;
+			this.level = level;
 			this.difficulty = gameSettings.getDifficulty();
 
 			this.shooters = new ArrayList<EnemyShip>();
@@ -578,7 +581,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	}
 
 	/**
-	 * Set the number of Shooters according to the Difficulty && LEVEL
+	 * Set the number of Shooters based on the Difficulty && LEVEL
 	 */
 	public final Set<EnemyShip> numberOfShooters(){
 
@@ -600,7 +603,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		}
 		/** shooter의 수는 shooter의 크기와 defaultShooters 둘다 의존. 최솟 값 이용  */
 		int shootersAvailable = 0;
-		shootersAvailable = Math.min(defaultShooters, this.shooters.size());
+		shootersAvailable = Math.min(defaultShooters + addShooters(), this.shooters.size());
 		for(int i = 0; i < this.shooters.size(); i++){
 			indexList.add(i);
 		}
@@ -610,6 +613,22 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			shooterSet.add(this.shooters.get(indexList.get(i)));
 		}
 		return shooterSet;
+	}
+	/**
+	 * add additional shooters as player Level Up
+	 */
+	public final int addShooters(){
+		int increasingShooters;
+		if (1 <= this.level && this.level < 3){
+			increasingShooters = 0;
+		}
+		else if (this.level < 6){
+			increasingShooters = 1;
+		}
+		else{
+			increasingShooters = 2;
+		}
+		return increasingShooters;
 	}
 }
 
