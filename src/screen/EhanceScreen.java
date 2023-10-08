@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 
-public class StoreScreen extends Screen {
+public class EhanceScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
 
@@ -21,11 +21,11 @@ public class StoreScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public StoreScreen(final int width, final int height, final int fps) {
+    public EhanceScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 6;
+        this.returnCode = 7;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -57,7 +57,7 @@ public class StoreScreen extends Screen {
         drawManager.initDrawing(this);
 
         drawManager.drawTitle(this);
-        drawManager.drawItemStore(this);
+        drawManager.drawEnhancePage(this);
 
         drawManager.completeDrawing(this);
     }
