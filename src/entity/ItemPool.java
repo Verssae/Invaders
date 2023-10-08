@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ItemPool {
-    /** Set of already created items opearate like bulletpool*/
+    /** Set of already created items opearate like itempool*/
     private static Set<Item> pool = new HashSet<Item>();
 
     /** not used constructor */
@@ -30,6 +30,7 @@ public class ItemPool {
             item.setPositionX(positionX - item.getWidth() / 2);
             item.setPositionY(positionY);
             item.setSprite();
+            item.CoolReset();
         } else {
             item = new Item(positionX, positionY);
             item.setPositionX(positionX - item.getWidth() / 2);

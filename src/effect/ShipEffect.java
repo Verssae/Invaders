@@ -9,8 +9,6 @@ import entity.Ship;
 import java.util.Set;
 
 public class ShipEffect extends Effect{
-
-
     /**
      * About the ships to run the effects
      */
@@ -38,7 +36,7 @@ public class ShipEffect extends Effect{
         if (this.effect1Cooldown.checkFinished())
         {
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                ship.getPositionY(), BULLET_SPEED));
+                    ship.getPositionY(), BULLET_SPEED));
         } else {
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY() + 10, BULLET_SPEED));
@@ -48,6 +46,4 @@ public class ShipEffect extends Effect{
                     ship.getPositionY() - 10, BULLET_SPEED));
         }
     }
-
-
 }
