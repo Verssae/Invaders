@@ -50,38 +50,31 @@ public final class Core {
 	/**
 	 * Difficulty settings for level 1.
 	 */
-	private static GameSettings SETTINGS_LEVEL_1 =
-			new GameSettings(5, 4, 60, 2000, 1);
+	private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1);
 	/**
 	 * Difficulty settings for level 2.
 	 */
-	private static GameSettings SETTINGS_LEVEL_2 =
-			new GameSettings(5, 5, 50, 2500,1);
+	private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(5, 5, 50, 2500, 1);
 	/**
 	 * Difficulty settings for level 3.
 	 */
-	private static GameSettings SETTINGS_LEVEL_3 =
-			new GameSettings(6, 5, 40, 1500,1);
+	private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(6, 5, 40, 1500, 1);
 	/**
 	 * Difficulty settings for level 4.
 	 */
-	private static GameSettings SETTINGS_LEVEL_4 =
-			new GameSettings(6, 6, 30, 1500,1);
+	private static GameSettings SETTINGS_LEVEL_4 = new GameSettings(6, 6, 30, 1500, 1);
 	/**
 	 * Difficulty settings for level 5.
 	 */
-	private static GameSettings SETTINGS_LEVEL_5 =
-			new GameSettings(7, 6, 20, 1000,1);
+	private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 1000, 1);
 	/**
 	 * Difficulty settings for level 6.
 	 */
-	private static GameSettings SETTINGS_LEVEL_6 =
-			new GameSettings(7, 7, 10, 1000,1);
+	private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 1000, 1);
 	/**
 	 * Difficulty settings for level 7.
 	 */
-	private static GameSettings SETTINGS_LEVEL_7 =
-			new GameSettings(8, 7, 2, 500,1);
+	private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 500, 1);
 
 	/**
 	 * Frame to draw the screen on.
@@ -161,10 +154,10 @@ public final class Core {
 						returnCode = 1;
 						LOGGER.info("Go Main");
 						break;
-					}
-					else {
+					} else {
 						gameSettings = new ArrayList<GameSettings>();
-						if (difficulty == 3) gameState.setHardCore();
+						if (difficulty == 3)
+							gameState.setHardCore();
 						LOGGER.info("Difficulty : " + difficulty);
 						SETTINGS_LEVEL_1.setDifficulty(difficulty);
 						SETTINGS_LEVEL_2.setDifficulty(difficulty);
@@ -183,6 +176,28 @@ public final class Core {
 					}
 					// Game & score.
 					do {
+						// SubMenu : Item Store / Enhancement / Continue
+						if (gameState.getLevel() > 1) {
+							currentScreen = new SubMenuScreen(width, height, FPS);
+							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+									+ " subMenu screen at " + FPS + " fps.");
+							returnCode = frame.setScreen(currentScreen);
+							LOGGER.info("Closing subMenu screen.");
+
+							if (currentScreen.returnCode == 6) {
+								currentScreen = new StoreScreen(width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " subMenu screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							} else if (currentScreen.returnCode == 7) {
+								currentScreen = new EhanceScreen(width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " subMenu screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							}
+						}
 						// One extra live every few levels.
 						boolean bonusLife = gameState.getLevel()
 								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
@@ -203,8 +218,7 @@ public final class Core {
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
-								gameState.getHardCore()
-						);
+								gameState.getHardCore());
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
@@ -235,10 +249,10 @@ public final class Core {
 						returnCode = 1;
 						LOGGER.info("Go Main");
 						break;
-					}
-					else {
+					} else {
 						gameSettings = new ArrayList<GameSettings>();
-						if (difficulty == 3) gameState.setHardCore();
+						if (difficulty == 3)
+							gameState.setHardCore();
 						LOGGER.info("Difficulty : " + difficulty);
 						SETTINGS_LEVEL_1.setDifficulty(difficulty);
 						SETTINGS_LEVEL_2.setDifficulty(difficulty);
@@ -364,7 +378,7 @@ public final class Core {
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
-											   final int variance) {
+			final int variance) {
 		return new Cooldown(milliseconds, variance);
 	}
 }
