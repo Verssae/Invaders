@@ -4,6 +4,38 @@ import java.awt.Color;
 
 import engine.DrawManager.SpriteType;
 
+public class Skin {
+    private String name;
+    private int price;
+    private Color skinColor;
+	private Boolean skinState=false;
+
+    public Skin(String name, int price, Color skinColor) {
+        this.name = name;
+        this.price = price;
+        this.skinColor = skinColor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public Color getSkinColor() {
+        return skinColor;
+    }
+
+    public void applySkin(Entity entity) {
+        entity.setColor(this.skinColor);
+    }
+	public boolean isPurchased() {
+		return skinState;
+	}
+}
+
 /**
  * Implements a generic game entity.
  * 
@@ -55,6 +87,14 @@ public class Entity {
 	 */
 	public final Color getColor() {
 		return color;
+	}
+	/**
+	 * Setter for the color of the entity.
+	 * 
+	 *  be created by hayeon_choi
+	 */
+	public final void setColor(Color color) {
+		this.color = color;
 	}
 
 	/**
