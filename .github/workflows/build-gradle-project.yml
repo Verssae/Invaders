@@ -1,4 +1,9 @@
 name: Build Gradle project
+permissions:
+  contents: read
+  issues: read
+  checks: write
+  pull-requests: write
 on:
   push:
 jobs:
