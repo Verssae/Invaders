@@ -94,13 +94,13 @@ public class EnemyShip extends Entity {
 	 * @param enemylife
 	 *            Lives of the ship.
 	 */
-	public EnemyShip(final int enemylife) {
-		super(224, 100, 25 * 2, 14 * 2, Color.PINK);
-
+	public EnemyShip(final int positionX, final int positionY, final int enemylife) {
+		super(positionX, positionY, 12 * 2, 8 * 2, Color.BLUE);
 		this.spriteType = SpriteType.Boss;
+		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
-		this.EnemyLife = enemylife;
 		this.pointValue = BOSS_TYPE_POINTS;
+		this.EnemyLife = enemylife;
 
 	}
 
