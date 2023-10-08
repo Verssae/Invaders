@@ -145,8 +145,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.movementSpeed = this.baseSpeed;
 			this.positionX = INIT_POS_X;
 			this.positionY = INIT_POS_Y;
-			this.difficulty = gameSettings.getDifficulty();
-			this.level = level;
 			this.extend_check =1;
 			this.difficulty = gameSettings.getDifficulty();
 			this.shooters = new ArrayList<EnemyShip>();
