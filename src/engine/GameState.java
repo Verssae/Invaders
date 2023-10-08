@@ -18,6 +18,8 @@ public class GameState {
 	private int bulletsShot;
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
+	/** HardCore(Only One life) */
+	private boolean hardcore;
 
 	/**
 	 * Constructor.
@@ -32,15 +34,18 @@ public class GameState {
 	 *            Bullets shot until now.
 	 * @param shipsDestroyed
 	 *            Ships destroyed until now.
+	 * @param hardcore
+	 *            Ships destroyed until now.
 	 */
 	public GameState(final int level, final int score,
 			final int livesRemaining, final int bulletsShot,
-			final int shipsDestroyed) {
+			final int shipsDestroyed, final boolean hardcore) {
 		this.level = level;
 		this.score = score;
 		this.livesRemaining = livesRemaining;
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
+		this.hardcore = hardcore;
 	}
 
 	/**
@@ -78,4 +83,18 @@ public class GameState {
 		return shipsDestroyed;
 	}
 
+	/**
+	 * @return the hardcore
+	 */
+	public final boolean getHardCore() {
+		return this.hardcore;
+	}
+
+	/**
+	 * Set HardCore
+	 */
+	public final void setHardCore() {
+		this.livesRemaining = 1;
+		this.hardcore = true;
+	}
 }

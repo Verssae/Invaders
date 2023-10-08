@@ -71,6 +71,8 @@ public class GameScreen_2P extends Screen {
     private boolean levelFinished;
     /** Checks if a bonus life is received. */
     private boolean bonusLife;
+    /** Checks if the game is hardcore. */
+    private boolean hardcore;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -80,7 +82,7 @@ public class GameScreen_2P extends Screen {
      * @param gameSettings
      *            Current game settings.
      * @param bonnusLife
-     *            Checks if a bonus life is awarded this level.
+     *            Checks if a bonus life is awarded this level
      * @param width
      *            Screen width.
      * @param height
@@ -102,6 +104,7 @@ public class GameScreen_2P extends Screen {
             this.lives++;
         this.bulletsShot = gameState.getBulletsShot();
         this.shipsDestroyed = gameState.getShipsDestroyed();
+        this.hardcore = gameState.getHardCore();
     }
 
     /**
@@ -376,6 +379,6 @@ public class GameScreen_2P extends Screen {
      */
     public final GameState getGameState() {
         return new GameState(this.level, this.score, this.lives,
-                this.bulletsShot, this.shipsDestroyed);
+                this.bulletsShot, this.shipsDestroyed, this.hardcore);
     }
 }
