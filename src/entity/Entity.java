@@ -2,6 +2,8 @@ package entity;
 
 import java.awt.Color;
 
+import engine.DrawManager.SpriteType;
+
 public class Skin {
     private String name;
     private int price;
