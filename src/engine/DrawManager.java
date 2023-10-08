@@ -1,10 +1,8 @@
 package engine;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
@@ -205,6 +203,30 @@ public final class DrawManager {
 				if (image[i][j])
 					backBufferGraphics.drawRect(positionX + i * 2, positionY
 							+ j * 2, 1, 1);
+	}
+
+	/**
+	 * Entity can be drawn more precise size.
+	 *
+	 * [Clean Code Team] This method was created by dodo_kdy.
+	 *
+	 *
+	 * @param SpriteType
+	 * @param positionX
+	 * @param positionY
+	 * @param width
+	 * @param height
+	 */
+	public void drawEntity(final SpriteType SpriteType, final int positionX,
+			final int positionY, final double width, final double height) {
+		boolean[][] image = spriteMap.get(SpriteType);
+		Graphics2D g2 = (Graphics2D) backBufferGraphics;
+		g2.setColor(Color.white);
+
+		for (int i = 0; i < image.length; i++)
+			for (int j = 0; j < image[i].length; j++)
+				if (image[i][j])
+					g2.fill(new Rectangle2D.Double(positionX + i * width, positionY + j * height, width, height));
 	}
 
 	/**
@@ -910,4 +932,5 @@ public final class DrawManager {
 		backBufferGraphics.drawImage(img4, x1 + 145, y2, 32, 27, null);
 		return 1;
 	}
+
 }
