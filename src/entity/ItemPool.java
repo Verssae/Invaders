@@ -4,7 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ItemPool {
+<<<<<<< HEAD
     /** Set of already created items opearate like itempool*/
+=======
+    /** Set of already created items opearate like bulletpool*/
+>>>>>>> 5805b4b (Specification Dscription of classes and deletion of unnecessary code)
     private static Set<Item> pool = new HashSet<Item>();
 
     /** not used constructor */
