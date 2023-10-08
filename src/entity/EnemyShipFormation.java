@@ -635,6 +635,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			increasingShooters = 2;
 		}
 		return increasingShooters;
-	}
+	} // testcommit
 }
 
