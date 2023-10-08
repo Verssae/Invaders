@@ -16,9 +16,8 @@ jobs:
       run: chmod +x gradlew
     - name: Test with Gradle
       run: ./gradlew --info test
-    - name: Test Report
-      uses: dorny/test-reporter@v1.6.0
-      if: success() || failure()    # run this step even if previous step failed
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: ${{ always() }}
       with:
-        name: test-results
         files: build/test-results/**/*.xml
