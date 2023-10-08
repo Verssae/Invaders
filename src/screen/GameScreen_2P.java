@@ -271,10 +271,10 @@ public class GameScreen_2P extends Screen {
                     - this.gameStartTime)) / 1000);
             drawManager.drawCountDown(this, this.level, countdown,
                     this.bonusLife);
-            drawManager.drawHorizontalLine(this, this.height / 2 - this.height
-                    / 12);
-            drawManager.drawHorizontalLine(this, this.height / 2 + this.height
-                    / 12);
+
+            /* this code is modified with Clean Code (dodo_kdy)  */
+            //drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
+            //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
         }
 
         drawManager.completeDrawing(this);
