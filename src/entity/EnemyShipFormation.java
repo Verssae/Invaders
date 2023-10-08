@@ -9,10 +9,6 @@ import screen.Screen;
 
 import java.util.*;
 import java.util.logging.Logger;
-import screen.Screen;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -107,13 +103,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private double difficulty;
 	/** Current difficulty level number. */
 	private int level;
+	/** Difficulty of game. */
+
 	/** checking how many formation extended */
 	private int extend_check;
 	/** how many moved enemy ship */
 	private int movementExtend;
 
-	/** Check if it is a boss */
-	private boolean isboss;
 
 	/** Directions the formation can move. */
 	private enum Direction {
@@ -152,6 +148,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.difficulty = gameSettings.getDifficulty();
 			this.level = level;
 			this.extend_check =1;
+			this.difficulty = gameSettings.getDifficulty();
 			this.shooters = new ArrayList<EnemyShip>();
 			SpriteType spriteType;
 
