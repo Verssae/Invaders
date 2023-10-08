@@ -117,4 +117,3 @@ public class GameSettings {
 	 * @return the difficulty
 	 */
 	public final double getDifficulty() { return this.difficulty; }
-}

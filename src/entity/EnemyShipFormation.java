@@ -9,6 +9,10 @@ import screen.Screen;
 
 import java.util.*;
 import java.util.logging.Logger;
+import screen.Screen;
+
+import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -108,6 +112,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** how many moved enemy ship */
 	private int movementExtend;
 
+	/** Check if it is a boss */
+	private boolean isboss;
 
 	/** Directions the formation can move. */
 	private enum Direction {
