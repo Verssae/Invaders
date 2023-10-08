@@ -84,6 +84,8 @@ public final class DrawManager {
 		EnemyShipC2,
 		/** Bonus ship. */
 		EnemyShipSpecial,
+		/** Boss ship */
+		Boss,
 		/** Destroyed enemy ship. */
 		Explosion
 	};
