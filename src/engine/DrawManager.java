@@ -3,10 +3,6 @@ package engine;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
@@ -18,8 +14,6 @@ import screen.Screen;
 import entity.Entity;
 import entity.Ship;
 
-
-import javax.imageio.ImageIO;
 /**
  * Manages screen drawing.
  *
@@ -55,8 +49,6 @@ public final class DrawManager {
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	public int timercount = 0;
-
-	BufferedImage img1,img2,img3,img4;
 
 	boolean isFirst = true;
 
