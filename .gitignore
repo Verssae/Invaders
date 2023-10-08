@@ -199,3 +199,11 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# Clean Code Team (Team 1) CI-related settings
+.github/workflows/build-gradle-project.yml
+gradle/
+test/
+build.gradle
+gradlew
+gradlew.bat
+settings.gradle
