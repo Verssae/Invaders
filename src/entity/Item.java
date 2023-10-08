@@ -6,7 +6,6 @@ import java.awt.Color;
 import engine.DrawManager.SpriteType;
 
 public class Item extends Entity {
-
     /** Movement of the Item for each unit of time. */
     private final int speed = 3;
     /** Living-Time of Item */

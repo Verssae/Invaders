@@ -23,7 +23,6 @@ public class ShipEffect extends Effect{
         this.ship = ship;
     }
 
-
     /**
      * Bullet shooting effect
      *
