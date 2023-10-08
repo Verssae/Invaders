@@ -9,6 +9,7 @@ import entity.Ship;
 import java.util.Set;
 
 public class ShipEffect extends Effect{
+
     /**
      * About the ships to run the effects
      */
@@ -22,6 +23,7 @@ public class ShipEffect extends Effect{
         super();
         this.ship = ship;
     }
+
 
     /**
      * Bullet shooting effect
