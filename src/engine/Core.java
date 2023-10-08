@@ -86,7 +86,7 @@ public final class Core {
 	 * Difficulty settings for level 8(Boss).
 	 */
 	private static GameSettings SETTINGS_LEVEL_8 =
-			new GameSettings(2, 1000,1);
+			new GameSettings(10, 1000,1);
 
 	/**
 	 * Frame to draw the screen on.
@@ -182,7 +182,7 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_1);
 						gameSettings.add(SETTINGS_LEVEL_2);
 						gameSettings.add(SETTINGS_LEVEL_3);
-						gameSettings.add(SETTINGS_LEVEL_4);
+						gameSettings.add(SETTINGS_LEVEgit adL_4);
 						gameSettings.add(SETTINGS_LEVEL_5);
 						gameSettings.add(SETTINGS_LEVEL_6);
 						gameSettings.add(SETTINGS_LEVEL_7);
