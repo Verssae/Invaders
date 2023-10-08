@@ -182,7 +182,7 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_1);
 						gameSettings.add(SETTINGS_LEVEL_2);
 						gameSettings.add(SETTINGS_LEVEL_3);
-						gameSettings.add(SETTINGS_LEVEgit adL_4);
+						gameSettings.add(SETTINGS_LEVEL_4);
 						gameSettings.add(SETTINGS_LEVEL_5);
 						gameSettings.add(SETTINGS_LEVEL_6);
 						gameSettings.add(SETTINGS_LEVEL_7);
