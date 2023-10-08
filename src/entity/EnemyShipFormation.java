@@ -1,14 +1,15 @@
 package entity;
 
-import java.util.*;
-import java.util.logging.Logger;
-
-import screen.Screen;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.DrawManager.SpriteType;
 import engine.GameSettings;
+import screen.Screen;
+
+import java.util.*;
+import java.util.logging.Logger;
+import java.util.*;
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -44,6 +45,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private static final int DESCENT_DISTANCE = 20;
 	/** Minimum speed allowed. */
 	private static final int MINIMUM_SPEED = 10;
+
+	/** Not extend enemy moving*/
+	private static final int NotExtend_location = -2;
+	/** extend enemy moving*/
+	private static final int IsSExtend_location = 1;
+	/** moving speed*/
+	private static final int Extend_x= 1;
 
 	/** DrawManager instance. */
 	private DrawManager drawManager;
@@ -96,6 +104,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private double difficulty;
 	/** Current difficulty level number. */
 	private int level;
+	/** checking how many formation extended */
+	private int extend_check;
+	/** how many moved enemy ship */
+	private int movementExtend;
+
 
 	/** Directions the formation can move. */
 	private enum Direction {
@@ -133,6 +146,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.positionY = INIT_POS_Y;
 			this.difficulty = gameSettings.getDifficulty();
 			this.level = level;
+			this.extend_check =1;
 			this.shooters = new ArrayList<EnemyShip>();
 			SpriteType spriteType;
 
@@ -265,6 +279,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			movementInterval++;
 			if (movementInterval >= this.movementSpeed) {
 				movementInterval = 0;
+				boolean isExtend = IsSExtend_location <= this.extend_check;
+				boolean isNotExtend = NotExtend_location >= this.extend_check;
 
 				boolean isAtBottom = positionY
 						+ this.height > screen.getHeight() - BOTTOM_MARGIN;
@@ -303,16 +319,31 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 							this.logger.info("Formation now moving left 6");
 						}
 				}
-
-				if (currentDirection == Direction.RIGHT)
-					movementX = X_SPEED;
-				else if (currentDirection == Direction.LEFT)
-					movementX = -X_SPEED;
-				else
-					movementY = Y_SPEED;
-
-				positionX += movementX;
-				positionY += movementY;
+			if (currentDirection == Direction.RIGHT) {
+				if (isExtend)
+					movementExtend = -Extend_x;
+				else if (isNotExtend)
+					movementExtend = Extend_x;
+				movementX = X_SPEED;
+			}
+			else if (currentDirection == Direction.LEFT) {
+				if (isExtend)
+					movementExtend = -Extend_x;
+				else if (isNotExtend)
+					movementExtend = Extend_x;
+				movementX = -X_SPEED;
+			}
+			else {
+				if (isExtend)
+					movementExtend = -Extend_x;
+				else if (isNotExtend)
+					movementExtend = Extend_x;
+				movementY = Y_SPEED;
+			}
+			positionX += movementX;
+			positionX += movementExtend;
+			extend_check += movementExtend;
+			positionY += movementY;
 
 				// Cleans explosions.
 				List<EnemyShip> destroyed;
@@ -331,7 +362,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 				for (List<EnemyShip> column : this.enemyShips)
 					for (EnemyShip enemyShip : column) {
-						enemyShip.move(movementX, movementY);
+						enemyShip.move(movementX+movementExtend*(-enemyShips.indexOf(column)+enemyShips.indexOf(nShipsWide/2)),
+								movementY+movementExtend*(-column.indexOf(enemyShip)+enemyShips.indexOf(nShipsHigh/2)));
 						enemyShip.update();
 					}
 			}
