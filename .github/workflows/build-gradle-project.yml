@@ -20,4 +20,5 @@ jobs:
       uses: dorny/test-reporter@v1.6.0
       if: success() || failure()    # run this step even if previous step failed
       with:
+        name: test-results
         files: build/test-results/**/*.xml
