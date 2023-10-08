@@ -18,6 +18,7 @@ public class GameSettings {
 	private int shootingFrecuency;
 	/** Difficulty of Game */
 	private double difficulty;
+	private boolean isBossStage;
 
 	/**
 	 * Constructor.
@@ -40,6 +41,25 @@ public class GameSettings {
 		this.baseSpeed = baseSpeed;
 		this.shootingFrecuency = shootingFrecuency;
 		this.difficulty = difficulty;
+		this.isBossStage = false;
+	}
+	/**
+	 * Constructor, boss stage.
+	 *
+	 * @param baseSpeed
+	 *            Speed of the boss.
+	 * @param shootingFrecuency
+	 *            Frecuency of enemy shootings, +/- 30%.
+	 * @param  difficulty
+	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
+	 */
+	public GameSettings(final int baseSpeed, final int shootingFrecuency, final int difficulty) {
+		this.formationWidth = 1;
+		this.formationHeight = 1;
+		this.baseSpeed = baseSpeed;
+		this.shootingFrecuency = shootingFrecuency;
+		this.difficulty = difficulty;
+		this.isBossStage = true;
 	}
 
 	/**
@@ -86,4 +106,9 @@ public class GameSettings {
 	public final void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
 	}
+
+	/**
+	 * Check if the stage is boss stage
+	 */
+	public final boolean checkIsBoss() {return this.isBossStage;}
 }
