@@ -28,8 +28,6 @@ public class Effect {
         effect2Cooldown = Core.getCooldown(5000);
     }
 
-
-
     /**
      * Initialize effect cool time according to item Sprite
      *

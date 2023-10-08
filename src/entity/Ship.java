@@ -94,6 +94,7 @@ public class Ship extends Entity {
 	 */
 	public final void destroy() {
 		this.destructionCooldown.reset();
+		this.shipEffect.CooldownReset(null);
 	}
 
 	/**
