@@ -11,3 +11,18 @@ jobs:
       uses: gradle/gradle-build-action@v2
     - name: Run build with Gradle Wrapper
       run: ./gradlew build
+  build-test:
+      name: Build & Test
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3     # checkout the repo
+        - run: npm ci                   # install packages
+        - run: npm test                 # run tests (configured to use jest-junit reporter)
+  
+        - name: Test Report
+          uses: dorny/test-reporter@v1
+          if: success() || failure()    # run this step even if previous step failed
+          with:
+            name: JEST Tests            # Name of the check run which will be created
+            path: reports/jest-*.xml    # Path to test results
+            reporter: jest-junit        # Format of test results
