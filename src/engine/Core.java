@@ -1,14 +1,10 @@
 package engine;
 
+import screen.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import screen.*;
+import java.util.logging.*;
 
 /**
  * Implements core game logic.
@@ -86,7 +82,7 @@ public final class Core {
 	 * Difficulty settings for level 8(Boss).
 	 */
 	private static GameSettings SETTINGS_LEVEL_8 =
-			new GameSettings(2, 1000,1);
+			new GameSettings(10, 1000,1);
 
 	/**
 	 * Frame to draw the screen on.
