@@ -4,22 +4,13 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 
-public class RecoveryScreen extends Screen{
-    
+public class RecoveryScreen extends Screen {
 
     /** Milliseconds between changes in user selection. */
-	private static final int SELECTION_TIME = 200;
-    
+    private static final int SELECTION_TIME = 200;
 
-
-	/** Time between changes in user selection. */
-	private Cooldown selectionCooldown;
-
-
-	
-    
-
-
+    /** Time between changes in user selection. */
+    private Cooldown selectionCooldown;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -33,26 +24,24 @@ public class RecoveryScreen extends Screen{
      */
     public RecoveryScreen(int width, int height, int fps) {
         super(width, height, fps);
-        
-         // Defaults to play.
-         this.returnCode = 5;
-         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
-         this.selectionCooldown.reset();
+
+        // Defaults to play.
+        this.returnCode = 5;
+        this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
+        this.selectionCooldown.reset();
 
     }
-    
 
-	/**
-	 * Starts the action.
-	 *
-	 * @return Next screen code.
-	 */
-	public final int run() {
-		super.run();
+    /**
+     * Starts the action.
+     *
+     * @return Next screen code.
+     */
+    public final int run() {
+        super.run();
 
-		return this.returnCode;
-	}
-
+        return this.returnCode;
+    }
 
     /**
      * Updates the elements on screen and checks for events.
@@ -62,7 +51,6 @@ public class RecoveryScreen extends Screen{
 
         draw();
 
-        
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
@@ -80,16 +68,12 @@ public class RecoveryScreen extends Screen{
         }
     }
 
- 
-
     private void nextMenuItem() {
     }
 
-
     private void previousMenuItem() {
     }
-    
-    
+
     /**
      * Draws the elements associated with the screen.
      */
@@ -98,8 +82,7 @@ public class RecoveryScreen extends Screen{
 
         drawManager.drawTitle(this);
 
-        drawManager.drawRevcoveryMenu(this, fps);
-    
+        drawManager.drawRecoveryMenu(this, fps);
 
         drawManager.completeDrawing(this);
     }
