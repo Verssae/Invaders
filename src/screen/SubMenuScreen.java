@@ -4,29 +4,31 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.GameState;
 
 public class SubMenuScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
-
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
 
     /**
      * Constructor, establishes the properties of the screen.
-     *
+     * 
+     * @param gameState
+     *                  Current game state.
      * @param width
-     *               Screen width.
+     *                  Screen width.
      * @param height
-     *               Screen height.
+     *                  Screen height.
      * @param fps
-     *               Frames per second, frame rate at which the game is run.
+     *                  Frames per second, frame rate at which the game is run.
      */
     public SubMenuScreen(int width, int height, int fps) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 5;
+        this.returnCode = 6;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -70,24 +72,24 @@ public class SubMenuScreen extends Screen {
      * Shifts the focus to the next menu item.
      */
     private void nextMenuItem() {
-        if (this.returnCode == 5)
-            this.returnCode = 6;
-        else if (this.returnCode == 6)
+        if (this.returnCode == 6)
             this.returnCode = 7;
+        else if (this.returnCode == 7)
+            this.returnCode = 2;
         else
-            this.returnCode = 5;
+            this.returnCode = 6;
     }
 
     /**
      * Shifts the focus to the previous menu item.
      */
     private void previousMenuItem() {
-        if (this.returnCode == 5)
+        if (this.returnCode == 2)
             this.returnCode = 7;
         else if (this.returnCode == 7)
             this.returnCode = 6;
         else
-            this.returnCode = 5;
+            this.returnCode = 2;
     }
 
     /**
@@ -96,7 +98,7 @@ public class SubMenuScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawTitle(this);
+        // drawManager.drawTitle(this);
         drawManager.drawSubMenu(this, this.returnCode);
 
         drawManager.completeDrawing(this);

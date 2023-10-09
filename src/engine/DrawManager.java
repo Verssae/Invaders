@@ -458,10 +458,13 @@ public final class DrawManager {
 	}
 
 	public void drawSubMenu(final Screen screen, final int option) {
+		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
 		String ehanceString = "E N H A N C E M E N T";
 		String playString = "C O N T I N U E";
 
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
 		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -474,14 +477,13 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, ehanceString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 5)
+		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, playString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
-
 
 	/**
 	 * Draws Recovery menu.
@@ -507,8 +509,9 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		
+
 	}
+
 	/**
 	 * Draws Select menu.
 	 *
@@ -827,13 +830,48 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GREEN);
 	}
 
-	public void drawEnhancePage(final Screen screen) {
+	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
+			int numEnhanceDamage) {
+		String itemStoreString = "I T E M S T O R E";
+		String playString = "C O N T I N U E";
+		String enhanceAreaString = "Enhancement Area Lv\n" + Integer.toString(numEnhanceArea) + " > "
+				+ Integer.toString(numEnhanceArea + 1)
+				+ "(↑1)";
+		String enhanceDamageString = "Enhancement Damage Lv\n" + Integer.toString(numEnhanceDamage) + " > "
+				+ Integer.toString(numEnhanceDamage + 1)
+				+ "(↑1)";
+
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+
+		if (option == 8)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, enhanceAreaString,
+				screen.getHeight() / 3);
+		if (option == 9)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, enhanceDamageString,
+				screen.getHeight() / 3 + 50);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, itemStoreString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, playString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
 
 	/**
@@ -927,6 +965,15 @@ public final class DrawManager {
 		timercount++;
 	}
 
+	public void drawEnhanceElem(final Screen screen, int enhanceStone, int numEnhanceArea,
+			int numEnhanceDamage) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString("Reinforced Stone: " + Integer.toString(enhanceStone), 20, 25);
+		// Ship dummyShip = new Ship(0, 0);
+		// drawEntity(dummyShip, 40 + 35, 10);
+	}
+
 	/**
 	 * Creates an animation of monster.
 	 *
@@ -959,7 +1006,5 @@ public final class DrawManager {
 		backBufferGraphics.drawImage(img4, x1 + 145, y2, 32, 27, null);
 		return 1;
 	}
-
-    
 
 }
