@@ -482,6 +482,33 @@ public final class DrawManager {
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
 
+
+	/**
+	 * Draws Recovery menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+
+	public void drawRecoveryMenu(final Screen screen, final int option) {
+		String recoveryString = "R E C O V E R Y";
+		String exitString = "E X I T";
+		if (option == 8)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, recoveryString,
+				screen.getHeight() / 3 * 2);
+		if (option == 9)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, exitString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		
+	}
 	/**
 	 * Draws Select menu.
 	 *
@@ -932,5 +959,7 @@ public final class DrawManager {
 		backBufferGraphics.drawImage(img4, x1 + 145, y2, 32, 27, null);
 		return 1;
 	}
+
+    
 
 }
