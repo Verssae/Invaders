@@ -1,10 +1,12 @@
 package entity;
 
+import java.awt.Color; //새로 추가함 
+
 public class Skin {
     private String name;
     private int price;
     private Color skinColor;
-    private Boolean skinState=false;
+    private Boolean skinState = false;
 
     public Skin(String name, int price, Color skinColor) {
         this.name = name;
@@ -27,9 +29,9 @@ public class Skin {
     public void applySkin(Entity entity) {
         entity.setColor(this.skinColor);
     }
+
     public boolean isPurchased() {
         return skinState;
     }
 
-    
 }
