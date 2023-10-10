@@ -10,12 +10,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
 import engine.GameState;
-import entity.Bullet;
-import entity.BulletPool;
-import entity.EnemyShip;
-import entity.EnemyShipFormation;
-import entity.Entity;
-import entity.Ship;
+import entity.*;
 
 import javax.swing.*;
 
@@ -77,6 +72,9 @@ public class GameScreen extends Screen {
 	/** Checks if the game is hardcore. */
 	private boolean hardcore;
 
+	/** Set of all items.*/
+	private Set<Item> items;
+
 
 
 	/**
@@ -129,6 +127,7 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
+		this.items = new HashSet<Item>();
 
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
@@ -237,6 +236,8 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
+		/** make item draw*/
+
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -279,6 +280,8 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
+	/** make cleanItems methode*/
+
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
@@ -320,6 +323,8 @@ public class GameScreen extends Screen {
 					recyclable.add(bullet);
 				}
 			}
+
+		/** make item colloision*/
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
 	}
