@@ -128,7 +128,6 @@ public class GameScreen extends Screen {
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.items = new HashSet<Item>();
-
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
@@ -232,15 +231,15 @@ public class GameScreen extends Screen {
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
 
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());
+
 		enemyShipFormation.draw();
 
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
-
-		for (Item item : this.items)
-			drawManager.drawEntity(item, item.getPositionX(),
-					item.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -284,19 +283,43 @@ public class GameScreen extends Screen {
 	}
 
 	/**
-	 * Cleans items that go off screen.
+	 * update and Cleans items that go off screen.
 	 */
 	private void cleanItems() {
 		Set<Item> recyclable = new HashSet<Item>();
 		for (Item item : this.items) {
-			item.update();
-			if (item.getPositionY() < SEPARATION_LINE_HEIGHT
-					|| item.getPositionY() > this.height)
-				recyclable.add(item);
+			if(item.updateCool.checkFinished()){
+				boolean isRightBorder = item.getWidth() / 2 + item.getPositionX() + item.getSpeed() > getWidth();
+				boolean isLeftBorder = item.getWidth() / 2 + item.getPositionX() - item.getSpeed() < 2;
+				boolean isTopBorder = item.getHeight() / 2 + item.getPositionY() - item.getSpeed() < SEPARATION_LINE_HEIGHT;
+				boolean isBottomBorder = item.getHeight() / 2 + item.getPositionY() + item.getSpeed() > getHeight() - item.getHeight() / 2;
+
+				if (isRightBorder || isLeftBorder) {
+					// 왼쪽 또는 오른쪽 경계에 부딪혔을 때는 x 방향 반대로 설정
+					item.item_dx = -item.item_dx;
+				}
+
+				if (isTopBorder || isBottomBorder) {
+					// 위쪽 또는 아래쪽 경계에 부딪혔을 때는 y 방향 반대로 설정
+					item.item_dy = -item.item_dy;
+				}
+
+				if (item.isFloatingEnd()){
+					recyclable.add(item);
+				}
+
+				// 수정된 방향으로 아이템 업데이트
+				item.update(item.item_dx, item.item_dy);
+			}
 		}
 		this.items.removeAll(recyclable);
 		ItemPool.recycle(recyclable);
 	}
+
+	/**
+	 *  Item Moving Event
+	 */
+
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
