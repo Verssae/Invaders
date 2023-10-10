@@ -8,6 +8,14 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+import screen.GameScreen;
+import screen.GameScreen_2P;
+import screen.HighScoreScreen;
+import screen.ScoreScreen;
+import screen.Screen;
+import screen.TitleScreen;
+
 import screen.*;
 
 /**
@@ -262,7 +270,7 @@ public final class Core {
 								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
 								&& gameState.getLivesRemaining() < MAX_LIVES;
 
-						currentScreen = new GameScreen(gameState,
+						currentScreen = new GameScreen_2P(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -270,14 +278,15 @@ public final class Core {
 						frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
-						gameState = ((GameScreen) currentScreen).getGameState();
+						gameState = ((GameScreen_2P) currentScreen).getGameState();
 
 						gameState = new GameState(gameState.getLevel() + 1,
 								gameState.getScore(),
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
-								gameState.getHardCore());
+								gameState.getHardCore()
+						);
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
