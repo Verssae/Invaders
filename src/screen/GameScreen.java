@@ -159,6 +159,12 @@ public class GameScreen extends Screen {
 	protected final void update() {
 		if (pause) {
 			pause = !inputManager.isKeyDown(KeyEvent.VK_ENTER);
+			boolean exit = inputManager.isKeyDown(KeyEvent.VK_BACK_SPACE);
+			if (exit) {
+				this.returnCode = 1;
+				this.lives = 0;
+				this.isRunning = false;
+			}
 		}
 		else {
 			super.update();
