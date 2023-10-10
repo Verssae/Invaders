@@ -114,7 +114,7 @@ public class Ship extends Entity {
 	public final int getSpeed() {
 		return SPEED;
 	}
-
+/*
 	public final void catchItem(Item item) {
 		if (item.spriteType == SpriteType.Item1) {
 			this.bulletEffectCooldown.reset();
@@ -122,5 +122,5 @@ public class Ship extends Entity {
 			this.shipEffectCooldown.reset();
 		}
 	}
-
+ */
 }

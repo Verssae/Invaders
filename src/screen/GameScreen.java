@@ -205,6 +205,7 @@ public class GameScreen extends Screen {
 
 		manageCollisions();
 		cleanBullets();
+		cleanItems();
 		draw();
 
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
@@ -236,8 +237,10 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
-		/** make item draw*/
 
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -280,17 +283,30 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
-	/** make cleanItems methode*/
-
+	/**
+	 * Cleans items that go off screen.
+	 */
+	private void cleanItems() {
+		Set<Item> recyclable = new HashSet<Item>();
+		for (Item item : this.items) {
+			item.update();
+			if (item.getPositionY() < SEPARATION_LINE_HEIGHT
+					|| item.getPositionY() > this.height)
+				recyclable.add(item);
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
+	}
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
 	private void manageCollisions() {
-		Set<Bullet> recyclable = new HashSet<Bullet>();
+		Set<Bullet> recyclableBullet = new HashSet<Bullet>();
+		Set<Item> recyclableItem = new HashSet<Item>();
 		for (Bullet bullet : this.bullets)
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
-					recyclable.add(bullet);
+					recyclableBullet.add(bullet);
 					if (!this.ship.isDestroyed()) {
 						this.ship.destroy();
 						this.lives--;
@@ -307,8 +323,9 @@ public class GameScreen extends Screen {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip);
+							this.items.add(ItemPool.getItem(enemyShip.getPositionX(), enemyShip.getPositionY()));
 						}
-						recyclable.add(bullet);
+						recyclableBullet.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
@@ -320,13 +337,20 @@ public class GameScreen extends Screen {
 						this.enemyShipSpecial.destroy();
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
-					recyclable.add(bullet);
+					recyclableBullet.add(bullet);
 				}
 			}
 
 		/** make item colloision*/
-		this.bullets.removeAll(recyclable);
-		BulletPool.recycle(recyclable);
+//		for (Item item : this.items){
+//			if(checkCollision(item, this.ship) && !this.levelFinished){
+//				recyclableItem.add(item);
+//
+//			}
+//		}
+
+		this.bullets.removeAll(recyclableBullet);
+		BulletPool.recycle(recyclableBullet);
 	}
 
 	/**
