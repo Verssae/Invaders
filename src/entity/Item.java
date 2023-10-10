@@ -29,7 +29,7 @@ public class Item extends Entity {
      * Set Sprite dot image.
      */
     public final void setSprite() {
-
+        this.spriteType = SpriteType.Item1;
     }
 
     /**
