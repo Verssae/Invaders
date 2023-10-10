@@ -82,7 +82,7 @@ public class GameScreen_2P extends Screen {
      *            Current game state.
      * @param gameSettings
      *            Current game settings.
-     * @param bonnusLife
+     * @param bonusLife
      *            Checks if a bonus life is awarded this level
      * @param width
      *            Screen width.
