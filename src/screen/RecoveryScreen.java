@@ -68,25 +68,10 @@ public class RecoveryScreen extends Screen {
         }
     }
 
-    /**
-     * Shifts the focus to the next menu item.
-     */
     private void nextMenuItem() {
-        if (this.returnCode == 8)
-            this.returnCode = 9;
-        else
-            this.returnCode = 8;
     }
 
-   
-    /**
-     * Shifts the focus to the previous menu item.
-     */
     private void previousMenuItem() {
-        if (this.returnCode == 9)
-            this.returnCode = 8;
-        else
-            this.returnCode = 9;
     }
 
     /**
@@ -95,13 +80,10 @@ public class RecoveryScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
 
+        drawManager.drawTitle(this);
 
         drawManager.drawRecoveryMenu(this, fps);
-    
 
         drawManager.completeDrawing(this);
     }
 }
-
-
-
