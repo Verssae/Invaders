@@ -9,7 +9,7 @@ import engine.DrawManager.SpriteType;
 public class Item extends Entity {
 
     /** Movement of the Item for each unit of time. */
-    private final int speed = -2;
+    private final int speed = 2;
 
     /**
      * Constructor, establishes the Item's properties.
