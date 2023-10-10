@@ -7,7 +7,7 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['src', 'res']
         }
     }
     test {
