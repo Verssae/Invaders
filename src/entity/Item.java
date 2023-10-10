@@ -38,4 +38,13 @@ public class Item extends Entity {
     public final void update() {
         this.positionY += this.speed;
     }
+
+    private boolean eatItem = false;
+
+    /**
+     * check Eat Item
+     */
+    public void checkEatItem() {
+        eatItem = true;
+    }
 }
