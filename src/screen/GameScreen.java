@@ -132,7 +132,6 @@ public class GameScreen extends Screen {
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.items = new HashSet<Item>();
-
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
@@ -254,10 +253,6 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
 
-		for (Item item : this.items)
-			drawManager.drawEntity(item, item.getPositionX(),
-					item.getPositionY());
-
 		// Interface.
 		drawManager.drawScore(this, this.score);
 		//drawManager.drawLives(this, this.lives);
@@ -305,7 +300,11 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 	/**
+<<<<<<< HEAD
 	 * update and Cleans items that end the Living-Time
+=======
+	 * update and Cleans items that go off screen.
+>>>>>>> 341446f (developing how to move Items in Screen and adding Item Floating Time)
 	 */
 	private void cleanItems() {
 		Set<Item> recyclable = new HashSet<Item>();
@@ -318,6 +317,11 @@ public class GameScreen extends Screen {
 		this.items.removeAll(recyclable);
 		ItemPool.recycle(recyclable);
 	}
+
+	/**
+	 *  Item Moving Event
+	 */
+
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
