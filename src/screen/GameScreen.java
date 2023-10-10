@@ -157,7 +157,7 @@ public class GameScreen extends Screen {
 	 * Updates the elements on screen and checks for events.
 	 */
 	protected final void update() {
-		if (pause) {
+		if (pause) { // Game Pause, press ENTER to continue or BackSpace to quit
 			pause = !inputManager.isKeyDown(KeyEvent.VK_ENTER);
 			boolean exit = inputManager.isKeyDown(KeyEvent.VK_BACK_SPACE);
 			if (exit) {
@@ -273,7 +273,7 @@ public class GameScreen extends Screen {
 
 		}
 
-		// If Game is paused
+		// If Game has been paused
 		if (this.pause) {
 			drawManager.drawPaused(this);
 		}
