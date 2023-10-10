@@ -7,11 +7,11 @@ import javax.sound.sampled.AudioInputStream;
 
 public class SoundEffect implements SoundEffect_if {
 
-    File missileshootingsound = new File("res/Bullet.wav");
-    File shipdestroyedsound = new File("res/Shipdestroyed.wav");
-    File shipdeattackedsound = new File("res/Shipattacked.wav");
-    File enemydestroyedsound = new File("res/Enemydestroyed.wav");
-    File enemybulletsound = new File("res/Enemybullet.wav");
+    File missileshootingsound = new File("sound/soundEffect/Bullet.wav");
+    File shipdestroyedsound = new File("sound/soundEffect/Shipdestroyed.wav");
+    File shipdeattackedsound = new File("sound/soundEffect/Shipattacked.wav");
+    File enemydestroyedsound = new File("sound/soundEffect/Enemydestroyed.wav");
+    File enemybulletsound = new File("sound/soundEffect/Enemybullet.wav");
 
 
     public void playMissileShootingSound() {
