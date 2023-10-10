@@ -656,6 +656,13 @@ public final class DrawManager {
 				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10);
 	}
 
+	public void drawPaused(final Screen screen) {
+		String Paused = "Press ENTER to continue";
+
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, Paused, screen.getHeight() * 5 / 6);
+	}
+
 	/**
 	 * Draws high score screen title and instructions.
 	 *
