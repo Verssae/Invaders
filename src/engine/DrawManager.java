@@ -448,14 +448,6 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
-	/**
-	 * Draws Select menu.
-	 *
-	 * @param screen
-	 *            Screen to draw on.
-	 * @param option
-	 *            Option selected.
-	 */
 	public void drawSelect(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String EasyString = "E A S Y";
@@ -497,6 +489,32 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
 				+ fontRegularMetrics.getHeight() * 8);
+	}
+
+	/**
+	 * Draws Select menu.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param option
+	 *            Option selected.
+	 */
+	public void drawStageSelect(final Screen screen, final int option, final int stages) {
+		String SelectString = "Select difficulty with A + D, confirm with SPACE";
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString,screen.getHeight() / 8);
+		String[] Stage = new String[stages];
+		backBufferGraphics.setFont(fontBig);
+		for (int i = 0; i < stages; i++) {
+			Stage[i] = String.valueOf(i+1);
+			if (option == i)
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
+			else
+				backBufferGraphics.setColor(blinkingColor("WHITE"));
+			backBufferGraphics.drawString(Stage[i], screen.getWidth() / 2
+					- (screen.getWidth()/10) * (2-(i%5)),
+					screen.getHeight() / 6 * 2 + fontRegularMetrics.getHeight() * (2*((i/5)-1)));
+		}
 	}
 
 	/**

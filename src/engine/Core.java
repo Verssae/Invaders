@@ -8,14 +8,6 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.HighScoreScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.TitleScreen;
-
 import screen.*;
 
 /**
@@ -189,6 +181,13 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_6);
 						gameSettings.add(SETTINGS_LEVEL_7);
 					}
+
+					LOGGER.info("select Level");
+					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+					int stage = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Level screen.");
+					gameState.setLevel(stage);
+
 					// Game & score.
 					do {
 						// One extra live every few levels.
@@ -285,8 +284,7 @@ public final class Core {
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
-								gameState.getHardCore()
-						);
+								gameState.getHardCore());
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);

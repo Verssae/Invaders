@@ -97,4 +97,11 @@ public class GameState {
 		this.livesRemaining = 1;
 		this.hardcore = true;
 	}
+
+	/**
+	 * Set Level
+	 */
+	public final void setLevel(int i) {
+		this.level = i;
+	}
 }
