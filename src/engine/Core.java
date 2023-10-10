@@ -184,6 +184,28 @@ public final class Core {
 					}
 					// Game & score.
 					do {
+						// SubMenu : Item Store / Enhancement / Continue
+						if (gameState.getLevel() > 1) {
+							currentScreen = new SubMenuScreen(width, height, FPS);
+							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+									+ " subMenu screen at " + FPS + " fps.");
+							returnCode = frame.setScreen(currentScreen);
+							LOGGER.info("Closing subMenu screen.");
+
+							if (currentScreen.returnCode == 6) {
+								currentScreen = new StoreScreen(width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " subMenu screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							} else if (currentScreen.returnCode == 7) {
+								currentScreen = new EnhanceScreen(gameState, width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " subMenu screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							}
+						}
 						// One extra live every few levels.
 						boolean bonusLife = gameState.getLevel()
 								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
@@ -205,34 +227,7 @@ public final class Core {
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
-						do {
-							if (gameState.getLivesRemaining() <= 0) {
-								break;
-							}
-							// SubMenu : Item Store / Enhancement / Continue
-							if (currentScreen.returnCode != 6 && currentScreen.returnCode != 7) {
-								currentScreen = new SubMenuScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
 
-							}
-							if (currentScreen.returnCode == 6) {
-								currentScreen = new StoreScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-							}
-							if (currentScreen.returnCode == 7) {
-								currentScreen = new EnhanceScreen(gameState, width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-							}
-						} while (currentScreen.returnCode != 2);
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
 
