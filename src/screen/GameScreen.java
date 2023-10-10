@@ -261,8 +261,10 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
-		/** make item draw*/
 
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -329,8 +331,20 @@ public class GameScreen extends Screen {
 	 *  Item Moving Event
 	 */
 
-	/** make cleanItems methode*/
-
+	/**
+	 * Cleans items that go off screen.
+	 */
+	private void cleanItems() {
+		Set<Item> recyclable = new HashSet<Item>();
+		for (Item item : this.items) {
+			item.update();
+			if (item.getPositionY() < SEPARATION_LINE_HEIGHT
+					|| item.getPositionY() > this.height)
+				recyclable.add(item);
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
+	}
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
