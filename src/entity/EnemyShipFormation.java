@@ -11,10 +11,6 @@ import engine.Core;
 import engine.DrawManager;
 import engine.DrawManager.SpriteType;
 import engine.GameSettings;
-import screen.Screen;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * Groups enemy ships into a formation that moves together.
