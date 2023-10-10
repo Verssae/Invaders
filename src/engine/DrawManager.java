@@ -376,7 +376,7 @@ public final class DrawManager {
 	 *            Screen to draw on.
 	 */
 	public void drawTitle(final Screen screen) {
-		String titleString = "Invaders";
+		String titleString = "I N V A D E R S";
 		String instructionsString =
 				"Select with W + S, confirm with SPACE.";
 
@@ -451,7 +451,7 @@ public final class DrawManager {
 		String livesRemainingString = "lives remaining " + livesRemaining;
 		String shipsDestroyedString = "enemies destroyed " + shipsDestroyed;
 		String accuracyString = String
-				.format("accuracy %.2f%%", accuracy * 100);
+				.format("Accuracy %.2f%%", accuracy * 100);
 
 		int height = isNewRecord ? 4 : 2;
 
@@ -531,7 +531,7 @@ public final class DrawManager {
 							 final boolean isNewRecord) {
 		String gameOverString = "Game Over";
 		String continueOrExitString =
-				"Press Space to play again, Escape to exit";
+				"Press SPACE to play again, ESC to exit";
 
 		int height = isNewRecord ? 4 : 2;
 
@@ -555,7 +555,7 @@ public final class DrawManager {
 	 */
 	public void drawHighScoreMenu(final Screen screen) {
 		String highScoreString = "High Scores";
-		String instructionsString = "Press Space to return";
+		String instructionsString = "Press SPACE to return";
 
 		backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
 		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
@@ -655,6 +655,7 @@ public final class DrawManager {
 								+ fontBigMetrics.getHeight() / 3);
 			}
 		else if (number != 0) {
+			/* this if-else is modified with Clean Code (dodo_kdy)  */
 			if (isFirst) drawLoading(screen.getHeight()/6, screen.getHeight()/3, screen);
 			else {
 				if ( (25 + 20 * (3-number) < timercount && timercount <40 + 20 * (3-number)) )
@@ -679,7 +680,7 @@ public final class DrawManager {
 	/**
 	 * Creates a loading string with blink effect on the loading box.
 	 *
-	 * [Clean Code Team] This method was created by doyoon323.
+	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param screen
 	 */
@@ -698,7 +699,7 @@ public final class DrawManager {
 	/**
 	 *  Creates a loading progress bar/
 	 *
-	 *  [Clean Code Team] This method was created by doyoon323.
+	 *  [Clean Code Team] This method was created by dodo_kdy.
 	 * @param startX
 	 * @param startY
 	 * @param endX
@@ -720,7 +721,7 @@ public final class DrawManager {
 	/**
 	 * Creates a loading box for 3 seconds.
 	 *
-	 * [Clean Code Team] This method was created by doyoon323.
+	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param x
 	 * @param y
@@ -769,7 +770,7 @@ public final class DrawManager {
 	/**
 	 * Creates an animation of monster.
 	 *
-	 * [Clean Code Team] This method was created by doyoon323.
+	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param x
 	 * @param y
@@ -788,10 +789,10 @@ public final class DrawManager {
 		else if (70<timercount && timercount <90) y1-=5;
 		else x1-=5;
 
-		backBufferGraphics.drawImage( img1, x1+15, y1,35,35, null );
-		backBufferGraphics.drawImage( img2, x1+60, y2,30,25, null );
-		backBufferGraphics.drawImage( img3, x1+100, y1+5,30,25, null );
-		backBufferGraphics.drawImage( img4, x1+140, y2,30,25, null );
+		backBufferGraphics.drawImage( img1, x1+15, y1,34,34, null );
+		backBufferGraphics.drawImage( img2, x1+60, y2-2,30,24, null );
+		backBufferGraphics.drawImage( img3, x1+100, y1 - 10 , 38,55, null );
+		backBufferGraphics.drawImage( img4, x1+145, y2,32,27, null );
 		return 1;
 	}
 }
