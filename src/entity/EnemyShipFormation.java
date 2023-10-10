@@ -286,7 +286,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				boolean isAtRightSide = positionX
 						+ this.width >= screen.getWidth() - SIDE_MARGIN;
 				boolean isAtLeftSide = positionX <= SIDE_MARGIN;
-				boolean isAtHorizontalAltitude = positionY % DESCENT_DISTANCE == 0;
+				boolean isAtHorizontalAltitude = ((positionY+extend_check-1) % DESCENT_DISTANCE ==0);
 
 				if (currentDirection == Direction.DOWN) {
 					if (isAtHorizontalAltitude)
@@ -318,32 +318,33 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 							this.logger.info("Formation now moving left 6");
 						}
 				}
-			if (currentDirection == Direction.RIGHT) {
-				if (isExtend)
-					movementExtend = -Extend_x;
-				else if (isNotExtend)
-					movementExtend = Extend_x;
-				movementX = X_SPEED;
-			}
-			else if (currentDirection == Direction.LEFT) {
-				if (isExtend)
-					movementExtend = -Extend_x;
-				else if (isNotExtend)
-					movementExtend = Extend_x;
-				movementX = -X_SPEED;
-			}
-			else {
-				if (isExtend)
-					movementExtend = -Extend_x;
-				else if (isNotExtend)
-					movementExtend = Extend_x;
-				movementY = Y_SPEED;
-			}
-			positionX += movementX;
-			positionX += movementExtend;
-			extend_check += movementExtend;
-			positionY += movementY;
 
+				if (currentDirection == Direction.RIGHT) {
+					if (isExtend)
+						movementExtend = -Extend_x;
+					else if (isNotExtend)
+						movementExtend = Extend_x;
+					movementX = X_SPEED;
+				}
+				else if (currentDirection == Direction.LEFT) {
+					if (isExtend)
+						movementExtend = -Extend_x;
+					else if (isNotExtend)
+						movementExtend = Extend_x;
+					movementX = -X_SPEED;
+				}
+				else {
+					if (isExtend)
+						movementExtend = 0;
+					else if (isNotExtend)
+						movementExtend = 0;
+					movementY = Y_SPEED;
+				}
+				positionX += movementX;
+				positionX += movementExtend;
+				extend_check += movementExtend;
+				positionY += movementY;
+				positionY += movementExtend;
 				// Cleans explosions.
 				List<EnemyShip> destroyed;
 				for (List<EnemyShip> column : this.enemyShips) {
