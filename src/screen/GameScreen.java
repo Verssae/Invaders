@@ -78,6 +78,7 @@ public class GameScreen extends Screen {
 	/** Set of all items.*/
 	private Set<Item> items;
 
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -131,6 +132,7 @@ public class GameScreen extends Screen {
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.items = new HashSet<Item>();
+
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
@@ -259,6 +261,8 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
+		/** make item draw*/
+
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -325,6 +329,8 @@ public class GameScreen extends Screen {
 	 *  Item Moving Event
 	 */
 
+	/** make cleanItems methode*/
+
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
@@ -371,6 +377,7 @@ public class GameScreen extends Screen {
 					recyclableBullet.add(bullet);
 				}
 			}
+
 		for (Item item : this.items){
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
