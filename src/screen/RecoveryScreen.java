@@ -98,7 +98,7 @@ public class RecoveryScreen extends Screen{
 
         drawManager.drawTitle(this);
 
-        drawManager.drawRevcoveryMenu(this, fps);
+        drawManager.drawRecoveryMenu(this, fps);
     
 
         drawManager.completeDrawing(this);
