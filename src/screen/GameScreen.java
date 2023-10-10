@@ -56,8 +56,6 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of all bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
-
-	private BulletLine bulletLine;
 	/** Current score. */
 	private int score;
 	/** Player lives left. */
@@ -75,8 +73,7 @@ public class GameScreen extends Screen {
 	/** Checks if the game is hardcore. */
 	private boolean hardcore;
 
-	/** Checks if the game is paused. */
-	private boolean pause;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -109,7 +106,6 @@ public class GameScreen extends Screen {
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
-		this.pause = false;
 	}
 
 	/**
@@ -196,6 +192,38 @@ public class GameScreen extends Screen {
 					else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
 						this.enemyShipSpecial = null;
 
+			}
+			if (this.enemyShipSpecial == null
+					&& this.enemyShipSpecialCooldown.checkFinished()) {
+				color_variable = (int)(Math.random()*4);
+				if (color_variable == 0) {
+					this.enemyShipSpecial = new EnemyShip(Color.RED);
+
+				}
+				else if (color_variable == 1) {
+					this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+
+				}
+				else if (color_variable == 2) {
+					this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+
+				}
+				else if (color_variable == 3) {
+					this.enemyShipSpecial = new EnemyShip(Color.white);
+
+				}
+
+
+
+
+				this.enemyShipSpecialCooldown.reset();
+				this.logger.info("A special ship appears");
+			}
+			if (this.enemyShipSpecial != null
+					&& this.enemyShipSpecial.getPositionX() > this.width) {
+				this.enemyShipSpecial = null;
+				this.logger.info("The special ship has escaped");
+			}
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {

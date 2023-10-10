@@ -35,6 +35,8 @@ public class EnemyShip extends Entity {
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
 
+
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -90,6 +92,7 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
+
 	}
 
 	/**
