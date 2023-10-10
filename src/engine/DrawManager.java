@@ -460,6 +460,7 @@ public final class DrawManager {
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
+		String randomString = "R A N D O M";
 		String ehanceString = "E N H A N C E M E N T";
 		String playString = "C O N T I N U E";
 

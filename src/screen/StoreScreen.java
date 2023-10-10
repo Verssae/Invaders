@@ -51,7 +51,7 @@ public class StoreScreen extends Screen {
     }
 
     /**
-     * Draws the elements associated with the screen.
+     * Draws the elements associated with the screen.123
      */
     private void draw() {
         drawManager.initDrawing(this);
