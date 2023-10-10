@@ -12,8 +12,11 @@ public class StageSelectScreen extends Screen {
 
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
+
+    /** Stage Selected */
     private int Stage;
 
+    /** Total number of Stages. */
     private int TotalStage;
     /**
      * Constructor, establishes the properties of the screen.
@@ -28,7 +31,7 @@ public class StageSelectScreen extends Screen {
     public StageSelectScreen(final int width, final int height, final int fps, final int Totalstage, final int stage){
         super(width, height, fps);
 
-        // Defaults to Stage 1 (0).
+        // Defaults to Stage 1 (index = 0).
         Stage = stage-1;
         TotalStage = Totalstage;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
@@ -43,7 +46,7 @@ public class StageSelectScreen extends Screen {
     public final int run() {
         super.run();
 
-        return this.Stage+1;
+        return this.Stage+1; //return selected stage (index + 1)
     }
 
 
@@ -78,8 +81,10 @@ public class StageSelectScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
                 this.isRunning = false;
-            if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE))
+            if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
+                this.Stage = -1;
                 this.isRunning = false;
+            }
         }
     }
 

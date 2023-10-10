@@ -86,7 +86,6 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
-
 		this.spriteType = SpriteType.EnemyShipSpecial;
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;

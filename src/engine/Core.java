@@ -188,6 +188,11 @@ public final class Core {
 					LOGGER.info("select Level");
 					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
 					int stage = frame.setScreen(currentScreen);
+					if (stage == 0) {
+						returnCode = 2;
+						LOGGER.info("Go Difficulty Select");
+						break;
+					}
 					LOGGER.info("Closing Level screen.");
 					gameState.setLevel(stage);
 
