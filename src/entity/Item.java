@@ -55,6 +55,7 @@ public class Item extends Entity {
         positionY += this.speed * dy;
     }
 
+
     /**
      * check is item floating time end.
      * @return temp.checkFinished();
@@ -71,4 +72,14 @@ public class Item extends Entity {
      * @return item.speed
      */
     public final int getSpeed(){return this.speed;}
+
+    private boolean eatItem = false;
+
+    /**
+     * check Eat Item
+     */
+    public void checkEatItem() {
+        eatItem = true;
+    }
+
 }

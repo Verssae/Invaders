@@ -365,12 +365,18 @@ public class GameScreen extends Screen {
 			}
 
 		/** make item colloision*/
-//		for (Item item : this.items){
-//			if(checkCollision(item, this.ship) && !this.levelFinished){
-//				recyclableItem.add(item);
-//
-//			}
-//		}
+		for (Item item : this.items){
+			if(checkCollision(item, this.ship) && !this.levelFinished){
+				recyclableItem.add(item);
+				this.items.remove(item);
+				item.checkEatItem();
+
+//add motion after eatitem
+				this.score += 10;
+//ex add score after eatitem
+			}
+		}
+
 
 		this.bullets.removeAll(recyclableBullet);
 		BulletPool.recycle(recyclableBullet);
