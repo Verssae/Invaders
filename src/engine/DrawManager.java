@@ -1,11 +1,8 @@
 package engine;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
@@ -17,8 +14,6 @@ import screen.Screen;
 import entity.Entity;
 import entity.Ship;
 
-
-import javax.imageio.ImageIO;
 /**
  * Manages screen drawing.
  *
@@ -55,8 +50,6 @@ public final class DrawManager {
 
 	public int timercount = 0;
 
-	BufferedImage img1,img2,img3,img4;
-
 	boolean isFirst = true;
 
 
@@ -84,6 +77,8 @@ public final class DrawManager {
 		EnemyShipC2,
 		/** Bonus ship. */
 		EnemyShipSpecial,
+		/** Boss ship */
+		Boss,
 		/** Destroyed enemy ship. */
 		Explosion
 	};
@@ -205,6 +200,31 @@ public final class DrawManager {
 					backBufferGraphics.drawRect(positionX + i * 2, positionY
 							+ j * 2, 1, 1);
 	}
+
+	/**
+	 * Entity can be drawn more precise size.
+	 *
+	 * [Clean Code Team] This method was created by dodo_kdy.
+	 *
+	 *
+	 * @param SpriteType
+	 * @param positionX
+	 * @param positionY
+	 * @param width
+	 * @param height
+	 */
+	public void drawEntity(final SpriteType SpriteType, final int positionX,
+						   final int positionY ,final double width, final double height) {
+		boolean[][] image = spriteMap.get(SpriteType);
+		Graphics2D g2 = (Graphics2D)backBufferGraphics;
+		g2.setColor(Color.white);
+
+		for (int i = 0; i < image.length; i++)
+			for (int j = 0; j < image[i].length; j++)
+				if (image[i][j])
+					g2.fill(new Rectangle2D.Double(positionX + i * width,positionY+ j * height,width,height));
+	}
+
 
 	/**
 	 * For debugging purpouses, draws the canvas borders.
@@ -429,6 +449,57 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws Select menu.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param option
+	 *            Option selected.
+	 */
+	public void drawSelect(final Screen screen, final int option) {
+		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
+		String EasyString = "E A S Y";
+		String NormalString = "N O R M A L";
+		String HardString = "H A R D";
+		String HardCoreString = "H A R D C O R E";
+		String MainString = "M A I N";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
+
+		if (option == 0)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, EasyString,
+				screen.getHeight() / 6 * 2);
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, NormalString,
+				screen.getHeight() / 6 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, HardString, screen.getHeight()
+				/ 6 * 2 + fontRegularMetrics.getHeight() * 4);
+		if (option == 3)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, HardCoreString, screen.getHeight() / 6 * 2
+				+ fontRegularMetrics.getHeight() * 6);
+		if (option == 4)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
+				+ fontRegularMetrics.getHeight() * 8);
+	}
+
+	/**
 	 * Draws game results.
 	 *
 	 * @param screen
@@ -445,9 +516,10 @@ public final class DrawManager {
 	 *            If the score is a new high score.
 	 */
 	public void drawResults(final Screen screen, final int score,
-							final int livesRemaining, final int shipsDestroyed,
+							final int livesRemaining, final int shipsDestroyed, final int difficulty,
 							final float accuracy, final boolean isNewRecord) {
 		String scoreString = String.format("score %04d", score);
+		String difficultyString = "Difficulty ";
 		String livesRemainingString = "lives remaining " + livesRemaining;
 		String shipsDestroyedString = "enemies destroyed " + shipsDestroyed;
 		String accuracyString = String
@@ -455,17 +527,25 @@ public final class DrawManager {
 
 		int height = isNewRecord ? 4 : 2;
 
-		backBufferGraphics.setColor(Color.WHITE);
+		if (difficulty == 0) difficultyString = difficultyString + "EASY";
+		else if (difficulty == 1) difficultyString = difficultyString + "NORMAL";
+		else if (difficulty == 2) difficultyString = difficultyString + "HARD";
+		else if (difficulty == 3) difficultyString = difficultyString + "HARDCORE";
+
+			backBufferGraphics.setColor(Color.WHITE);
 		drawCenteredRegularString(screen, scoreString, screen.getHeight()
 				/ height);
-		drawCenteredRegularString(screen, livesRemainingString,
+		drawCenteredRegularString(screen, difficultyString,
 				screen.getHeight() / height + fontRegularMetrics.getHeight()
 						* 2);
-		drawCenteredRegularString(screen, shipsDestroyedString,
+		drawCenteredRegularString(screen, livesRemainingString,
 				screen.getHeight() / height + fontRegularMetrics.getHeight()
 						* 4);
+		drawCenteredRegularString(screen, shipsDestroyedString,
+				screen.getHeight() / height + fontRegularMetrics.getHeight()
+						* 6);
 		drawCenteredRegularString(screen, accuracyString, screen.getHeight()
-				/ height + fontRegularMetrics.getHeight() * 6);
+				/ height + fontRegularMetrics.getHeight() * 8);
 	}
 
 	/**
@@ -700,6 +780,7 @@ public final class DrawManager {
 	 *  Creates a loading progress bar/
 	 *
 	 *  [Clean Code Team] This method was created by dodo_kdy.
+	 *
 	 * @param startX
 	 * @param startY
 	 * @param endX
@@ -776,23 +857,16 @@ public final class DrawManager {
 	 * @param y
 	 */
 	public int animateLoading(int x, int y){
-		try {
-			img1 = ImageIO.read( new File("res/invader_2.png"));
-			img2 = ImageIO.read( new File("res/invader_1.png"));
-			img3 = ImageIO.read( new File("res/invader_3.png"));
-			img4 = ImageIO.read( new File("res/invader_4.png"));
-		}
-		catch ( IOException exc ) { return 0; }
+		int y1 = y+7, x1 = x;
+		if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y1 -=5;
+		else if (70<timercount && timercount <90) x1+=5;
 
-		int y1 = y+10, y2 = y+15, x1 = x;
-		if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y2 -=5;
-		else if (70<timercount && timercount <90) y1-=5;
-		else x1-=5;
+		this.drawEntity(SpriteType.values()[5],x1+15,y1+10,2.3,2.3);
+		this.drawEntity(SpriteType.values()[6],x1+60,y1+10,2.4,2.4);
+		this.drawEntity(SpriteType.values()[8],x1+100,y1+10,3,2.4);
+		this.drawEntity(SpriteType.values()[10],x1+145,y1+13,2,2);
 
-		backBufferGraphics.drawImage( img1, x1+15, y1,34,34, null );
-		backBufferGraphics.drawImage( img2, x1+60, y2-2,30,24, null );
-		backBufferGraphics.drawImage( img3, x1+100, y1 - 10 , 38,55, null );
-		backBufferGraphics.drawImage( img4, x1+145, y2,32,27, null );
 		return 1;
 	}
+
 }
