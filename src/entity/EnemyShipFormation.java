@@ -624,15 +624,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * add additional shooters as player Level Up
 	 */
 	public final int addShooters(){
-		int increasingShooters;
-		if (1 <= this.level && this.level < 3){
-			increasingShooters = 0;
-		}
-		else if (this.level < 6){
-			increasingShooters = 1;
-		}
-		else{
-			increasingShooters = 2;
+		int increasingShooters = 0;
+		/** Prevent increments at Easy Level*/
+		if (!(this.difficulty == 0)) {
+			if (1 <= this.level && this.level < 3) {
+				increasingShooters = 0;
+			} else if (this.level < 6) {
+				increasingShooters = 1;
+			} else {
+				increasingShooters = 2;
+			}
 		}
 		return increasingShooters;
 	}
