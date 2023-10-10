@@ -44,10 +44,12 @@ public class EnemyShip extends Entity {
 	 *            Initial position of the ship in the Y axis.
 	 * @param spriteType
 	 *            Sprite type, image corresponding to the ship.
+	 * @param enemyColor
+	 * 			  Color of enemyship.
 	 */
 	public EnemyShip(final int positionX, final int positionY,
-			final SpriteType spriteType) {
-		super(positionX, positionY, 12 * 2, 8 * 2, Color.WHITE);
+			final SpriteType spriteType, Color enemyColor) {
+		super(positionX, positionY, 12 * 2, 8 * 2, enemyColor);
 
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
@@ -78,9 +80,12 @@ public class EnemyShip extends Entity {
 	/**
 	 * Constructor, establishes the ship's properties for a special ship, with
 	 * known starting properties.
+	 *
+	 * @param specialEnemyColor
+	 * 			   Color of the special ship.
 	 */
-	public EnemyShip() {
-		super(-32, 60, 16 * 2, 7 * 2, Color.RED);
+	public EnemyShip(Color specialEnemyColor) {
+		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
 
 		this.spriteType = SpriteType.EnemyShipSpecial;
 		this.isDestroyed = false;
@@ -92,10 +97,18 @@ public class EnemyShip extends Entity {
 	 * Constructor, establishes the ship's properties for a boss ship.
 	 *
 	 * @param enemylife
-	 *            Lives of the ship.
+	 *            Lives of the boss ship.
+	 * @param bossColor
+	 * 			  Color of the boss ship.
 	 */
+<<<<<<< HEAD
 	public EnemyShip(final int positionX, final int positionY, final int enemylife) {
 		super(positionX, positionY, 12 * 2, 8 * 2, Color.BLUE);
+=======
+	public EnemyShip(final int enemylife, Color bossColor) {
+		super(224, 100, 25 * 2, 14 * 2,bossColor);
+
+>>>>>>> feature_choonghun
 		this.spriteType = SpriteType.Boss;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;

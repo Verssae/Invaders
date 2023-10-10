@@ -1,5 +1,6 @@
 package screen;
 
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -188,7 +189,7 @@ public class GameScreen extends Screen {
 			}
 			if (this.enemyShipSpecial == null
 					&& this.enemyShipSpecialCooldown.checkFinished()) {
-				this.enemyShipSpecial = new EnemyShip();
+				this.enemyShipSpecial = new EnemyShip(Color.RED);
 				this.enemyShipSpecialCooldown.reset();
 				this.logger.info("A special ship appears");
 			}

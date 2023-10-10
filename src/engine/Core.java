@@ -184,6 +184,13 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_7);
 						gameSettings.add(SETTINGS_LEVEL_8);
 					}
+
+					LOGGER.info("select Level");
+					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+					int stage = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Level screen.");
+					gameState.setLevel(stage);
+
 					// Game & score.
 					do {
 						// One extra live every few levels.
@@ -265,7 +272,7 @@ public final class Core {
 								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
 								&& gameState.getLivesRemaining() < MAX_LIVES;
 
-						currentScreen = new GameScreen(gameState,
+						currentScreen = new GameScreen_2P(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -273,7 +280,7 @@ public final class Core {
 						frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
-						gameState = ((GameScreen) currentScreen).getGameState();
+						gameState = ((GameScreen_2P) currentScreen).getGameState();
 
 						gameState = new GameState(gameState.getLevel() + 1,
 								gameState.getScore(),
