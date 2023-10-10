@@ -496,20 +496,13 @@ public final class DrawManager {
 	 */
 
 	public void drawRecoveryMenu(final Screen screen, final int option) {
-		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
-		String recoveryString = " Recovery ";
-		String recovdefaultString = "D E F A U L T   S T A T E";
+		String recoveryString = "R E C O V E R Y";
 		String exitString = "E X I T";
-
-		backBufferGraphics.setColor(blinkingColor("GRAY"));
-		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 3);
-		backBufferGraphics.setColor(blinkingColor(" GREEN "));
-		drawCenteredBigString(screen, recoveryString, screen.getHeight() / 5);
 		if (option == 8)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, recovdefaultString,
+		drawCenteredRegularString(screen, recoveryString,
 				screen.getHeight() / 3 * 2);
 		if (option == 9)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
