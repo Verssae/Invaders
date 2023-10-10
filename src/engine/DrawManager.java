@@ -343,22 +343,26 @@ public final class DrawManager {
 	}
 
 	public void drawLivesbar(final Screen screen, final int lives) {
-		// Create a Graphics2D object.
+		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
+		double fillRatio = (double) lives / 3.0;
+
+		// Determine the width of the filled portion of the rectangle.
+		int filledWidth = (int) (120 * fillRatio);
+
+		// Create a gradient paint that transitions from green to yellow.
+		GradientPaint gradient = new GradientPaint(8, 8, Color.GREEN, 8 + filledWidth, 8, Color.YELLOW);
+
+		// Cast Graphics to Graphics2D for gradient painting.
 		Graphics2D g2d = (Graphics2D) backBufferGraphics;
 
-		// Set the line thickness (e.g., 5 pixels).
-		Stroke oldStroke = g2d.getStroke(); // Store the previous line attributes.
-		g2d.setStroke(new BasicStroke(5)); // Set the new line attributes.
-
+		// Draw the outline of the rectangle.
 		g2d.setColor(Color.WHITE);
-
-		// Draw a rectangle with a thick line.
 		g2d.drawRect(8, 8, 120, 20);
 
-		// Restore the previous line attributes.
-		g2d.setStroke(oldStroke);
+		// Set the paint to the gradient and fill the left portion of the rectangle.
+		g2d.setPaint(gradient);
+		g2d.fillRect(8, 8, filledWidth, 20);
 	}
-
 
 	/**
 	 * Draws a thick line from side to side of the screen.
