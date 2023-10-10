@@ -391,7 +391,7 @@ public class GameScreen extends Screen {
 					recyclableBullet.add(bullet);
 				}
 			}
-
+		
 		for (Item item : this.items){
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
