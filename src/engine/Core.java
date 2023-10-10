@@ -198,6 +198,9 @@ public final class Core {
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
 						do {
+							if (gameState.getLivesRemaining() <= 0) {
+								break;
+							}
 							// SubMenu : Item Store / Enhancement / Continue
 							if (currentScreen.returnCode != 6 && currentScreen.returnCode != 7) {
 								currentScreen = new SubMenuScreen(width, height, FPS);
