@@ -10,12 +10,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
 import engine.GameState;
-import entity.Bullet;
-import entity.BulletPool;
-import entity.EnemyShip;
-import entity.EnemyShipFormation;
-import entity.Entity;
-import entity.Ship;
+import entity.*;
 
 import javax.swing.*;
 
@@ -61,6 +56,7 @@ public class GameScreen extends Screen {
 	/** Set of all bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
 	/** Current score. */
+	private BulletLine bulletLine;
 	private int score;
 	/** Player lives left. */
 	private int lives;
@@ -121,6 +117,7 @@ public class GameScreen extends Screen {
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings);
 		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30);
+		this.bulletLine = new BulletLine(this.width / 2 , this.height + 120);
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
 				BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
@@ -227,6 +224,8 @@ public class GameScreen extends Screen {
 
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
+		drawManager.drawEntity(this.bulletLine, this.ship.getPositionX() + 12,
+				this.ship.getPositionY() - 320);
 		if (this.enemyShipSpecial != null)
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
