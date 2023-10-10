@@ -82,7 +82,7 @@ public class GameScreen_2P extends Screen {
      *            Current game state.
      * @param gameSettings
      *            Current game settings.
-     * @param bonusLife
+     * @param bonnusLife
      *            Checks if a bonus life is awarded this level
      * @param width
      *            Screen width.
@@ -92,8 +92,8 @@ public class GameScreen_2P extends Screen {
      *            Frames per second, frame rate at which the game is run.
      */
     public GameScreen_2P(final GameState gameState,
-                      final GameSettings gameSettings, final boolean bonusLife,
-                      final int width, final int height, final int fps) {
+                         final GameSettings gameSettings, final boolean bonusLife,
+                         final int width, final int height, final int fps) {
         super(width, height, fps);
 
         this.gameSettings = gameSettings;
@@ -261,8 +261,7 @@ public class GameScreen_2P extends Screen {
 
         // Interface.
         drawManager.drawScore(this, this.score);
-        //drawManager.drawLives(this, this.lives);
-        drawManager.drawLivesbar(this, this.lives);
+        drawManager.drawLives(this, this.lives);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
 
