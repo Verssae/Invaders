@@ -73,7 +73,6 @@ public class GameScreen extends Screen {
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
 	private boolean hardcore;
-
 	/** Checks if the game is paused. */
 	private boolean pause;
 	/** Set of all items.*/
@@ -262,6 +261,8 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
+		/** make item draw*/
+
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
