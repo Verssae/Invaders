@@ -114,7 +114,7 @@ public class GameScreen_2P extends Screen {
     public final void initialize() {
         super.initialize();
 
-        enemyShipFormation = new EnemyShipFormation(this.gameSettings);
+        enemyShipFormation = new EnemyShipFormation(this.gameSettings, 1);
         enemyShipFormation.attach(this);
         this.ship_1P = new Ship(this.width / 4, this.height - 30);
         this.ship_2P = new Ship((3 * this.width / 4), this.height - 30);

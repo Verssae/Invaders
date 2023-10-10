@@ -1,15 +1,8 @@
 package entity;
 
-<<<<<<< HEAD
-import java.util.*;
-=======
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
->>>>>>> feature_choonghun
 import java.util.logging.Logger;
 
 import screen.Screen;
@@ -172,7 +165,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			for (int i = 0; i < this.nShipsWide; i++)
 				this.enemyShips.add(new ArrayList<EnemyShip>());
 
-<<<<<<< HEAD
 			for (List<EnemyShip> column : this.enemyShips) {
 				for (int i = 0; i < this.nShipsHigh; i++) {
 					if (i / (float) this.nShipsHigh < PROPORTION_C)
@@ -186,32 +178,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					column.add(new EnemyShip((SEPARATION_DISTANCE
 							* this.enemyShips.indexOf(column))
 							+ positionX, (SEPARATION_DISTANCE * i)
-							+ positionY, spriteType));
+							+ positionY, 50));
 					this.shipCount++;
 				}
-=======
-		for (List<EnemyShip> column : this.enemyShips) {
-			for (int i = 0; i < this.nShipsHigh; i++) {
-				if (i / (float) this.nShipsHigh < PROPORTION_C) {
-					spriteType = SpriteType.EnemyShipC1;
-					enemyColor = Color.WHITE;
-				}
-				else if (i / (float) this.nShipsHigh < PROPORTION_B
-						+ PROPORTION_C) {
-					spriteType = SpriteType.EnemyShipB1;
-					enemyColor = Color.CYAN;
-				}
-				else {
-					spriteType = SpriteType.EnemyShipA1;
-					enemyColor = Color.YELLOW;
-				}
-
-				column.add(new EnemyShip((SEPARATION_DISTANCE 
-						* this.enemyShips.indexOf(column))
-								+ positionX, (SEPARATION_DISTANCE * i)
-								+ positionY, spriteType, enemyColor));
-				this.shipCount++;
->>>>>>> feature_choonghun
 			}
 
 			this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
