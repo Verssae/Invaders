@@ -215,7 +215,7 @@ public final class Core {
 								LOGGER.info("Closing subMenu screen.");
 							}
 							if (currentScreen.returnCode == 7) {
-								currentScreen = new EhanceScreen(gameState, width, height, FPS);
+								currentScreen = new EnhanceScreen(gameState, width, height, FPS);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " subMenu screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
