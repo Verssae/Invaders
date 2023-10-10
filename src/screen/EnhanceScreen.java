@@ -5,7 +5,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.GameState;
 
-public class EhanceScreen extends Screen {
+public class EnhanceScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
     /** Height of the interface separation line. */
@@ -28,7 +28,7 @@ public class EhanceScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public EhanceScreen(final GameState gameState, final int width, final int height, final int fps) {
+    public EnhanceScreen(final GameState gameState, final int width, final int height, final int fps) {
         super(width, height, fps);
 
         // Defaults to play.
