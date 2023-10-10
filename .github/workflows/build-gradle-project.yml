@@ -9,6 +9,7 @@ on:
 jobs:
   build-test:
     name: Build & Test
+    if: github.repository == 'Clean-Code-Team/Invaders'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout project sources
