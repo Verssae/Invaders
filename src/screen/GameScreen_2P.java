@@ -82,7 +82,7 @@ public class GameScreen_2P extends Screen {
      *            Current game state.
      * @param gameSettings
      *            Current game settings.
-     * @param bonnusLife
+     * @param bonusLife
      *            Checks if a bonus life is awarded this level
      * @param width
      *            Screen width.
@@ -261,7 +261,8 @@ public class GameScreen_2P extends Screen {
 
         // Interface.
         drawManager.drawScore(this, this.score);
-        drawManager.drawLives(this, this.lives);
+        //drawManager.drawLives(this, this.lives);
+        drawManager.drawLivesbar(this, this.lives);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
 
