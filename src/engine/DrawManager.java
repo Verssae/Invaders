@@ -518,10 +518,10 @@ public final class DrawManager {
 	public void drawResults(final Screen screen, final int score,
 							final int livesRemaining, final int shipsDestroyed, final int difficulty,
 							final float accuracy, final boolean isNewRecord) {
-		String scoreString = String.format("score %04d", score);
+		String scoreString = String.format("Score %04d", score);
 		String difficultyString = "Difficulty ";
-		String livesRemainingString = "lives remaining " + livesRemaining;
-		String shipsDestroyedString = "enemies destroyed " + shipsDestroyed;
+		String livesRemainingString = "Lives remaining " + livesRemaining;
+		String shipsDestroyedString = "Enemies destroyed " + shipsDestroyed;
 		String accuracyString = String
 				.format("Accuracy %.2f%%", accuracy * 100);
 
@@ -560,7 +560,7 @@ public final class DrawManager {
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
 							  final int nameCharSelected) {
-		String newRecordString = "New Record!";
+		String newRecordString = "NEW RECORD!";
 		String introduceNameString = "Introduce name:";
 
 		backBufferGraphics.setColor(Color.GREEN);
@@ -609,7 +609,7 @@ public final class DrawManager {
 	 */
 	public void drawGameOver(final Screen screen, final boolean acceptsInput,
 							 final boolean isNewRecord) {
-		String gameOverString = "Game Over";
+		String gameOverString = "G A M E  O V E R";
 		String continueOrExitString =
 				"Press SPACE to play again, ESC to exit";
 
