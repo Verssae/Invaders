@@ -89,7 +89,7 @@ public class StageSelectScreen extends Screen {
     }
 
     /**
-     * Shifts the focus to the next menu item.
+     * Shifts the focus to the right, left, down, and up menu item. Each line has 5 items.
      */
     private void RightMenuItem(int i) {
         if (this.Stage == TotalStage-1)

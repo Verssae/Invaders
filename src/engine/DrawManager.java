@@ -656,6 +656,12 @@ public final class DrawManager {
 				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10);
 	}
 
+	/**
+	 * Draws Pause notification during game
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
 	public void drawPaused(final Screen screen) {
 		String Paused = "Press ENTER to continue.";
 		String Quit = "Press BackSpace to quit.";
