@@ -342,6 +342,24 @@ public final class DrawManager {
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
 
+	public void drawLivesbar(final Screen screen, final int lives) {
+		// Create a Graphics2D object.
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+
+		// Set the line thickness (e.g., 5 pixels).
+		Stroke oldStroke = g2d.getStroke(); // Store the previous line attributes.
+		g2d.setStroke(new BasicStroke(5)); // Set the new line attributes.
+
+		g2d.setColor(Color.WHITE);
+
+		// Draw a rectangle with a thick line.
+		g2d.drawRect(8, 8, 120, 20);
+
+		// Restore the previous line attributes.
+		g2d.setStroke(oldStroke);
+	}
+
+
 	/**
 	 * Draws a thick line from side to side of the screen.
 	 *
@@ -361,7 +379,7 @@ public final class DrawManager {
 	 * Creates blinking colors like an arcade screen.
 	 * [Clean Code Team] This method was created by highlees.
 	 *
-	 * @param screen
+	 * @paramscreen
 	 */
 
 	private Color blinkingColor(String color) {
@@ -762,7 +780,7 @@ public final class DrawManager {
 	 *
 	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
-	 * @param screen
+	 * @paramscreen
 	 */
 	public void drawLoadingString(int x, int y, String string){
 		backBufferGraphics.setColor(Color.white);
