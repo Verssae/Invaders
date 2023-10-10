@@ -67,14 +67,14 @@ public class Item extends Entity {
         positionX += this.speed * this.item_dx;
         positionY += this.speed * this.item_dy;
     }
-        /**
-         * check is item livingTime end.
-         * @return temp.checkFinished();
-         */
-        public final boolean islivingTimeEnd(){return livingTime.checkFinished();}
+    /**
+     * check is item livingTime end.
+     * @return temp.checkFinished();
+     */
+    public final boolean islivingTimeEnd(){return livingTime.checkFinished();}
 
-        /**
-         * when reuse item, reset livingTime.
-         */
-        public final void CoolReset(){this.livingTime.reset();}
-    }
+    /**
+     * when reuse item, reset livingTime.
+     */
+    public final void CoolReset(){this.livingTime.reset();}
+}
