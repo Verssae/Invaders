@@ -14,7 +14,7 @@ import engine.DrawManager.SpriteType;
  * 
  */
 public class EnemyShip extends Entity {
-	
+	/** 적들 처치시 점수 설정 */
 	/** Point value of a type A enemy. */
 	private static final int A_TYPE_POINTS = 10;
 	/** Point value of a type B enemy. */
@@ -26,7 +26,7 @@ public class EnemyShip extends Entity {
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
 
-	/** Cooldown between sprite changes. */
+	/** 스프라이트 변경 쿨다운. */
 	private Cooldown animationCooldown;
 	/** Checks if the ship has been hit by a bullet. */
 	private boolean isDestroyed;

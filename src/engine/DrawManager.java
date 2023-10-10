@@ -80,7 +80,10 @@ public final class DrawManager {
 		/** Boss ship */
 		Boss,
 		/** Destroyed enemy ship. */
-		Explosion
+		Explosion,
+
+		/** 스프라이트를 중복시켜 버리는 곳 인게임에는 보이지 않음**/
+		Trash
 	};
 
 	/**
@@ -92,13 +95,31 @@ public final class DrawManager {
 		logger.info("Started loading resources.");
 
 		try {
+			double double_random = Math.random();
+			int Trash_enemyA = (int)double_random * 10;
+			if (1 <= Trash_enemyA && Trash_enemyA <4){		/** 변경점 **/
+				Trash_enemyA = Trash_enemyA - 1;			/** 1,2,3 => 0,1,2**/
+			}
+			else if (4 <= Trash_enemyA && Trash_enemyA < 7){
+				Trash_enemyA = Trash_enemyA - 4;			/** 4,5,6 => 0,1,2**/
+			}
+			else{
+				Trash_enemyA = Trash_enemyA - 7;			/** 7,8,9 => 0,1,2**/
+			}
 			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
-
 			spriteMap.put(SpriteType.Ship, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
+			if (Trash_enemyA != 0){
+				for (int i = 1; i <=Trash_enemyA; i++){
+					spriteMap.put(SpriteType.Trash, new boolean[12][8]);
+				}
+			}
 			spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
+			for (int i = 1; i <= 3-Trash_enemyA; i++){
+				spriteMap.put(SpriteType.Trash, new boolean[12][8]);
+			}
 			spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipB1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipB2, new boolean[12][8]);
