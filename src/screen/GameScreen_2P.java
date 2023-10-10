@@ -9,7 +9,12 @@ import engine.Cooldown;
 import engine.Core;
 import engine.GameSettings;
 import engine.GameState;
-import entity.*;
+import entity.Bullet;
+import entity.BulletPool;
+import entity.EnemyShip;
+import entity.EnemyShipFormation;
+import entity.Entity;
+import entity.Ship;
 
 /**
  * Implements the game screen, where the action happens.
@@ -54,8 +59,6 @@ public class GameScreen_2P extends Screen {
     /** Set of all bullets fired by on screen ships. */
     private Set<Bullet> bullets;
     /** Current score. */
-    private BulletLine bulletLine_1P;
-    private BulletLine bulletLine_2P;
     private int score;
     /** Player lives left. */
     private int lives;
@@ -89,8 +92,8 @@ public class GameScreen_2P extends Screen {
      *            Frames per second, frame rate at which the game is run.
      */
     public GameScreen_2P(final GameState gameState,
-                      final GameSettings gameSettings, final boolean bonusLife,
-                      final int width, final int height, final int fps) {
+                         final GameSettings gameSettings, final boolean bonusLife,
+                         final int width, final int height, final int fps) {
         super(width, height, fps);
 
         this.gameSettings = gameSettings;
@@ -114,9 +117,7 @@ public class GameScreen_2P extends Screen {
         enemyShipFormation = new EnemyShipFormation(this.gameSettings);
         enemyShipFormation.attach(this);
         this.ship_1P = new Ship(this.width / 4, this.height - 30);
-        this.bulletLine_1P = new BulletLine(this.width / 4 , this.height + 120);
         this.ship_2P = new Ship((3 * this.width / 4), this.height - 30);
-        this.bulletLine_2P = new BulletLine(3 * this.width / 4 , this.height + 120);
         // Appears each 10-30 seconds.
         this.enemyShipSpecialCooldown = Core.getVariableCooldown(
                 BONUS_SHIP_INTERVAL, BONUS_SHIP_VARIANCE);
@@ -242,13 +243,9 @@ public class GameScreen_2P extends Screen {
 
         drawManager.drawEntity(this.ship_1P, this.ship_1P.getPositionX(),
                 this.ship_1P.getPositionY());
-        drawManager.drawEntity(this.bulletLine_1P, this.ship_1P.getPositionX() + 12,
-                this.ship_1P.getPositionY() - 320);
 
         drawManager.drawEntity(this.ship_2P, this.ship_2P.getPositionX(),
                 this.ship_2P.getPositionY());
-        drawManager.drawEntity(this.bulletLine_2P, this.ship_2P.getPositionX() + 12,
-                this.ship_2P.getPositionY() - 320);
 
         if (this.enemyShipSpecial != null)
             drawManager.drawEntity(this.enemyShipSpecial,
@@ -264,8 +261,7 @@ public class GameScreen_2P extends Screen {
 
         // Interface.
         drawManager.drawScore(this, this.score);
-        //drawManager.drawLives(this, this.lives);
-        drawManager.drawLivesbar(this, this.lives);
+        drawManager.drawLives(this, this.lives);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
 
