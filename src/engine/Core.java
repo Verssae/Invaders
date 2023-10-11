@@ -4,19 +4,7 @@ import screen.*;
 
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.logging.*;
-=======
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
-
-import screen.*;
->>>>>>> upstream/main
 
 /**
  * Implements core game logic.
