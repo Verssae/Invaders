@@ -1,16 +1,11 @@
 package engine;
 
+import screen.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
-
-import screen.*;
 
 /**
  * Implements core game logic.
@@ -68,15 +63,23 @@ public final class Core {
 	/**
 	 * Difficulty settings for level 5.
 	 */
-	private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 1000, 1);
+	private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 3900, 1);
 	/**
 	 * Difficulty settings for level 6.
 	 */
-	private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 1000, 1);
+	private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 3600, 1);
 	/**
 	 * Difficulty settings for level 7.
 	 */
-	private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 500, 1);
+
+	private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 3300, 1);
+
+	/**
+	 * Difficulty settings for level 8(Boss).
+	 */
+	private static GameSettings SETTINGS_LEVEL_8 =
+			new GameSettings(10, 1000,1);
+
 
 	/**
 	 * Frame to draw the screen on.
@@ -136,6 +139,7 @@ public final class Core {
 		DrawManager.getInstance().setFrame(frame);
 		int width = frame.getWidth();
 		int height = frame.getHeight();
+		int stage;
 
 		GameState gameState;
 
@@ -154,7 +158,7 @@ public final class Core {
 					break;
 
 				case 2:
-					currentScreen = new SelectScreen(width, height, FPS, 0);
+					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
 					LOGGER.info("Select Difficulty");
 					difficulty = frame.setScreen(currentScreen);
 					if (difficulty == 4) {
@@ -183,6 +187,18 @@ public final class Core {
 
 					}
 
+					LOGGER.info("select Level"); // Stage(Level) Selection
+					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+					stage = frame.setScreen(currentScreen);
+					if (stage == 0) {
+						returnCode = 2;
+						LOGGER.info("Go Difficulty Select");
+						break;
+					}
+					LOGGER.info("Closing Level screen.");
+					gameState.setLevel(stage);
+
+
 					BGM bgm = new BGM(BGM_FILE_PATH);
 					bgm.bgm_play(); //게임 대기 -> 시작으로 넘어가면서 bgm 시작
 
@@ -198,7 +214,7 @@ public final class Core {
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
-						frame.setScreen(currentScreen);
+						returnCode = frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
 						gameState = ((GameScreen) currentScreen).getGameState();
@@ -249,6 +265,12 @@ public final class Core {
 					bgm.bgm_stop();
 
 
+					if (returnCode == 1) { //Quit during the game
+						currentScreen = new TitleScreen(width, height, FPS);
+						frame.setScreen(currentScreen);
+						break;
+					}
+
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
 							+ gameState.getScore() + ", "
@@ -259,7 +281,6 @@ public final class Core {
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing score screen.");
 					break;
-
 				case 3:
 					// High scores.
 					currentScreen = new HighScoreScreen(width, height, FPS);
@@ -296,6 +317,16 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_6);
 						gameSettings.add(SETTINGS_LEVEL_7);
 					}
+					LOGGER.info("select Level"); // Stage(Level) Selection
+					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+					stage = frame.setScreen(currentScreen);
+					if (stage == 0) {
+						returnCode = 4;
+						LOGGER.info("Go Difficulty Select");
+						break;
+					}
+					LOGGER.info("Closing Level screen.");
+					gameState.setLevel(stage);
 					bgm = new BGM(BGM_FILE_PATH);
 					bgm.bgm_play();
 					//new BGM.play_bgm();
@@ -311,7 +342,7 @@ public final class Core {
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
-						frame.setScreen(currentScreen);
+						returnCode = frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
 						gameState = ((GameScreen_2P) currentScreen).getGameState();
@@ -321,11 +352,16 @@ public final class Core {
 								gameState.getLivesRemaining(),
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
-								gameState.getHardCore()
-						);
+								gameState.getHardCore());
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
+
+					if (returnCode == 1) { //Quit during the game
+						currentScreen = new TitleScreen(width, height, FPS);
+						frame.setScreen(currentScreen);
+						break;
+					}
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
@@ -416,5 +452,5 @@ public final class Core {
 	public static Cooldown getVariableCooldown(final int milliseconds,
 			final int variance) {
 		return new Cooldown(milliseconds, variance);
-	}
+	} // commit test
 }
