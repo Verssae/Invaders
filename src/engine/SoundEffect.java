@@ -5,7 +5,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioInputStream;
 
-public class SoundEffect implements SoundEffect_if {
+public class SoundEffect {
 
     File shipshootingsound = new File("sound/soundEffect/Shipshooting.wav");
     File shipdestructionsound = new File("sound/soundEffect/Shipdestruction.wav");
