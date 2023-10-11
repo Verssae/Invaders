@@ -75,6 +75,10 @@ public final class DrawManager {
 		EnemyShipC1,
 		/** Third enemy ship - second form. */
 		EnemyShipC2,
+		/** Reinforced third enemy ship - first form. */
+		EnemyShipSC1,
+		/** Reinforced third enemy ship - second form. */
+		EnemyShipSC2,
 		/** Bonus ship. */
 		EnemyShipSpecial,
 		/** Boss ship */
@@ -104,6 +108,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipB2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipSC1, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipSC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 

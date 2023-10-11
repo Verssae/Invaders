@@ -69,6 +69,11 @@ public class EnemyShip extends Entity {
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			this.EnemyLife = 1;
+			break;
+		case EnemyShipSC1:
+		case EnemyShipSC2:
+			this.pointValue = C_TYPE_POINTS;
 			this.EnemyLife = 2;
 			break;
 		default:
@@ -158,6 +163,12 @@ public class EnemyShip extends Entity {
 				break;
 			case EnemyShipC2:
 				this.spriteType = SpriteType.EnemyShipC1;
+				break;
+			case EnemyShipSC1:
+				this.spriteType = SpriteType.EnemyShipSC2;
+				break;
+			case EnemyShipSC2:
+				this.spriteType = SpriteType.EnemyShipSC1;
 				break;
 			default:
 				break;

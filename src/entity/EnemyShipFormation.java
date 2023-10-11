@@ -63,7 +63,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Cooldown shootingCooldown;
 	/** Number of ships in the formation - horizontally. */
 	private int nShipsWide;
-	/** Color for enemy ships */
+	/** Color for enemy ships. */
 	private Color enemyColor;
 	/** Number of ships in the formation - vertically. */
 	private int nShipsHigh;
@@ -143,6 +143,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			for (int i = 0; i < this.nShipsHigh; i++) {
 				if (i / (float) this.nShipsHigh < PROPORTION_C) {
 					spriteType = SpriteType.EnemyShipC1;
+					enemyColor = Color.PINK;
+				}
+				else if (i / (float) this.nShipsHigh < PROPORTION_B) {
+					spriteType = SpriteType.EnemyShipSC1;
 					enemyColor = Color.RED;
 				}
 				else if (i / (float) this.nShipsHigh < PROPORTION_B
