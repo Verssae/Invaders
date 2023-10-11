@@ -79,6 +79,7 @@ public class GameScreen extends Screen {
 	/** Set of all items.*/
 	private Set<Item> items;
 
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -178,7 +179,6 @@ public class GameScreen extends Screen {
 							+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
 					boolean isLeftBorder = this.ship.getPositionX()
 							- this.ship.getSpeed() < 1;
-
 					if (moveRight && !isRightBorder) {
 						this.ship.moveRight();
 					}
@@ -313,11 +313,6 @@ public class GameScreen extends Screen {
 		this.items.removeAll(recyclable);
 		ItemPool.recycle(recyclable);
 	}
-
-	/**
-	 *  Item Moving Event
-	 */
-
 	/**
 	 * Manages collisions between bullets and ships.
 	 */

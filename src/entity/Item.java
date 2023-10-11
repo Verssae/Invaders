@@ -78,4 +78,7 @@ public class Item extends Entity {
      */
     public final void CoolReset(){this.livingTime.reset();}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 114d33dc02f28c5211f275e5d695256bbfaf15c0
