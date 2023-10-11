@@ -15,7 +15,7 @@ import screen.HighScoreScreen;
 import screen.ScoreScreen;
 import screen.Screen;
 import screen.TitleScreen;
-
+import screen.RandomBoxScreen;
 import screen.*;
 
 /**
@@ -186,6 +186,12 @@ public final class Core {
 					do {
 						// SubMenu : Item Store / Enhancement / Continue
 						if (gameState.getLevel() > 1) {
+							currentScreen = new RandomBoxScreen(width, height, FPS);
+							// LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							// 		+ " subMenu screen at " + FPS + " fps.");
+							returnCode = frame.setScreen(currentScreen);
+							// LOGGER.info("Closing subMenu screen.");
+							
 							currentScreen = new SubMenuScreen(width, height, FPS);
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 									+ " subMenu screen at " + FPS + " fps.");
