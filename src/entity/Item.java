@@ -2,21 +2,18 @@ package entity;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.DrawManager;
-
 import java.awt.Color;
-import java.util.Random;
-import java.util.random.RandomGenerator;
-
 import engine.DrawManager.SpriteType;
 
 public class Item extends Entity {
 
     /** Movement of the Item for each unit of time. */
-    private final int speed = 4;
-    private final int PROPORTION_SEPERATE_LINE = 10;
-    private final Cooldown floatingCool = Core.getCooldown(5000);
+    private final int speed = 3;
+    /** Living-Time of Item */
+    private final Cooldown livingTime = Core.getCooldown(5000);
+    /** Movement direction X of item for each unit of time. */
     public int item_dx;
+    /** Movement direction Y of item for each unit of time. */
     public int item_dy;
 
     /**
@@ -30,9 +27,9 @@ public class Item extends Entity {
      */
     public Item(final int positionX, final int positionY){
         super(positionX, positionY, 9 * 2, 11 * 2, Color.BLUE);
+        this.livingTime.reset();
         item_dx = Math.random() > 0.5 ? 1 : -1;
-        item_dy = 1;
-        this.floatingCool.reset();
+        item_dy = Math.random() > 0.5 ? 1 : -1;
         setSprite();
     }
 
@@ -44,13 +41,19 @@ public class Item extends Entity {
     }
 
     /**
-     * Updates status of the ship.
+     *
+     * @param width
+     *          width of GameScreen
+     * @param height
+     *          height of GameScreen
+     * @param SEPERATE_LINE
+     *          height of SEPERATE_LINE
      */
-    public final void update(int width, int height) {
-        boolean isRightBorder = (this.getWidth() / 2 + this.getPositionX()) > width - 2;
-        boolean isLeftBorder = (this.getWidth() / 2 + this.getPositionX()) < 2;
-        boolean isTopBorder = (this.getHeight() / 2 + this.getPositionY()) < height / PROPORTION_SEPERATE_LINE;
-        boolean isBottomBorder = (this.getHeight() / 2 + this.getPositionY()) > height;
+    public final void update(final int width, final int height, final int SEPERATE_LINE) {
+        boolean isRightBorder = (this.getWidth() + this.getPositionX()) > width;
+        boolean isLeftBorder = (this.getPositionX()) < 0;
+        boolean isTopBorder = (this.getPositionY()) < SEPERATE_LINE;
+        boolean isBottomBorder = (this.getHeight() + this.getPositionY()) > height;
 
         if (isRightBorder || isLeftBorder) {
             // 왼쪽 또는 오른쪽 경계에 부딪혔을 때는 x 방향 반대로 설정
@@ -66,13 +69,13 @@ public class Item extends Entity {
     }
 
     /**
-     * check is item floating time end.
+     * check is item livingTime end.
      * @return temp.checkFinished();
      */
-    public final boolean isFloatingEnd(){return floatingCool.checkFinished();}
+    public final boolean islivingTimeEnd(){return livingTime.checkFinished();}
 
     /**
-     * when reuse item, reset floating cooltime.
+     * when reuse item, reset livingTime.
      */
-    public final void CoolReset(){this.floatingCool.reset();}
+    public final void CoolReset(){this.livingTime.reset();}
 }

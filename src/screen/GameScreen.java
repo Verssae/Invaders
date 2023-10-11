@@ -283,13 +283,13 @@ public class GameScreen extends Screen {
 	}
 
 	/**
-	 * update and Cleans items that go off screen.
+	 * update and Cleans items that end the Living-Time
 	 */
 	private void cleanItems() {
 		Set<Item> recyclable = new HashSet<Item>();
 		for (Item item : this.items) {
-			item.update(this.getWidth(), this.getHeight());
-			if (item.isFloatingEnd()){
+			item.update(this.getWidth(), this.getHeight(), SEPARATION_LINE_HEIGHT);
+			if (item.islivingTimeEnd()){
 				recyclable.add(item);
 			}
 		}
