@@ -184,8 +184,10 @@ public class GameScreen_2P extends Screen {
                         this.ship_1P.moveLeft();
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SHIFT))
-                        if (this.ship_1P.shoot(this.bullets))
+                        if (this.ship_1P.shoot(this.bullets)) {
+                            soundEffect.playShipShootingSound();
                             this.bulletsShot++;
+                        }
                 }
                 if (!this.ship_2P.isDestroyed()) {
                     boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT);
@@ -203,8 +205,10 @@ public class GameScreen_2P extends Screen {
                         this.ship_2P.moveLeft();
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-                        if (this.ship_2P.shoot(this.bullets))
+                        if (this.ship_2P.shoot(this.bullets)) {
+                            soundEffect.playShipShootingSound();
                             this.bulletsShot++;
+                        }
                 }
 
                 if (this.enemyShipSpecial != null) {
