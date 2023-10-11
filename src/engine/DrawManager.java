@@ -1009,7 +1009,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, itemStoretxt,
-				screen.getHeight() / 3);
+				screen.getHeight() / 3 * 2);
 		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
