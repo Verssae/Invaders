@@ -369,7 +369,6 @@ public class GameScreen extends Screen {
 				this.score += 10;
 			}
 		}
-		
 		this.items.removeAll(recyclableItem);
 		this.bullets.removeAll(recyclableBullet);
 		ItemPool.recycle(recyclableItem);
