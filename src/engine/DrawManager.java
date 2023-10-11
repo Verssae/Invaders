@@ -342,7 +342,7 @@ public final class DrawManager {
 
 	public void drawLevel(final Screen screen, final int level){
 		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(Color.GREEN);
 		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
 	}
 
