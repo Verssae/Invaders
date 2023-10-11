@@ -29,15 +29,15 @@ public class Entity {
 	 * Constructor, establishes the entity's generic properties.
 	 * 
 	 * @param positionX
-	 *            Initial position of the entity in the X axis.
+	 *                  Initial position of the entity in the X axis.
 	 * @param positionY
-	 *            Initial position of the entity in the Y axis.
+	 *                  Initial position of the entity in the Y axis.
 	 * @param width
-	 *            Width of the entity.
+	 *                  Width of the entity.
 	 * @param height
-	 *            Height of the entity.
+	 *                  Height of the entity.
 	 * @param color
-	 *            Color of the entity.
+	 *                  Color of the entity.
 	 */
 	public Entity(final int positionX, final int positionY, final int width,
 			final int height, final Color color) {
@@ -79,7 +79,7 @@ public class Entity {
 	 * Setter for the X axis position of the entity.
 	 * 
 	 * @param positionX
-	 *            New position of the entity in the X axis.
+	 *                  New position of the entity in the X axis.
 	 */
 	public final void setPositionX(final int positionX) {
 		this.positionX = positionX;
@@ -89,7 +89,7 @@ public class Entity {
 	 * Setter for the Y axis position of the entity.
 	 * 
 	 * @param positionY
-	 *            New position of the entity in the Y axis.
+	 *                  New position of the entity in the Y axis.
 	 */
 	public final void setPositionY(final int positionY) {
 		this.positionY = positionY;
