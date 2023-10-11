@@ -18,7 +18,7 @@ import screen.*;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  */
 public final class Core {
-	private static final String BGM_FILE_PATH = "Invaders/sound_BackGroundMusic/neon-gaming-128925.wav";
+	private static final String BGM_FILE_PATH = "sound_BackGroundMusic/neon-gaming-128925.wav";
 	/**
 	 * Width of current screen.
 	 */
