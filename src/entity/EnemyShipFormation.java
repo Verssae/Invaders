@@ -16,6 +16,8 @@ import screen.Screen;
 import java.util.*;
 import java.util.logging.Logger;
 
+import static java.awt.Color.BLUE;
+
 /**
  * Groups enemy ships into a formation that moves together.
  * 
@@ -232,7 +234,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					column.add(new EnemyShip((SEPARATION_DISTANCE
 							* this.enemyShips.indexOf(column))
 							+ positionX, (SEPARATION_DISTANCE * i)
-							+ positionY, 50));
+							+ positionY, 50, BLUE));
 					this.shipCount++;
 				}
 			}
