@@ -13,7 +13,7 @@ import java.util.logging.*;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  */
 public final class Core {
-
+	private static final String BGM_FILE_PATH = "sound_BackGroundMusic/neon-gaming-128925.wav";
 	/**
 	 * Width of current screen.
 	 */
@@ -117,6 +117,7 @@ public final class Core {
 	 */
 	public static void main(final String[] args) {
 		try {
+			BGM bgm = new BGM(BGM_FILE_PATH);
 			LOGGER.setUseParentHandlers(false);
 
 			fileHandler = new FileHandler("log");
@@ -155,6 +156,7 @@ public final class Core {
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing title screen.");
 					break;
+
 				case 2:
 					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
 					LOGGER.info("Select Difficulty");
@@ -182,6 +184,7 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_5);
 						gameSettings.add(SETTINGS_LEVEL_6);
 						gameSettings.add(SETTINGS_LEVEL_7);
+
 					}
 
 					LOGGER.info("select Level"); // Stage(Level) Selection
@@ -194,6 +197,10 @@ public final class Core {
 					}
 					LOGGER.info("Closing Level screen.");
 					gameState.setLevel(stage);
+
+
+					BGM bgm = new BGM(BGM_FILE_PATH);
+					bgm.bgm_play(); //게임 대기 -> 시작으로 넘어가면서 bgm 시작
 
 					// Game & score.
 					do {
@@ -220,7 +227,7 @@ public final class Core {
 								gameState.getHardCore());
 						// SubMenu : Item Store / Enhancement / Continue
 
-						
+
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
 							if (!boxOpen){
@@ -255,7 +262,8 @@ public final class Core {
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
-					
+					bgm.bgm_stop();
+
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -319,6 +327,9 @@ public final class Core {
 					}
 					LOGGER.info("Closing Level screen.");
 					gameState.setLevel(stage);
+					bgm = new BGM(BGM_FILE_PATH);
+					bgm.bgm_play();
+					//new BGM.play_bgm();
 					// Game & score.
 					do {
 						// One extra live every few levels.
@@ -367,6 +378,11 @@ public final class Core {
 			}
 
 		} while (returnCode != 0);
+
+		if(returnCode ==0){ //게임이 종료(목숨을 다 소진함)했을 때 bgm 끄기
+			BGM bgm = new BGM(BGM_FILE_PATH);
+			bgm.bgm_stop();
+		}
 
 		fileHandler.flush();
 		fileHandler.close();
