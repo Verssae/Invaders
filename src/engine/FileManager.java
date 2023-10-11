@@ -60,10 +60,10 @@ public final class FileManager {
 	 * Loads sprites from disk.
 	 * 
 	 * @param spriteMap
-	 *            Mapping of sprite type and empty boolean matrix that will
-	 *            contain the image.
+	 *                  Mapping of sprite type and empty boolean matrix that will
+	 *                  contain the image.
 	 * @throws IOException
-	 *             In case of loading problems.
+	 *                     In case of loading problems.
 	 */
 	public void loadSprite(final Map<SpriteType, boolean[][]> spriteMap)
 			throws IOException {
@@ -102,12 +102,12 @@ public final class FileManager {
 	 * Loads a font of a given size.
 	 * 
 	 * @param size
-	 *            Point size of the font.
+	 *             Point size of the font.
 	 * @return New font.
 	 * @throws IOException
-	 *             In case of loading problems.
+	 *                             In case of loading problems.
 	 * @throws FontFormatException
-	 *             In case of incorrect font format.
+	 *                             In case of incorrect font format.
 	 */
 	public Font loadFont(final float size) throws IOException,
 			FontFormatException {
@@ -134,7 +134,7 @@ public final class FileManager {
 	 * 
 	 * @return Default high scores.
 	 * @throws IOException
-	 *             In case of loading problems.
+	 *                     In case of loading problems.
 	 */
 	private List<Score> loadDefaultHighScores() throws IOException {
 		List<Score> highScores = new ArrayList<Score>();
@@ -170,7 +170,7 @@ public final class FileManager {
 	 * 
 	 * @return Sorted list of scores - players.
 	 * @throws IOException
-	 *             In case of loading problems.
+	 *                     In case of loading problems.
 	 */
 	public List<Score> loadHighScores() throws IOException {
 
@@ -222,11 +222,11 @@ public final class FileManager {
 	 * Saves user high scores to disk.
 	 * 
 	 * @param highScores
-	 *            High scores to save.
+	 *                   High scores to save.
 	 * @throws IOException
-	 *             In case of loading problems.
+	 *                     In case of loading problems.
 	 */
-	public void saveHighScores(final List<Score> highScores) 
+	public void saveHighScores(final List<Score> highScores)
 			throws IOException {
 		OutputStream outputStream = null;
 		BufferedWriter bufferedWriter = null;
