@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -62,6 +63,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Cooldown shootingCooldown;
 	/** Number of ships in the formation - horizontally. */
 	private int nShipsWide;
+	/** Color for enemy ships */
+	private Color enemyColor;
 	/** Number of ships in the formation - vertically. */
 	private int nShipsHigh;
 	/** Time between shots. */
@@ -138,18 +141,24 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		for (List<EnemyShip> column : this.enemyShips) {
 			for (int i = 0; i < this.nShipsHigh; i++) {
-				if (i / (float) this.nShipsHigh < PROPORTION_C)
+				if (i / (float) this.nShipsHigh < PROPORTION_C) {
 					spriteType = SpriteType.EnemyShipC1;
+					enemyColor = Color.WHITE;
+				}
 				else if (i / (float) this.nShipsHigh < PROPORTION_B
-						+ PROPORTION_C)
+						+ PROPORTION_C) {
 					spriteType = SpriteType.EnemyShipB1;
-				else
+					enemyColor = Color.CYAN;
+				}
+				else {
 					spriteType = SpriteType.EnemyShipA1;
+					enemyColor = Color.YELLOW;
+				}
 
 				column.add(new EnemyShip((SEPARATION_DISTANCE 
 						* this.enemyShips.indexOf(column))
 								+ positionX, (SEPARATION_DISTANCE * i)
-								+ positionY, spriteType));
+								+ positionY, spriteType, enemyColor));
 				this.shipCount++;
 			}
 		}
