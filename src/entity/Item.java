@@ -13,9 +13,9 @@ import engine.DrawManager.SpriteType;
 public class Item extends Entity {
 
     /** Movement of the Item for each unit of time. */
-    private final int speed = 12;
-    private Cooldown floatingCool;
-    public Cooldown updateCool;
+    private final int speed = 4;
+    private final int PROPORTION_SEPERATE_LINE = 10;
+    private final Cooldown floatingCool = Core.getCooldown(5000);
     public int item_dx;
     public int item_dy;
 
@@ -30,12 +30,9 @@ public class Item extends Entity {
      */
     public Item(final int positionX, final int positionY){
         super(positionX, positionY, 9 * 2, 11 * 2, Color.BLUE);
-        item_dx = (int)Math.random()*10 > 5 ? 1 : -1;
+        item_dx = Math.random() > 0.5 ? 1 : -1;
         item_dy = 1;
-        this.floatingCool = Core.getCooldown(40000);
-        this.updateCool = Core.getCooldown(250);
         this.floatingCool.reset();
-        this.updateCool.reset();
         setSprite();
     }
 
@@ -49,10 +46,23 @@ public class Item extends Entity {
     /**
      * Updates status of the ship.
      */
-    public final void update(int dx, int dy) {
-        this.updateCool.reset();
-        positionX += this.speed * dx;
-        positionY += this.speed * dy;
+    public final void update(int width, int height) {
+        boolean isRightBorder = (this.getWidth() / 2 + this.getPositionX()) > width - 2;
+        boolean isLeftBorder = (this.getWidth() / 2 + this.getPositionX()) < 2;
+        boolean isTopBorder = (this.getHeight() / 2 + this.getPositionY()) < height / PROPORTION_SEPERATE_LINE;
+        boolean isBottomBorder = (this.getHeight() / 2 + this.getPositionY()) > height;
+
+        if (isRightBorder || isLeftBorder) {
+            // 왼쪽 또는 오른쪽 경계에 부딪혔을 때는 x 방향 반대로 설정
+            this.item_dx = -this.item_dx;
+        }
+
+        if (isTopBorder || isBottomBorder) {
+            // 위쪽 또는 아래쪽 경계에 부딪혔을 때는 y 방향 반대로 설정
+            this.item_dy = -this.item_dy;
+        }
+        positionX += this.speed * this.item_dx;
+        positionY += this.speed * this.item_dy;
     }
 
     /**
@@ -65,10 +75,4 @@ public class Item extends Entity {
      * when reuse item, reset floating cooltime.
      */
     public final void CoolReset(){this.floatingCool.reset();}
-
-    /**
-     * return item speed.
-     * @return item.speed
-     */
-    public final int getSpeed(){return this.speed;}
 }

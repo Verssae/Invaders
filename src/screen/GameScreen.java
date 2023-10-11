@@ -288,28 +288,9 @@ public class GameScreen extends Screen {
 	private void cleanItems() {
 		Set<Item> recyclable = new HashSet<Item>();
 		for (Item item : this.items) {
-			if(item.updateCool.checkFinished()){
-				boolean isRightBorder = item.getWidth() / 2 + item.getPositionX() + item.getSpeed() > getWidth();
-				boolean isLeftBorder = item.getWidth() / 2 + item.getPositionX() - item.getSpeed() < 2;
-				boolean isTopBorder = item.getHeight() / 2 + item.getPositionY() - item.getSpeed() < SEPARATION_LINE_HEIGHT;
-				boolean isBottomBorder = item.getHeight() / 2 + item.getPositionY() + item.getSpeed() > getHeight() - item.getHeight() / 2;
-
-				if (isRightBorder || isLeftBorder) {
-					// 왼쪽 또는 오른쪽 경계에 부딪혔을 때는 x 방향 반대로 설정
-					item.item_dx = -item.item_dx;
-				}
-
-				if (isTopBorder || isBottomBorder) {
-					// 위쪽 또는 아래쪽 경계에 부딪혔을 때는 y 방향 반대로 설정
-					item.item_dy = -item.item_dy;
-				}
-
-				if (item.isFloatingEnd()){
-					recyclable.add(item);
-				}
-
-				// 수정된 방향으로 아이템 업데이트
-				item.update(item.item_dx, item.item_dy);
+			item.update(this.getWidth(), this.getHeight());
+			if (item.isFloatingEnd()){
+				recyclable.add(item);
 			}
 		}
 		this.items.removeAll(recyclable);
