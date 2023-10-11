@@ -114,8 +114,12 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
 
+
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
+
+			//temporary graphic. Will be changed
+			spriteMap.put(SpriteType.Boss,spriteMap.get(SpriteType.EnemyShipA1));
 
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
@@ -415,7 +419,7 @@ public final class DrawManager {
 	 * Creates blinking colors like an arcade screen.
 	 * [Clean Code Team] This method was created by highlees.
 	 *
-	 * @param screen
+	 *
 	 */
 
 	private Color blinkingColor(String color) {
@@ -501,6 +505,34 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
+	public void drawRandomBox(final Screen screen, final int option) {
+		String introduceString = "SELECT ONE OF THE THREE BOXES FOR A RANDOM REWARD.";
+		String oneString = "1";
+		String twoString = "2";
+		String threeString = "3";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
+		if (option == 10)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, oneString,
+				screen.getHeight() / 3 * 2);
+		if (option == 7)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, twoString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, threeString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
@@ -564,8 +596,6 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Draws Select menu.
-	 *
 	 * @param screen
 	 *               Screen to draw on.
 	 * @param option
@@ -612,6 +642,35 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
 				+ fontRegularMetrics.getHeight() * 8);
+	}
+
+	/**
+	 * Draws Select menu.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param option
+	 *            Stage(level) selected.
+	 * If the number of Levels is changed, this page is also automatically changed the same as it.
+	 */
+	public void drawStageSelect(final Screen screen, final int option, final int stages) {
+		String SelectString = "Select Level with WASD, confirm with Space,";
+		String SelectString_2 = "cancel with ESC.";
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString,screen.getHeight() / 8);
+		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
+		String[] Stage = new String[stages];
+		backBufferGraphics.setFont(fontBig);
+		for (int i = 0; i < stages; i++) {
+			Stage[i] = String.valueOf(i+1);
+			if (option == i)
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
+			else
+				backBufferGraphics.setColor(blinkingColor("WHITE"));
+			backBufferGraphics.drawString(Stage[i], screen.getWidth() / 2
+					- (screen.getWidth()/10) * (2-(i%5)),
+					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*((i/5)-1)));
+		}
 	}
 
 	/**
@@ -746,6 +805,20 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws Pause notification during game
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
+	public void drawPaused(final Screen screen) {
+		String Paused = "Press ENTER to continue.";
+		String Quit = "Press BackSpace to quit.";
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, Paused, screen.getHeight() * 3 / 4);
+		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
+	}
+
+	/**
 	 * Draws high score screen title and instructions.
 	 *
 	 * @param screen
@@ -872,17 +945,26 @@ public final class DrawManager {
 		}
 	}
 
-	public void drawItemStore(final Screen screen) {
+	public void drawItemStore(final Screen screen, final int option) {
+		String itemStoretxt = " I T E M S T O R E";
+
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, itemStoretxt,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
 	}
 
 	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
 			int numEnhanceDamage) {
+		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
 		String playString = "C O N T I N U E";
 		String enhanceAreaString = "Enhancement Area Lv\n" + Integer.toString(numEnhanceArea) + " > "
@@ -911,6 +993,13 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, enhanceDamageString,
 				screen.getHeight() / 3 + 50);
+
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, subMenuString,
+				screen.getHeight() / 3 * 2 );
 		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -930,7 +1019,7 @@ public final class DrawManager {
 	 *
 	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
-	 * @param screen
+	 *
 	 */
 	public void drawLoadingString(int x, int y, String string) {
 		backBufferGraphics.setColor(Color.white);
