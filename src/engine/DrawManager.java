@@ -492,6 +492,34 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
+	public void drawRandomBox(final Screen screen, final int option) {
+		String introduceString = "SELECT ONE OF THE THREE BOXES FOR A RANDOM REWARD.";
+		String oneString = "1";
+		String twoString = "2";
+		String threeString = "3";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, oneString,
+				screen.getHeight() / 3 * 2);
+		if (option == 7)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, twoString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, threeString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
