@@ -72,12 +72,12 @@ public class RandomBoxScreen extends Screen {
      * Shifts the focus to the next menu item.
      */
     private void nextMenuItem() {
-        if (this.returnCode == 6)
+        if (this.returnCode == 10)
             this.returnCode = 7;
         else if (this.returnCode == 7)
             this.returnCode = 2;
         else
-            this.returnCode = 6;
+            this.returnCode = 10;
     }
 
     /**
@@ -87,7 +87,7 @@ public class RandomBoxScreen extends Screen {
         if (this.returnCode == 2)
             this.returnCode = 7;
         else if (this.returnCode == 7)
-            this.returnCode = 6;
+            this.returnCode = 10;
         else
             this.returnCode = 2;
     }
