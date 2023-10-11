@@ -439,6 +439,18 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Creates a slowly blinking color.
+	 * Can be applied to multiple screens in the game.
+	 * [Clean Code Team] This method was created by highlees.
+	 *
+	 *
+	 */
+
+	private Color slowlyBlinkingColor(String color) {
+		return Color.GREEN;
+	}
+
+	/**
 	 * Draws game title.
 	 *
 	 * @param screen
