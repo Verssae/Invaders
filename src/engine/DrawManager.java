@@ -112,10 +112,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
-<<<<<<< HEAD
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
-=======
->>>>>>> 114d33dc02f28c5211f275e5d695256bbfaf15c0
 			spriteMap.put(SpriteType.Item1, new boolean[3][3]);
 
 			fileManager.loadSprite(spriteMap);
