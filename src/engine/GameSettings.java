@@ -108,13 +108,13 @@ public class GameSettings {
 	}
 
 	/**
-	 * Check if the stage is boss stage
-	 * @return True if the stage is boss stage
-	 */
-	public final boolean checkIsBoss() {return this.isBossStage;}
-
-	/**
 	 * @return the difficulty
 	 */
 	public final double getDifficulty() { return this.difficulty; }
+
+	/**
+	 * Check if the stage is boss stage
+	 * @return True if the stage is boss stage
+	 */
+	public final boolean checkIsBoss() {return this.isBossStage; }
 }

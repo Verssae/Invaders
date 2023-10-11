@@ -769,6 +769,20 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws Pause notification during game
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
+	public void drawPaused(final Screen screen) {
+		String Paused = "Press ENTER to continue.";
+		String Quit = "Press BackSpace to quit.";
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, Paused, screen.getHeight() * 3 / 4);
+		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
+	}
+
+	/**
 	 * Draws high score screen title and instructions.
 	 *
 	 * @param screen

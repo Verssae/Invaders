@@ -150,7 +150,7 @@ public final class Core {
 					LOGGER.info("Closing title screen.");
 					break;
 				case 2:
-					currentScreen = new SelectScreen(width, height, FPS, 0);
+					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
 					LOGGER.info("Select Difficulty");
 					difficulty = frame.setScreen(currentScreen);
 					if (difficulty == 4) {
@@ -180,7 +180,7 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_8);
 					}
 
-					LOGGER.info("select Level");
+					LOGGER.info("select Level"); // Stage(Level) Selection
 					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
 					int stage = frame.setScreen(currentScreen);
 					if (stage == 0) {
@@ -225,7 +225,7 @@ public final class Core {
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
-						frame.setScreen(currentScreen);
+						returnCode = frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
 						gameState = ((GameScreen) currentScreen).getGameState();
@@ -239,6 +239,12 @@ public final class Core {
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
+
+					if (returnCode == 1) { //Quit during the game
+						currentScreen = new TitleScreen(width, height, FPS);
+						frame.setScreen(currentScreen);
+						break;
+					}
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
