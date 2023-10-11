@@ -323,6 +323,8 @@ public final class DrawManager {
 		}
 	}
 
+
+
 	/**
 	 * Draws current score on screen.
 	 *
@@ -337,6 +339,13 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
+
+	public void drawLevel(final Screen screen, final int level){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
+	}
+
 
 	/**
 	 * Draws number of remaining lives on screen.
