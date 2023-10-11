@@ -638,12 +638,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		int increasingShooters = 0;
 		/** Prevent increments at Easy Level*/
 		if (!(this.difficulty == 0)) {
-			if (1 <= this.level && this.level < 3) {
+			if (1 <= this.level && this.level < 4) {
 				increasingShooters = 0;
-			} else if (this.level < 6) {
+			}
+			else {
 				increasingShooters = 1;
-			} else {
-				increasingShooters = 2;
 			}
 		}
 		return increasingShooters;

@@ -410,7 +410,7 @@ public final class DrawManager {
 	 * Creates blinking colors like an arcade screen.
 	 * [Clean Code Team] This method was created by highlees.
 	 *
-	 * @param screen
+	 *
 	 */
 
 	private Color blinkingColor(String color) {
@@ -588,13 +588,9 @@ public final class DrawManager {
 
 	/**
 	 * @param screen
-<<<<<<< HEAD
-	 * @param option selected Difficulty
-=======
 	 *               Screen to draw on.
 	 * @param option
 	 *               Option selected.
->>>>>>> upstream/main
 	 */
 	public void drawSelect(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
@@ -1014,7 +1010,7 @@ public final class DrawManager {
 	 *
 	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
-	 * @param screen
+	 *
 	 */
 	public void drawLoadingString(int x, int y, String string) {
 		backBufferGraphics.setColor(Color.white);
