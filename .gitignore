@@ -167,7 +167,7 @@ pip-log.txt
 #############
 
 log*
-#*.ttf
+*.ttf
 .checkstyle
 # intelliJ Files
 *.iml
