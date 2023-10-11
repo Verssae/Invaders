@@ -500,7 +500,7 @@ public final class DrawManager {
 
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
-		if (option == 6)
+		if (option == 10)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
