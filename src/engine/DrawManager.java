@@ -492,6 +492,34 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
+	public void drawRandomBox(final Screen screen, final int option) {
+		String introduceString = "SELECT ONE OF THE THREE BOXES FOR A RANDOM REWARD.";
+		String oneString = "1";
+		String twoString = "2";
+		String threeString = "3";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
+		if (option == 10)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, oneString,
+				screen.getHeight() / 3 * 2);
+		if (option == 7)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, twoString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, threeString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
@@ -863,17 +891,26 @@ public final class DrawManager {
 		}
 	}
 
-	public void drawItemStore(final Screen screen) {
+	public void drawItemStore(final Screen screen, final int option) {
+		String itemStoretxt = " I T E M S T O R E";
+
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, itemStoretxt,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
 	}
 
 	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
 			int numEnhanceDamage) {
+		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
 		String playString = "C O N T I N U E";
 		String enhanceAreaString = "Enhancement Area Lv\n" + Integer.toString(numEnhanceArea) + " > "
@@ -902,6 +939,13 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, enhanceDamageString,
 				screen.getHeight() / 3 + 50);
+
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, subMenuString,
+				screen.getHeight() / 3 * 2 );
 		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
