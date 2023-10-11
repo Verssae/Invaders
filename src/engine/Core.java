@@ -155,7 +155,7 @@ public final class Core {
 					LOGGER.info("Closing title screen.");
 					break;
 				case 2:
-					currentScreen = new SelectScreen(width, height, FPS, 0);
+					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
 					LOGGER.info("Select Difficulty");
 					difficulty = frame.setScreen(currentScreen);
 					if (difficulty == 4) {
@@ -184,6 +184,18 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_7);
 						gameSettings.add(SETTINGS_LEVEL_8);
 					}
+
+					LOGGER.info("select Level"); // Stage(Level) Selection
+					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+					int stage = frame.setScreen(currentScreen);
+					if (stage == 0) {
+						returnCode = 2;
+						LOGGER.info("Go Difficulty Select");
+						break;
+					}
+					LOGGER.info("Closing Level screen.");
+					gameState.setLevel(stage);
+
 					// Game & score.
 					do {
 						// One extra live every few levels.
@@ -196,7 +208,7 @@ public final class Core {
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
-						frame.setScreen(currentScreen);
+						returnCode = frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
 						gameState = ((GameScreen) currentScreen).getGameState();
@@ -211,6 +223,12 @@ public final class Core {
 
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
+
+					if (returnCode == 1) { //Quit during the game
+						currentScreen = new TitleScreen(width, height, FPS);
+						frame.setScreen(currentScreen);
+						break;
+					}
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
@@ -265,7 +283,7 @@ public final class Core {
 								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
 								&& gameState.getLivesRemaining() < MAX_LIVES;
 
-						currentScreen = new GameScreen(gameState,
+						currentScreen = new GameScreen_2P(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
 								bonusLife, width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -273,7 +291,7 @@ public final class Core {
 						frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
-						gameState = ((GameScreen) currentScreen).getGameState();
+						gameState = ((GameScreen_2P) currentScreen).getGameState();
 
 						gameState = new GameState(gameState.getLevel() + 1,
 								gameState.getScore(),

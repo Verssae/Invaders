@@ -35,7 +35,7 @@ public class GameState {
 	 * @param shipsDestroyed
 	 *            Ships destroyed until now.
 	 * @param hardcore
-	 *            Ships destroyed until now.
+	 *            Hardcore mode, Only one coin.
 	 */
 	public GameState(final int level, final int score,
 			final int livesRemaining, final int bulletsShot,
@@ -96,5 +96,12 @@ public class GameState {
 	public final void setHardCore() {
 		this.livesRemaining = 1;
 		this.hardcore = true;
+	}
+
+	/**
+	 * Set Level
+	 */
+	public final void setLevel(int i) {
+		this.level = i;
 	}
 }

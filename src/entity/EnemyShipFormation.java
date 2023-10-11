@@ -1,5 +1,11 @@
 package entity;
 
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+import java.util.logging.Logger;
+
+import screen.Screen;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
@@ -65,6 +71,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Cooldown shootingCooldown;
 	/** Number of ships in the formation - horizontally. */
 	private int nShipsWide;
+	/** Color for enemy ships */
+	private Color enemyColor;
 	/** Number of ships in the formation - vertically. */
 	private int nShipsHigh;
 	/** Time between shots. */
@@ -103,8 +111,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private double difficulty;
 	/** Current difficulty level number. */
 	private int level;
-	/** Difficulty of game. */
-
+	/** Check if it is a boss */
 	/** checking how many formation extended */
 	private int extend_check;
 	/** how many moved enemy ship */
@@ -145,6 +152,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.movementSpeed = this.baseSpeed;
 			this.positionX = INIT_POS_X;
 			this.positionY = INIT_POS_Y;
+			this.difficulty = gameSettings.getDifficulty();
+			this.level = level;
 			this.extend_check =1;
 			this.shooters = new ArrayList<EnemyShip>();
 			SpriteType spriteType;
@@ -158,18 +167,25 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips) {
 				for (int i = 0; i < this.nShipsHigh; i++) {
-					if (i / (float) this.nShipsHigh < PROPORTION_C)
+					if (i / (float) this.nShipsHigh < PROPORTION_C) {
 						spriteType = SpriteType.EnemyShipC1;
+						enemyColor = Color.WHITE;
+					}
 					else if (i / (float) this.nShipsHigh < PROPORTION_B
-							+ PROPORTION_C)
+							+ PROPORTION_C) {
 						spriteType = SpriteType.EnemyShipB1;
-					else
+						enemyColor = Color.CYAN;
+					}
+					else {
 						spriteType = SpriteType.EnemyShipA1;
+						enemyColor = Color.YELLOW;
+					}
+
 
 					column.add(new EnemyShip((SEPARATION_DISTANCE
 							* this.enemyShips.indexOf(column))
 							+ positionX, (SEPARATION_DISTANCE * i)
-							+ positionY, spriteType));
+							+ positionY, spriteType, enemyColor));
 					this.shipCount++;
 				}
 			}
@@ -619,15 +635,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * add additional shooters as player Level Up
 	 */
 	public final int addShooters(){
-		int increasingShooters;
-		if (1 <= this.level && this.level < 3){
-			increasingShooters = 0;
-		}
-		else if (this.level < 6){
-			increasingShooters = 1;
-		}
-		else{
-			increasingShooters = 2;
+		int increasingShooters = 0;
+		/** Prevent increments at Easy Level*/
+		if (!(this.difficulty == 0)) {
+			if (1 <= this.level && this.level < 3) {
+				increasingShooters = 0;
+			} else if (this.level < 6) {
+				increasingShooters = 1;
+			} else {
+				increasingShooters = 2;
+			}
 		}
 		return increasingShooters;
 	}

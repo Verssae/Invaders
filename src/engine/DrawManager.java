@@ -1,11 +1,8 @@
 package engine;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
@@ -17,8 +14,6 @@ import screen.Screen;
 import entity.Entity;
 import entity.Ship;
 
-
-import javax.imageio.ImageIO;
 /**
  * Manages screen drawing.
  *
@@ -54,8 +49,6 @@ public final class DrawManager {
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	public int timercount = 0;
-
-	BufferedImage img1,img2,img3,img4;
 
 	boolean isFirst = true;
 
@@ -211,6 +204,31 @@ public final class DrawManager {
 					backBufferGraphics.drawRect(positionX + i * 2, positionY
 							+ j * 2, 1, 1);
 	}
+
+	/**
+	 * Entity can be drawn more precise size.
+	 *
+	 * [Clean Code Team] This method was created by dodo_kdy.
+	 *
+	 *
+	 * @param SpriteType
+	 * @param positionX
+	 * @param positionY
+	 * @param width
+	 * @param height
+	 */
+	public void drawEntity(final SpriteType SpriteType, final int positionX,
+						   final int positionY ,final double width, final double height) {
+		boolean[][] image = spriteMap.get(SpriteType);
+		Graphics2D g2 = (Graphics2D)backBufferGraphics;
+		g2.setColor(Color.white);
+
+		for (int i = 0; i < image.length; i++)
+			for (int j = 0; j < image[i].length; j++)
+				if (image[i][j])
+					g2.fill(new Rectangle2D.Double(positionX + i * width,positionY+ j * height,width,height));
+	}
+
 
 	/**
 	 * For debugging purpouses, draws the canvas borders.
@@ -435,12 +453,8 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Draws Select menu.
-	 *
 	 * @param screen
-	 *            Screen to draw on.
-	 * @param option
-	 *            Option selected.
+	 * @param option selected Difficulty
 	 */
 	public void drawSelect(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
@@ -483,6 +497,35 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
 				+ fontRegularMetrics.getHeight() * 8);
+	}
+
+	/**
+	 * Draws Select menu.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param option
+	 *            Stage(level) selected.
+	 * If the number of Levels is changed, this page is also automatically changed the same as it.
+	 */
+	public void drawStageSelect(final Screen screen, final int option, final int stages) {
+		String SelectString = "Select Level with WASD, confirm with Space,";
+		String SelectString_2 = "cancel with ESC.";
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString,screen.getHeight() / 8);
+		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
+		String[] Stage = new String[stages];
+		backBufferGraphics.setFont(fontBig);
+		for (int i = 0; i < stages; i++) {
+			Stage[i] = String.valueOf(i+1);
+			if (option == i)
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
+			else
+				backBufferGraphics.setColor(blinkingColor("WHITE"));
+			backBufferGraphics.drawString(Stage[i], screen.getWidth() / 2
+					- (screen.getWidth()/10) * (2-(i%5)),
+					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*((i/5)-1)));
+		}
 	}
 
 	/**
@@ -611,6 +654,20 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
 				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10);
+	}
+
+	/**
+	 * Draws Pause notification during game
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
+	public void drawPaused(final Screen screen) {
+		String Paused = "Press ENTER to continue.";
+		String Quit = "Press BackSpace to quit.";
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, Paused, screen.getHeight() * 3 / 4);
+		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
 	}
 
 	/**
@@ -766,6 +823,7 @@ public final class DrawManager {
 	 *  Creates a loading progress bar/
 	 *
 	 *  [Clean Code Team] This method was created by dodo_kdy.
+	 *
 	 * @param startX
 	 * @param startY
 	 * @param endX
@@ -842,23 +900,16 @@ public final class DrawManager {
 	 * @param y
 	 */
 	public int animateLoading(int x, int y){
-		try {
-			img1 = ImageIO.read( new File("res/invader_2.png"));
-			img2 = ImageIO.read( new File("res/invader_1.png"));
-			img3 = ImageIO.read( new File("res/invader_3.png"));
-			img4 = ImageIO.read( new File("res/invader_4.png"));
-		}
-		catch ( IOException exc ) { return 0; }
+		int y1 = y+7, x1 = x;
+		if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y1 -=5;
+		else if (70<timercount && timercount <90) x1+=5;
 
-		int y1 = y+10, y2 = y+15, x1 = x;
-		if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y2 -=5;
-		else if (70<timercount && timercount <90) y1-=5;
-		else x1-=5;
+		this.drawEntity(SpriteType.values()[5],x1+15,y1+10,2.3,2.3);
+		this.drawEntity(SpriteType.values()[6],x1+60,y1+10,2.4,2.4);
+		this.drawEntity(SpriteType.values()[8],x1+100,y1+10,3,2.4);
+		this.drawEntity(SpriteType.values()[10],x1+145,y1+13,2,2);
 
-		backBufferGraphics.drawImage( img1, x1+15, y1,34,34, null );
-		backBufferGraphics.drawImage( img2, x1+60, y2-2,30,24, null );
-		backBufferGraphics.drawImage( img3, x1+100, y1 - 10 , 38,55, null );
-		backBufferGraphics.drawImage( img4, x1+145, y2,32,27, null );
 		return 1;
 	}
+
 }
