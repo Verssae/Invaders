@@ -57,7 +57,7 @@ public class StoreScreen extends Screen {
         drawManager.initDrawing(this);
 
         drawManager.drawTitle(this);
-        drawManager.drawItemStore(this);
+        drawManager.drawItemStore(this, this.returnCode);
 
         drawManager.completeDrawing(this);
     }
