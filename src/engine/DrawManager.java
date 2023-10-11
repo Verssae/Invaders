@@ -114,8 +114,12 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
 
+
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
+
+			//temporary graphic. Will be changed
+			spriteMap.put(SpriteType.Boss,spriteMap.get(SpriteType.EnemyShipA1));
 
 			// Font loading.
 			fontRegular = fileManager.loadFont(14f);
@@ -406,7 +410,7 @@ public final class DrawManager {
 	 * Creates blinking colors like an arcade screen.
 	 * [Clean Code Team] This method was created by highlees.
 	 *
-	 * @param screen
+	 *
 	 */
 
 	private Color blinkingColor(String color) {
@@ -583,8 +587,6 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Draws Select menu.
-	 *
 	 * @param screen
 	 *               Screen to draw on.
 	 * @param option
@@ -631,6 +633,35 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, MainString, screen.getHeight() / 6 * 2
 				+ fontRegularMetrics.getHeight() * 8);
+	}
+
+	/**
+	 * Draws Select menu.
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 * @param option
+	 *            Stage(level) selected.
+	 * If the number of Levels is changed, this page is also automatically changed the same as it.
+	 */
+	public void drawStageSelect(final Screen screen, final int option, final int stages) {
+		String SelectString = "Select Level with WASD, confirm with Space,";
+		String SelectString_2 = "cancel with ESC.";
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString,screen.getHeight() / 8);
+		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
+		String[] Stage = new String[stages];
+		backBufferGraphics.setFont(fontBig);
+		for (int i = 0; i < stages; i++) {
+			Stage[i] = String.valueOf(i+1);
+			if (option == i)
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
+			else
+				backBufferGraphics.setColor(blinkingColor("WHITE"));
+			backBufferGraphics.drawString(Stage[i], screen.getWidth() / 2
+					- (screen.getWidth()/10) * (2-(i%5)),
+					screen.getHeight() / 5 * 2 + fontRegularMetrics.getHeight() * (2*((i/5)-1)));
+		}
 	}
 
 	/**
@@ -762,6 +793,20 @@ public final class DrawManager {
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
 				screen.getHeight() / 2 + fontRegularMetrics.getHeight() * 10);
+	}
+
+	/**
+	 * Draws Pause notification during game
+	 *
+	 * @param screen
+	 *            Screen to draw on.
+	 */
+	public void drawPaused(final Screen screen) {
+		String Paused = "Press ENTER to continue.";
+		String Quit = "Press BackSpace to quit.";
+		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredBigString(screen, Paused, screen.getHeight() * 3 / 4);
+		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
 	}
 
 	/**
@@ -978,7 +1023,7 @@ public final class DrawManager {
 	 *
 	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
-	 * @param screen
+	 *
 	 */
 	public void drawLoadingString(int x, int y, String string) {
 		backBufferGraphics.setColor(Color.white);
