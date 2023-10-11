@@ -21,7 +21,7 @@ public class Item extends Entity {
      *            Initial position of the Item in the Y axis.
      */
     public Item(final int positionX, final int positionY){
-        super(positionX, positionY, 9 * 2, 11 * 2, Color.BLUE);
+        super(positionX, positionY, 3 * 2, 3 * 2, Color.BLUE);
         setSprite();
     }
 
@@ -37,14 +37,5 @@ public class Item extends Entity {
      */
     public final void update() {
         this.positionY += this.speed;
-    }
-
-    private boolean eatItem = false;
-
-    /**
-     * check Eat Item
-     */
-    public void checkEatItem() {
-        eatItem = true;
     }
 }

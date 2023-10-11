@@ -324,6 +324,7 @@ public class GameScreen extends Screen {
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip);
 							this.items.add(ItemPool.getItem(enemyShip.getPositionX(), enemyShip.getPositionY()));
+							this.logger.info("Item drop");
 						}
 						recyclableBullet.add(bullet);
 					}
@@ -340,22 +341,17 @@ public class GameScreen extends Screen {
 					recyclableBullet.add(bullet);
 				}
 			}
-
-		/** make item colloision*/
 		for (Item item : this.items){
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
-				this.items.remove(item);
-				item.checkEatItem();
-
-//add motion after eatitem
+				this.logger.info("Get Item ");
 				this.score += 10;
-//ex add score after eatitem
 			}
 		}
 
-
+		this.items.removeAll(recyclableItem);
 		this.bullets.removeAll(recyclableBullet);
+		ItemPool.recycle(recyclableItem);
 		BulletPool.recycle(recyclableBullet);
 	}
 
