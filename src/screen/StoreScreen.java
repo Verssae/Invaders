@@ -11,6 +11,7 @@ public class StoreScreen extends Screen {
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
 
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -23,7 +24,7 @@ public class StoreScreen extends Screen {
      */
     public StoreScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
-
+        this.returnCode = 6;
         // Defaults to play.
         this.returnCode = 6;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
@@ -57,7 +58,7 @@ public class StoreScreen extends Screen {
         drawManager.initDrawing(this);
 
         drawManager.drawTitle(this);
-        drawManager.drawItemStore(this);
+        drawManager.drawItemStore(this, this.returnCode);
 
         drawManager.completeDrawing(this);
     }
