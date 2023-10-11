@@ -9,7 +9,10 @@ import entity.Ship;
 import java.util.Set;
 
 public class ShipEffect extends Effect{
+<<<<<<< HEAD
 
+=======
+>>>>>>> 35ccee0 (Refactoring item move(update) and restruct update logic)
     /**
      * About the ships to run the effects
      */
