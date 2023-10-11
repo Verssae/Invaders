@@ -300,11 +300,7 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 	/**
-<<<<<<< HEAD
 	 * update and Cleans items that end the Living-Time
-=======
-	 * update and Cleans items that go off screen.
->>>>>>> 341446f (developing how to move Items in Screen and adding Item Floating Time)
 	 */
 	private void cleanItems() {
 		Set<Item> recyclable = new HashSet<Item>();
