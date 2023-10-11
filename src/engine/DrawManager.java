@@ -588,7 +588,6 @@ public final class DrawManager {
 
 	/**
 	 * @param screen
-
 	 *               Screen to draw on.
 	 * @param option
 	 *               Option selected.
