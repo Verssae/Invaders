@@ -342,6 +342,28 @@ public final class DrawManager {
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
 
+	public void drawLivesbar(final Screen screen, final int lives) {
+		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
+		double fillRatio = (double) lives / 3.0;
+
+		// Determine the width of the filled portion of the rectangle.
+		int filledWidth = (int) (120 * fillRatio);
+
+		// Create a gradient paint that transitions from green to yellow.
+		GradientPaint gradient = new GradientPaint(8, 8, Color.GREEN, 8 + filledWidth, 8, Color.YELLOW);
+
+		// Cast Graphics to Graphics2D for gradient painting.
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+
+		// Draw the outline of the rectangle.
+		g2d.setColor(Color.WHITE);
+		g2d.drawRect(8, 8, 120, 20);
+
+		// Set the paint to the gradient and fill the left portion of the rectangle.
+		g2d.setPaint(gradient);
+		g2d.fillRect(8, 8, filledWidth, 20);
+	}
+
 	/**
 	 * Draws a thick line from side to side of the screen.
 	 *
