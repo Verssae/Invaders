@@ -84,7 +84,9 @@ public final class DrawManager {
 		/** Boss ship */
 		Boss,
 		/** Destroyed enemy ship. */
-		Explosion
+		Explosion,
+
+		BulletLine;
 	};
 
 	/**
@@ -110,6 +112,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
+			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
@@ -350,6 +353,38 @@ public final class DrawManager {
 		Ship dummyShip = new Ship(0, 0);
 		for (int i = 0; i < lives; i++)
 			drawEntity(dummyShip, 40 + 35 * i, 10);
+	}
+
+	public void drawLivesbar(final Screen screen, final int lives) {
+		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
+		double fillRatio = (double) lives / 3.0;
+
+		// Determine the width of the filled portion of the rectangle.
+		int filledWidth = (int) (120 * fillRatio);
+
+		// Create a gradient paint that transitions from green to yellow.
+		GradientPaint gradient = new GradientPaint(8, 8, Color.GREEN, 8 + filledWidth, 8, Color.YELLOW);
+
+		// Cast Graphics to Graphics2D for gradient painting.
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+
+		// Draw the outline of the rectangle.
+		g2d.setColor(Color.WHITE);
+		g2d.drawRect(8, 8, 120, 20);
+
+		// Set the paint to the gradient and fill the left portion of the rectangle.
+		g2d.setPaint(gradient);
+		g2d.fillRect(8, 8, filledWidth, 20);
+
+		// Set color for the "lives" text.
+		g2d.setColor(Color.WHITE);
+
+		// Calculate the position to center the "lives" text.
+		int textX = (120 - fontRegularMetrics.stringWidth("Lives")) / 2;
+		int textY = 8 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
+
+		// Draw the "lives" text in the center of the rectangle.
+		g2d.drawString("lives", textX, textY);
 	}
 
 	/**
