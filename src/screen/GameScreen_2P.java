@@ -52,6 +52,7 @@ public class GameScreen_2P extends Screen {
     private Cooldown screenFinishedCooldown;
     /** Set of all bullets fired by on screen ships. */
     private Set<Bullet> bullets;
+    /** Sound Effects for player's ship and enemy. */
     private SoundEffect soundEffect;
     /** Current score. */
     private int score;
@@ -358,6 +359,7 @@ public class GameScreen_2P extends Screen {
                 for (EnemyShip enemyShip : this.enemyShipFormation)
                     if (!enemyShip.isDestroyed()
                             && checkCollision(bullet, enemyShip)) {
+                        soundEffect.playEnemyDestructionSound();
                         this.score += enemyShip.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipFormation.destroy(enemyShip);
