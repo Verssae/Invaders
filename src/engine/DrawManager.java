@@ -910,6 +910,7 @@ public final class DrawManager {
 
 	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
 			int numEnhanceDamage) {
+		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
 		String playString = "C O N T I N U E";
 		String enhanceAreaString = "Enhancement Area Lv\n" + Integer.toString(numEnhanceArea) + " > "
@@ -938,6 +939,13 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, enhanceDamageString,
 				screen.getHeight() / 3 + 50);
+
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, subMenuString,
+				screen.getHeight() / 3 * 2 );
 		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
