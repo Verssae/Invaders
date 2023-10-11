@@ -997,29 +997,30 @@ public final class DrawManager {
 	public void drawItemStore(final Screen screen, final int option) {
 		String itemStoretxt = " I T E M S T O R E";
 		String buyString = " B U Y";
+		String addcoinString = " P L U S C O I N";
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
-		if (option == 1)
+		if (option == 13)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, itemStoretxt,
 				screen.getHeight() / 3);
-		if (option == 2)
+		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, itemStoretxt,
+		drawCenteredRegularString(screen, buyString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 3)
+		if (option == 15)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, itemStoretxt,
+		drawCenteredRegularString(screen, addcoinString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
 
