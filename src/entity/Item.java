@@ -2,34 +2,18 @@ package entity;
 
 import engine.Cooldown;
 import engine.Core;
-<<<<<<< HEAD
 import java.awt.Color;
-=======
-import engine.DrawManager;
-
-import java.awt.Color;
-import java.util.Random;
-import java.util.random.RandomGenerator;
-
->>>>>>> 341446f (developing how to move Items in Screen and adding Item Floating Time)
 import engine.DrawManager.SpriteType;
 
 public class Item extends Entity {
 
     /** Movement of the Item for each unit of time. */
-<<<<<<< HEAD
     private final int speed = 3;
     /** Living-Time of Item */
     private final Cooldown livingTime = Core.getCooldown(20000);
     /** Movement direction X of item for each unit of time. */
     public int item_dx;
     /** Movement direction Y of item for each unit of time. */
-=======
-    private final int speed = 12;
-    private Cooldown floatingCool;
-    public Cooldown updateCool;
-    public int item_dx;
->>>>>>> 341446f (developing how to move Items in Screen and adding Item Floating Time)
     public int item_dy;
 
     /**
