@@ -38,7 +38,7 @@ public final class Core {
 	/**
 	 * Total number of levels.
 	 */
-	private static final int NUM_LEVELS = 8;
+	private static final int NUM_LEVELS = 7;
 	/**
 	 * difficulty of the game
 	 */
@@ -175,7 +175,6 @@ public final class Core {
 						SETTINGS_LEVEL_5.setDifficulty(difficulty);
 						SETTINGS_LEVEL_6.setDifficulty(difficulty);
 						SETTINGS_LEVEL_7.setDifficulty(difficulty);
-						SETTINGS_LEVEL_8.setDifficulty(difficulty);
 						gameSettings.add(SETTINGS_LEVEL_1);
 						gameSettings.add(SETTINGS_LEVEL_2);
 						gameSettings.add(SETTINGS_LEVEL_3);
@@ -183,7 +182,6 @@ public final class Core {
 						gameSettings.add(SETTINGS_LEVEL_5);
 						gameSettings.add(SETTINGS_LEVEL_6);
 						gameSettings.add(SETTINGS_LEVEL_7);
-						gameSettings.add(SETTINGS_LEVEL_8);
 					}
 
 					LOGGER.info("select Level"); // Stage(Level) Selection
