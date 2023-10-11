@@ -375,6 +375,16 @@ public final class DrawManager {
 		// Set the paint to the gradient and fill the left portion of the rectangle.
 		g2d.setPaint(gradient);
 		g2d.fillRect(8, 8, filledWidth, 20);
+
+		// Set color for the "lives" text.
+		g2d.setColor(Color.WHITE);
+
+		// Calculate the position to center the "lives" text.
+		int textX = (120 - fontRegularMetrics.stringWidth("Lives")) / 2;
+		int textY = 8 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
+
+		// Draw the "lives" text in the center of the rectangle.
+		g2d.drawString("lives", textX, textY);
 	}
 
 	/**
