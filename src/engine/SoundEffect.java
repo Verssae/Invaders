@@ -7,17 +7,19 @@ import javax.sound.sampled.AudioInputStream;
 
 public class SoundEffect implements SoundEffect_if {
 
-    File missileshootingsound = new File("sound/soundEffect/Bullet.wav");
-    File shipdestroyedsound = new File("sound/soundEffect/Shipdestroyed.wav");
-    File shipdeattackedsound = new File("sound/soundEffect/Shipattacked.wav");
-    File enemydestroyedsound = new File("sound/soundEffect/Enemydestroyed.wav");
-    File enemybulletsound = new File("sound/soundEffect/Enemybullet.wav");
+    File shipshootingsound = new File("sound/soundEffect/Shipshooting.wav");
+    File shipdestructionsound = new File("sound/soundEffect/Shipdestruction.wav");
+    File shipcollisionsound = new File("sound/soundEffect/Shipcollision.wav");
+    File enemydestructionsound = new File("sound/soundEffect/Enemydestruction.wav");
+    File enemyshootingsound = new File("sound/soundEffect/Enemyshooting.wav");
 
-
-    public void playMissileShootingSound() {
+    /**
+     * Play ship's shooting sound
+     */
+    public void playShipShootingSound() {
         try{
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(missileshootingsound));
+            clip.open(AudioSystem.getAudioInputStream(shipshootingsound));
             clip.start();
 
             Thread.sleep(1);
@@ -25,10 +27,13 @@ public class SoundEffect implements SoundEffect_if {
         catch(Exception e) { System.err.println("SOUND ERROR: Missile shooting sound does not played."); }
     }
 
+    /**
+     * Play ship's destruction sound
+     */
     public void playShipDestroyedSound() {
         try{
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(shipdestroyedsound));
+            clip.open(AudioSystem.getAudioInputStream(shipdestructionsound));
             clip.start();
 
             Thread.sleep(1);
@@ -36,21 +41,26 @@ public class SoundEffect implements SoundEffect_if {
         catch(Exception e) { System.err.println("SOUND ERROR: Ship's destroyed sound does not played."); }
     }
 
-    public void playShipAttackedSound() {
+    /**
+     * Play ship's collision sound
+     */
+    public void playShipCollisionSound() {
         try{
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(shipdeattackedsound));
+            clip.open(AudioSystem.getAudioInputStream(shipcollisionsound));
             clip.start();
 
             Thread.sleep(1);
         }
         catch(Exception e) { System.err.println("SOUND ERROR: Ship's attacked sound does not played."); }
     }
-
-    public void playEnemyDestroyedSound() {
+    /**
+     * Play enemy's destruction sound
+     */
+    public void playEnemyDestructionSound() {
         try{
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(enemydestroyedsound));
+            clip.open(AudioSystem.getAudioInputStream(enemydestructionsound));
             clip.start();
 
             Thread.sleep(1);
@@ -58,10 +68,13 @@ public class SoundEffect implements SoundEffect_if {
         catch(Exception e) { System.err.println("SOUND ERROR: Enemy's destroyed sound does not played."); }
     }
 
-    public void playEnemyBulletSound() {
+    /**
+     * Play enemy's shooting sound
+     */
+    public void playEnemyShootingSound() {
         try{
             Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(enemybulletsound));
+            clip.open(AudioSystem.getAudioInputStream(enemyshootingsound));
             clip.start();
 
             Thread.sleep(1);
