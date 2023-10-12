@@ -519,6 +519,7 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
+		String storeString1 = "S T O R E"; 
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -544,6 +545,12 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 6);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, storeString1, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 8);
 	}
 
 	public void drawRandomBox(final Screen screen, final int option) {
@@ -989,6 +996,7 @@ public final class DrawManager {
 
 	public void drawItemStore(final Screen screen, final int option) {
 		String itemStoretxt = " I T E M S T O R E";
+		String txt = " TESTTXT";
 		String buyString = " B U Y";
 		String addcoinString = " P L U S C O I N";
 		int rectWidth = screen.getWidth();
@@ -997,12 +1005,13 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredRegularString(screen, itemStoretxt,	screen.getHeight()/4 - 80);
 		if (option == 13)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, itemStoretxt,
-				screen.getHeight() / 3);
+		drawCenteredRegularString(screen, txt,
+				screen.getHeight() / 3 * 2);
 		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
