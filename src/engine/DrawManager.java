@@ -1,9 +1,16 @@
 package engine;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
@@ -11,11 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import screen.Screen;
 import entity.Entity;
 import entity.Ship;
-
-import javax.imageio.ImageIO;
+import screen.Screen;
 
 /**
  * Manages screen drawing.
@@ -835,6 +840,33 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+	}
+	
+	/**
+	 * Draws  skin store.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+
+	public void drawSkinStore(final Screen screen, final int option) {
+		String skinStoreString = "Welcome to Skin Store!";
+		
+		int rectWidth = screen.getWidth();
+		int rectHeight = screen.getHeight() / 6;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
+				rectWidth, rectHeight);
+		backBufferGraphics.setColor(Color.GREEN);
+
+		if (option == 11)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, skinStoreString,
+				screen.getHeight() / 3);
 	}
 
 	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
