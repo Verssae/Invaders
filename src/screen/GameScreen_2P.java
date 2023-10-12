@@ -5,10 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.*;
 
 /**
@@ -55,6 +52,8 @@ public class GameScreen_2P extends Screen {
     private Cooldown screenFinishedCooldown;
     /** Set of all bullets fired by on screen ships. */
     private Set<Bullet> bullets;
+    /** Sound Effects for player's ship and enemy. */
+    private SoundEffect soundEffect;
     /** Current score. */
     private int score;
     /** Player lives left. */
@@ -134,6 +133,8 @@ public class GameScreen_2P extends Screen {
         this.gameStartTime = System.currentTimeMillis();
         this.inputDelay = Core.getCooldown(INPUT_DELAY);
         this.inputDelay.reset();
+
+        soundEffect = new SoundEffect();
     }
 
     /**
@@ -184,8 +185,10 @@ public class GameScreen_2P extends Screen {
                         this.ship_1P.moveLeft();
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SHIFT))
-                        if (this.ship_1P.shoot(this.bullets))
+                        if (this.ship_1P.shoot(this.bullets)) {
+                            soundEffect.playShipShootingSound();
                             this.bulletsShot++;
+                        }
                 }
                 if (!this.ship_2P.isDestroyed()) {
                     boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT);
@@ -203,8 +206,10 @@ public class GameScreen_2P extends Screen {
                         this.ship_2P.moveLeft();
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-                        if (this.ship_2P.shoot(this.bullets))
+                        if (this.ship_2P.shoot(this.bullets)) {
+                            soundEffect.playShipShootingSound();
                             this.bulletsShot++;
+                        }
                 }
 
                 if (this.enemyShipSpecial != null) {
@@ -237,12 +242,15 @@ public class GameScreen_2P extends Screen {
             cleanBullets();
             draw();
         }
-        if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
-                && !this.levelFinished) {
+        if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
-
+        if (this.lives == 0 && !this.levelFinished) {
+            this.levelFinished = true;
+            soundEffect.playShipDestructionSound();
+            this.screenFinishedCooldown.reset();
+        }
         if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
             this.isRunning = false;
 
@@ -331,6 +339,7 @@ public class GameScreen_2P extends Screen {
                     recyclable.add(bullet);
                     if (!this.ship_1P.isDestroyed()) {
                         this.ship_1P.destroy();
+                        if (this.lives != 1) soundEffect.playShipCollisionSound();
                         this.lives--;
                         this.logger.info("Hit on player ship, " + this.lives
                                 + " lives remaining.");
@@ -340,6 +349,7 @@ public class GameScreen_2P extends Screen {
                     recyclable.add(bullet);
                     if (!this.ship_2P.isDestroyed()) {
                         this.ship_2P.destroy();
+                        if (this.lives != 1) soundEffect.playShipCollisionSound();
                         this.lives--;
                         this.logger.info("Hit on player ship, " + this.lives
                                 + " lives remaining.");
@@ -349,6 +359,7 @@ public class GameScreen_2P extends Screen {
                 for (EnemyShip enemyShip : this.enemyShipFormation)
                     if (!enemyShip.isDestroyed()
                             && checkCollision(bullet, enemyShip)) {
+                        soundEffect.playEnemyDestructionSound();
                         this.score += enemyShip.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipFormation.destroy(enemyShip);
