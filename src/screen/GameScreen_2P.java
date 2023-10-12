@@ -57,7 +57,7 @@ public class GameScreen_2P extends Screen {
     /** Current score. */
     private int score;
     /** Player lives left. */
-    private int lives;
+    private double lives;
     /** Total bullets shot by the player. */
     private int bulletsShot;
     /** Total ships destroyed by the player. */
@@ -290,6 +290,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawLivesbar(this, this.lives);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
+        drawManager.drawLevel(this, this.level);
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {
@@ -371,6 +372,7 @@ public class GameScreen_2P extends Screen {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
                     this.enemyShipSpecial.destroy();
+                    this.lives = this.lives + 0.1;
                     this.enemyShipSpecialExplosionCooldown.reset();
                     recyclable.add(bullet);
                 }

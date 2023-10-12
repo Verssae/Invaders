@@ -327,6 +327,8 @@ public final class DrawManager {
 		}
 	}
 
+
+
 	/**
 	 * Draws current score on screen.
 	 *
@@ -341,6 +343,13 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
+
+	public void drawLevel(final Screen screen, final int level){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
+	}
+
 
 	/**
 	 * Draws number of remaining lives on screen.
@@ -359,9 +368,9 @@ public final class DrawManager {
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
 
-	public void drawLivesbar(final Screen screen, final int lives) {
+	public void drawLivesbar(final Screen screen, final double lives) {
 		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
-		double fillRatio = (double) lives / 3.0;
+		double fillRatio = lives / 3.0;
 
 		// Determine the width of the filled portion of the rectangle.
 		int filledWidth = (int) (120 * fillRatio);
@@ -385,10 +394,10 @@ public final class DrawManager {
 
 		// Calculate the position to center the "lives" text.
 		int textX = (120 - fontRegularMetrics.stringWidth("Lives")) / 2;
-		int textY = 8 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
+		int textY = 6 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
 
 		// Draw the "lives" text in the center of the rectangle.
-		g2d.drawString("lives", textX, textY);
+		g2d.drawString("Lives", textX, textY);
 	}
 
 	/**
@@ -732,7 +741,7 @@ public final class DrawManager {
 	 *                       If the score is a new high score.
 	 */
 	public void drawResults(final Screen screen, final int score,
-			final int livesRemaining, final int shipsDestroyed, final int difficulty,
+			final double livesRemaining, final int shipsDestroyed, final int difficulty,
 			final float accuracy, final boolean isNewRecord) {
 		String scoreString = String.format("score %04d", score);
 		String difficultyString = "Difficulty ";
