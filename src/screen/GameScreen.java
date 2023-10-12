@@ -60,7 +60,7 @@ public class GameScreen extends Screen {
 	/** Current score. */
 	private int score;
 	/** Player lives left. */
-	private double lives;
+	private int lives;
 	/** Total bullets shot by the player. */
 	private int bulletsShot;
 	/** Total ships destroyed by the player. */
@@ -103,8 +103,6 @@ public class GameScreen extends Screen {
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
-		//if (this.bonusLife)
-		//	this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
@@ -264,8 +262,6 @@ public class GameScreen extends Screen {
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
-		drawManager.drawLevel(this, this.level);
-		drawManager.BulletsCount(this, this.BulletsCount);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
@@ -345,7 +341,6 @@ public class GameScreen extends Screen {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
 						this.enemyShipSpecial.destroy();
-						if (this.lives < 2.9) {this.lives = this.lives + 0.1;}
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclable.add(bullet);

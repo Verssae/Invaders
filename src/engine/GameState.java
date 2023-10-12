@@ -13,7 +13,7 @@ public class GameState {
 	/** Current score. */
 	private int score;
 	/** Lives currently remaining. */
-	private double livesRemaining;
+	private int livesRemaining;
 	/** Bullets shot until now. */
 	private int bulletsShot;
 	/** Ships destroyed until now. */
@@ -38,7 +38,7 @@ public class GameState {
 	 *            Hardcore mode, Only one coin.
 	 */
 	public GameState(final int level, final int score,
-			final double livesRemaining, final int bulletsShot,
+			final int livesRemaining, final int bulletsShot,
 			final int shipsDestroyed, final boolean hardcore) {
 		this.level = level;
 		this.score = score;
@@ -65,7 +65,7 @@ public class GameState {
 	/**
 	 * @return the livesRemaining
 	 */
-	public final double getLivesRemaining() {
+	public final int getLivesRemaining() {
 		return livesRemaining;
 	}
 
