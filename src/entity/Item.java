@@ -26,7 +26,7 @@ public class Item extends Entity {
      *            Initial position of the Item in the Y axis.
      */
     public Item(final int positionX, final int positionY){
-        super(positionX, positionY, 3 * 2, 3 * 2, Color.BLUE);
+        super(positionX, positionY, 9 * 2, 9 * 2, Color.GREEN);
         this.livingTime.reset();
         item_dx = Math.random() > 0.5 ? 1 : -1;
         item_dy = Math.random() > 0.5 ? 1 : -1;
