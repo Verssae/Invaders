@@ -234,8 +234,7 @@ public final class Core {
 								gameState.getHardCore());
 						
 						
-								// SubMenu : Item Store / Enhancement / Continue
-
+						// SubMenu : Item Store / Enhancement / Continue
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
 							if (!boxOpen){
