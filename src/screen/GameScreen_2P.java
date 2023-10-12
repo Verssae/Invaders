@@ -57,7 +57,7 @@ public class GameScreen_2P extends Screen {
     /** Current score. */
     private int score;
     /** Player lives left. */
-    private int lives;
+    private double lives;
     /** Total bullets shot by the player. */
     private int bulletsShot;
     /** Total ships destroyed by the player. */
@@ -96,12 +96,9 @@ public class GameScreen_2P extends Screen {
         super(width, height, fps);
 
         this.gameSettings = gameSettings;
-        //this.bonusLife = bonusLife;
         this.level = gameState.getLevel();
         this.score = gameState.getScore();
         this.lives = gameState.getLivesRemaining();
-        //if (this.bonusLife)
-            //this.lives++;
         this.bulletsShot = gameState.getBulletsShot();
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.hardcore = gameState.getHardCore();
@@ -371,6 +368,7 @@ public class GameScreen_2P extends Screen {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
                     this.enemyShipSpecial.destroy();
+                    if (this.lives < 2.9) {this.lives = this.lives + 0.1;}
                     this.enemyShipSpecialExplosionCooldown.reset();
                     recyclable.add(bullet);
                 }
