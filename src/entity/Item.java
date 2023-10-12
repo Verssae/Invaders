@@ -41,6 +41,7 @@ public class Item extends Entity {
     }
 
     /**
+     * update item in screen
      *
      * @param width
      *          width of GameScreen

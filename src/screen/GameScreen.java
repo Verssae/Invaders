@@ -396,7 +396,7 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
-				this.ship.checkGetItem();
+				this.ship.checkGetItem(item);
 			}
 		}
 		this.items.removeAll(recyclableItem);
