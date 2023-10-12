@@ -439,7 +439,7 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Creates a slowly blinking color.
+	 * Create a slowly blinking color.
 	 * Change the color of the char randomly in the string.
 	 * Can be applied to multiple screens in the game.
 	 * [Clean Code Team] This method was created by highlees.
@@ -448,7 +448,45 @@ public final class DrawManager {
 	 */
 
 	private Color slowlyBlinkingColor(String color) {
-		return Color.GREEN;
+		String sec = Integer.toString(LocalTime.now().getSecond());
+		char c = sec.charAt(sec.length() - 1);
+		if (color == "GREEN") {
+			if (c == '0') return new Color(0, 75, 0);
+			if (c == '1') return new Color(0, 100, 0);
+			if (c == '2') return new Color(0, 125, 0);
+			if (c == '3') return new Color(0, 150, 0);
+			if (c == '4') return new Color(0, 175, 0);
+			if (c == '5') return new Color(0, 205, 0);
+			if (c == '6') return new Color(0, 225, 0);
+			if (c == '7') return new Color(0, 254, 0);
+			if (c == '8') return new Color(0, 55, 0);
+			if (c == '9') return new Color(0, 65, 0);
+		}
+		if (color == "GRAY") {
+			if (c == '0') return new Color(75, 75, 75);
+			if (c == '1') return new Color(85, 85, 85);
+			if (c == '2') return new Color(105, 105, 105);
+			if (c == '3') return new Color(130, 130, 130);
+			if (c == '4') return new Color(155, 155, 155);
+			if (c == '5') return new Color(180, 180, 180);
+			if (c == '6') return new Color(205, 205, 205);
+			if (c == '7') return new Color(225, 225, 225);
+			if (c == '8') return new Color(55, 55, 55);
+			if (c == '9') return new Color(65, 65, 65);
+		}
+		if (color == "RAINBOW") {
+			if (c == '0') return new Color(254, 254, 0);
+			if (c == '1') return new Color(135, 254, 0);
+			if (c == '2') return new Color(0, 254, 0);
+			if (c == '3') return new Color(0, 254, 254);
+			if (c == '4') return new Color(0, 135, 254);
+			if (c == '5') return new Color(0, 0, 254);
+			if (c == '6') return new Color(135, 0, 205);
+			if (c == '7') return new Color(254, 0, 224);
+			if (c == '8') return new Color(254, 0, 135);
+			if (c == '9') return new Color(220, 200, 254);
+		}
+		return Color.WHITE;
 	}
 
 	/**
@@ -714,7 +752,7 @@ public final class DrawManager {
 		else if (difficulty == 3)
 			difficultyString = difficultyString + "HARDCORE";
 
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(slowlyBlinkingColor("GRAY"));
 		drawCenteredRegularString(screen, scoreString, screen.getHeight()
 				/ height);
 		drawCenteredRegularString(screen, difficultyString,
@@ -745,10 +783,10 @@ public final class DrawManager {
 		String newRecordString = "New Record!";
 		String introduceNameString = "Introduce name:";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 10);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(slowlyBlinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceNameString,
 				screen.getHeight() / 4 + fontRegularMetrics.getHeight() * 12);
 
@@ -762,9 +800,9 @@ public final class DrawManager {
 
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
-				backBufferGraphics.setColor(Color.GREEN);
+				backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
 			else
-				backBufferGraphics.setColor(Color.WHITE);
+				backBufferGraphics.setColor(slowlyBlinkingColor("GRAY"));
 
 			positionX += fontRegularMetrics.getWidths()[name[i]] / 2;
 			positionX = i == 0 ? positionX
@@ -796,12 +834,12 @@ public final class DrawManager {
 
 		int height = isNewRecord ? 4 : 2;
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
 		drawCenteredBigString(screen, gameOverString, screen.getHeight()
 				/ height - fontBigMetrics.getHeight() * 2);
 
 		if (acceptsInput)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
