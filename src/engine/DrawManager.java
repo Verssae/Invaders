@@ -446,7 +446,7 @@ public final class DrawManager {
 	 *
 	 */
 
-	private Color slowlyBlinkingColor(String color) {
+	private Color slowlyChangingColors(String color) {
 		String sec = Integer.toString(LocalTime.now().getSecond());
 		char c = sec.charAt(sec.length() - 1);
 		if (color == "GREEN") {
@@ -751,7 +751,7 @@ public final class DrawManager {
 		else if (difficulty == 3)
 			difficultyString = difficultyString + "HARDCORE";
 
-		backBufferGraphics.setColor(slowlyBlinkingColor("GRAY"));
+		backBufferGraphics.setColor(slowlyChangingColors("GRAY"));
 		drawCenteredRegularString(screen, scoreString, screen.getHeight()
 				/ height);
 		drawCenteredRegularString(screen, difficultyString,
@@ -782,10 +782,10 @@ public final class DrawManager {
 		String newRecordString = "New Record!";
 		String introduceNameString = "Introduce name:";
 
-		backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
+		backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 10);
-		backBufferGraphics.setColor(slowlyBlinkingColor("GRAY"));
+		backBufferGraphics.setColor(slowlyChangingColors("GRAY"));
 		drawCenteredRegularString(screen, introduceNameString,
 				screen.getHeight() / 4 + fontRegularMetrics.getHeight() * 12);
 
@@ -799,9 +799,9 @@ public final class DrawManager {
 
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
-				backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
+				backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 			else
-				backBufferGraphics.setColor(slowlyBlinkingColor("GRAY"));
+				backBufferGraphics.setColor(slowlyChangingColors("GRAY"));
 
 			positionX += fontRegularMetrics.getWidths()[name[i]] / 2;
 			positionX = i == 0 ? positionX
@@ -833,12 +833,12 @@ public final class DrawManager {
 
 		int height = isNewRecord ? 4 : 2;
 
-		backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
+		backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		drawCenteredBigString(screen, gameOverString, screen.getHeight()
 				/ height - fontBigMetrics.getHeight() * 2);
 
 		if (acceptsInput)
-			backBufferGraphics.setColor(slowlyBlinkingColor("GREEN"));
+			backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		else
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
