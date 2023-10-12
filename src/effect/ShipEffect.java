@@ -38,12 +38,12 @@ public class ShipEffect extends Effect{
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY(), BULLET_SPEED));
         } else {
-            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY() + 10, BULLET_SPEED));
-            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
+            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 + 10,
                     ship.getPositionY(), BULLET_SPEED));
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY() - 10, BULLET_SPEED));
+                    ship.getPositionY(), BULLET_SPEED));
+            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 - 10,
+                    ship.getPositionY(), BULLET_SPEED));
         }
     }
 }

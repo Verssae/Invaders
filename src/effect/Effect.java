@@ -28,6 +28,10 @@ public class Effect {
         effect2Cooldown = Core.getCooldown(5000);
     }
 
+    public void Effect1Reset() {
+        effect1Cooldown.reset();
+    }
+
 
 
     /**
