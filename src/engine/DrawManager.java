@@ -566,14 +566,16 @@ public final class DrawManager {
 	}
 
 	public void drawRandomBox(final Screen screen, final int option) {
-		String introduceString = "SELECT ONE OF THE THREE BOXES FOR A RANDOM REWARD.";
+		String introduceString1 = "SELECT ONE OF THE THREE BOXES";
+		String introduceString2 = "FOR A RANDOM REWARD";
 		String oneString = "1";
 		String twoString = "2";
 		String threeString = "3";
 
 		// backBufferGraphics.setColor(slowlyChangingColors("RAINBOW"));
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
-		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
+		drawCenteredRegularString(screen, introduceString1, screen.getHeight() / 8);
+		drawCenteredRegularString(screen, introduceString2, screen.getHeight() / 6);
 		if (option == 10)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -587,7 +589,7 @@ public final class DrawManager {
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
 		
 		if (option == 2)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() / 2);
