@@ -15,6 +15,8 @@ public class Item extends Entity {
     /** Movement direction Y of item for each unit of time. */
     public int item_dy;
 
+    private boolean isdetroyed;
+
     /**
      * Constructor, establishes the Item's properties.
      * and Set sprite dot image which can find what Item it ts.
@@ -30,6 +32,7 @@ public class Item extends Entity {
         item_dx = Math.random() > 0.5 ? 1 : -1;
         item_dy = Math.random() > 0.5 ? 1 : -1;
         setSprite();
+        isdetroyed = false;
     }
 
     /**
@@ -37,7 +40,7 @@ public class Item extends Entity {
      */
     public final void setSprite() {
 
-        this.spriteType = SpriteType.Item1;
+        this.spriteType = SpriteType.Buff_Item;
     }
 
     /**
@@ -73,6 +76,9 @@ public class Item extends Entity {
      * @return temp.checkFinished();
      */
     public final boolean islivingTimeEnd(){return livingTime.checkFinished();}
+    public final boolean isDestroyed(){return this.isdetroyed;}
+    public final void setDestroy(boolean t){this.isdetroyed = t;}
+
 
     /**
      * when reuse item, reset livingTime.

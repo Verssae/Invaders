@@ -26,6 +26,8 @@ public class EnemyShip extends Entity {
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
+	/** Item drop percent*/
+	private final double DROP_ITEM_PROB = 0.05;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -35,6 +37,8 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+
+
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -186,8 +190,8 @@ public class EnemyShip extends Entity {
 	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = SpriteType.Explosion;
-		if (Math.random() < 0.05 +
-				0.10 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)) {
+		if (Math.random() < DROP_ITEM_PROB
+				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
 			items.add(ItemPool.getItem(this.positionX, this.positionY));
 		}
 	}
