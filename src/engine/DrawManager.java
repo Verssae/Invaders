@@ -86,7 +86,11 @@ public final class DrawManager {
 		/** Destroyed enemy ship. */
 		Explosion,
 
-		BulletLine;
+		BulletLine,
+		/** Destroyed enemy ship2. */
+		Explosion2,
+		/** Destroyed enemy ship3. */
+		Explosion3;
 	};
 
 	/**
@@ -113,7 +117,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
-
+			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
+			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");

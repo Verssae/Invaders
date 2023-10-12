@@ -1,7 +1,8 @@
 package entity;
 
 import java.awt.Color;
-
+import java.util.Random;
+import java.util.Map;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
@@ -184,7 +185,7 @@ public class EnemyShip extends Entity {
 	 */
 	public final void destroy() {
 		this.isDestroyed = true;
-		this.spriteType = SpriteType.Explosion;
+		this.spriteType = randomDestroy();
 	}
 
 	/**
@@ -194,5 +195,14 @@ public class EnemyShip extends Entity {
 	 */
 	public final boolean isDestroyed() {
 		return this.isDestroyed;
+	}
+
+	/**
+	 * @return
+	 */
+	public final SpriteType randomDestroy(){
+		Random random = new Random();
+		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3};
+		return destroys[random.nextInt(3)];
 	}
 }
