@@ -502,9 +502,7 @@ public final class DrawManager {
 		String oneString = "1";
 		String twoString = "2";
 		String threeString = "3";
-		/*backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25); */
-			/*backBufferGraphics.drawString(string, screen.getWidth() / 2
-				- fontRegularMetrics.stringWidth(string) / 2, height);*/
+
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString1, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, introduceString2, screen.getHeight() / 6);
@@ -512,25 +510,20 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		/*drawCenteredRegularString(screen, oneString,
-				screen.getHeight() / 3 * 2);*/
 		backBufferGraphics.drawString(oneString, screen.getWidth() / 4, screen.getHeight() / 2);
+		
 		if (option == 7)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		/*drawCenteredRegularString(screen, twoString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);*/
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
+
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		/*drawCenteredRegularString(screen, threeString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);*/
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() / 2);
 	}
-
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
