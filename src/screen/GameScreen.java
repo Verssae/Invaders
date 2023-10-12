@@ -79,7 +79,7 @@ public class GameScreen extends Screen {
 	private Set<Item> items;
 
 	/** is none exist dropped item?*/
-	private boolean isitemalleat;
+	private boolean isItemAllEat;
 
 
 	/**
@@ -135,7 +135,7 @@ public class GameScreen extends Screen {
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.items = new HashSet<Item>();
-		this.isitemalleat = false;
+		this.isItemAllEat = false;
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
@@ -229,7 +229,7 @@ public class GameScreen extends Screen {
 		}
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
 				&& !this.levelFinished) {
-			endstagealleat();
+			endStageAllEat();
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 		}
@@ -239,8 +239,7 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isitemalleat){
-			this.logger.info("게임이 끝남");
+		if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isItemAllEat){
 			this.isRunning = false;
 		}
 	}
@@ -248,8 +247,8 @@ public class GameScreen extends Screen {
 	/**
 	 * when the stage end, eat all dropped item.
 	 */
-	private void endstagealleat(){
-		Cooldown a = Core.getCooldown(500);
+	private void endStageAllEat(){
+		Cooldown a = Core.getCooldown(25);
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
@@ -257,11 +256,11 @@ public class GameScreen extends Screen {
 				for (Item item : this.items) {
 					item.resetItem(this.ship);
 				}
-				draw();
 				a.reset();
 			}
+			draw();
 		}
-		isitemalleat = true;
+		isItemAllEat = true;
 	}
 
 	/**
