@@ -30,7 +30,7 @@ public class SoundEffect {
     /**
      * Play ship's destruction sound
      */
-    public void playShipDestroyedSound() {
+    public void playShipDestructionSound() {
         try{
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(shipdestructionsound));

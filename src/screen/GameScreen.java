@@ -7,10 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.*;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.*;
 
 import javax.swing.*;
@@ -56,6 +53,8 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of all bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+	/** Sound Effects for player's ship and enemy. */
+	private SoundEffect soundEffect;
 
 	private BulletLine bulletLine;
 	/** Current score. */
@@ -135,6 +134,8 @@ public class GameScreen extends Screen {
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
+
+		soundEffect = new SoundEffect();
 	}
 
 	/**
@@ -186,8 +187,10 @@ public class GameScreen extends Screen {
 						this.ship.moveLeft();
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-						if (this.ship.shoot(this.bullets))
+						if (this.ship.shoot(this.bullets)) {
+							soundEffect.playShipShootingSound();
 							this.bulletsShot++;
+						}
 				}
 
 				if (this.enemyShipSpecial != null) {
@@ -218,9 +221,13 @@ public class GameScreen extends Screen {
 			cleanBullets();
 			draw();
 		}
-		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
-				&& !this.levelFinished) {
+		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
 			this.levelFinished = true;
+			this.screenFinishedCooldown.reset();
+		}
+		if (this.lives == 0 && !this.levelFinished) {
+			this.levelFinished = true;
+			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
 		}
 
@@ -309,6 +316,7 @@ public class GameScreen extends Screen {
 					recyclable.add(bullet);
 					if (!this.ship.isDestroyed()) {
 						this.ship.destroy();
+						if (this.lives != 1) soundEffect.playShipCollisionSound();
 						this.lives--;
 						this.logger.info("Hit on player ship, " + this.lives
 								+ " lives remaining.");
@@ -319,6 +327,7 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
 						enemyShip.reduceEnemyLife();
+						soundEffect.playEnemyDestructionSound();
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
