@@ -14,6 +14,7 @@ import java.util.logging.*;
  */
 public final class Core {
 	private static final String BGM_FILE_PATH = "sound_BackGroundMusic/neon-gaming-128925.wav";
+
 	/**
 	 * Width of current screen.
 	 */
@@ -118,6 +119,7 @@ public final class Core {
 	public static void main(final String[] args) {
 		try {
 			BGM bgm = new BGM(BGM_FILE_PATH);
+
 			LOGGER.setUseParentHandlers(false);
 
 			fileHandler = new FileHandler("log");
