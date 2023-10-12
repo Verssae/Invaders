@@ -77,6 +77,8 @@ public class GameScreen extends Screen {
 	/** Checks if the game is paused. */
 	private boolean pause;
 
+	private int BulletsCount=99;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -188,6 +190,7 @@ public class GameScreen extends Screen {
 						if (this.ship.shoot(this.bullets)) {
 							soundEffect.playShipShootingSound();
 							this.bulletsShot++;
+							this.BulletsCount--;
 						}
 				}
 
@@ -262,6 +265,7 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.drawLevel(this, this.level);
+		drawManager.BulletsCount(this, this.BulletsCount);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
