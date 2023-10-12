@@ -13,6 +13,7 @@ import engine.GameSettings;
 import engine.GameState;
 import entity.*;
 
+
 import javax.swing.*;
 
 /**
@@ -72,6 +73,10 @@ public class GameScreen extends Screen {
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
 	private boolean hardcore;
+	/** Check what color will be displayed*/
+	private int color_variable;
+
+
 
 
 
