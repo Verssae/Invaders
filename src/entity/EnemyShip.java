@@ -34,6 +34,10 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+	/** check which special enemy to generate. */
+	private int spVariable;
+
+
 
 
 
@@ -88,7 +92,12 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
-		this.spriteType = SpriteType.EnemyShipSpecial;
+		spVariable = (int)(Math.random()*2);
+		if (spVariable == 0)
+			this.spriteType = SpriteType.EnemyShipSpecial1;
+		else if (spVariable == 1)
+			this.spriteType = SpriteType.EnemyShipSpecial2;
+
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
