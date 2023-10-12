@@ -232,8 +232,9 @@ public final class Core {
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
-						// SubMenu : Item Store / Enhancement / Continue
-
+						
+						
+								// SubMenu : Item Store / Enhancement / Continue
 
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
@@ -271,6 +272,22 @@ public final class Core {
 							&& gameState.getLevel() <= NUM_LEVELS);
 					bgm.bgm_stop();
 
+
+					// Recovery : 
+					
+					currentScreen = new RecoveryScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " Recovery screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Recovery screen.");
+
+					
+
+					// if (currentScreen.returnCode == 30) {
+						
+					// }
+
+						
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -369,6 +386,7 @@ public final class Core {
 						frame.setScreen(currentScreen);
 						break;
 					}
+
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
