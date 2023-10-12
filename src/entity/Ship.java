@@ -113,6 +113,16 @@ public class Ship extends Entity {
 	public final int getSpeed() {
 		return SPEED;
 	}
+
+	/**
+	 * Reset cooldown when ship get an item
+	 *
+	 * @param item Items acquired by ship
+	 */
+	public final void checkGetItem(final Item item) {
+		this.shipEffect.CooldownReset(item.getSpriteType());
+	}
+
 /*
 	public final void catchItem(Item item) {
 		if (item.spriteType == SpriteType.Item1) {

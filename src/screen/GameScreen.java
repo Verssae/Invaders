@@ -363,9 +363,8 @@ public class GameScreen extends Screen {
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
-							this.enemyShipFormation.destroy(enemyShip);
-							this.items.add(ItemPool.getItem(enemyShip.getPositionX(), enemyShip.getPositionY()));
-							this.logger.info("Item drop");
+							this.enemyShipFormation.destroy(enemyShip, this.items);
+
 						}
 						recyclableBullet.add(bullet);
 					}
@@ -376,7 +375,7 @@ public class GameScreen extends Screen {
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
-						this.enemyShipSpecial.destroy();
+						this.enemyShipSpecial.destroy(this.items);
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBullet.add(bullet);
@@ -386,7 +385,7 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
-				this.score += 10;
+				this.ship.checkGetItem(item);
 			}
 		}
 		this.items.removeAll(recyclableItem);

@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Color;
+import java.util.Set;
 
 import engine.Cooldown;
 import engine.Core;
@@ -182,9 +183,13 @@ public class EnemyShip extends Entity {
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
-	public final void destroy() {
+	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = SpriteType.Explosion;
+		if (Math.random() < 0.05 +
+				0.10 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)) {
+			items.add(ItemPool.getItem(this.positionX, this.positionY));
+		}
 	}
 
 	/**

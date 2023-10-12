@@ -2,6 +2,7 @@ package effect;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.DrawManager.*;
 import entity.Bullet;
 import entity.BulletPool;
 import entity.Ship;
@@ -33,17 +34,17 @@ public class ShipEffect extends Effect{
      *              the speed of a ship's bullet
      */
     public void shoot(final Set<Bullet> bullets, final int BULLET_SPEED) {
-        if (this.effect1Cooldown.checkFinished())
+        if (this.getCooldown(SpriteType.Item1).checkFinished())
         {
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY(), BULLET_SPEED));
         } else {
-            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY() + 10, BULLET_SPEED));
-            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
+            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 + 10,
                     ship.getPositionY(), BULLET_SPEED));
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY() - 10, BULLET_SPEED));
+                    ship.getPositionY(), BULLET_SPEED));
+            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 - 10,
+                    ship.getPositionY(), BULLET_SPEED));
         }
     }
 }
