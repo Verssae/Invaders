@@ -74,7 +74,6 @@ public class GameScreen extends Screen {
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
 	private boolean hardcore;
-
 	/** Checks if the game is paused. */
 	private boolean pause;
 
