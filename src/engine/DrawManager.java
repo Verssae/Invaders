@@ -439,8 +439,7 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Create a slowly blinking color.
-	 * Change the color of the char randomly in the string.
+	 * Create slowly changing colors.
 	 * Can be applied to multiple screens in the game.
 	 * [Clean Code Team] This method was created by highlees.
 	 *
