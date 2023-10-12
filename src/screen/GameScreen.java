@@ -79,7 +79,7 @@ public class GameScreen extends Screen {
 	/** Set of all items.*/
 	private Set<Item> items;
 
-	//testing
+	/** is none exist dropped item?*/
 	private boolean isitemalleat;
 
 
@@ -227,10 +227,8 @@ public class GameScreen extends Screen {
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
 				&& !this.levelFinished) {
 			endstagealleat();
-			this.logger.info("스테이지가 끝남.");
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
-			this.logger.info(isitemalleat + "임");
 		}
 
 		if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isitemalleat){
@@ -238,17 +236,22 @@ public class GameScreen extends Screen {
 			this.isRunning = false;
 		}
 	}
-	//testing
+
+	/**
+	 * when the stage end, eat all dropped item.
+	 */
 	private void endstagealleat(){
-		Set<Item> recyclable = new HashSet<Item>();
+		Cooldown a = Core.getCooldown(500);
+		a.reset();
 		while(!this.items.isEmpty()){
-			manageCollisions();
-			for (Item item : this.items) {
-				item.resetItem(this.ship);
+			if(a.checkFinished()) {
+				manageCollisions();
+				for (Item item : this.items) {
+					item.resetItem(this.ship);
+				}
+				draw();
+				a.reset();
 			}
-			this.items.removeAll(recyclable);
-			ItemPool.recycle(recyclable);
-			draw();
 		}
 		isitemalleat = true;
 	}
