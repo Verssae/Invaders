@@ -37,6 +37,7 @@ public class Item extends Entity {
      * Set Sprite dot image.
      */
     public final void setSprite() {
+
         this.spriteType = SpriteType.Item1;
     }
 
@@ -78,4 +79,14 @@ public class Item extends Entity {
      */
     public final void CoolReset(){this.livingTime.reset();}
 
+    /**
+     * get dropped item when stage is ended.
+     */
+    public final void resetItem(Ship ship){
+        this.CoolReset();
+        this.item_dx = ship.getPositionX() - this.positionX > 0 ? 1 : -1;
+        this.item_dy = ship.getPositionY() - this.positionY > 0 ? 1 : -1;
+        positionX += this.item_dx * ((int)Math.sqrt(Math.abs(ship.getPositionX() - this.positionX)) + 1);
+        positionY += this.item_dy * ((int)Math.sqrt(Math.abs(ship.getPositionY() - this.positionY)) + 1);
+    }
 }

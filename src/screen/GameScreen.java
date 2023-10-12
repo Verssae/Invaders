@@ -79,6 +79,9 @@ public class GameScreen extends Screen {
 	/** Set of all items.*/
 	private Set<Item> items;
 
+	/** is none exist dropped item?*/
+	private boolean isItemAllEat;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -133,10 +136,12 @@ public class GameScreen extends Screen {
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.items = new HashSet<Item>();
+		this.isItemAllEat = false;
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
+
 	}
 
 	/**
@@ -221,13 +226,33 @@ public class GameScreen extends Screen {
 		}
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
 				&& !this.levelFinished) {
+			endStageAllEat();
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
+		if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isItemAllEat){
 			this.isRunning = false;
+		}
+	}
 
+	/**
+	 * when the stage end, eat all dropped item.
+	 */
+	private void endStageAllEat(){
+		Cooldown a = Core.getCooldown(25);
+		a.reset();
+		while(!this.items.isEmpty()){
+			if(a.checkFinished()) {
+				manageCollisions();
+				for (Item item : this.items) {
+					item.resetItem(this.ship);
+				}
+				a.reset();
+			}
+			draw();
+		}
+		isItemAllEat = true;
 	}
 
 	/**
