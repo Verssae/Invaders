@@ -13,6 +13,7 @@ import engine.GameSettings;
 import engine.GameState;
 import entity.*;
 
+
 import javax.swing.*;
 
 /**
@@ -76,6 +77,8 @@ public class GameScreen extends Screen {
 	private boolean hardcore;
 	/** Checks if the game is paused. */
 	private boolean pause;
+	/** Check what color will be displayed*/
+	private int color_variable;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -198,7 +201,23 @@ public class GameScreen extends Screen {
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {
-					this.enemyShipSpecial = new EnemyShip(Color.RED);
+					color_variable = (int)(Math.random()*4);
+					if (color_variable == 0) {
+						this.enemyShipSpecial = new EnemyShip(Color.RED);
+
+					}
+					else if (color_variable == 1) {
+						this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+
+					}
+					else if (color_variable == 2) {
+						this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+
+					}
+					else if (color_variable == 3) {
+						this.enemyShipSpecial = new EnemyShip(Color.white);
+
+					}
 					this.enemyShipSpecialCooldown.reset();
 					this.logger.info("A special ship appears");
 				}
