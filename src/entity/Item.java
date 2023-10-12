@@ -80,11 +80,13 @@ public class Item extends Entity {
     public final void CoolReset(){this.livingTime.reset();}
 
     /**
-     * when reuse item, reset livingTime.
+     * get dropped item when stage is ended.
      */
     public final void resetItem(Ship ship){
         this.CoolReset();
-        positionX += ((ship.getPositionX()-this.positionX) / 3 ) + 1;
-        positionY += ((ship.getPositionY()-this.positionY) / 3 ) + 1;
+        this.item_dx = ship.getPositionX() - this.positionX > 0 ? 1 : -1;
+        this.item_dy = ship.getPositionY() - this.positionY > 0 ? 1 : -1;
+        positionX += this.item_dx * ((int)Math.sqrt(Math.abs(ship.getPositionX() - this.positionX)) + 1);
+        positionY += this.item_dy * ((int)Math.sqrt(Math.abs(ship.getPositionY() - this.positionY)) + 1);
     }
 }
