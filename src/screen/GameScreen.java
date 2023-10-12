@@ -77,6 +77,8 @@ public class GameScreen extends Screen {
 	/** Checks if the game is paused. */
 	private boolean pause;
 
+	private int BulletsCount=99;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -190,6 +192,7 @@ public class GameScreen extends Screen {
 						if (this.ship.shoot(this.bullets)) {
 							soundEffect.playShipShootingSound();
 							this.bulletsShot++;
+							this.BulletsCount--;
 						}
 				}
 

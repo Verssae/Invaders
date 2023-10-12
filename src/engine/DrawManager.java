@@ -341,7 +341,6 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
-
 	/**
 	 * Draws number of remaining lives on screen.
 	 *
