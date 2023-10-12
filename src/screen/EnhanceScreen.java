@@ -80,6 +80,8 @@ public class EnhanceScreen extends Screen {
         if (this.returnCode == 8)
             this.returnCode = 9;
         else if (this.returnCode == 9)
+            this.returnCode = 5;
+        else if (this.returnCode == 5)
             this.returnCode = 6;
         else if (this.returnCode == 6)
             this.returnCode = 2;
@@ -96,6 +98,8 @@ public class EnhanceScreen extends Screen {
         else if (this.returnCode == 2)
             this.returnCode = 6;
         else if (this.returnCode == 6)
+            this.returnCode = 5;
+        else if (this.returnCode == 5)
             this.returnCode = 9;
         else
             this.returnCode = 8;
