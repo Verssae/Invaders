@@ -27,7 +27,10 @@ public class Effect {
         effect1Cooldown = Core.getCooldown(5000);
         effect2Cooldown = Core.getCooldown(5000);
     }
-
+    
+    public void Effect1Reset() {
+        effect1Cooldown.reset();
+    }
     /**
      * Initialize effect cool time according to item Sprite
      *
