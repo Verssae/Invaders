@@ -394,10 +394,10 @@ public final class DrawManager {
 
 		// Calculate the position to center the "lives" text.
 		int textX = (120 - fontRegularMetrics.stringWidth("Lives")) / 2;
-		int textY = 8 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
+		int textY = 6 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
 
 		// Draw the "lives" text in the center of the rectangle.
-		g2d.drawString("lives", textX, textY);
+		g2d.drawString("Lives", textX, textY);
 	}
 
 	/**
