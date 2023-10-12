@@ -51,8 +51,10 @@ public class GameScreen extends Screen {
 	private Cooldown enemyShipSpecialExplosionCooldown;
 	/** Time from finishing the level to screen change. */
 	private Cooldown screenFinishedCooldown;
-	/** Set of all bullets fired by on screen ships. */
+	/** Set of bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+	/** Set of "BulletY" fired by player ships. */
+	private Set<BulletY> bulletsY;
 	/** Sound Effects for player's ship and enemy. */
 	private SoundEffect soundEffect;
 
@@ -129,6 +131,7 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
+		this.bulletsY = new HashSet<BulletY>();
 
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
@@ -186,11 +189,20 @@ public class GameScreen extends Screen {
 					if (moveLeft && !isLeftBorder) {
 						this.ship.moveLeft();
 					}
-					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-						if (this.ship.shoot(this.bullets)) {
-							soundEffect.playShipShootingSound();
-							this.bulletsShot++;
+					if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+						if(bulletsShot % 3 == 0 && !(bulletsShot == 0)) {
+							if (this.ship.shootBulletY(this.bulletsY)) {
+								soundEffect.playShipShootingSound();
+								this.bulletsShot++;
+							}
 						}
+						else {
+							if (this.ship.shoot(this.bullets)) {
+								soundEffect.playShipShootingSound();
+								this.bulletsShot++;
+							}
+						}
+					}
 				}
 
 				if (this.enemyShipSpecial != null) {
@@ -218,7 +230,9 @@ public class GameScreen extends Screen {
 			}
 
 			manageCollisions();
+			manageCollisionsY();
 			cleanBullets();
+			cleanBulletsY();
 			draw();
 		}
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
@@ -256,6 +270,10 @@ public class GameScreen extends Screen {
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
 					bullet.getPositionY());
+
+		for (BulletY bulletY : this.bulletsY)
+			drawManager.drawEntity(bulletY, bulletY.getPositionX(),
+					bulletY.getPositionY());
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -304,6 +322,18 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclable);
 	}
 
+	private void cleanBulletsY() {
+		Set<BulletY> recyclable = new HashSet<BulletY>();
+		for (BulletY bulletY : this.bulletsY) {
+			bulletY.update();
+			if (bulletY.getPositionY() < SEPARATION_LINE_HEIGHT
+					|| bulletY.getPositionY() > this.height)
+				recyclable.add(bulletY);
+		}
+		this.bulletsY.removeAll(recyclable);
+		BulletPool.recycleBulletY(recyclable);
+	}
+
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
@@ -349,6 +379,45 @@ public class GameScreen extends Screen {
 			}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
+	}
+
+	/**
+	 * Manages collisions between bulletsY and ships.
+	 */
+	private void manageCollisionsY() {
+		Set<BulletY> recyclable = new HashSet<BulletY>();
+		for (BulletY bulletY : this.bulletsY)
+			if (bulletY.getSpeed() > 0) {
+				if (checkCollision(bulletY, this.ship) && !this.levelFinished) {
+					recyclable.add(bulletY);
+					if (!this.ship.isDestroyed()) {
+						this.ship.destroy();
+						this.lives--;
+						this.logger.info("Hit on player ship, " + this.lives
+								+ " lives remaining.");
+					}
+				}
+			} else {
+				for (EnemyShip enemyShip : this.enemyShipFormation)
+					if (!enemyShip.isDestroyed()
+							&& checkCollision(bulletY, enemyShip)) {
+						this.score += enemyShip.getPointValue();
+						this.shipsDestroyed++;
+						this.enemyShipFormation.destroy(enemyShip);
+						recyclable.add(bulletY);
+					}
+				if (this.enemyShipSpecial != null
+						&& !this.enemyShipSpecial.isDestroyed()
+						&& checkCollision(bulletY, this.enemyShipSpecial)) {
+					this.score += this.enemyShipSpecial.getPointValue();
+					this.shipsDestroyed++;
+					this.enemyShipSpecial.destroy();
+					this.enemyShipSpecialExplosionCooldown.reset();
+					recyclable.add(bulletY);
+				}
+			}
+		this.bulletsY.removeAll(recyclable);
+		BulletPool.recycleBulletY(recyclable);
 	}
 
 	/**
