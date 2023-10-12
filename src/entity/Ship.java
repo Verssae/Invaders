@@ -71,11 +71,11 @@ public class Ship extends Entity {
 	 * @return Checks if the bullet was shot correctly.
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
-			if (this.shootingCooldown.checkFinished()) {
-				this.shootingCooldown.reset();
-				this.shipEffect.shoot(bullets, BULLET_SPEED);
-				return true;
-			}
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			return true;
+		}
 		return false;
 	}
 
@@ -114,7 +114,15 @@ public class Ship extends Entity {
 		return SPEED;
 	}
 
-	public final void checkGetItem(){ this.shipEffect.Effect1Reset(); }
+	/**
+	 * Reset cooldown when ship get an item
+	 *
+	 * @param item Items acquired by ship
+	 */
+	public final void checkGetItem(final Item item) {
+		this.shipEffect.CooldownReset(item.getSpriteType());
+	}
+
 /*
 	public final void catchItem(Item item) {
 		if (item.spriteType == SpriteType.Item1) {

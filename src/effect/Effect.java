@@ -28,12 +28,6 @@ public class Effect {
         effect2Cooldown = Core.getCooldown(5000);
     }
 
-    public void Effect1Reset() {
-        effect1Cooldown.reset();
-    }
-
-
-
     /**
      * Initialize effect cool time according to item Sprite
      *
@@ -42,11 +36,11 @@ public class Effect {
      *          a sprite type of the item is received.
      */
     public void CooldownReset(SpriteType s) {
-//        switch (s) {
-//            case SpriteType.Bullet:
-//                effect1Cooldown.reset();
-//                break ;
-//
-//        }
+        switch (s) {
+            case Item1:
+                effect1Cooldown.reset();
+                break ;
+
+        }
     }
 }
