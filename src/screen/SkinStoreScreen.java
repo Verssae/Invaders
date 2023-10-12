@@ -105,8 +105,8 @@ public class SkinStoreScreen extends Screen {
          drawManager.drawEnhanceElem(this, this.enhanceStone, this.numEnhanceArea, this.numEnhanceDamage);
  
          // drawManager.drawTitle(this);
-         drawManager.drawEnhancePage(this, this.returnCode, this.enhanceStone, this.numEnhanceArea,
-                 this.numEnhanceDamage);
+        //  drawManager.drawEnhancePage(this, this.returnCode, this.enhanceStone, this.numEnhanceArea,
+        //          this.numEnhanceDamage);
  
          drawManager.completeDrawing(this);
      }

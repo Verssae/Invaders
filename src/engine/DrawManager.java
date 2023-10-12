@@ -45,6 +45,10 @@ public final class DrawManager {
 	/** Buffer image. */
 	private static BufferedImage backBuffer;
 	/** Normal sized font. */
+	private static Font fontSmall;
+	/** Normal sized font properties. */
+	private static FontMetrics fontSmallMetrics;
+	/** Normal sized font. */
 	private static Font fontRegular;
 	/** Normal sized font properties. */
 	private static FontMetrics fontRegularMetrics;
@@ -134,6 +138,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Boss,spriteMap.get(SpriteType.EnemyShipA1));
 
 			// Font loading.
+			fontSmall = fileManager.loadFont(12f);
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
 			logger.info("Finished loading the fonts.");
@@ -184,6 +189,7 @@ public final class DrawManager {
 		backBufferGraphics
 				.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
+		fontSmallMetrics = backBufferGraphics.getFontMetrics(fontSmall);
 		fontRegularMetrics = backBufferGraphics.getFontMetrics(fontRegular);
 		fontBigMetrics = backBufferGraphics.getFontMetrics(fontBig);
 
@@ -416,6 +422,36 @@ public final class DrawManager {
 		backBufferGraphics.drawLine(0, positionY, screen.getWidth(), positionY);
 		backBufferGraphics.drawLine(0, positionY + 1, screen.getWidth(),
 				positionY + 1);
+	}
+
+	/**
+	 * Draws a circle line.
+	 *
+	 * @param screen
+	 *                  Screen to draw on.
+	 * @param positionX
+	 *                  X coordinate of the line.
+	 * @param positionY
+	 *                  Y coordinate of the line.
+	 * @param width
+	 *                  Y coordinate of the line.
+	 * @param height
+	 *                  Y coordinate of the line.
+	 */
+	public void drawCircleLine(final Screen screen, final int positionX, final int positionY, final int width, final int height, final int graphicOption) {
+		backBufferGraphics.setColor(Color.GREEN);
+		((Graphics2D) backBufferGraphics).setStroke(new BasicStroke(2));
+		if (graphicOption == 0){
+			backBufferGraphics.drawOval(positionX, positionY, width, height);
+		}
+		else {
+			graphics.drawOval(positionX, positionY, width, height);
+		}
+	}
+
+	public void drawCircleFill(final Screen screen, final int positionX, final int positionY, final int width, final int height) {
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.fillOval(positionX, positionY, width, height);
 	}
 
 	/**
@@ -1067,56 +1103,108 @@ public final class DrawManager {
 				screen.getHeight() / 3);
 	}
 
-	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
-			int numEnhanceDamage) {
+	/**
+	 * Draws current score on screen.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param score
+	 *               Current score.
+	 */
+	public void drawEnhanceStoneString(final Screen screen, final String enhanceString, 
+										final int positionX, final int positionY, 
+										final Color color, int fontSizeOption) {
+		
+		if (fontSizeOption == 0)
+			backBufferGraphics.setFont(fontSmall);
+		else if (fontSizeOption == 1)
+			backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(color);
+
+		int textWidth = backBufferGraphics.getFontMetrics().stringWidth(enhanceString);
+		int centerX = positionX - textWidth / 2;
+
+		backBufferGraphics.drawString(enhanceString, centerX, positionY);
+	}
+
+	public void drawEnhanceMenu(final Screen screen, final int option, 
+								int valEnhanceArea, int valEnhanceDamage, 
+								int lvEnhanceArea, int lvEnhanceDamage) {
+
 		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
 		String playString = "C O N T I N U E";
-		String enhanceAreaString = "Enhancement Area Lv\n" + Integer.toString(numEnhanceArea) + " > "
-				+ Integer.toString(numEnhanceArea + 1)
-				+ "(↑1)";
-		String enhanceDamageString = "Enhancement Damage Lv\n" + Integer.toString(numEnhanceDamage) + " > "
-				+ Integer.toString(numEnhanceDamage + 1)
-				+ "(↑1)";
+		String lvEnhanceAreaString = "Area Lv" + Integer.toString(lvEnhanceArea) + " > "
+				+ Integer.toString(lvEnhanceArea + 1);
+		String lvEnhanceDamageString = "Damage Lv" + Integer.toString(lvEnhanceDamage) + " > "
+				+ Integer.toString(lvEnhanceDamage + 1);
+		String valEnhanceAreaString =  "1/" + Integer.toString(valEnhanceArea);
+		String valEnhanceDamageString = "1/" + Integer.toString(valEnhanceDamage);
 
-		int rectWidth = screen.getWidth();
-		int rectHeight = screen.getHeight() / 6;
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
-				rectWidth, rectHeight);
+    	/** Height of the interface separation line. */
+    	int SEPARATION_LINE_HEIGHT = 40;
+
+		int screenWidth = screen.getWidth();
+		int centeredCircleWidth = 170;
+        int centeredCircleHeight = 170;		
+		int centeredCircleX = (screenWidth - 170) / 2;
+        int centeredCircleY = SEPARATION_LINE_HEIGHT * 2;		
+        int sideCircleWidth = 70;
+        int sideCircleHeight = 70;
+        int leftCircleX = (screenWidth - 220) / 2;
+        int rightCircleX = screenWidth - (screenWidth - 220) / 2 - 70;
+        int sideCircleY = SEPARATION_LINE_HEIGHT * 5;	
+		
+		// backBufferGraphics.setFont(fontRegular);
+		// backBufferGraphics.setColor(Color.WHITE);
+		// backBufferGraphics.drawString("Reinforced Stone: ", 20, 25);
+		
 		backBufferGraphics.setColor(Color.GREEN);
-
-		if (option == 8)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, enhanceAreaString,
-				screen.getHeight() / 3);
-		if (option == 9)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, enhanceDamageString,
-				screen.getHeight() / 3 + 50);
-
+				
+		if (option == 8){
+			drawEnhanceStoneString(screen, valEnhanceAreaString,
+				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				Color.GREEN, 1);
+		}
+		else{
+			drawEnhanceStoneString(screen, valEnhanceAreaString,
+				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				Color.WHITE, 1);
+		}
+		drawEnhanceStoneString(screen, lvEnhanceAreaString,
+			centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 30,
+			Color.GRAY, 0);
+		if (option == 9){
+			drawEnhanceStoneString(screen, valEnhanceDamageString,
+				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				Color.GREEN, 1);
+		}
+		else{
+			drawEnhanceStoneString(screen, valEnhanceDamageString,
+				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				Color.WHITE, 1);
+		}
+		drawEnhanceStoneString(screen, lvEnhanceDamageString,
+			centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 10,
+			Color.GRAY, 0);
 		if (option == 5)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, subMenuString,
-				screen.getHeight() / 3 * 2 );
+				screen.getHeight() / 3 * 2 + 45);
 		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, itemStoreString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2 + 45);
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, playString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4 + 45);
 	}
 
 	/**
