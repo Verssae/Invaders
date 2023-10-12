@@ -35,6 +35,8 @@ public class EnemyShip extends Entity {
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
 
+
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
