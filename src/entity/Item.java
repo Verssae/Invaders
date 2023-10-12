@@ -37,6 +37,7 @@ public class Item extends Entity {
      * Set Sprite dot image.
      */
     public final void setSprite() {
+
         this.spriteType = SpriteType.Item1;
     }
 
@@ -77,4 +78,13 @@ public class Item extends Entity {
      * when reuse item, reset livingTime.
      */
     public final void CoolReset(){this.livingTime.reset();}
+
+    /**
+     * when reuse item, reset livingTime.
+     */
+    public final void resetItem(Ship ship){
+        this.CoolReset();
+        positionX += ((ship.getPositionX()-this.positionX) / 3 ) + 1;
+        positionY += ((ship.getPositionY()-this.positionY) / 3 ) + 1;
+    }
 }

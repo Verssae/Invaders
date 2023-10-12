@@ -79,6 +79,9 @@ public class GameScreen extends Screen {
 	/** Set of all items.*/
 	private Set<Item> items;
 
+	//testing
+	private boolean isitemalleat;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -133,10 +136,12 @@ public class GameScreen extends Screen {
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.items = new HashSet<Item>();
+		this.isitemalleat = false;
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
+
 	}
 
 	/**
@@ -221,13 +226,31 @@ public class GameScreen extends Screen {
 		}
 		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
 				&& !this.levelFinished) {
+			endstagealleat();
+			this.logger.info("스테이지가 끝남.");
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
+			this.logger.info(isitemalleat + "임");
 		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
+		if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isitemalleat){
+			this.logger.info("게임이 끝남");
 			this.isRunning = false;
-
+		}
+	}
+	//testing
+	private void endstagealleat(){
+		Set<Item> recyclable = new HashSet<Item>();
+		while(!this.items.isEmpty()){
+			manageCollisions();
+			for (Item item : this.items) {
+				item.resetItem(this.ship);
+			}
+			this.items.removeAll(recyclable);
+			ItemPool.recycle(recyclable);
+			draw();
+		}
+		isitemalleat = true;
 	}
 
 	/**
