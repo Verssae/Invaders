@@ -4,19 +4,20 @@ import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager;
 import engine.DrawManager.SpriteType;
+import entity.Item;
 
 public class Effect {
 
     /**
      * dummy item 1 effectCooldown
      */
-    protected Cooldown effect1Cooldown;
+    protected Cooldown item1EffectCooldown;
 
 
     /**
      * dummy item 2 effectCooldown
      */
-    protected Cooldown effect2Cooldown;
+    protected Cooldown item2EffectCooldown;
 
 
     /**
@@ -24,8 +25,8 @@ public class Effect {
      */
     public Effect() {
 
-        effect1Cooldown = Core.getCooldown(5000);
-        effect2Cooldown = Core.getCooldown(5000);
+        item1EffectCooldown = Core.getCooldown(5000);
+        item2EffectCooldown = Core.getCooldown(5000);
     }
 
     /**
@@ -38,9 +39,18 @@ public class Effect {
     public void CooldownReset(SpriteType s) {
         switch (s) {
             case Item1:
-                effect1Cooldown.reset();
+                item1EffectCooldown.reset();
                 break ;
 
+        }
+    }
+
+    public Cooldown getCooldown(SpriteType s) {
+        switch (s) {
+            case Item1:
+                return (item1EffectCooldown);
+            default:
+                return (null);
         }
     }
 }

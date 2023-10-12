@@ -520,11 +520,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * @param destroyedShip
 	 *            Ship to be destroyed.
 	 */
-	public final void destroy(final EnemyShip destroyedShip) {
+	public final void destroy(final EnemyShip destroyedShip, Set<Item> items) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
 				if (column.get(i).equals(destroyedShip)) {
-					column.get(i).destroy();
+					column.get(i).destroy(items);
 					this.logger.info("Destroyed ship in ("
 							+ this.enemyShips.indexOf(column) + "," + i + ")");
 				}
