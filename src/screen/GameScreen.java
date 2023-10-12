@@ -184,7 +184,6 @@ public class GameScreen extends Screen {
 							+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
 					boolean isLeftBorder = this.ship.getPositionX()
 							- this.ship.getSpeed() < 1;
-
 					if (moveRight && !isRightBorder) {
 						this.ship.moveRight();
 					}
