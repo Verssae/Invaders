@@ -1,9 +1,16 @@
 package engine;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
@@ -11,11 +18,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import screen.Screen;
 import entity.Entity;
 import entity.Ship;
-
-import javax.imageio.ImageIO;
+import screen.Screen;
 
 /**
  * Manages screen drawing.
@@ -439,6 +444,56 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Create slowly changing colors.
+	 * Can be applied to multiple screens in the game.
+	 * [Clean Code Team] This method was created by highlees.
+	 *
+	 *
+	 */
+
+	private Color slowlyChangingColors(String color) {
+		String sec = Integer.toString(LocalTime.now().getSecond());
+		char c = sec.charAt(sec.length() - 1);
+		if (color == "GREEN") {
+			if (c == '0') return new Color(0, 75, 0);
+			if (c == '1') return new Color(0, 100, 0);
+			if (c == '2') return new Color(0, 125, 0);
+			if (c == '3') return new Color(0, 150, 0);
+			if (c == '4') return new Color(0, 175, 0);
+			if (c == '5') return new Color(0, 205, 0);
+			if (c == '6') return new Color(0, 225, 0);
+			if (c == '7') return new Color(0, 254, 0);
+			if (c == '8') return new Color(0, 55, 0);
+			if (c == '9') return new Color(0, 65, 0);
+		}
+		if (color == "GRAY") {
+			if (c == '0') return new Color(75, 75, 75);
+			if (c == '1') return new Color(85, 85, 85);
+			if (c == '2') return new Color(105, 105, 105);
+			if (c == '3') return new Color(130, 130, 130);
+			if (c == '4') return new Color(155, 155, 155);
+			if (c == '5') return new Color(180, 180, 180);
+			if (c == '6') return new Color(205, 205, 205);
+			if (c == '7') return new Color(225, 225, 225);
+			if (c == '8') return new Color(55, 55, 55);
+			if (c == '9') return new Color(65, 65, 65);
+		}
+		if (color == "RAINBOW") {
+			if (c == '0') return new Color(254, 254, 0);
+			if (c == '1') return new Color(135, 254, 0);
+			if (c == '2') return new Color(0, 254, 0);
+			if (c == '3') return new Color(0, 254, 254);
+			if (c == '4') return new Color(0, 135, 254);
+			if (c == '5') return new Color(0, 0, 254);
+			if (c == '6') return new Color(135, 0, 205);
+			if (c == '7') return new Color(254, 0, 224);
+			if (c == '8') return new Color(254, 0, 135);
+			if (c == '9') return new Color(220, 200, 254);
+		}
+		return Color.WHITE;
+	}
+
+	/**
 	 * Draws game title.
 	 *
 	 * @param screen
@@ -469,6 +524,7 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
+		String storeString1 = "S T O R E"; 
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -494,36 +550,43 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 6);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, storeString1, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 8);
 	}
 
 	public void drawRandomBox(final Screen screen, final int option) {
-		String introduceString1 = "SELECT ONE OF THE THREE BOXES";
-		String introduceString2 = "FOR A RANDOM REWARD.";
+		String introduceString = "SELECT ONE OF THE THREE BOXES FOR A RANDOM REWARD.";
 		String oneString = "1";
 		String twoString = "2";
 		String threeString = "3";
 
+		// backBufferGraphics.setColor(slowlyChangingColors("RAINBOW"));
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
-		drawCenteredRegularString(screen, introduceString1, screen.getHeight() / 8);
-		drawCenteredRegularString(screen, introduceString2, screen.getHeight() / 6);
+		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		if (option == 10)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(oneString, screen.getWidth() / 4, screen.getHeight() / 2);
-		
+		drawCenteredRegularString(screen, oneString,
+				screen.getHeight() / 3 * 2);
 		if (option == 7)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
-
+		drawCenteredRegularString(screen, twoString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() / 2);
+		drawCenteredRegularString(screen, threeString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
+
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
@@ -701,7 +764,7 @@ public final class DrawManager {
 		else if (difficulty == 3)
 			difficultyString = difficultyString + "HARDCORE";
 
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(slowlyChangingColors("GRAY"));
 		drawCenteredRegularString(screen, scoreString, screen.getHeight()
 				/ height);
 		drawCenteredRegularString(screen, difficultyString,
@@ -732,10 +795,10 @@ public final class DrawManager {
 		String newRecordString = "New Record!";
 		String introduceNameString = "Introduce name:";
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
 				/ 4 + fontRegularMetrics.getHeight() * 10);
-		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.setColor(slowlyChangingColors("GRAY"));
 		drawCenteredRegularString(screen, introduceNameString,
 				screen.getHeight() / 4 + fontRegularMetrics.getHeight() * 12);
 
@@ -749,9 +812,9 @@ public final class DrawManager {
 
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
-				backBufferGraphics.setColor(Color.GREEN);
+				backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 			else
-				backBufferGraphics.setColor(Color.WHITE);
+				backBufferGraphics.setColor(slowlyChangingColors("GRAY"));
 
 			positionX += fontRegularMetrics.getWidths()[name[i]] / 2;
 			positionX = i == 0 ? positionX
@@ -783,12 +846,12 @@ public final class DrawManager {
 
 		int height = isNewRecord ? 4 : 2;
 
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		drawCenteredBigString(screen, gameOverString, screen.getHeight()
 				/ height - fontBigMetrics.getHeight() * 2);
 
 		if (acceptsInput)
-			backBufferGraphics.setColor(Color.GREEN);
+			backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		else
 			backBufferGraphics.setColor(Color.GRAY);
 		drawCenteredRegularString(screen, continueOrExitString,
@@ -938,6 +1001,7 @@ public final class DrawManager {
 
 	public void drawItemStore(final Screen screen, final int option) {
 		String itemStoretxt = " I T E M S T O R E";
+		String txt = " TESTTXT";
 		String buyString = " B U Y";
 		String addcoinString = " P L U S C O I N";
 		int rectWidth = screen.getWidth();
@@ -946,12 +1010,13 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredRegularString(screen, itemStoretxt,	screen.getHeight()/4 - 80);
 		if (option == 13)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, itemStoretxt,
-				screen.getHeight() / 3);
+		drawCenteredRegularString(screen, txt,
+				screen.getHeight() / 3 * 2);
 		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -964,6 +1029,33 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, addcoinString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+	
+	/**
+	 * Draws  skin store.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+
+	public void drawSkinStore(final Screen screen, final int option) {
+		String skinStoreString = "Welcome to Skin Store!";
+		
+		int rectWidth = screen.getWidth();
+		int rectHeight = screen.getHeight() / 6;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
+				rectWidth, rectHeight);
+		backBufferGraphics.setColor(Color.GREEN);
+
+		if (option == 11)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, skinStoreString,
+				screen.getHeight() / 3);
 	}
 
 	public void drawEnhancePage(final Screen screen, final int option, int enhanceStone, int numEnhanceArea,
