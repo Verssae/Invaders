@@ -552,6 +552,7 @@ public final class DrawManager {
 		String twoString = "2";
 		String threeString = "3";
 
+		// backBufferGraphics.setColor(slowlyChangingColors("RAINBOW"));
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		if (option == 10)
