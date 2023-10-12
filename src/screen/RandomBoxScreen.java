@@ -49,7 +49,7 @@ public class RandomBoxScreen extends Screen {
      */
     protected final void update() {
         super.update();
-
+    
         draw();
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
@@ -63,10 +63,19 @@ public class RandomBoxScreen extends Screen {
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
+            if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+                    || inputManager.isKeyDown(KeyEvent.VK_A)) {
+                // Handle left movement here
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+                    || inputManager.isKeyDown(KeyEvent.VK_D)) {
+                // Handle right movement here
+            }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
                 this.isRunning = false;
         }
     }
+    
 
     /**
      * Shifts the focus to the next menu item.
