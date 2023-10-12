@@ -16,6 +16,8 @@ public class BGM {
     static DataLine.Info info;
     static Clip bgmClip; // bgmClip 변수 추가
 
+    File redenemyappearbgm = new File("sound_BackGroundMusic/monsterappear.wav");
+
 
     // 디폴트 생성자 추가
     public BGM(String BGM_FILE_PATH) {
@@ -29,6 +31,26 @@ public class BGM {
 
         } catch (Exception e) {
             System.out.println("err : " + e);
+        }
+    }
+
+    public void play_redenemybgm(){
+        if(bgmClip != null){
+            bgmClip.stop();
+        }
+
+        try{
+            AudioInputStream redEnemyStream = AudioSystem.getAudioInputStream(redenemyappearbgm);
+            AudioFormat redEnemyFormat = redEnemyStream.getFormat();
+            DataLine.Info redEnemyInfo = new DataLine.Info(Clip.class, redEnemyFormat);
+
+            bgmClip = (Clip) AudioSystem.getLine(redEnemyInfo);
+            bgmClip.open(redEnemyStream);
+
+            bgmClip.start();
+            bgmClip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
