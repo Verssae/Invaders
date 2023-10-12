@@ -77,8 +77,6 @@ public class GameScreen extends Screen {
 	/** Checks if the game is paused. */
 	private boolean pause;
 
-	private boolean isDestroyed;
-
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -86,8 +84,6 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
-	 * @param bonusLife
-	 *            Checks if a bonus life is awarded this level.
 	 * @param width
 	 *            Screen width.
 	 * @param height
