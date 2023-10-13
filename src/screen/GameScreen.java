@@ -281,6 +281,8 @@ public class GameScreen extends Screen {
 		drawManager.initDrawing(this);
 		drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, this.lives);
 		if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
+		drawManager.drawBackgroundLines(this, SEPARATION_LINE_HEIGHT);
+		drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship.getPositionX(), this.ship.getPositionY(), this.ship.getWidth(), this.ship.getHeight());
 
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
