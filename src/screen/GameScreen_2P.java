@@ -74,6 +74,8 @@ public class GameScreen_2P extends Screen {
     private boolean pause;
     /** Set of all items.*/
     private Set<Item> items;
+    /** is none exist dropped item?*/
+    private boolean isItemAllEat;
 
 
     /**
@@ -131,6 +133,7 @@ public class GameScreen_2P extends Screen {
         this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
         this.bullets = new HashSet<Bullet>();
         this.items = new HashSet<Item>();
+        this.isItemAllEat = false;
 
         // Special input delay / countdown.
         this.gameStartTime = System.currentTimeMillis();
@@ -241,12 +244,12 @@ public class GameScreen_2P extends Screen {
             }
 
             manageCollisions();
-
             cleanBullets();
             cleanItems();
             draw();
         }
         if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
+            endStageAllEat();
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
@@ -255,10 +258,30 @@ public class GameScreen_2P extends Screen {
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
-        if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
-            this.isRunning = false;
 
+        if ((isItemAllEat && this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+            this.isRunning = false;
+        }
     }
+    /**
+     * when the stage end, eat all dropped item.
+     */
+    private void endStageAllEat(){
+        Cooldown a = Core.getCooldown(25);
+        a.reset();
+        while(!this.items.isEmpty()){
+            if(a.checkFinished()) {
+                manageCollisions();
+                for (Item item : this.items) {
+                    item.resetItem(this.ship_1P);
+                }
+                a.reset();
+            }
+            draw();
+        }
+        isItemAllEat = true;
+    }
+
 
     /**
      * Draws the elements associated with the screen.
@@ -398,12 +421,12 @@ public class GameScreen_2P extends Screen {
                 }
             }
         for (Item item : this.items){
-            if(checkCollision(item, this.ship_1P) && !this.levelFinished){
+            if(checkCollision(item, this.ship_1P) && !this.levelFinished && !item.isDestroyed()){
                 recyclableItem.add(item);
                 this.logger.info("Get Item Ship_1");
                 this.ship_1P.checkGetItem(item);
             }
-            if(checkCollision(item, this.ship_2P) && !this.levelFinished){
+            if(checkCollision(item, this.ship_2P) && !this.levelFinished && !item.isDestroyed()){
                 recyclableItem.add(item);
                 this.logger.info("Get Item Ship_2");
                 this.ship_2P.checkGetItem(item);

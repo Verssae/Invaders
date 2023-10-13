@@ -226,8 +226,7 @@ public class GameScreen extends Screen {
 			cleanItems();
 			draw();
 		}
-		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
-				&& !this.levelFinished) {
+		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
 			endStageAllEat();
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
@@ -238,7 +237,7 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isItemAllEat){
+		if ((isItemAllEat && this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
 		}
 	}

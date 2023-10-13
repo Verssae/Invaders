@@ -34,7 +34,7 @@ public class ShipEffect extends Effect{
      *              the speed of a ship's bullet
      */
     public void shoot(final Set<Bullet> bullets, final int BULLET_SPEED) {
-        if (this.getCooldown(SpriteType.Item1).checkFinished())
+        if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
         {
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY(), BULLET_SPEED));

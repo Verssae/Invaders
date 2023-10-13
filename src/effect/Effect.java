@@ -37,7 +37,7 @@ public class Effect {
      */
     public void CooldownReset(SpriteType s) {
         switch (s) {
-            case Item1:
+            case Buff_Item:
                 item1EffectCooldown.reset();
                 break ;
 
@@ -46,7 +46,7 @@ public class Effect {
 
     public Cooldown getCooldown(SpriteType s) {
         switch (s) {
-            case Item1:
+            case Buff_Item:
                 return (item1EffectCooldown);
             default:
                 return (null);

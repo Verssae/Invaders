@@ -120,10 +120,11 @@ public class Ship extends Entity {
 	 * @param item Items acquired by ship
 	 */
 	public final void checkGetItem(final Item item) {
+		item.setDestroy(true);
 		this.shipEffect.CooldownReset(item.getSpriteType());
 	}
 
-/*
+/* -- Item 6. some helpful code
 	public final void catchItem(Item item) {
 		if (item.spriteType == SpriteType.Item1) {
 			this.bulletEffectCooldown.reset();
