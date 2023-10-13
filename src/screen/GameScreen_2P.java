@@ -258,9 +258,10 @@ public class GameScreen_2P extends Screen {
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
-        if (this.levelFinished && this.screenFinishedCooldown.checkFinished() && isItemAllEat)
-            this.isRunning = false;
 
+        if ((isItemAllEat && this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+            this.isRunning = false;
+        }
     }
     /**
      * when the stage end, eat all dropped item.
