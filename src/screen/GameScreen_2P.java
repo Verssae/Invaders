@@ -259,7 +259,7 @@ public class GameScreen_2P extends Screen {
             this.screenFinishedCooldown.reset();
         }
 
-        if ((isItemAllEat && this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+        if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
             this.isRunning = false;
         }
     }
