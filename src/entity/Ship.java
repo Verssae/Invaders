@@ -79,6 +79,16 @@ public class Ship extends Entity {
 		return false;
 	}
 
+	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			bulletsY.add(BulletPool.getBulletY(positionX + this.width / 2,
+					positionY, BULLET_SPEED));
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * Updates status of the ship.
 	 */
