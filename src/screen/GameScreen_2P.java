@@ -85,8 +85,6 @@ public class GameScreen_2P extends Screen {
      *            Current game state.
      * @param gameSettings
      *            Current game settings.
-     * @param bonusLife
-     *            Checks if a bonus life is awarded this level
      * @param width
      *            Screen width.
      * @param height
@@ -412,6 +410,7 @@ public class GameScreen_2P extends Screen {
                         && checkCollision(bullet, this.enemyShipSpecial)) {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
+                    if (this.lives < 2.9) {this.lives = this.lives + 0.1;}
                     this.enemyShipSpecialExplosionCooldown.reset();
                     recyclableBullet.add(bullet);
                 }

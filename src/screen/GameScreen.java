@@ -381,6 +381,7 @@ public class GameScreen extends Screen {
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
+						if (this.lives < 2.9) {this.lives = this.lives + 0.1;}
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBullet.add(bullet);
