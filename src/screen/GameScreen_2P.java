@@ -138,7 +138,6 @@ public class GameScreen_2P extends Screen {
         this.items = new HashSet<Item>();
         this.isItemAllEat = false;
 
-
         // Special input delay / countdown.
         this.gameStartTime = System.currentTimeMillis();
         this.inputDelay = Core.getCooldown(INPUT_DELAY);
@@ -207,7 +206,6 @@ public class GameScreen_2P extends Screen {
                                 this.bulletsShot++;
                             }
                         }
-                        System.out.println(this.bulletsShot);
                     }
                 }
                 if (!this.ship_2P.isDestroyed()) {
@@ -238,7 +236,6 @@ public class GameScreen_2P extends Screen {
                                 this.bulletsShot++;
                             }
                         }
-                        System.out.println(this.bulletsShot);
                     }
                 }
 
@@ -272,7 +269,6 @@ public class GameScreen_2P extends Screen {
             cleanBullets();
             cleanBulletsY();
             cleanItems();
-
             draw();
         }
         if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
