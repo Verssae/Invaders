@@ -155,6 +155,13 @@ public final class Core {
 							+ " title screen at " + FPS + " fps.");
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing title screen.");
+					if (currentScreen.returnCode == 6) {
+						currentScreen = new StoreScreen(width, height, FPS);
+						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+								+ " subMenu screen at " + FPS + " fps.");
+						returnCode = frame.setScreen(currentScreen);
+						LOGGER.info("Closing subMenu screen.");
+					}
 					break;
 
 				case 2:
@@ -225,9 +232,9 @@ public final class Core {
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
+						
+						
 						// SubMenu : Item Store / Enhancement / Continue
-
-
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
 							if (!boxOpen){
@@ -264,6 +271,22 @@ public final class Core {
 							&& gameState.getLevel() <= NUM_LEVELS);
 					bgm.bgm_stop();
 
+
+					// Recovery : 
+					
+					currentScreen = new RecoveryScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " Recovery screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing Recovery screen.");
+
+					
+
+					// if (currentScreen.returnCode == 30) {
+						
+					// }
+
+						
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -362,6 +385,7 @@ public final class Core {
 						frame.setScreen(currentScreen);
 						break;
 					}
+
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "

@@ -74,6 +74,10 @@ public class GameScreen_2P extends Screen {
     private boolean hardcore;
     /** Checks if the game is paused. */
     private boolean pause;
+    /** Set of all items.*/
+    private Set<Item> items;
+    /** is none exist dropped item?*/
+    private boolean isItemAllEat;
 
 
     /**
@@ -131,6 +135,8 @@ public class GameScreen_2P extends Screen {
         this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
         this.bullets = new HashSet<Bullet>();
         this.bulletsY = new HashSet<BulletY>();
+        this.items = new HashSet<Item>();
+        this.isItemAllEat = false;
 
         // Special input delay / countdown.
         this.gameStartTime = System.currentTimeMillis();
@@ -200,7 +206,6 @@ public class GameScreen_2P extends Screen {
                                 this.bulletsShot++;
                             }
                         }
-                        System.out.println(this.bulletsShot);
                     }
                 }
                 if (!this.ship_2P.isDestroyed()) {
@@ -231,7 +236,6 @@ public class GameScreen_2P extends Screen {
                                 this.bulletsShot++;
                             }
                         }
-                        System.out.println(this.bulletsShot);
                     }
                 }
 
@@ -264,9 +268,11 @@ public class GameScreen_2P extends Screen {
             manageCollisionsY();
             cleanBullets();
             cleanBulletsY();
+            cleanItems();
             draw();
         }
         if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
+            endStageAllEat();
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
@@ -275,10 +281,30 @@ public class GameScreen_2P extends Screen {
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
-        if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
-            this.isRunning = false;
 
+        if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+            this.isRunning = false;
+        }
     }
+    /**
+     * when the stage end, eat all dropped item.
+     */
+    private void endStageAllEat(){
+        Cooldown a = Core.getCooldown(25);
+        a.reset();
+        while(!this.items.isEmpty()){
+            if(a.checkFinished()) {
+                manageCollisions();
+                for (Item item : this.items) {
+                    item.resetItem(this.ship_1P);
+                }
+                a.reset();
+            }
+            draw();
+        }
+        isItemAllEat = true;
+    }
+
 
     /**
      * Draws the elements associated with the screen.
@@ -300,7 +326,9 @@ public class GameScreen_2P extends Screen {
             drawManager.drawEntity(this.enemyShipSpecial,
                     this.enemyShipSpecial.getPositionX(),
                     this.enemyShipSpecial.getPositionY());
-
+        for (Item item : this.items)
+            drawManager.drawEntity(item, item.getPositionX(),
+                    item.getPositionY());
         enemyShipFormation.draw();
 
         for (Bullet bullet : this.bullets)
@@ -369,14 +397,30 @@ public class GameScreen_2P extends Screen {
     }
 
     /**
+     * update and Cleans items that end the Living-Time
+     */
+    private void cleanItems() {
+        Set<Item> recyclable = new HashSet<Item>();
+        for (Item item : this.items) {
+            item.update(this.getWidth(), this.getHeight(), SEPARATION_LINE_HEIGHT);
+            if (item.islivingTimeEnd()){
+                recyclable.add(item);
+            }
+        }
+        this.items.removeAll(recyclable);
+        ItemPool.recycle(recyclable);
+    }
+
+    /**
      * Manages collisions between bullets and ships.
      */
     private void manageCollisions() {
-        Set<Bullet> recyclable = new HashSet<Bullet>();
+        Set<Bullet> recyclableBullet = new HashSet<Bullet>();
+        Set<Item> recyclableItem = new HashSet<Item>();
         for (Bullet bullet : this.bullets)
             if (bullet.getSpeed() > 0) {
                 if (checkCollision(bullet, this.ship_1P) && !this.levelFinished) {
-                    recyclable.add(bullet);
+                    recyclableBullet.add(bullet);
                     if (!this.ship_1P.isDestroyed()) {
                         this.ship_1P.destroy();
                         if (this.lives != 1) soundEffect.playShipCollisionSound();
@@ -386,7 +430,7 @@ public class GameScreen_2P extends Screen {
                     }
                 }
                 else if (checkCollision(bullet, this.ship_2P) && !this.levelFinished) {
-                    recyclable.add(bullet);
+                    recyclableBullet.add(bullet);
                     if (!this.ship_2P.isDestroyed()) {
                         this.ship_2P.destroy();
                         if (this.lives != 1) soundEffect.playShipCollisionSound();
@@ -402,22 +446,35 @@ public class GameScreen_2P extends Screen {
                         soundEffect.playEnemyDestructionSound();
                         this.score += enemyShip.getPointValue();
                         this.shipsDestroyed++;
-                        this.enemyShipFormation.destroy(enemyShip);
-                        recyclable.add(bullet);
+                        this.enemyShipFormation.destroy(enemyShip, this.items);
+                        recyclableBullet.add(bullet);
                     }
                 if (this.enemyShipSpecial != null
                         && !this.enemyShipSpecial.isDestroyed()
                         && checkCollision(bullet, this.enemyShipSpecial)) {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
-                    this.enemyShipSpecial.destroy();
+                    this.enemyShipSpecial.destroy(this.items);
                     this.enemyShipSpecialExplosionCooldown.reset();
-                    recyclable.add(bullet);
+                    recyclableBullet.add(bullet);
                 }
             }
-
-        this.bullets.removeAll(recyclable);
-        BulletPool.recycle(recyclable);
+        for (Item item : this.items){
+            if(checkCollision(item, this.ship_1P) && !this.levelFinished && !item.isDestroyed()){
+                recyclableItem.add(item);
+                this.logger.info("Get Item Ship_1");
+                this.ship_1P.checkGetItem(item);
+            }
+            if(checkCollision(item, this.ship_2P) && !this.levelFinished && !item.isDestroyed()){
+                recyclableItem.add(item);
+                this.logger.info("Get Item Ship_2");
+                this.ship_2P.checkGetItem(item);
+            }
+        }
+        this.items.removeAll(recyclableItem);
+        this.bullets.removeAll(recyclableBullet);
+        ItemPool.recycle(recyclableItem);
+        BulletPool.recycle(recyclableBullet);
     }
 
     /**
@@ -454,7 +511,7 @@ public class GameScreen_2P extends Screen {
                         soundEffect.playEnemyDestructionSound();
                         this.score += enemyShip.getPointValue();
                         this.shipsDestroyed++;
-                        this.enemyShipFormation.destroy(enemyShip);
+                        this.enemyShipFormation.destroy(enemyShip, this.items);
                         recyclable.add(bulletY);
                     }
                 if (this.enemyShipSpecial != null
@@ -462,7 +519,7 @@ public class GameScreen_2P extends Screen {
                         && checkCollision(bulletY, this.enemyShipSpecial)) {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
-                    this.enemyShipSpecial.destroy();
+                    this.enemyShipSpecial.destroy(this.items);
                     this.enemyShipSpecialExplosionCooldown.reset();
                     recyclable.add(bulletY);
                 }

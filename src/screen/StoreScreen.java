@@ -11,6 +11,7 @@ public class StoreScreen extends Screen {
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
 
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -23,9 +24,8 @@ public class StoreScreen extends Screen {
      */
     public StoreScreen(final int width, final int height, final int fps) {
         super(width, height, fps);
-
         // Defaults to play.
-        this.returnCode = 6;
+        this.returnCode = 13;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -48,17 +48,44 @@ public class StoreScreen extends Screen {
         super.update();
 
         draw();
+        if (this.selectionCooldown.checkFinished()
+                && this.inputDelay.checkFinished()) {
+            if (inputManager.isKeyDown(KeyEvent.VK_UP)
+                    || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                previousMenuItem();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
+                    || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                nextMenuItem();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+                this.isRunning = false;
+        }
+    }
+    private void nextMenuItem() {
+        if (this.returnCode == 13)
+            this.returnCode = 14;
+        else 
+            this.returnCode = 15;
     }
 
+    /**
+     * Shifts the focus to the previous menu item.
+     */
+    private void previousMenuItem() {
+        if (this.returnCode == 15)
+            this.returnCode = 14;
+        else 
+            this.returnCode = 13;
+    }
     /**
      * Draws the elements associated with the screen.123
      */
     private void draw() {
         drawManager.initDrawing(this);
-
-        drawManager.drawTitle(this);
         drawManager.drawItemStore(this, this.returnCode);
-
         drawManager.completeDrawing(this);
     }
 }
