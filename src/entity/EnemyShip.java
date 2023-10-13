@@ -3,6 +3,8 @@ package entity;
 import java.awt.Color;
 import java.util.Random;
 import java.util.Map;
+import java.util.Set;
+
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
@@ -26,6 +28,8 @@ public class EnemyShip extends Entity {
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
+	/** Item drop percent*/
+	private final double DROP_ITEM_PROB = 0.05;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -35,6 +39,8 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+
+
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -70,6 +76,11 @@ public class EnemyShip extends Entity {
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			this.EnemyLife = 1;
+			break;
+		case EnemyShipSC1:
+		case EnemyShipSC2:
+			this.pointValue = C_TYPE_POINTS;
 			this.EnemyLife = 2;
 			break;
 		default:
@@ -91,6 +102,7 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
+
 	}
 
 	/**
@@ -159,6 +171,12 @@ public class EnemyShip extends Entity {
 			case EnemyShipC2:
 				this.spriteType = SpriteType.EnemyShipC1;
 				break;
+			case EnemyShipSC1:
+				this.spriteType = SpriteType.EnemyShipSC2;
+				break;
+			case EnemyShipSC2:
+				this.spriteType = SpriteType.EnemyShipSC1;
+				break;
 			default:
 				break;
 			}
@@ -183,9 +201,13 @@ public class EnemyShip extends Entity {
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
-	public final void destroy() {
+	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
+		if (Math.random() < DROP_ITEM_PROB
+				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
+			items.add(ItemPool.getItem(this.positionX, this.positionY));
+		}
 	}
 
 	/**

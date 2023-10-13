@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.util.Set;
 
+import effect.ShipEffect;
 import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.SpriteType;
@@ -27,6 +28,8 @@ public class Ship extends Entity {
 	/** Time spent inactive between hits. */
 	private Cooldown destructionCooldown;
 
+	private ShipEffect shipEffect;
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -38,6 +41,7 @@ public class Ship extends Entity {
 	public Ship(final int positionX, final int positionY) {
 		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
 
+		this.shipEffect = new ShipEffect(this);
 		this.spriteType = SpriteType.Ship;
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);
@@ -69,7 +73,16 @@ public class Ship extends Entity {
 	public final boolean shoot(final Set<Bullet> bullets) {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			bullets.add(BulletPool.getBullet(positionX + this.width / 2,
+			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			return true;
+		}
+		return false;
+	}
+
+	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			bulletsY.add(BulletPool.getBulletY(positionX + this.width / 2,
 					positionY, BULLET_SPEED));
 			return true;
 		}
@@ -110,4 +123,24 @@ public class Ship extends Entity {
 	public final int getSpeed() {
 		return SPEED;
 	}
+
+	/**
+	 * Reset cooldown when ship get an item
+	 *
+	 * @param item Items acquired by ship
+	 */
+	public final void checkGetItem(final Item item) {
+		item.setDestroy(true);
+		this.shipEffect.CooldownReset(item.getSpriteType());
+	}
+
+/* -- Item 6. some helpful code
+	public final void catchItem(Item item) {
+		if (item.spriteType == SpriteType.Item1) {
+			this.bulletEffectCooldown.reset();
+		} else if (item.spriteType == SpriteType.Item2) {
+			this.shipEffectCooldown.reset();
+		}
+	}
+ */
 }
