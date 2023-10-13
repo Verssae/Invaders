@@ -22,11 +22,11 @@ public class RecoveryScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public RecoveryScreen(int width, int height, int fps) {
+    public RecoveryScreen(int width, int height, int fps ) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 5;
+        this.returnCode = 30;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
 
@@ -73,10 +73,10 @@ public class RecoveryScreen extends Screen {
      */
     private void nextMenuItem() {
 
-        if (this.returnCode == 8)
-        this.returnCode = 9;
+        if (this.returnCode == 30)
+        this.returnCode = 31;
     else
-        this.returnCode = 8;
+        this.returnCode = 30;
 
 
     }
@@ -87,10 +87,10 @@ public class RecoveryScreen extends Screen {
 
     private void previousMenuItem() {
 
-        if (this.returnCode == 9)
-            this.returnCode = 8;
+        if (this.returnCode == 31)
+            this.returnCode = 30;
         else
-            this.returnCode = 9;
+            this.returnCode = 31;
 
     }
 
@@ -100,9 +100,7 @@ public class RecoveryScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawTitle(this);
-
-        drawManager.drawRecoveryMenu(this, fps);
+        drawManager.drawRecoveryMenu(this,this.returnCode);
 
         drawManager.completeDrawing(this);
     }
