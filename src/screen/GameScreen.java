@@ -7,10 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.*;
 
-import engine.Cooldown;
-import engine.Core;
-import engine.GameSettings;
-import engine.GameState;
+import engine.*;
 import entity.*;
 
 import javax.swing.*;
@@ -56,6 +53,8 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of all bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+	/** Sound Effects for player's ship and enemy. */
+	private SoundEffect soundEffect;
 
 	private BulletLine bulletLine;
 	/** Current score. */
@@ -76,6 +75,12 @@ public class GameScreen extends Screen {
 	private boolean hardcore;
 	/** Checks if the game is paused. */
 	private boolean pause;
+	/** Set of all items.*/
+	private Set<Item> items;
+
+	/** is none exist dropped item?*/
+	private boolean isItemAllEat;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -129,11 +134,14 @@ public class GameScreen extends Screen {
 				.getCooldown(BONUS_SHIP_EXPLOSION);
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
-
+		this.items = new HashSet<Item>();
+		this.isItemAllEat = false;
 		// Special input delay / countdown.
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
+
+		soundEffect = new SoundEffect();
 	}
 
 	/**
@@ -172,12 +180,10 @@ public class GameScreen extends Screen {
 							|| inputManager.isKeyDown(KeyEvent.VK_D);
 					boolean moveLeft = inputManager.isKeyDown(KeyEvent.VK_LEFT)
 							|| inputManager.isKeyDown(KeyEvent.VK_A);
-
 					boolean isRightBorder = this.ship.getPositionX()
 							+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
 					boolean isLeftBorder = this.ship.getPositionX()
 							- this.ship.getSpeed() < 1;
-
 					if (moveRight && !isRightBorder) {
 						this.ship.moveRight();
 					}
@@ -185,8 +191,10 @@ public class GameScreen extends Screen {
 						this.ship.moveLeft();
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-						if (this.ship.shoot(this.bullets))
+						if (this.ship.shoot(this.bullets)) {
+							soundEffect.playShipShootingSound();
 							this.bulletsShot++;
+						}
 				}
 
 				if (this.enemyShipSpecial != null) {
@@ -215,17 +223,42 @@ public class GameScreen extends Screen {
 
 			manageCollisions();
 			cleanBullets();
+			cleanItems();
 			draw();
 		}
-		if ((this.enemyShipFormation.isEmpty() || this.lives == 0)
-				&& !this.levelFinished) {
+		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
+			endStageAllEat();
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 		}
+		if (this.lives == 0 && !this.levelFinished) {
+			this.levelFinished = true;
+			soundEffect.playShipDestructionSound();
+			this.screenFinishedCooldown.reset();
+		}
 
-		if (this.levelFinished && this.screenFinishedCooldown.checkFinished())
+		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
+		}
+	}
 
+	/**
+	 * when the stage end, eat all dropped item.
+	 */
+	private void endStageAllEat(){
+		Cooldown a = Core.getCooldown(25);
+		a.reset();
+		while(!this.items.isEmpty()){
+			if(a.checkFinished()) {
+				manageCollisions();
+				for (Item item : this.items) {
+					item.resetItem(this.ship);
+				}
+				a.reset();
+			}
+			draw();
+		}
+		isItemAllEat = true;
 	}
 
 	/**
@@ -242,7 +275,9 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
-
+		for (Item item : this.items)
+			drawManager.drawEntity(item, item.getPositionX(),
+					item.getPositionY());
 		enemyShipFormation.draw();
 
 		for (Bullet bullet : this.bullets)
@@ -295,18 +330,33 @@ public class GameScreen extends Screen {
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
 	}
-
+	/**
+	 * update and Cleans items that end the Living-Time
+	 */
+	private void cleanItems() {
+		Set<Item> recyclable = new HashSet<Item>();
+		for (Item item : this.items) {
+			item.update(this.getWidth(), this.getHeight(), SEPARATION_LINE_HEIGHT);
+			if (item.islivingTimeEnd()){
+				recyclable.add(item);
+			}
+		}
+		this.items.removeAll(recyclable);
+		ItemPool.recycle(recyclable);
+	}
 	/**
 	 * Manages collisions between bullets and ships.
 	 */
 	private void manageCollisions() {
-		Set<Bullet> recyclable = new HashSet<Bullet>();
+		Set<Bullet> recyclableBullet = new HashSet<Bullet>();
+		Set<Item> recyclableItem = new HashSet<Item>();
 		for (Bullet bullet : this.bullets)
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
-					recyclable.add(bullet);
+					recyclableBullet.add(bullet);
 					if (!this.ship.isDestroyed()) {
 						this.ship.destroy();
+						if (this.lives != 1) soundEffect.playShipCollisionSound();
 						this.lives--;
 						this.logger.info("Hit on player ship, " + this.lives
 								+ " lives remaining.");
@@ -317,12 +367,14 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
 						enemyShip.reduceEnemyLife();
+						soundEffect.playEnemyDestructionSound();
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
-							this.enemyShipFormation.destroy(enemyShip);
+							this.enemyShipFormation.destroy(enemyShip, this.items);
+
 						}
-						recyclable.add(bullet);
+						recyclableBullet.add(bullet);
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
@@ -331,15 +383,25 @@ public class GameScreen extends Screen {
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
-						this.enemyShipSpecial.destroy();
+						this.enemyShipSpecial.destroy(this.items);
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
-					recyclable.add(bullet);
+					recyclableBullet.add(bullet);
 				}
 			}
-		this.bullets.removeAll(recyclable);
-		BulletPool.recycle(recyclable);
+		for (Item item : this.items){
+			if(checkCollision(item, this.ship) && !this.levelFinished){
+				recyclableItem.add(item);
+				this.logger.info("Get Item ");
+				this.ship.checkGetItem(item);
+			}
+		}
+		this.items.removeAll(recyclableItem);
+		this.bullets.removeAll(recyclableBullet);
+		ItemPool.recycle(recyclableItem);
+		BulletPool.recycle(recyclableBullet);
 	}
+
 
 	/**
 	 * Checks if two entities are colliding.
