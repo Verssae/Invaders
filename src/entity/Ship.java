@@ -89,7 +89,6 @@ public class Ship extends Entity {
 		return false;
 	}
 
-
 	/**
 	 * Updates status of the ship.
 	 */
