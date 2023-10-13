@@ -1104,13 +1104,22 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Draws current score on screen.
+	 * Draws String on Enhance screen.
 	 *
 	 * @param screen
 	 *               Screen to draw on.
-	 * @param score
-	 *               Current score.
+	 * @param enhanceString
+	 *               String to draw on.
+	 * @param positionX
+	 *               X coordinate of the line.
+	 * @param positionY
+	 *               Y coordinate of the line.
+	 * @param color
+	 *               Color of the String on Enhance Screen.
+	 * @param fontSizeOption
+	 *               Option of font size.
 	 */
+
 	public void drawEnhanceStoneString(final Screen screen, final String enhanceString, 
 										final int positionX, final int positionY, 
 										final Color color, int fontSizeOption) {
@@ -1126,6 +1135,23 @@ public final class DrawManager {
 
 		backBufferGraphics.drawString(enhanceString, centerX, positionY);
 	}
+
+	/**
+	 * Draws String on Enhance Menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 * @param valEnhanceArea
+	 *               Current Value of Enhanced Area Range.
+	 * @param valEnhanceDamage
+	 *               Current Value of Enhanced Damage.
+	 * @param lvEnhanceArea
+	 *               Current Level of Enhanced Area Range.
+	 * @param lvEnhanceDamage
+	 *               Current Level of Enhanced Damage.
+	 */
 
 	public void drawEnhanceMenu(final Screen screen, final int option, 
 								int valEnhanceArea, int valEnhanceDamage, 
