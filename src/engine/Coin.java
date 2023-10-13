@@ -1,2 +1,8 @@
-package engine;public class Coin {
+package engine;
+
+public class Coin {
+
+    public int coin;
+
+
 }
