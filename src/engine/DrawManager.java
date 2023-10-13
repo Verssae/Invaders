@@ -183,8 +183,8 @@ public final class DrawManager {
 		fontRegularMetrics = backBufferGraphics.getFontMetrics(fontRegular);
 		fontBigMetrics = backBufferGraphics.getFontMetrics(fontBig);
 
-		// drawBorders(screen);
-		// drawGrid(screen);
+//		drawBorders(screen);
+//		drawGrid(screen);
 	}
 
 	/**
@@ -1076,10 +1076,8 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontBig);
 		backBufferGraphics.drawString(string, x, y);
 
-		if (timercount % 25 == 0)
-			backBufferGraphics.setColor(new Color(253, 253, 253));
-		else
-			backBufferGraphics.setColor(new Color(255, 255, 255, 55));
+		if (timercount % 25 == 0) backBufferGraphics.setColor(new Color(253, 253, 253));
+		else backBufferGraphics.setColor(new Color(255, 255, 255, 55));
 
 		backBufferGraphics.drawString("...", x + fontBigMetrics.stringWidth("LOADING"), y);
 	}
@@ -1095,16 +1093,16 @@ public final class DrawManager {
 	 * @param endY
 	 * @param g2
 	 */
-	public void loadingProgress(int startX, int startY, int endX, int endY, Graphics2D g2) {
+	public void loadingProgress(float startX, float startY, float endX, float endY, Graphics2D g2) {
 		Color endColor = Color.green;
 		Color startColor = Color.yellow;
 
-		GradientPaint gradient = new GradientPaint(startX, startY, startColor, endX, endY + 20, endColor);
+		GradientPaint gradient = new GradientPaint(startX, startY, startColor,  endX, endY , endColor);
 		g2.setPaint(gradient);
-		g2.fill(new Rectangle(startX, startY, endX - startX, endY - startY));
+		g2.fill(new Rectangle2D.Double(startX, startY, endX - startX, endY - startY));
 
 		g2.setColor(Color.black);
-		g2.fillRect(startX, startY, endX - startX, endY - startY - timercount);
+		g2.fill(new Rectangle2D.Double(startX, startY, endX - startX , endY - startY  - timercount));
 	}
 
 	/**
@@ -1118,42 +1116,44 @@ public final class DrawManager {
 	 */
 
 	public void drawLoading(int x, int y, Screen screen) {
-		int width = screen.getWidth() / 2, height = width / 2;
+		float width = screen.getWidth() / 2, height = width / 2;
 		Graphics2D g2 = (Graphics2D) backBufferGraphics;
 
 		/* Background Box */
 		g2.setColor(new Color(0, 255, 0, 230));
-		g2.fillRect(x, y, width, height);
-		drawLoadingString(x + width / 5, y + (width * 18) / 44, "LOADING");
+		g2.fill(new Rectangle2D.Double(x, y, width, height));
+		drawLoadingString((int) (x + width / 5), (int) (y + height * 0.85), "LOADING");
 
 		/* Loading Box */
-		int out_x = x + width + screen.getWidth() / 30, out_width = screen.getWidth() / 10;
+		float L_x = x + width + screen.getWidth() / 30, L_width = width / 5;
 		g2.setColor(new Color(0, 255, 0, 222));
-		g2.fillRect(out_x, y, out_width, height);
+		g2.fill(new Rectangle2D.Double(L_x, y, L_width, height));
 
-		int dx = screen.getWidth() / 65;
+		float dx = L_width / 7;
 		g2.setColor(Color.black);
-		g2.fillRect(out_x + dx, y + dx, out_width - 2 * dx, height - 2 * dx);
+		g2.fill(new Rectangle2D.Double(L_x + dx, y + dx, L_width - 2 * dx, height - 2 * dx));
 
 		/* Loading progress bar */
-		int startX = out_x + dx + dx / 2, startY = y + dx + dx / 2,
-				endX = startX + out_width - 2 * dx - dx, endY = startY + height - 2 * dx - dx;
+		float startX = L_x + dx + dx/2 , startY = y + dx + dx/2,
+				endX = startX + L_width - 3*dx, endY = startY + height - 3 * dx;
 		loadingProgress(startX, startY, endX, endY, g2);
 
-		/* Animation box */
+		/* Animation box*/
 		g2.setColor(Color.black);
-		g2.fillRect(x + (width * 3) / 44, y + (width * 3) / 44, (width / 44) * 38, (height / 44) * 22);
-		animateLoading(x + (width * 3) / 44, y + (width * 3) / 44);
+		g2.fill(new Rectangle2D.Double(x + width * 0.075, y + width * 0.075, width * 0.85, height * 0.45));
+		animateLoading((int) (x + (width * 3) / 44), (int) (y + (width * 3) / 44));
 
 		/* Box border */
 		g2.setStroke(new BasicStroke(2));
 		g2.setColor(Color.white);
-		g2.drawRect(x - 1, y - 1, width + 2, height + 2);
+		g2.draw(new Rectangle2D.Double(x - 1, y - 1, width + 2, height + 2));
 		g2.setColor(new Color(255, 255, 255, 222));
-		g2.drawRect(out_x - 1, y - 1, out_width + 2, height + 2);
+
+		g2.draw(new Rectangle2D.Double(L_x - 1, y - 1, L_width + 1, height + 1));
 
 		timercount++;
 	}
+
 
 	public void drawEnhanceElem(final Screen screen, int enhanceStone, int numEnhanceArea,
 			int numEnhanceDamage) {
@@ -1164,50 +1164,22 @@ public final class DrawManager {
 		// drawEntity(dummyShip, 40 + 35, 10);
 	}
 
+
 	/**
 	 * Creates an animation of monster.
-	 *
 	 * [Clean Code Team] This method was created by dodo_kdy.
 	 *
 	 * @param x
 	 * @param y
 	 */
-	public int animateLoading(int x, int y){
+	public void animateLoading(int x, int y){
 			int y1 = y+7, x1 = x;
 			if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y1 -=5;
 			else if (70<timercount && timercount <90) x1+=5;
-	
+
 			this.drawEntity(SpriteType.values()[5],x1+15,y1+10,2.3,2.3);
 			this.drawEntity(SpriteType.values()[6],x1+60,y1+10,2.4,2.4);
 			this.drawEntity(SpriteType.values()[8],x1+100,y1+10,3,2.4);
 			this.drawEntity(SpriteType.values()[10],x1+145,y1+13,2,2);
-	
-			return 1;
 		}
-	// public int animateLoading(int x, int y) {
-	// 	try {
-	// 		img1 = ImageIO.read(new File("res/invader_2.png"));
-	// 		img2 = ImageIO.read(new File("res/invader_1.png"));
-	// 		img3 = ImageIO.read(new File("res/invader_3.png"));
-	// 		img4 = ImageIO.read(new File("res/invader_4.png"));
-	// 	} catch (IOException exc) {
-	// 		return 0;
-	// 	}
-		
-
-	// 	int y1 = y + 10, y2 = y + 15, x1 = x;
-	// 	if ((30 < timercount && timercount < 50) || (110 < timercount && timercount < 130))
-	// 		y2 -= 5;
-	// 	else if (70 < timercount && timercount < 90)
-	// 		y1 -= 5;
-	// 	else
-	// 		x1 -= 5;
-
-	// 	backBufferGraphics.drawImage(img1, x1 + 15, y1, 34, 34, null);
-	// 	backBufferGraphics.drawImage(img2, x1 + 60, y2 - 2, 30, 24, null);
-	// 	backBufferGraphics.drawImage(img3, x1 + 100, y1 - 10, 38, 55, null);
-	// 	backBufferGraphics.drawImage(img4, x1 + 145, y2, 32, 27, null);
-	// 	return 1;
-	// }
-
 }
