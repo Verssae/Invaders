@@ -52,6 +52,8 @@ public class GameScreen_2P extends Screen {
     private Cooldown screenFinishedCooldown;
     /** Set of all bullets fired by on screen ships. */
     private Set<Bullet> bullets;
+    /** Set of "BulletY" fired by player ships. */
+    private Set<BulletY> bulletsY;
     /** Sound Effects for player's ship and enemy. */
     private SoundEffect soundEffect;
     /** Current score. */
@@ -132,6 +134,7 @@ public class GameScreen_2P extends Screen {
                 .getCooldown(BONUS_SHIP_EXPLOSION);
         this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
         this.bullets = new HashSet<Bullet>();
+        this.bulletsY = new HashSet<BulletY>();
         this.items = new HashSet<Item>();
         this.isItemAllEat = false;
 
@@ -190,11 +193,20 @@ public class GameScreen_2P extends Screen {
                     if (moveLeft && !isLeftBorder) {
                         this.ship_1P.moveLeft();
                     }
-                    if (inputManager.isKeyDown(KeyEvent.VK_SHIFT))
-                        if (this.ship_1P.shoot(this.bullets)) {
-                            soundEffect.playShipShootingSound();
-                            this.bulletsShot++;
+                    if (inputManager.isKeyDown(KeyEvent.VK_SHIFT)) {
+                        if(bulletsShot % 6 == 0 && !(bulletsShot == 0)) {
+                            if (this.ship_1P.shootBulletY(this.bulletsY)) {
+                                soundEffect.playShipShootingSound();
+                                this.bulletsShot++;
+                            }
                         }
+                        else {
+                            if (this.ship_1P.shoot(this.bullets)) {
+                                soundEffect.playShipShootingSound();
+                                this.bulletsShot++;
+                            }
+                        }
+                    }
                 }
                 if (!this.ship_2P.isDestroyed()) {
                     boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT);
@@ -211,11 +223,20 @@ public class GameScreen_2P extends Screen {
                     if (moveLeft && !isLeftBorder) {
                         this.ship_2P.moveLeft();
                     }
-                    if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
-                        if (this.ship_2P.shoot(this.bullets)) {
-                            soundEffect.playShipShootingSound();
-                            this.bulletsShot++;
+                    if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+                        if(bulletsShot % 6 == 0 && !(bulletsShot == 0)) {
+                            if (this.ship_2P.shootBulletY(this.bulletsY)) {
+                                soundEffect.playShipShootingSound();
+                                this.bulletsShot++;
+                            }
                         }
+                        else {
+                            if (this.ship_2P.shoot(this.bullets)) {
+                                soundEffect.playShipShootingSound();
+                                this.bulletsShot++;
+                            }
+                        }
+                    }
                 }
 
                 if (this.enemyShipSpecial != null) {
@@ -244,7 +265,9 @@ public class GameScreen_2P extends Screen {
             }
 
             manageCollisions();
+            manageCollisionsY();
             cleanBullets();
+            cleanBulletsY();
             cleanItems();
             draw();
         }
@@ -312,6 +335,10 @@ public class GameScreen_2P extends Screen {
             drawManager.drawEntity(bullet, bullet.getPositionX(),
                     bullet.getPositionY());
 
+        for (BulletY bulletY : this.bulletsY)
+            drawManager.drawEntity(bulletY, bulletY.getPositionX(),
+                    bulletY.getPositionY());
+
 
         // Interface.
         drawManager.drawScore(this, this.score);
@@ -355,6 +382,18 @@ public class GameScreen_2P extends Screen {
 
         this.bullets.removeAll(recyclable);
         BulletPool.recycle(recyclable);
+    }
+
+    private void cleanBulletsY() {
+        Set<BulletY> recyclable = new HashSet<BulletY>();
+        for (BulletY bulletY : this.bulletsY) {
+            bulletY.update();
+            if (bulletY.getPositionY() < SEPARATION_LINE_HEIGHT
+                    || bulletY.getPositionY() > this.height)
+                recyclable.add(bulletY);
+        }
+        this.bulletsY.removeAll(recyclable);
+        BulletPool.recycleBulletY(recyclable);
     }
 
     /**
@@ -438,7 +477,57 @@ public class GameScreen_2P extends Screen {
         BulletPool.recycle(recyclableBullet);
     }
 
+    /**
+     * Manages collisions between bulletsY and ships.
+     */
+    private void manageCollisionsY() {
+        Set<BulletY> recyclable = new HashSet<BulletY>();
+        for (BulletY bulletY : this.bulletsY)
+            if (bulletY.getSpeed() > 0) {
+                if (checkCollision(bulletY, this.ship_1P) && !this.levelFinished) {
+                    recyclable.add(bulletY);
+                    if (!this.ship_1P.isDestroyed()) {
+                        this.ship_1P.destroy();
+                        if (this.lives != 1) soundEffect.playShipCollisionSound();
+                        this.lives--;
+                        this.logger.info("Hit on player ship, " + this.lives
+                                + " lives remaining.");
+                    }
+                }
+                else if (checkCollision(bulletY, this.ship_2P) && !this.levelFinished) {
+                    recyclable.add(bulletY);
+                    if (!this.ship_2P.isDestroyed()) {
+                        this.ship_2P.destroy();
+                        if (this.lives != 1) soundEffect.playShipCollisionSound();
+                        this.lives--;
+                        this.logger.info("Hit on player ship, " + this.lives
+                                + " lives remaining.");
+                    }
+                }
+            } else {
+                for (EnemyShip enemyShip : this.enemyShipFormation)
+                    if (!enemyShip.isDestroyed()
+                            && checkCollision(bulletY, enemyShip)) {
+                        soundEffect.playEnemyDestructionSound();
+                        this.score += enemyShip.getPointValue();
+                        this.shipsDestroyed++;
+                        this.enemyShipFormation.destroy(enemyShip, this.items);
+                        recyclable.add(bulletY);
+                    }
+                if (this.enemyShipSpecial != null
+                        && !this.enemyShipSpecial.isDestroyed()
+                        && checkCollision(bulletY, this.enemyShipSpecial)) {
+                    this.score += this.enemyShipSpecial.getPointValue();
+                    this.shipsDestroyed++;
+                    this.enemyShipSpecial.destroy(this.items);
+                    this.enemyShipSpecialExplosionCooldown.reset();
+                    recyclable.add(bulletY);
+                }
+            }
 
+        this.bulletsY.removeAll(recyclable);
+        BulletPool.recycleBulletY(recyclable);
+    }
 
     /**
      * Checks if two entities are colliding.
