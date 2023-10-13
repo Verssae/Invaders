@@ -94,8 +94,13 @@ public final class DrawManager {
 		Boss,
 		/** Destroyed enemy ship. */
 		Explosion,
-
-		BulletLine;
+		BulletLine,
+		/** Destroyed enemy ship2. */
+		Explosion2,
+		/** Destroyed enemy ship3. */
+		Explosion3,
+		/** Buff_item dummy sprite*/
+		Buff_Item;
 	};
 
 	/**
@@ -122,7 +127,9 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipSpecial, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
-
+			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
+			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
+			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
@@ -616,7 +623,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
-
+		
 		if (option == 2)
 		backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
