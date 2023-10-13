@@ -97,6 +97,7 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
+
 	}
 
 	/**
