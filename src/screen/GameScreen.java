@@ -60,7 +60,7 @@ public class GameScreen extends Screen {
 	/** Current score. */
 	private int score;
 	/** Player lives left. */
-	private int lives;
+	private double lives;
 	/** Total bullets shot by the player. */
 	private int bulletsShot;
 	/** Total ships destroyed by the player. */
@@ -82,6 +82,8 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 
 
+	private int BulletsCount=99;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -89,8 +91,6 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
-	 * @param bonusLife
-	 *            Checks if a bonus life is awarded this level.
 	 * @param width
 	 *            Screen width.
 	 * @param height
@@ -99,17 +99,14 @@ public class GameScreen extends Screen {
 	 *            Frames per second, frame rate at which the game is run.
 	 */
 	public GameScreen(final GameState gameState,
-			final GameSettings gameSettings, final boolean bonusLife,
+			final GameSettings gameSettings,
 			final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 		this.gameSettings = gameSettings;
-		this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
-		if (this.bonusLife)
-			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
@@ -194,6 +191,7 @@ public class GameScreen extends Screen {
 						if (this.ship.shoot(this.bullets)) {
 							soundEffect.playShipShootingSound();
 							this.bulletsShot++;
+							this.BulletsCount--;
 						}
 				}
 
@@ -383,7 +381,6 @@ public class GameScreen extends Screen {
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
-						this.enemyShipSpecial.destroy(this.items);
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBullet.add(bullet);
