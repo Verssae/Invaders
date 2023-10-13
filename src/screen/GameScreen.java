@@ -56,7 +56,7 @@ public class GameScreen extends Screen {
 	private Set<Bullet> bullets;
 	/** Sound Effects for player's ship and enemy. */
 	private SoundEffect soundEffect;
-
+	/** Aiming line. */
 	private BulletLine bulletLine;
 	/** Current score. */
 	private int score;
