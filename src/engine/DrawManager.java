@@ -1434,40 +1434,40 @@ public final class DrawManager {
 	 */
 
 	public void drawLoading(int x, int y, Screen screen) {
-		float width = screen.getWidth() / 2, height = width / 2;
+		float box1_W = screen.getWidth() / 2, box1_H = box1_W / 2;
 		Graphics2D g2 = (Graphics2D) backBufferGraphics;
 
 		/* Background Box */
 		g2.setColor(new Color(0, 255, 0, 230));
-		g2.fill(new Rectangle2D.Double(x, y, width, height));
-		drawLoadingString((int) (x + width / 5), (int) (y + height * 0.85), "LOADING");
+		g2.fill(new Rectangle2D.Double(x, y, box1_W, box1_H));
+		drawLoadingString((int) (x + box1_W / 5), (int) (y + box1_H * 0.85), "LOADING");
 
 		/* Loading Box */
-		float L_x = x + width + screen.getWidth() / 30, L_width = width / 5;
+		float box2_x = x + box1_W + screen.getWidth() / 30, box2_W = box1_W / 5;
 		g2.setColor(new Color(0, 255, 0, 222));
-		g2.fill(new Rectangle2D.Double(L_x, y, L_width, height));
+		g2.fill(new Rectangle2D.Double(box2_x, y, box2_W, box1_H));
 
-		float dx = L_width / 7;
+		float dx = box2_W / 7;
 		g2.setColor(Color.black);
-		g2.fill(new Rectangle2D.Double(L_x + dx, y + dx, L_width - 2 * dx, height - 2 * dx));
+		g2.fill(new Rectangle2D.Double(box2_x + dx, y + dx, box2_W - 2 * dx, box1_H - 2 * dx));
 
 		/* Loading progress bar */
-		float startX = L_x + dx + dx/2 , startY = y + dx + dx/2,
-				endX = startX + L_width - 3*dx, endY = startY + height - 3 * dx;
+		float startX = box2_x + dx + dx/2 , startY = y + dx + dx/2,
+				endX = startX + box2_W - 3*dx, endY = startY + box1_H - 3 * dx;
 		loadingProgress(startX, startY, endX, endY, g2);
 
 		/* Animation box*/
 		g2.setColor(Color.black);
-		g2.fill(new Rectangle2D.Double(x + width * 0.075, y + width * 0.075, width * 0.85, height * 0.45));
-		animateLoading((int) (x + (width * 3) / 44), (int) (y + (width * 3) / 44));
+		g2.fill(new Rectangle2D.Double(x + box1_W * 0.075, y + box1_W * 0.075, box1_W * 0.85, box1_H * 0.45));
+		animateLoading((int) (x + (box1_W * 3) / 44), (int) (y + (box1_W * 3) / 44));
 
 		/* Box border */
 		g2.setStroke(new BasicStroke(2));
 		g2.setColor(Color.white);
-		g2.draw(new Rectangle2D.Double(x - 1, y - 1, width + 2, height + 2));
+		g2.draw(new Rectangle2D.Double(x - 1, y - 1, box1_W + 2, box1_H + 2));
 		g2.setColor(new Color(255, 255, 255, 222));
 
-		g2.draw(new Rectangle2D.Double(L_x - 1, y - 1, L_width + 1, height + 1));
+		g2.draw(new Rectangle2D.Double(box2_x - 1, y - 1, box2_W + 1, box1_H + 1));
 
 		timercount++;
 	}
