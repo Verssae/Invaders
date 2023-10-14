@@ -147,8 +147,9 @@ public class GameScreen extends Screen {
 		this.inputDelay.reset();
 
 		soundEffect = new SoundEffect();
-		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT);
 		bgm = new BGM();
+
+		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
 
 	/**
@@ -305,8 +306,6 @@ public class GameScreen extends Screen {
 	 * Draws the elements associated with the screen.
 	 */
 	private void draw() {
-
-		// Draw Background
 		drawManager.initDrawing(this);
 		drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, (int)this.lives);
 		if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);

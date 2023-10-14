@@ -62,12 +62,12 @@ public final class DrawManager {
 	private static FontMetrics fontBigMetrics;
 
 	/** Cooldown timer for background animation. */
-	private Cooldown bgTimer = new Cooldown(100);
-	private int brightness = 0;
-	private int lighter = 1;
-	private Cooldown bgTimer_init = new Cooldown(3000); // 10 seconds
-	private Cooldown bgTimer_lines = new Cooldown(100);
-	private int lineConstant = 0;
+	private Cooldown bgTimer = new Cooldown(100);  // Draw bg interval
+	private int brightness = 0;  // Used as RGB values for changing colors
+	private int lighter = 1;  // For color to increase then decrease
+	private Cooldown bgTimer_init = new Cooldown(3000);  // For white fade in at game start
+	private Cooldown bgTimer_lines = new Cooldown(100);  // For bg line animation
+	private int lineConstant = 0;  // For bg line animation
 
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
@@ -1489,6 +1489,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws green glow behind player sprite.
+	 * [Clean Code Team] This method was created by alicek0.
 	 * @param screen
 	 * @param separationLineHeight
 	 * @param playerX
@@ -1509,6 +1510,7 @@ public final class DrawManager {
 
 	/**
 	 * Draws background lines.
+	 * [Clean Code Team] This method was created by alicek0.
 	 * @param screen
 	 * @param separationLineHeight
 	 */
@@ -1523,12 +1525,12 @@ public final class DrawManager {
 		Graphics2D gr2 = (Graphics2D)backBufferGraphics;
 		Stroke defaultStroke=gr2.getStroke();
 		gr2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE,  BasicStroke.JOIN_MITER, 10.0f, new float[] {10.0f,9.0f,3.0f,9.0f},10.0f));
-
 		for (int i = 0; i<lineCount; i++){
 			gr2.drawLine(xPaddingTop + (screen.getWidth()-xPaddingTop-xPaddingTop)/(lineCount-1) * i , separationLineHeight, xPaddingBottom + (screen.getWidth()-xPaddingBottom-xPaddingBottom)/(lineCount-1) * i, screen.getHeight());
 		}
 
-		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(21, 0, 0, 255), 0, screen.getHeight(), new Color(255,255,255,0));
+		// Gradient to fade top part of vertical lines.
+		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(10, 0, 0, 255), 0, screen.getHeight(), new Color(255,255,255,0));
 		gr2.setPaint(gp);
 		gr2.fillRect(0, separationLineHeight, screen.getWidth(), screen.getHeight());
 
@@ -1543,14 +1545,12 @@ public final class DrawManager {
 			backBufferGraphics.drawLine(0, separationLineHeight+lineConstant+i*30, screen.getWidth(), separationLineHeight+lineConstant+i*30);
 		}
 
-
 		((Graphics2D) backBufferGraphics).setStroke(defaultStroke);
 
 		if (bgTimer_lines.checkFinished()) {
 			lineConstant++;
 			bgTimer_lines.reset();
 		}
-		//if (test >= 1.0f) test = 0f;
 		if (lineConstant >= 30) lineConstant = 0;
 	}
 
