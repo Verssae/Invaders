@@ -57,7 +57,7 @@ public class GameScreen_2P extends Screen {
     /** Current score. */
     private int score;
     /** Player lives left. */
-    private int lives;
+    private double lives;
     /** Total bullets shot by the player. */
     private int bulletsShot;
     /** Total ships destroyed by the player. */
