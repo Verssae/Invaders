@@ -1,6 +1,9 @@
 package entity;
 
 import java.awt.Color;
+import java.util.Random;
+import java.util.Map;
+import java.util.Set;
 
 import engine.Cooldown;
 import engine.Core;
@@ -25,6 +28,8 @@ public class EnemyShip extends Entity {
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
+	/** Item drop percent*/
+	private final double DROP_ITEM_PROB = 0.05;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -34,6 +39,8 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+
+
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -182,9 +189,13 @@ public class EnemyShip extends Entity {
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
-	public final void destroy() {
+	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
-		this.spriteType = SpriteType.Explosion;
+		this.spriteType = randomDestroy();
+		if (Math.random() < DROP_ITEM_PROB
+				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
+			items.add(ItemPool.getItem(this.positionX, this.positionY));
+		}
 	}
 
 	/**
@@ -194,5 +205,14 @@ public class EnemyShip extends Entity {
 	 */
 	public final boolean isDestroyed() {
 		return this.isDestroyed;
+	}
+
+	/**
+	 * @return
+	 */
+	public final SpriteType randomDestroy(){
+		Random random = new Random();
+		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3};
+		return destroys[random.nextInt(3)];
 	}
 }
