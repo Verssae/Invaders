@@ -100,7 +100,7 @@ public class GameScreen_2P extends Screen {
      *            Frames per second, frame rate at which the game is run.
      */
     public GameScreen_2P(final GameState gameState,
-                         final GameSettings gameSettings,
+                         final GameSettings gameSettings, final boolean bonusLife,
                          final int width, final int height, final int fps) {
         super(width, height, fps);
 
@@ -109,12 +109,13 @@ public class GameScreen_2P extends Screen {
         this.level = gameState.getLevel();
         this.score = gameState.getScore();
         this.lives = gameState.getLivesRemaining();
-        //if (this.bonusLife)
-            //this.lives++;
+        if (this.bonusLife)
+            this.lives++;
         this.bulletsShot = gameState.getBulletsShot();
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.hardcore = gameState.getHardCore();
         this.pause = false;
+
     }
 
     /**
