@@ -241,6 +241,8 @@ public final class Core {
 								currentScreen = new RandomBoxScreen(width, height, FPS);
 								returnCode = frame.setScreen(currentScreen);
 								boxOpen = true;
+								currentScreen = new RandomRewardScreen(width, height, FPS);
+								returnCode = frame.setScreen(currentScreen);
 							}
 							if (isInitMenuScreen || currentScreen.returnCode == 5) {
 								currentScreen = new SubMenuScreen(width, height, FPS);

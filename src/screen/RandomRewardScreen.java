@@ -4,9 +4,8 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.GameState;
 
-public class RandomBoxScreen extends Screen {
+public class RandomRewardScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
     /** Time between changes in user selection. */
@@ -24,11 +23,11 @@ public class RandomBoxScreen extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomBoxScreen(int width, int height, int fps) {
+    public RandomRewardScreen(int width, int height, int fps) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 10;
+        this.returnCode = 13;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
     }
@@ -72,12 +71,12 @@ public class RandomBoxScreen extends Screen {
      * Shifts the focus to the next menu item.
      */
     private void nextMenuItem() {
-        if (this.returnCode == 10)
+        if (this.returnCode == 13)
             this.returnCode = 7;
         else if (this.returnCode == 7)
             this.returnCode = 2;
         else
-            this.returnCode = 10;
+            this.returnCode = 13;
     }
 
     /**
@@ -87,7 +86,7 @@ public class RandomBoxScreen extends Screen {
         if (this.returnCode == 2) 
             this.returnCode = 7; 
         else if (this.returnCode == 7) 
-            this.returnCode = 10; 
+            this.returnCode = 13; 
         else
             this.returnCode = 2; 
     }
@@ -99,7 +98,7 @@ public class RandomBoxScreen extends Screen {
         drawManager.initDrawing(this);
 
         // drawManager.drawTitle(this);
-        drawManager.drawRandomBox(this, this.returnCode);
+        drawManager.drawRandomReward(this, this.returnCode);
         drawManager.completeDrawing(this);
     }
 }

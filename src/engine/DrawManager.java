@@ -634,10 +634,22 @@ public final class DrawManager {
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
 		
 		if (option == 2)
-		backBufferGraphics.setColor(blinkingColor("GREEN"));
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() / 2);
+	}
+
+	public void drawRandomReward(final Screen screen, final int option) {
+		String introduceString = "RANDOM REWARD";
+		String getrandomCoin = "10";
+		String nextString = "N E X T";
+	
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
+		drawCenteredRegularString(screen, getrandomCoin, screen.getHeight() / 2);
+		backBufferGraphics.setColor(blinkingColor("GREEN"));
+		backBufferGraphics.drawString(nextString, (screen.getWidth() - fontRegularMetrics.stringWidth(nextString)) / 2, screen.getHeight() * 3 / 4);
 	}
 
 	public void drawSubMenu(final Screen screen, final int option) {
