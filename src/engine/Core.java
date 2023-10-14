@@ -213,13 +213,15 @@ public final class Core {
 
 					// Game & score.
 					do {
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
 						returnCode = frame.setScreen(currentScreen);
 						LOGGER.info("Closing game screen.");
 
 						gameState = ((GameScreen) currentScreen).getGameState();
-
 
 						gameState = new GameState(gameState.getLevel() + 1,
 								gameState.getScore(),
@@ -228,11 +230,10 @@ public final class Core {
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
 
-						
+
 						// SubMenu : Item Store / Enhancement / Continue
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
-
 							if (!boxOpen){
 								currentScreen = new RandomBoxScreen(width, height, FPS);
 								returnCode = frame.setScreen(currentScreen);
@@ -268,21 +269,21 @@ public final class Core {
 					bgm.bgm_stop();
 
 
-					// Recovery : 
-					
+					// Recovery :
+
 					currentScreen = new RecoveryScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " Recovery screen at " + FPS + " fps.");
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing Recovery screen.");
 
-					
+
 
 					// if (currentScreen.returnCode == 30) {
-						
+
 					// }
 
-						
+
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -351,6 +352,9 @@ public final class Core {
 					//new BGM.play_bgm();
 					// Game & score.
 					do {
+						currentScreen = new GameScreen_2P(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
 						returnCode = frame.setScreen(currentScreen);
@@ -365,9 +369,8 @@ public final class Core {
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
 
-
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS );
+							&& gameState.getLevel() <= NUM_LEVELS);
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -463,7 +466,7 @@ public final class Core {
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
-			final int variance) {
+											   final int variance) {
 		return new Cooldown(milliseconds, variance);
 	} // commit test
 }
