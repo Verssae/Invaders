@@ -458,6 +458,7 @@ public class GameScreen extends Screen {
 	 */
 	private void manageCollisionsY() {
 		Set<BulletY> recyclable = new HashSet<BulletY>();
+		Set<Item> recyclableItem = new HashSet<Item>();
 		for (BulletY bulletY : this.bulletsY)
 			if (bulletY.getSpeed() > 0) {
 				if (checkCollision(bulletY, this.ship) && !this.levelFinished) {
@@ -488,7 +489,9 @@ public class GameScreen extends Screen {
 					recyclable.add(bulletY);
 				}
 			}
+		this.items.removeAll(recyclableItem);
 		this.bulletsY.removeAll(recyclable);
+		ItemPool.recycle(recyclableItem);
 		BulletPool.recycleBulletY(recyclable);
 	}
 
