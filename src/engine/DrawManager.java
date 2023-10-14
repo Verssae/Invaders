@@ -369,6 +369,13 @@ public final class DrawManager {
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
+
+	public void BulletsCount(final Screen screen, final int BulletsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 180, 65);
+	}
 	/**
 	 * Draws number of remaining lives on screen.
 	 *

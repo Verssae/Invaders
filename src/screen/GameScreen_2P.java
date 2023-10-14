@@ -115,6 +115,7 @@ public class GameScreen_2P extends Screen {
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.hardcore = gameState.getHardCore();
         this.pause = false;
+
     }
 
     /**
