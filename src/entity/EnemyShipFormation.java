@@ -72,7 +72,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Cooldown shootingCooldown;
 	/** Number of ships in the formation - horizontally. */
 	private int nShipsWide;
-	/** Color for enemy ships */
+	/** Color for enemy ships. */
 	private Color enemyColor;
 	/** Number of ships in the formation - vertically. */
 	private int nShipsHigh;
@@ -170,7 +170,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				for (int i = 0; i < this.nShipsHigh; i++) {
 					if (i / (float) this.nShipsHigh < PROPORTION_C) {
 						spriteType = SpriteType.EnemyShipC1;
-						enemyColor = Color.WHITE;
+						enemyColor = Color.PINK;
+					}
+					else if (i / (float) this.nShipsHigh < PROPORTION_B) {
+						spriteType = SpriteType.EnemyShipSC1;
+						enemyColor = Color.RED;
 					}
 					else if (i / (float) this.nShipsHigh < PROPORTION_B
 							+ PROPORTION_C) {
@@ -521,11 +525,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * @param destroyedShip
 	 *            Ship to be destroyed.
 	 */
-	public final void destroy(final EnemyShip destroyedShip) {
+	public final void destroy(final EnemyShip destroyedShip, Set<Item> items) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
 				if (column.get(i).equals(destroyedShip)) {
-					column.get(i).destroy();
+					column.get(i).destroy(items);
 					this.logger.info("Destroyed ship in ("
 							+ this.enemyShips.indexOf(column) + "," + i + ")");
 				}
