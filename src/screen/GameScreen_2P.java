@@ -498,11 +498,12 @@ public class GameScreen_2P extends Screen {
      * Manages collisions between bulletsY and ships.
      */
     private void manageCollisionsY() {
-        Set<BulletY> recyclable = new HashSet<BulletY>();
+        Set<BulletY> recyclableBulletY = new HashSet<BulletY>();
+        Set<Item> recyclableItem = new HashSet<Item>();
         for (BulletY bulletY : this.bulletsY)
             if (bulletY.getSpeed() > 0) {
                 if (checkCollision(bulletY, this.ship_1P) && !this.levelFinished) {
-                    recyclable.add(bulletY);
+                    recyclableBulletY.add(bulletY);
                     if (!this.ship_1P.isDestroyed()) {
                         this.ship_1P.destroy();
                         if (this.lives != 1) soundEffect.playShipCollisionSound();
@@ -512,7 +513,7 @@ public class GameScreen_2P extends Screen {
                     }
                 }
                 else if (checkCollision(bulletY, this.ship_2P) && !this.levelFinished) {
-                    recyclable.add(bulletY);
+                    recyclableBulletY.add(bulletY);
                     if (!this.ship_2P.isDestroyed()) {
                         this.ship_2P.destroy();
                         if (this.lives != 1) soundEffect.playShipCollisionSound();
@@ -529,7 +530,7 @@ public class GameScreen_2P extends Screen {
                         this.score += enemyShip.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipFormation.destroy(enemyShip, this.items);
-                        recyclable.add(bulletY);
+                        recyclableBulletY.add(bulletY);
                     }
                 if (this.enemyShipSpecial != null
                         && !this.enemyShipSpecial.isDestroyed()
@@ -538,12 +539,14 @@ public class GameScreen_2P extends Screen {
                     this.shipsDestroyed++;
                     this.enemyShipSpecial.destroy(this.items);
                     this.enemyShipSpecialExplosionCooldown.reset();
-                    recyclable.add(bulletY);
+                    recyclableBulletY.add(bulletY);
                 }
             }
 
-        this.bulletsY.removeAll(recyclable);
-        BulletPool.recycleBulletY(recyclable);
+        this.items.removeAll(recyclableItem);
+        this.bulletsY.removeAll(recyclableBulletY);
+        ItemPool.recycle(recyclableItem);
+        BulletPool.recycleBulletY(recyclableBulletY);
     }
 
     /**
