@@ -4,6 +4,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.DrawManager.*;
 import entity.Bullet;
+import entity.BulletY;
 import entity.BulletPool;
 import entity.Ship;
 
@@ -44,6 +45,21 @@ public class ShipEffect extends Effect{
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY(), BULLET_SPEED));
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 - 10,
+                    ship.getPositionY(), BULLET_SPEED));
+        }
+    }
+
+    public void shootBulletY(final Set<BulletY> bulletsY, final int BULLET_SPEED) {
+        if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
+        {
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
+                    ship.getPositionY(), BULLET_SPEED));
+        } else {
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 + 10,
+                    ship.getPositionY(), BULLET_SPEED));
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
+                    ship.getPositionY(), BULLET_SPEED));
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 - 10,
                     ship.getPositionY(), BULLET_SPEED));
         }
     }
