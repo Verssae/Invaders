@@ -14,6 +14,7 @@ import java.util.logging.*;
  */
 public final class Core {
 	private static final String BGM_FILE_PATH = "sound_BackGroundMusic/neon-gaming-128925.wav";
+
 	/**
 	 * Width of current screen.
 	 */
@@ -118,6 +119,7 @@ public final class Core {
 	public static void main(final String[] args) {
 		try {
 			BGM bgm = new BGM(BGM_FILE_PATH);
+
 			LOGGER.setUseParentHandlers(false);
 
 			fileHandler = new FileHandler("log");
@@ -211,14 +213,9 @@ public final class Core {
 
 					// Game & score.
 					do {
-						// One extra live every few levels.
-						boolean bonusLife = gameState.getLevel()
-								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
-								&& gameState.getLivesRemaining() < MAX_LIVES;
-
 						currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
-								bonusLife, width, height, FPS);
+								width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
 						returnCode = frame.setScreen(currentScreen);
@@ -232,8 +229,8 @@ public final class Core {
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
-						
-						
+
+
 						// SubMenu : Item Store / Enhancement / Continue
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
@@ -274,21 +271,21 @@ public final class Core {
 					bgm.bgm_stop();
 
 
-					// Recovery : 
-					
+					// Recovery :
+
 					currentScreen = new RecoveryScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " Recovery screen at " + FPS + " fps.");
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing Recovery screen.");
 
-					
+
 
 					// if (currentScreen.returnCode == 30) {
-						
+
 					// }
 
-						
+
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -357,14 +354,9 @@ public final class Core {
 					//new BGM.play_bgm();
 					// Game & score.
 					do {
-						// One extra live every few levels.
-						boolean bonusLife = gameState.getLevel()
-								% EXTRA_LIFE_FRECUENCY == 0 && !gameState.getHardCore()
-								&& gameState.getLivesRemaining() < MAX_LIVES;
-
 						currentScreen = new GameScreen_2P(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
-								bonusLife, width, height, FPS);
+								width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " game screen at " + FPS + " fps.");
 						returnCode = frame.setScreen(currentScreen);
@@ -476,7 +468,7 @@ public final class Core {
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
-			final int variance) {
+											   final int variance) {
 		return new Cooldown(milliseconds, variance);
 	} // commit test
 }
