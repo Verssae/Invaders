@@ -147,7 +147,7 @@ public class GameScreen extends Screen {
 		this.inputDelay.reset();
 
 		soundEffect = new SoundEffect();
-		drawManager.initBackgroundTimer();
+		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT);
 		bgm = new BGM();
 	}
 
@@ -305,8 +305,10 @@ public class GameScreen extends Screen {
 	 * Draws the elements associated with the screen.
 	 */
 	private void draw() {
+
+		// Draw Background
 		drawManager.initDrawing(this);
-		drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, this.lives);
+		drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, (int)this.lives);
 		if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
 		drawManager.drawBackgroundLines(this, SEPARATION_LINE_HEIGHT);
 		drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship.getPositionX(), this.ship.getPositionY(), this.ship.getWidth(), this.ship.getHeight());
@@ -349,6 +351,7 @@ public class GameScreen extends Screen {
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
 
+			// Fade from white at game start.
 			drawManager.drawBackgroundStart(this, SEPARATION_LINE_HEIGHT);
 
 			/* this code is modified with Clean Code (dodo_kdy)  */
