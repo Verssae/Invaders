@@ -15,9 +15,9 @@ import javax.swing.*;
 
 /**
  * Implements the game screen, where the action happens.
- * 
+ *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- * 
+ *
  */
 public class GameScreen extends Screen {
 
@@ -87,9 +87,11 @@ public class GameScreen extends Screen {
 	/** Check what color will be displayed*/
 	private int color_variable;
 
+	private int BulletsCount = 99;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
-	 * 
+	 *
 	 * @param gameState
 	 *            Current game state.
 	 * @param gameSettings
@@ -104,8 +106,8 @@ public class GameScreen extends Screen {
 	 *            Frames per second, frame rate at which the game is run.
 	 */
 	public GameScreen(final GameState gameState,
-			final GameSettings gameSettings, final boolean bonusLife,
-			final int width, final int height, final int fps) {
+					  final GameSettings gameSettings, final boolean bonusLife,
+					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 		this.gameSettings = gameSettings;
@@ -154,7 +156,7 @@ public class GameScreen extends Screen {
 
 	/**
 	 * Starts the action.
-	 * 
+	 *
 	 * @return Next screen code.
 	 */
 	public final int run() {
@@ -203,12 +205,14 @@ public class GameScreen extends Screen {
 							if (this.ship.shootBulletY(this.bulletsY)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
+								this.BulletsCount--;
 							}
 						}
 						else {
 							if (this.ship.shoot(this.bullets)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
+								this.BulletsCount--;
 							}
 						}
 					}
@@ -333,12 +337,13 @@ public class GameScreen extends Screen {
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
+		drawManager.BulletsCount(this, this.BulletsCount);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
 					- (System.currentTimeMillis()
-							- this.gameStartTime)) / 1000);
+					- this.gameStartTime)) / 1000);
 
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
@@ -346,8 +351,8 @@ public class GameScreen extends Screen {
 
 
 			/* this code is modified with Clean Code (dodo_kdy)  */
-			  //drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
-			  //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
+			//drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
+			//drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
 
 		}
 
@@ -504,7 +509,7 @@ public class GameScreen extends Screen {
 
 	/**
 	 * Checks if two entities are colliding.
-	 * 
+	 *
 	 * @param a
 	 *            First entity, the bullet.
 	 * @param b
@@ -529,7 +534,7 @@ public class GameScreen extends Screen {
 
 	/**
 	 * Returns a GameState object representing the status of the game.
-	 * 
+	 *
 	 * @return Current game state.
 	 */
 	public final GameState getGameState() {
