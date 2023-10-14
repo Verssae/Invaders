@@ -89,6 +89,13 @@ public class GameScreen extends Screen {
 
 	private int BulletsCount = 99;
 
+	private int attackDamage;
+	private int areaDamage;
+	/**
+	 * Application logger.
+	 */
+	private static final Logger LOGGER = Logger.getLogger(Core.class
+			.getSimpleName());
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -119,6 +126,8 @@ public class GameScreen extends Screen {
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
 		this.pause = false;
+		this.attackDamage = gameSettings.getBaseAttackDamage();
+		this.areaDamage = gameSettings.getBaseAreaDamage();
 	}
 
 	/**
@@ -424,7 +433,7 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
-						enemyShip.reduceEnemyLife();
+						enemyShip.reduceEnemyLife(this.attackDamage);
 						soundEffect.playEnemyDestructionSound();
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
@@ -437,7 +446,7 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					enemyShipSpecial.reduceEnemyLife();
+					enemyShipSpecial.reduceEnemyLife(this.attackDamage); // bullet.getAttackDamage()
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;

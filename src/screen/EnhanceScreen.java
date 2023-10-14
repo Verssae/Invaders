@@ -2,9 +2,14 @@ package screen;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.util.List;
+
 import engine.Cooldown;
 import engine.Core;
+import engine.EnhanceManager;
+import engine.GameSettings;
 import engine.GameState;
+import entity.Bullet;
 
 public class EnhanceScreen extends Screen {
     /** Milliseconds between changes in user selection. */
@@ -17,12 +22,6 @@ public class EnhanceScreen extends Screen {
 	private double lives;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
-    /** Current Number of Enhancement Area&Damage Stone */
-    private int valEnhanceArea = 0;
-    private int valEnhanceDamage = 0;
-    /** Current Level of Enhancement Area&Damage Stone */
-    private int lvEnhanceArea = 0;
-    private int lvEnhanceDamage = 0;
     /** Settings of Centered Circle Frame */
     private int centeredCircleWidth = 170;
     private int centeredCircleHeight = 170;
@@ -34,6 +33,8 @@ public class EnhanceScreen extends Screen {
     private int leftCircleX = (this.width - 220) / 2;
     private int rightCircleX = this.width - (this.width - 220) / 2 - 70;
     private int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
+    private EnhanceManager enhanceManager;
+    private List<GameSettings> gameSettings;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -45,9 +46,12 @@ public class EnhanceScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public EnhanceScreen(final GameState gameState, final int width, final int height, final int fps) {
+    public EnhanceScreen(final EnhanceManager enhanceManager, final List<GameSettings> gameSettings,
+                         final GameState gameState, final int width, final int height, final int fps) {
         super(width, height, fps);
-
+        this.enhanceManager = enhanceManager;
+        this.gameSettings = gameSettings;
+        
         // Defaults to play.
         this.returnCode = 8;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
@@ -96,8 +100,21 @@ public class EnhanceScreen extends Screen {
                 nextHorizontalMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
+                if (this.returnCode == 8) {
+                    this.enhanceManager.enhanceAreaDamage();
+                    for (GameSettings gameSetting : this.gameSettings) {
+                        gameSetting.setAreaDamage(this.enhanceManager.getAreaDamage());
+                    }
+                }
+                if (this.returnCode == 9) {
+                    this.enhanceManager.enhanceAttackDamage();
+                    for (GameSettings gameSetting : this.gameSettings) {
+                        gameSetting.setAttackDamage(this.enhanceManager.getAttackDamage());
+                    }
+                }
                 this.isRunning = false;
+            }
         }
     }
 
@@ -186,9 +203,17 @@ public class EnhanceScreen extends Screen {
                                             Color.GRAY, fontSizeOption);
 
         drawManager.drawEnhanceMenu(this, this.returnCode, 
-                                    this.valEnhanceArea, this.valEnhanceDamage, 
-                                    this.lvEnhanceArea, this.lvEnhanceDamage);
+                                    this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
+                                    this.enhanceManager.getlvEnhanceStoneArea(), this.enhanceManager.getlvEnhanceStoneAttack());
 
         drawManager.completeDrawing(this);
     }
+
+    public List<GameSettings> getGameSettings() {
+		return this.gameSettings;
+	}
+
+    public EnhanceManager getEnhanceManager() {
+		return this.enhanceManager;
+	}
 }
