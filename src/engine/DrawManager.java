@@ -805,7 +805,7 @@ public final class DrawManager {
 	 *                       If the score is a new high score.
 	 */
 	public void drawResults(final Screen screen, final int score,
-			final int livesRemaining, final int shipsDestroyed, final int difficulty,
+			final double livesRemaining, final int shipsDestroyed, final int difficulty,
 			final float accuracy, final boolean isNewRecord) {
 		String scoreString = String.format("score %04d", score);
 		String difficultyString = "Difficulty ";
