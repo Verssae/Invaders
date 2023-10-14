@@ -11,6 +11,7 @@ import engine.*;
 import entity.*;
 
 
+
 import javax.swing.*;
 
 /**
@@ -78,7 +79,6 @@ public class GameScreen extends Screen {
 	private boolean pause;
 	/** Set of all items.*/
 	private Set<Item> items;
-
 	/** is none exist dropped item?*/
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
