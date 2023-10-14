@@ -118,7 +118,7 @@ public class EnemyShip extends Entity {
 				this.spriteType = SpriteType.EnemyShipSpecial2;
 				break;
 		}
-
+		
 
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
