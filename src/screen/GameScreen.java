@@ -35,7 +35,6 @@ public class GameScreen extends Screen {
 	private static final int SCREEN_CHANGE_INTERVAL = 1500;
 	/** Height of the interface separation line. */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
-
 	/** Current game difficulty settings. */
 	private GameSettings gameSettings;
 	/** Current difficulty level number. */
@@ -58,6 +57,8 @@ public class GameScreen extends Screen {
 	private Set<BulletY> bulletsY;
 	/** Sound Effects for player's ship and enemy. */
 	private SoundEffect soundEffect;
+	/** Add and Modify BGM */
+	private BGM bgm;
 	/** Aiming line. */
 	private BulletLine bulletLine;
 	/** Current score. */
@@ -148,6 +149,7 @@ public class GameScreen extends Screen {
 		this.inputDelay.reset();
 
 		soundEffect = new SoundEffect();
+		bgm = new BGM();
 	}
 
 	/**
@@ -217,25 +219,28 @@ public class GameScreen extends Screen {
 						this.enemyShipSpecial.move(2, 0);
 					else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
 						this.enemyShipSpecial = null;
-
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {
 					color_variable = (int)(Math.random()*4);
 					if (color_variable == 0) {
 						this.enemyShipSpecial = new EnemyShip(Color.RED);
+						bgm.enemyShipSpecialbgm_play();
 
 					}
 					else if (color_variable == 1) {
 						this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+						bgm.enemyShipSpecialbgm_play();
 
 					}
 					else if (color_variable == 2) {
 						this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+						bgm.enemyShipSpecialbgm_play();
 
 					}
 					else if (color_variable == 3) {
 						this.enemyShipSpecial = new EnemyShip(Color.white);
+						bgm.enemyShipSpecialbgm_play();
 
 					}
 					this.enemyShipSpecialCooldown.reset();
@@ -243,6 +248,7 @@ public class GameScreen extends Screen {
 				}
 				if (this.enemyShipSpecial != null
 						&& this.enemyShipSpecial.getPositionX() > this.width) {
+					bgm.enemyShipSpecialbgm_stop();
 					this.enemyShipSpecial = null;
 					this.logger.info("The special ship has escaped");
 				}
@@ -434,6 +440,7 @@ public class GameScreen extends Screen {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
 						this.enemyShipSpecial.destroy(this.items);
+						bgm.enemyShipSpecialbgm_stop();
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBullet.add(bullet);
@@ -484,6 +491,7 @@ public class GameScreen extends Screen {
 					this.score += this.enemyShipSpecial.getPointValue();
 					this.shipsDestroyed++;
 					this.enemyShipSpecial.destroy(this.items);
+					bgm.enemyShipSpecialbgm_stop();
 					this.enemyShipSpecialExplosionCooldown.reset();
 					recyclable.add(bulletY);
 				}
