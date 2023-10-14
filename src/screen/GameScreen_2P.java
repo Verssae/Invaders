@@ -54,6 +54,8 @@ public class GameScreen_2P extends Screen {
     private Set<Bullet> bullets;
     /** Sound Effects for player's ship and enemy. */
     private SoundEffect soundEffect;
+    /** Add and Modify BGM */
+    private BGM bgm;
     /** Current score. */
     private int score;
     /** Player lives left. */
@@ -135,6 +137,7 @@ public class GameScreen_2P extends Screen {
         this.inputDelay.reset();
 
         soundEffect = new SoundEffect();
+        bgm = new BGM();
     }
 
     /**
@@ -222,11 +225,13 @@ public class GameScreen_2P extends Screen {
                 if (this.enemyShipSpecial == null
                         && this.enemyShipSpecialCooldown.checkFinished()) {
                     this.enemyShipSpecial = new EnemyShip(Color.RED);
+                    bgm.enemyShipSpecialbgm_play();
                     this.enemyShipSpecialCooldown.reset();
                     this.logger.info("A special ship appears");
                 }
                 if (this.enemyShipSpecial != null
                         && this.enemyShipSpecial.getPositionX() > this.width) {
+                    bgm.enemyShipSpecialbgm_stop();
                     this.enemyShipSpecial = null;
                     this.logger.info("The special ship has escaped");
                 }
@@ -372,6 +377,7 @@ public class GameScreen_2P extends Screen {
                     this.shipsDestroyed++;
                     this.enemyShipSpecial.destroy();
                     this.enemyShipSpecialExplosionCooldown.reset();
+                    bgm.enemyShipSpecialbgm_stop();
                     recyclable.add(bullet);
                 }
             }
