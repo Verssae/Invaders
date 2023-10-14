@@ -14,7 +14,7 @@ public class EnhanceScreen extends Screen {
     /** Current score. */
     private int score;
     /** Player lives left. */
-	private int lives;
+	private double lives;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
     /** Current Number of Enhancement Area&Damage Stone */
