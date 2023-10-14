@@ -105,7 +105,7 @@ public class GameScreen_2P extends Screen {
         super(width, height, fps);
 
         this.gameSettings = gameSettings;
-        //this.bonusLife = bonusLife;
+        this.bonusLife = bonusLife;
         this.level = gameState.getLevel();
         this.score = gameState.getScore();
         this.lives = gameState.getLivesRemaining();
