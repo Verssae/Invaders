@@ -263,7 +263,6 @@ public class GameScreen extends Screen {
 			cleanBullets();
 			cleanBulletsY();
 			cleanItems();
-			cleanBulletsY();
 			draw();
 		}
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
@@ -464,11 +463,12 @@ public class GameScreen extends Screen {
 	 * Manages collisions between bulletsY and ships.
 	 */
 	private void manageCollisionsY() {
-		Set<BulletY> recyclable = new HashSet<BulletY>();
+		Set<BulletY> recyclableBulletY = new HashSet<BulletY>();
+		Set<Item> recyclableItem = new HashSet<Item>();
 		for (BulletY bulletY : this.bulletsY)
 			if (bulletY.getSpeed() > 0) {
 				if (checkCollision(bulletY, this.ship) && !this.levelFinished) {
-					recyclable.add(bulletY);
+					recyclableBulletY.add(bulletY);
 					if (!this.ship.isDestroyed()) {
 						this.ship.destroy();
 						this.lives--;
@@ -483,7 +483,7 @@ public class GameScreen extends Screen {
 						this.score += enemyShip.getPointValue();
 						this.shipsDestroyed++;
 						this.enemyShipFormation.destroy(enemyShip, this.items);
-						recyclable.add(bulletY);
+						recyclableBulletY.add(bulletY);
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
@@ -493,11 +493,13 @@ public class GameScreen extends Screen {
 					this.enemyShipSpecial.destroy(this.items);
 					bgm.enemyShipSpecialbgm_stop();
 					this.enemyShipSpecialExplosionCooldown.reset();
-					recyclable.add(bulletY);
+					recyclableBulletY.add(bulletY);
 				}
 			}
-		this.bulletsY.removeAll(recyclable);
-		BulletPool.recycleBulletY(recyclable);
+		this.items.removeAll(recyclableItem);
+		this.bulletsY.removeAll(recyclableBulletY);
+		ItemPool.recycle(recyclableItem);
+		BulletPool.recycleBulletY(recyclableBulletY);
 	}
 
 	/**
