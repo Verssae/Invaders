@@ -20,6 +20,8 @@ public class Ship extends Entity {
 	private static final int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
 	private static final int BULLET_SPEED = -6;
+	/** Speed of the bullets shot by the ship. */
+	private static final int BULLETY_SPEED = -9;
 	/** Movement of the ship for each unit of time. */
 	private static final int SPEED = 2;
 	
@@ -74,6 +76,15 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			return true;
+		}
+		return false;
+	}
+
+	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
 			return true;
 		}
 		return false;
