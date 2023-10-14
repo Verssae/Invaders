@@ -49,18 +49,26 @@ public class ShipEffect extends Effect{
         }
     }
 
-    public void shootBulletY(final Set<BulletY> bulletsY, final int BULLET_SPEED) {
+    /**
+     * Bullet shooting effect
+     *
+     * @param bullets
+     *              The factor of the ship's shoot method.
+     * @param BULLETY_SPEED
+     *              the speed of a ship's bulletY
+     */
+    public void shootBulletY(final Set<BulletY> bulletsY, final int BULLETY_SPEED) {
         if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
         {
             bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY(), BULLET_SPEED));
+                    ship.getPositionY(), BULLETY_SPEED));
         } else {
             bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 + 10,
-                    ship.getPositionY(), BULLET_SPEED));
+                    ship.getPositionY(), BULLETY_SPEED));
             bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY(), BULLET_SPEED));
+                    ship.getPositionY(), BULLETY_SPEED));
             bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 - 10,
-                    ship.getPositionY(), BULLET_SPEED));
+                    ship.getPositionY(), BULLETY_SPEED));
         }
     }
 }
