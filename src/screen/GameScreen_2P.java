@@ -56,6 +56,8 @@ public class GameScreen_2P extends Screen {
     private Set<BulletY> bulletsY;
     /** Sound Effects for player's ship and enemy. */
     private SoundEffect soundEffect;
+    /** Add and Modify BGM */
+    private BGM bgm;
     /** Current score. */
     private int score;
     /** Player lives left. */
@@ -145,6 +147,7 @@ public class GameScreen_2P extends Screen {
         this.inputDelay.reset();
 
         soundEffect = new SoundEffect();
+        bgm = new BGM();
     }
 
     /**
@@ -252,18 +255,22 @@ public class GameScreen_2P extends Screen {
                     color_variable = (int)(Math.random()*4);
                     if (color_variable == 0) {
                         this.enemyShipSpecial = new EnemyShip(Color.RED);
+                        bgm.enemyShipSpecialbgm_play();
 
                     }
                     else if (color_variable == 1) {
                         this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+                        bgm.enemyShipSpecialbgm_play();
 
                     }
                     else if (color_variable == 2) {
                         this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+                        bgm.enemyShipSpecialbgm_play();
 
                     }
                     else if (color_variable == 3) {
                         this.enemyShipSpecial = new EnemyShip(Color.white);
+                        bgm.enemyShipSpecialbgm_play();
 
                     }
                     this.enemyShipSpecialCooldown.reset();
@@ -271,6 +278,7 @@ public class GameScreen_2P extends Screen {
                 }
                 if (this.enemyShipSpecial != null
                         && this.enemyShipSpecial.getPositionX() > this.width) {
+                    bgm.enemyShipSpecialbgm_stop();
                     this.enemyShipSpecial = null;
                     this.logger.info("The special ship has escaped");
                 }
@@ -472,6 +480,7 @@ public class GameScreen_2P extends Screen {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
                     this.enemyShipSpecial.destroy(this.items);
+                    bgm.enemyShipSpecialbgm_stop();
                     this.enemyShipSpecialExplosionCooldown.reset();
                     recyclableBullet.add(bullet);
                 }
@@ -537,11 +546,11 @@ public class GameScreen_2P extends Screen {
                     this.score += this.enemyShipSpecial.getPointValue();
                     this.shipsDestroyed++;
                     this.enemyShipSpecial.destroy(this.items);
+                    bgm.enemyShipSpecialbgm_stop();
                     this.enemyShipSpecialExplosionCooldown.reset();
                     recyclable.add(bulletY);
                 }
             }
-
         this.bulletsY.removeAll(recyclable);
         BulletPool.recycleBulletY(recyclable);
     }
