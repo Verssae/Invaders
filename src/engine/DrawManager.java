@@ -393,9 +393,9 @@ public final class DrawManager {
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
 
-	public void drawLivesbar(final Screen screen, final int lives) {
+	public void drawLivesbar(final Screen screen, final double lives) {
 		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
-		double fillRatio = (double) lives / 3.0;
+		double fillRatio = lives / 3.0;
 
 		// Determine the width of the filled portion of the rectangle.
 		int filledWidth = (int) (120 * fillRatio);
@@ -419,10 +419,10 @@ public final class DrawManager {
 
 		// Calculate the position to center the "lives" text.
 		int textX = (120 - fontRegularMetrics.stringWidth("Lives")) / 2;
-		int textY = 8 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
+		int textY = 6 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
 
 		// Draw the "lives" text in the center of the rectangle.
-		g2d.drawString("lives", textX, textY);
+		g2d.drawString("Lives", textX, textY);
 	}
 
 	/**
