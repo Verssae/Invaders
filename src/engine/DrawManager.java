@@ -1,5 +1,4 @@
 package engine;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
@@ -14,6 +13,7 @@ import screen.Screen;
 import entity.Entity;
 import entity.Ship;
 
+import java.util.Random;
 /**
  * Manages screen drawing.
  *
@@ -83,7 +83,13 @@ public final class DrawManager {
 		Explosion,
 
 		/** 스프라이트를 중복시켜 버리는 곳 인게임에는 보이지 않음**/
-		Trash
+		Trash1,
+
+		Trash2,
+
+		Trash3,
+
+		Trash4
 	};
 
 	/**
@@ -93,34 +99,41 @@ public final class DrawManager {
 		fileManager = Core.getFileManager();
 		logger = Core.getLogger();
 		logger.info("Started loading resources.");
-
 		try {
-			double double_random = Math.random();
-			int Trash_enemyA = (int)double_random * 10;
-			if (1 <= Trash_enemyA && Trash_enemyA <4){		/** 변경점 **/
-				Trash_enemyA = Trash_enemyA - 1;			/** 1,2,3 => 0,1,2**/
-			}
-			else if (4 <= Trash_enemyA && Trash_enemyA < 7){
-				Trash_enemyA = Trash_enemyA - 4;			/** 4,5,6 => 0,1,2**/
-			}
-			else{
-				Trash_enemyA = Trash_enemyA - 7;			/** 7,8,9 => 0,1,2**/
-			}
+			Random random = new Random();
+			int Trash_enemyA = random.nextInt(3);
+			System.out.print(Trash_enemyA);
 			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
 			spriteMap.put(SpriteType.Ship, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
-			if (Trash_enemyA != 0){
-				for (int i = 1; i <=Trash_enemyA; i++){
-					spriteMap.put(SpriteType.Trash, new boolean[12][8]);
-				}
+
+			if (Trash_enemyA == 0){
+				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
+				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
 			}
-			spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
-			for (int i = 1; i <= 3-Trash_enemyA; i++){
-				spriteMap.put(SpriteType.Trash, new boolean[12][8]);
+			else if (Trash_enemyA == 1){
+				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
+				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
+				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
 			}
-			spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+			else{
+				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
+				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
+				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
+				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+			}
+
 			spriteMap.put(SpriteType.EnemyShipB1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipB2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC1, new boolean[12][8]);
