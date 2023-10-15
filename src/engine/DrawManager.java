@@ -11,12 +11,15 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import entity.Entity;
 import entity.Ship;
@@ -639,7 +642,26 @@ public final class DrawManager {
 		String oneString = "1";
 		String twoString = "2";
 		String threeString = "3";
-
+		try {
+			BufferedImage image1 = ImageIO.read(new File("res/giftbox1.png"));
+			backBufferGraphics.drawImage(image1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			BufferedImage image2 = ImageIO.read(new File("res/giftbox1.png"));
+			backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			BufferedImage image3 = ImageIO.read(new File("res/giftbox1.png"));
+			backBufferGraphics.drawImage(image3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 		// backBufferGraphics.setColor(slowlyChangingColors("RAINBOW"));
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString1, screen.getHeight() / 8);
@@ -648,19 +670,19 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(oneString, screen.getWidth() / 4, screen.getHeight() / 2);
+		backBufferGraphics.drawString(oneString, screen.getWidth() / 4, screen.getHeight() * 3 / 4);
 
 		if (option == 7)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
+		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() * 3 / 4);
 		
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() / 2);
+		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() * 3 / 4);
 	}
 
 	public void drawRandomReward(final Screen screen, final int option) {
