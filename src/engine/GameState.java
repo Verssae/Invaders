@@ -20,6 +20,7 @@ public class GameState {
 	private int shipsDestroyed;
 	/** HardCore(Only One life) */
 	private boolean hardcore;
+	
 
 
 
@@ -109,4 +110,14 @@ public class GameState {
 	public final void setLevel(int i) {
 		this.level = i;
 	}
+
+	/**
+	 * Set LifeRecovery
+	 */
+
+	 public final void setLifeRecovery(int i) {
+		this.livesRemaining = 3;
+		this.level = getLevel();
+		this.score = getScore();
+	 }
 }
