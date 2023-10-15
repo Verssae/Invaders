@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
+import engine.Coin;
 
 /**
  * Manages screen drawing.
@@ -1096,17 +1097,22 @@ public final class DrawManager {
 	}
 
 	public void drawItemStore(final Screen screen, final int option) {
+		Coin coinInstance = new Coin();
+		int coinValue = coinInstance.getCoin(); 
 		String itemStoretxt = " I T E M S T O R E";
 		String txt = " TESTTXT";
 		String buyString = " B U Y";
 		String addcoinString = " P L U S C O I N";
+		String coinString = " C O I N : " + coinValue;
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
-		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.setColor(Color.green);
 		drawCenteredRegularString(screen, itemStoretxt,	screen.getHeight()/4 - 80);
+		backBufferGraphics.setColor(Color.YELLOW);
+		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
 		if (option == 13)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
