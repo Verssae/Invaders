@@ -1071,9 +1071,9 @@ public final class DrawManager {
 			final int number, final boolean bonusLife) {
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
-				rectWidth, rectHeight);
+		//backBufferGraphics.setColor(Color.BLACK);
+		//backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
+		//		rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
 
 		if (number >= 4)
@@ -1089,7 +1089,7 @@ public final class DrawManager {
 			}
 		else if (number != 0) {
 			/* this if-else is modified with Clean Code (dodo_kdy) */
-			if (isFirst)
+			if (!isFirst)
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
 			else {
 
@@ -1131,7 +1131,7 @@ public final class DrawManager {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		if ((25 + 20 * (3 - number) < timercount && timercount < 40 + 20 * (3 - number)))
-			g2d.setColor(new Color(0, 0, 0));
+			g2d.setColor(new Color(0, 0, 0,0));
 
 		GlyphVector gv = font1.createGlyphVector(g2d.getFontRenderContext(),"Loading...");
 		Shape shape = gv.getOutline();
