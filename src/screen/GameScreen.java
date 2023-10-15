@@ -273,6 +273,7 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 		}
 		if (this.lives == 0 && !this.levelFinished) {
+			this.ship.update();
 			this.levelFinished = true;
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
