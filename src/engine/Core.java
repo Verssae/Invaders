@@ -257,6 +257,32 @@ public final class Core {
                                 gameState.getLivesRemaining_2p());
 
 
+<<<<<<< HEAD
+=======
+					BGM bgm = new BGM(BGM_FILE_PATH);
+					bgm.bgm_play(); //게임 대기 -> 시작으로 넘어가면서 bgm 시작
+
+					// Game & score.
+					do {
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								width, height, FPS);
+						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+								+ " game screen at " + FPS + " fps.");
+						returnCode = frame.setScreen(currentScreen);
+						LOGGER.info("Closing game screen.");
+
+						gameState = ((GameScreen) currentScreen).getGameState();
+
+						gameState = new GameState(gameState.getLevel() + 1,
+								gameState.getScore(),
+								gameState.getLivesRemaining(),
+								gameState.getBulletsShot(),
+								gameState.getShipsDestroyed(),
+								gameState.getHardCore());
+
+
+>>>>>>> 3630907 (comment: GameScreen, EnhanceScreen, EnhanceStone Class)
 						// SubMenu | Item Store & Enhancement & Continue
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
