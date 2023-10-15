@@ -1538,31 +1538,7 @@ public final class DrawManager {
 			this.drawEntity(SpriteType.values()[8],x1+100,y1+10,3,2.4);
 			this.drawEntity(SpriteType.values()[10],x1+145,y1+13,2,2);
 		}
-	// public int animateLoading(int x, int y) {
-	// 	try {
-	// 		img1 = ImageIO.read(new File("res/invader_2.png"));
-	// 		img2 = ImageIO.read(new File("res/invader_1.png"));
-	// 		img3 = ImageIO.read(new File("res/invader_3.png"));
-	// 		img4 = ImageIO.read(new File("res/invader_4.png"));
-	// 	} catch (IOException exc) {
-	// 		return 0;
-	// 	}
-		
 
-	// 	int y1 = y + 10, y2 = y + 15, x1 = x;
-	// 	if ((30 < timercount && timercount < 50) || (110 < timercount && timercount < 130))
-	// 		y2 -= 5;
-	// 	else if (70 < timercount && timercount < 90)
-	// 		y1 -= 5;
-	// 	else
-	// 		x1 -= 5;
-
-	// 	backBufferGraphics.drawImage(img1, x1 + 15, y1, 34, 34, null);
-	// 	backBufferGraphics.drawImage(img2, x1 + 60, y2 - 2, 30, 24, null);
-	// 	backBufferGraphics.drawImage(img3, x1 + 100, y1 - 10, 38, 55, null);
-	// 	backBufferGraphics.drawImage(img4, x1 + 145, y2, 32, 27, null);
-	// 	return 1;
-	// }
 
 	/**
 	 * Draws basic gradient background that animates between colors.
