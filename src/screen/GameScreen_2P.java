@@ -82,8 +82,10 @@ public class GameScreen_2P extends Screen {
     private boolean isItemAllEat;
     /** Check what color will be displayed*/
     private int color_variable;
-    private int attackDamage;
-    private int areaDamage;
+	/** Current Value of Enhancement  Area. */
+	private int attackDamage;
+	/** Current Value of Enhancement  Attack. */
+	private int areaDamage;
 
     /**
      * Constructor, establishes the properties of the screen.

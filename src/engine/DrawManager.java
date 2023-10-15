@@ -1250,11 +1250,8 @@ public final class DrawManager {
         int sideCircleHeight = 70;
         int leftCircleX = (screenWidth - 220) / 2;
         int rightCircleX = screenWidth - (screenWidth - 220) / 2 - 70;
-        int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
-
-		// backBufferGraphics.setFont(fontRegular);
-		// backBufferGraphics.setColor(Color.WHITE);
-		// backBufferGraphics.drawString("Reinforced Stone: ", 20, 25);
+        int sideCircleY = SEPARATION_LINE_HEIGHT * 5;	
+		
 
 		backBufferGraphics.setColor(Color.GREEN);
 
