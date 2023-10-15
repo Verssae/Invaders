@@ -254,7 +254,7 @@ public final class Core {
 							if (currentScreen.returnCode == 6) {
 								currentScreen = new StoreScreen(width, height, FPS);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
+										+ " store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
@@ -263,7 +263,7 @@ public final class Core {
 								gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
 								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
+										+ " enhance screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}

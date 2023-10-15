@@ -204,15 +204,25 @@ public class EnhanceScreen extends Screen {
 
         drawManager.drawEnhanceMenu(this, this.returnCode, 
                                     this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
-                                    this.enhanceManager.getlvEnhanceStoneArea(), this.enhanceManager.getlvEnhanceStoneAttack());
+                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack());
 
         drawManager.completeDrawing(this);
     }
 
+    /**
+	 * Returns a List of GameSettings object representing the status of the game.
+	 *
+	 * @return Current game settings.
+	 */
     public List<GameSettings> getGameSettings() {
 		return this.gameSettings;
 	}
 
+    /**
+	 * Returns a DrawManager object representing the status of the game.
+	 *
+	 * @return Current game state.
+	 */
     public EnhanceManager getEnhanceManager() {
 		return this.enhanceManager;
 	}

@@ -91,11 +91,7 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
-	/**
-	 * Application logger.
-	 */
-	private static final Logger LOGGER = Logger.getLogger(Core.class
-			.getSimpleName());
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -446,7 +442,7 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					enemyShipSpecial.reduceEnemyLife(this.attackDamage); // bullet.getAttackDamage()
+					enemyShipSpecial.reduceEnemyLife(this.attackDamage);
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
