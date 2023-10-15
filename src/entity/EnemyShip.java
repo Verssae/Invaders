@@ -127,7 +127,7 @@ public class EnemyShip extends Entity {
 	 * 			  Color of the boss ship.
 	 */
 	public EnemyShip(final int positionX, final int positionY, final int enemylife, Color bossColor) {
-		super(positionX, positionY, 12 * 2, 8 * 2, Color.BLUE);
+		super(positionX, positionY, 22 * 2, 13 * 2, Color.RED);
 		this.spriteType = SpriteType.Boss;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
