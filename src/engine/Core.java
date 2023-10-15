@@ -48,38 +48,38 @@ public final class Core {
 	/**
 	 * Difficulty settings for level 1.
 	 */
-	private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1);
+	private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1, 1, 1);
 	/**
 	 * Difficulty settings for level 2.
 	 */
-	private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(5, 5, 50, 2500, 1);
+	private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(5, 5, 50, 2500, 1, 1, 1);
 	/**
 	 * Difficulty settings for level 3.
 	 */
-	private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(6, 5, 40, 1500, 1);
+	private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(6, 5, 40, 1500, 1, 1, 1);
 	/**
 	 * Difficulty settings for level 4.
 	 */
-	private static GameSettings SETTINGS_LEVEL_4 = new GameSettings(6, 6, 30, 1500, 1);
+	private static GameSettings SETTINGS_LEVEL_4 = new GameSettings(6, 6, 30, 1500, 1, 1, 1);
 	/**
 	 * Difficulty settings for level 5.
 	 */
-	private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 3900, 1);
+	private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 3900, 1, 1, 1);
 	/**
 	 * Difficulty settings for level 6.
 	 */
-	private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 3600, 1);
+	private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 3600, 1, 1, 1);
 	/**
 	 * Difficulty settings for level 7.
 	 */
 
-	private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 3300, 1);
+	private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 3300, 1, 1, 1);
 
 	/**
 	 * Difficulty settings for level 8(Boss).
 	 */
 	private static GameSettings SETTINGS_LEVEL_8 =
-			new GameSettings(10, 1000,1);
+			new GameSettings(10, 1000,1, 1, 1);
 
 
 	/**
@@ -144,10 +144,12 @@ public final class Core {
 		int stage;
 
 		GameState gameState;
+		EnhanceManager enhanceManager;
 
 		int returnCode = 1;
 		do {
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false);
+			enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
 			switch (returnCode) {
 				case 1:
@@ -229,8 +231,8 @@ public final class Core {
 								gameState.getBulletsShot(),
 								gameState.getShipsDestroyed(),
 								gameState.getHardCore());
-						
-						
+
+
 						// SubMenu : Item Store / Enhancement / Continue
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
@@ -238,6 +240,8 @@ public final class Core {
 								currentScreen = new RandomBoxScreen(width, height, FPS);
 								returnCode = frame.setScreen(currentScreen);
 								boxOpen = true;
+								currentScreen = new RandomRewardScreen(width, height, FPS);
+								returnCode = frame.setScreen(currentScreen);
 							}
 							if (isInitMenuScreen || currentScreen.returnCode == 5) {
 								currentScreen = new SubMenuScreen(width, height, FPS);
@@ -250,14 +254,16 @@ public final class Core {
 							if (currentScreen.returnCode == 6) {
 								currentScreen = new StoreScreen(width, height, FPS);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
+										+ " store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
-							if (currentScreen.returnCode == 7) {
-								currentScreen = new EnhanceScreen(gameState, width, height, FPS);
+							if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+								currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
+								gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
+								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
+										+ " enhance screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
@@ -269,21 +275,21 @@ public final class Core {
 					bgm.bgm_stop();
 
 
-					// Recovery : 
-					
+					// Recovery :
+
 					currentScreen = new RecoveryScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " Recovery screen at " + FPS + " fps.");
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing Recovery screen.");
 
-					
+
 
 					// if (currentScreen.returnCode == 30) {
-						
+
 					// }
 
-						
+
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
@@ -466,7 +472,7 @@ public final class Core {
 	 * @return A new cooldown with variance.
 	 */
 	public static Cooldown getVariableCooldown(final int milliseconds,
-			final int variance) {
+											   final int variance) {
 		return new Cooldown(milliseconds, variance);
 	} // commit test
 }

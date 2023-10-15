@@ -21,6 +21,8 @@ public class GameState {
 	/** HardCore(Only One life) */
 	private boolean hardcore;
 
+
+
 	/**
 	 * Constructor.
 	 * 
@@ -46,6 +48,7 @@ public class GameState {
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
+
 	}
 
 	/**
@@ -89,6 +92,8 @@ public class GameState {
 	public final boolean getHardCore() {
 		return this.hardcore;
 	}
+
+	//public final int getBulletsCount() { return this.BulletsCount;}
 
 	/**
 	 * Set HardCore
