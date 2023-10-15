@@ -186,8 +186,8 @@ public class EnemyShip extends Entity {
 	/**
 	 * Reduces enemy's life when hit
 	 */
-	public final void reduceEnemyLife() {
-		this.EnemyLife -= 1;
+	public final void reduceEnemyLife(final int attackDamage) {
+		this.EnemyLife -= attackDamage;
 	}
 	/**
 	 * Getter for the life of enemyship.

@@ -82,6 +82,8 @@ public class GameScreen_2P extends Screen {
     private boolean isItemAllEat;
     /** Check what color will be displayed*/
     private int color_variable;
+    private int attackDamage;
+    private int areaDamage;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -112,7 +114,8 @@ public class GameScreen_2P extends Screen {
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.hardcore = gameState.getHardCore();
         this.pause = false;
-
+		this.attackDamage = gameSettings.getBaseAttackDamage();
+		this.areaDamage = gameSettings.getBaseAreaDamage();
     }
 
     /**

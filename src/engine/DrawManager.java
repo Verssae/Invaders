@@ -466,6 +466,8 @@ public final class DrawManager {
 	 *                  Y coordinate of the line.
 	 * @param height
 	 *                  Y coordinate of the line.
+	 * @param graphicOption
+	 *                  if option 0, use backBufferGraphics Object. Otherwise use graphics Object.
 	 */
 	public void drawCircleLine(final Screen screen, final int positionX, final int positionY, final int width, final int height, final int graphicOption) {
 		backBufferGraphics.setColor(Color.GREEN);
@@ -477,7 +479,20 @@ public final class DrawManager {
 			graphics.drawOval(positionX, positionY, width, height);
 		}
 	}
-
+	/**
+	 * Draws a circle filled.
+	 *
+	 * @param screen
+	 *                  Screen to draw on.
+	 * @param positionX
+	 *                  X coordinate of the line.
+	 * @param positionY
+	 *                  Y coordinate of the line.
+	 * @param width
+	 *                  Y coordinate of the line.
+	 * @param height
+	 *                  Y coordinate of the line.
+	 */
 	public void drawCircleFill(final Screen screen, final int positionX, final int positionY, final int width, final int height) {
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillOval(positionX, positionY, width, height);
@@ -654,12 +669,32 @@ public final class DrawManager {
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
 
 		if (option == 2)
-		backBufferGraphics.setColor(blinkingColor("GREEN"));
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() / 2);
 	}
 
+	public void drawRandomReward(final Screen screen, final int option) {
+		String introduceString = "RANDOM REWARD";
+		String getrandomCoin = "10";
+		String nextString = "N E X T";
+	
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
+		drawCenteredRegularString(screen, getrandomCoin, screen.getHeight() / 2);
+		backBufferGraphics.setColor(blinkingColor("GREEN"));
+		backBufferGraphics.drawString(nextString, (screen.getWidth() - fontRegularMetrics.stringWidth(nextString)) / 2, screen.getHeight() * 3 / 4);
+	}
+
+	/**
+	 * Draws sub menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
 	public void drawSubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String itemStoreString = "I T E M S T O R E";
