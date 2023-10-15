@@ -1,9 +1,9 @@
 package engine;
 
 import java.awt.*;
+import java.awt.font.GlyphVector;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
@@ -15,7 +15,6 @@ import screen.Screen;
 import entity.Entity;
 import entity.Ship;
 
-import javax.imageio.ImageIO;
 
 /**
  * Manages screen drawing.
@@ -977,14 +976,17 @@ public final class DrawManager {
 			}
 		else if (number != 0) {
 			/* this if-else is modified with Clean Code (dodo_kdy) */
-			if (isFirst)
+			if (!isFirst)
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
 			else {
-				if ((25 + 20 * (3 - number) < timercount && timercount < 40 + 20 * (3 - number)))
-					backBufferGraphics.setColor(new Color(0, 0, 0, 222));
-				drawCenteredBigString(screen, "Loading...",
+
+				/*drawCenteredBigString(screen, "Loading...",
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3);
+				 */
+				drawLoadingNeon(screen, "Loading...",
+						screen.getHeight() / 2
+								+ fontBigMetrics.getHeight() / 3, number);
 				timercount++;
 			}
 		} else {
@@ -994,6 +996,43 @@ public final class DrawManager {
 			timercount = 0;
 		}
 	}
+
+	/**
+	 * Draw a Loading String like neon sign.
+	 * [Clean-Code Team] This method was created by dodo_kdy.
+	 *
+	 * @param screen
+	 * @param string
+	 * @param height
+	 * @param number
+	 */
+	public void drawLoadingNeon(final Screen screen, final String string, final int height, int number) {
+		Font font1 = fontBig;
+		try {
+			font1 = fileManager.loadFont(33f);
+		} catch (IOException e) {
+			logger.warning("Loading failed.");
+		} catch (FontFormatException e) {
+			logger.warning("Font formating failed.");
+		}
+
+		Graphics2D g2d = (Graphics2D)backBufferGraphics;
+		g2d.setFont(font1);
+		g2d.setColor(new Color(26, 255, 0));
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		if ((25 + 20 * (3 - number) < timercount && timercount < 40 + 20 * (3 - number)))
+			g2d.setColor(new Color(0, 0, 0));
+
+		GlyphVector gv = font1.createGlyphVector(g2d.getFontRenderContext(),"Loading...");
+		Shape shape = gv.getOutline();
+		g2d.setStroke(new BasicStroke(1.6f));
+		g2d.translate(screen.getWidth() / 2
+				- fontBigMetrics.stringWidth(string) / 2 - 5, height);
+		g2d.draw(shape);
+	}
+
+
 
 	public void drawItemStore(final Screen screen, final int option) {
 		String itemStoretxt = " I T E M S T O R E";
@@ -1082,11 +1121,13 @@ public final class DrawManager {
 		backBufferGraphics.drawString("...", x + fontBigMetrics.stringWidth("LOADING"), y);
 	}
 
+
+
 	/**
 	 * Creates a loading progress bar/
 	 *
 	 * [Clean Code Team] This method was created by dodo_kdy.
-	 * 
+	 *
 	 * @param startX
 	 * @param startY
 	 * @param endX
