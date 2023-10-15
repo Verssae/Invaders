@@ -1,10 +1,6 @@
 package engine;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
+import javax.sound.sampled.*;
 import java.io.File;
 
 public class BGM {
@@ -15,7 +11,11 @@ public class BGM {
     static AudioFormat format;
     static DataLine.Info info;
     static Clip bgmClip; // bgmClip 변수 추가
+    static Clip enemyShipSpecialbgmCLip;
+    private float originalVolume;
+    File enemyShipSpecialappearbgm = new File("sound_BackGroundMusic/enemyshipspecial.wav");
 
+    public BGM(){}
 
     // 디폴트 생성자 추가
     public BGM(String BGM_FILE_PATH) {
@@ -29,6 +29,60 @@ public class BGM {
 
         } catch (Exception e) {
             System.out.println("err : " + e);
+        }
+    }
+    /**
+     * Play enemyShipSpecial appear BGM
+     */
+    public void enemyShipSpecialbgm_play(){
+        try{
+            AudioInputStream enemyShipSpecialStream = AudioSystem.getAudioInputStream(enemyShipSpecialappearbgm);
+            AudioFormat enemyShipSpecialFormat = enemyShipSpecialStream.getFormat();
+            DataLine.Info enemyShipSpecialInfo = new DataLine.Info(Clip.class, enemyShipSpecialFormat);
+
+            enemyShipSpecialbgmCLip = (Clip) AudioSystem.getLine(enemyShipSpecialInfo);
+            enemyShipSpecialbgmCLip.open(enemyShipSpecialStream);
+            bgm_volumedowm();
+            enemyShipSpecialbgmCLip.start();
+            enemyShipSpecialbgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * Stop enemyShipSpecial appear BGM
+     */
+    public void enemyShipSpecialbgm_stop(){
+        try {
+            if (enemyShipSpecialbgmCLip != null && enemyShipSpecialbgmCLip.isRunning()) {
+                enemyShipSpecialbgmCLip.stop();
+                bgm_volumeup();
+            }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * BGM volume down
+     */
+    public void bgm_volumedowm(){
+        try {
+            FloatControl control = (FloatControl) bgmClip.getControl(FloatControl.Type.MASTER_GAIN);
+            originalVolume = control.getValue();
+            control.setValue(-10.0f);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /**
+     * BGM volume up
+     */
+    public void bgm_volumeup(){
+        try {
+            FloatControl control = (FloatControl) bgmClip.getControl(FloatControl.Type.MASTER_GAIN);
+            control.setValue(originalVolume);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
