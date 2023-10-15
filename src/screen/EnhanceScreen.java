@@ -11,6 +11,9 @@ import engine.GameSettings;
 import engine.GameState;
 import entity.Bullet;
 
+/**
+ * Implements the Enhance screen, where clicking 'Enhancement' on SubMenu Screen.
+ */
 public class EnhanceScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;

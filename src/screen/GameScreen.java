@@ -86,10 +86,11 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
 	private int color_variable;
-
+	/**  */
 	private int BulletsCount = 99;
-
+	/** Current Value of Enhancement  Area. */
 	private int attackDamage;
+	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
 
 	/**
