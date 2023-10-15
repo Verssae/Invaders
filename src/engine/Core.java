@@ -275,7 +275,7 @@ public final class Core {
 					bgm.bgm_stop();
 
 
-					// Recovery :
+					// Recovery : Default State / Exit
 
 					currentScreen = new RecoveryScreen(width, height, FPS);
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -285,9 +285,24 @@ public final class Core {
 
 
 
-					// if (currentScreen.returnCode == 30) {
+					if (returnCode == 30) {// Continuing game with default state
+						gameState.setLifeRecovery(gameState.getLevel());
+						gameState = new GameState(gameState.getLevel() - 1,
+								gameState.getScore(),
+								gameState.getLivesRemaining(),
+								gameState.getBulletsShot(),
+								gameState.getShipsDestroyed(),
+								gameState.getHardCore());
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								width, height, FPS);
+						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+								+ " game screen at " + FPS + " fps.");
+						returnCode = frame.setScreen(currentScreen);
+						LOGGER.info("Closing game screen.");
 
-					// }
+
+					}
 
 
 
