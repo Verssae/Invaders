@@ -309,11 +309,103 @@ public final class Core {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                     // if (currentScreen.returnCode == 30) {
 =======
 					if (returnCode == 30) {// Continuing game with default state
 						gameState.setLivesRecovery();
 						currentScreen = new GameScreen(gameState,
+=======
+					if (returnCode == 30) {// Continuing game with default state
+						gameState.setLifeRecovery(gameState.getLevel());
+						gameState = new GameState(gameState.getLevel() - 1,
+								gameState.getScore(),
+								gameState.getLivesRemaining(),
+								gameState.getBulletsShot(),
+								gameState.getShipsDestroyed(),
+								gameState.getHardCore());
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								width, height, FPS);
+						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+								+ " game screen at " + FPS + " fps.");
+						returnCode = frame.setScreen(currentScreen);
+						LOGGER.info("Closing game screen.");
+
+
+					}
+
+
+
+					if (returnCode == 1) { //Quit during the game
+						currentScreen = new TitleScreen(width, height, FPS);
+						frame.setScreen(currentScreen);
+						break;
+					}
+
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " score screen at " + FPS + " fps, with a score of "
+							+ gameState.getScore() + ", "
+							+ gameState.getLivesRemaining() + " lives remaining, "
+							+ gameState.getBulletsShot() + " bullets shot and "
+							+ gameState.getShipsDestroyed() + " ships destroyed.");
+					currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing score screen.");
+					break;
+				case 3:
+					// High scores.
+					currentScreen = new HighScoreScreen(width, height, FPS);
+					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+							+ " high score screen at " + FPS + " fps.");
+					returnCode = frame.setScreen(currentScreen);
+					LOGGER.info("Closing high score screen.");
+					break;
+				case 4:
+					currentScreen = new SelectScreen(width, height, FPS, 0);
+					LOGGER.info("Select Difficulty");
+					difficulty = frame.setScreen(currentScreen);
+					if (difficulty == 4) {
+						returnCode = 1;
+						LOGGER.info("Go Main");
+						break;
+					} else {
+						gameSettings = new ArrayList<GameSettings>();
+						if (difficulty == 3)
+							gameState.setHardCore();
+						LOGGER.info("Difficulty : " + difficulty);
+						SETTINGS_LEVEL_1.setDifficulty(difficulty);
+						SETTINGS_LEVEL_2.setDifficulty(difficulty);
+						SETTINGS_LEVEL_3.setDifficulty(difficulty);
+						SETTINGS_LEVEL_4.setDifficulty(difficulty);
+						SETTINGS_LEVEL_5.setDifficulty(difficulty);
+						SETTINGS_LEVEL_6.setDifficulty(difficulty);
+						SETTINGS_LEVEL_7.setDifficulty(difficulty);
+						gameSettings.add(SETTINGS_LEVEL_1);
+						gameSettings.add(SETTINGS_LEVEL_2);
+						gameSettings.add(SETTINGS_LEVEL_3);
+						gameSettings.add(SETTINGS_LEVEL_4);
+						gameSettings.add(SETTINGS_LEVEL_5);
+						gameSettings.add(SETTINGS_LEVEL_6);
+						gameSettings.add(SETTINGS_LEVEL_7);
+					}
+					LOGGER.info("select Level"); // Stage(Level) Selection
+					currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
+					stage = frame.setScreen(currentScreen);
+					if (stage == 0) {
+						returnCode = 4;
+						LOGGER.info("Go Difficulty Select");
+						break;
+					}
+					LOGGER.info("Closing Level screen.");
+					gameState.setLevel(stage);
+					bgm = new BGM(BGM_FILE_PATH);
+					bgm.bgm_play();
+					//new BGM.play_bgm();
+					// Game & score.
+					do {
+						currentScreen = new GameScreen_2P(gameState,
+>>>>>>> 505b26a (feat: edit Recovery part in Core.java)
 								gameSettings.get(gameState.getLevel() - 1),
 								width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
