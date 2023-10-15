@@ -53,13 +53,13 @@ public class RandomBoxScreen extends Screen {
         draw();
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
-            if (inputManager.isKeyDown(KeyEvent.VK_UP)
-                    || inputManager.isKeyDown(KeyEvent.VK_W)) {
+            if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+                    || inputManager.isKeyDown(KeyEvent.VK_A)) {
                 previousMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
-                    || inputManager.isKeyDown(KeyEvent.VK_S)) {
+            if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+                || inputManager.isKeyDown(KeyEvent.VK_D)) {
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
@@ -84,12 +84,12 @@ public class RandomBoxScreen extends Screen {
      * Shifts the focus to the previous menu item.
      */
     private void previousMenuItem() {
-        if (this.returnCode == 2)
-            this.returnCode = 7;
-        else if (this.returnCode == 7)
-            this.returnCode = 10;
+        if (this.returnCode == 2) 
+            this.returnCode = 7; 
+        else if (this.returnCode == 7) 
+            this.returnCode = 10; 
         else
-            this.returnCode = 2;
+            this.returnCode = 2; 
     }
 
     /**
