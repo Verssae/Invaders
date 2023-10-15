@@ -2,7 +2,7 @@ package engine;
 
 public class Coin {
 
-    public int coin = 0;
+    public int coin = 100;
 
     public int addCoin(int addcoin) {
         coin += addcoin;
@@ -11,6 +11,9 @@ public class Coin {
 
     public int minuscoin(int minuscoin) {
         coin -= minuscoin;
+        return coin;
+    }
+    public int getCoin() {
         return coin;
     }
 
