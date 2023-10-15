@@ -1349,6 +1349,17 @@ public final class DrawManager {
 		// drawEntity(dummyShip, 40 + 35, 10);
 	}
 
+	public void gameOver(final Screen screen, boolean levelFinished){
+		if(levelFinished){
+			backBufferGraphics.setColor(Color.gray);
+			backBufferGraphics.fillRect(screen.getWidth() / 3 - 13, screen.getHeight() / 2 - 23, fontBigMetrics.stringWidth("Game Over...") - 5, 30);
+			backBufferGraphics.setFont(fontBig);
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.drawString("Game Over", screen.getWidth() / 3, screen.getHeight() / 2);
+
+		}
+	}
+
 	/**
 	 * Creates an animation of monster.
 	 *
