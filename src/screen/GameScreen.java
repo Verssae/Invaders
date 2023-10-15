@@ -85,7 +85,7 @@ public class GameScreen extends Screen {
 	/** is none exist dropped item?*/
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
-	private int color_variable;
+	private int colorVariable;
 
 	private int BulletsCount = 99;
 
@@ -229,26 +229,22 @@ public class GameScreen extends Screen {
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {
-					color_variable = (int)(Math.random()*4);
-					if (color_variable == 0) {
-						this.enemyShipSpecial = new EnemyShip(Color.RED);
-						bgm.enemyShipSpecialbgm_play();
-
-					}
-					else if (color_variable == 1) {
-						this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
-						bgm.enemyShipSpecialbgm_play();
-
-					}
-					else if (color_variable == 2) {
-						this.enemyShipSpecial = new EnemyShip(Color.BLUE);
-						bgm.enemyShipSpecialbgm_play();
-
-					}
-					else if (color_variable == 3) {
-						this.enemyShipSpecial = new EnemyShip(Color.white);
-						bgm.enemyShipSpecialbgm_play();
-
+					colorVariable = (int)(Math.random()*4);
+					switch (colorVariable) {
+						case 0:
+							this.enemyShipSpecial = new EnemyShip(Color.RED);
+							break;
+						case 1:
+							this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+							break;
+						case 2:
+							this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+							break;
+						case 3:
+							this.enemyShipSpecial = new EnemyShip(Color.WHITE);
+							break;
+						default:
+							break;
 					}
 					this.enemyShipSpecialCooldown.reset();
 					this.logger.info("A special ship appears");
