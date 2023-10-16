@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ItemPool {
-    /** Set of already created items opearate like bulletpool*/
+    /** Set of already created items opearate like itempool*/
     private static Set<Item> pool = new HashSet<Item>();
 
     /** not used constructor */
@@ -31,12 +31,14 @@ public class ItemPool {
             item.setPositionY(positionY);
             item.setSprite();
             item.CoolReset();
+            item.setDestroy(false);
         } else {
             item = new Item(positionX, positionY);
             item.setPositionX(positionX - item.getWidth() / 2);
         }
         return item;
     }
+
 
     /**
      * Adds one or more bullets to the list of available ones.

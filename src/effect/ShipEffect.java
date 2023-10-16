@@ -2,15 +2,15 @@ package effect;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.DrawManager.*;
 import entity.Bullet;
+import entity.BulletY;
 import entity.BulletPool;
 import entity.Ship;
 
 import java.util.Set;
 
 public class ShipEffect extends Effect{
-
-
     /**
      * About the ships to run the effects
      */
@@ -25,8 +25,23 @@ public class ShipEffect extends Effect{
         this.ship = ship;
     }
 
+    /**
+     * shipeffect.Shoot과 비슷하게 move effct를 적용
+     * 이 코드에 디버프에 해당하는 것을 작성하면 됨.
+     * 그후 ship.shoot과 비슷하게
+     * moveRight or Left 등을 수정. -> 스피드를 바로 수정하는거는 static 이랑 private을 건드는 일이라
+     * 크게 안건들고 수정하길 바람.
+     */
+
+    public void moveEffect(){
+
+    }
 
     /**
+     * 이와 비슷하게 여기서도 shoot에서도 Bullet speed를 바꾼다던가
+     * shooting interval을 줄인다거나 그러한 쿨타임을 조정 가능.
+     * 이에 대해서도 위에 서술한 대로 코드 구현 바람.
+     *
      * Bullet shooting effect
      *
      * @param bullets
@@ -35,19 +50,40 @@ public class ShipEffect extends Effect{
      *              the speed of a ship's bullet
      */
     public void shoot(final Set<Bullet> bullets, final int BULLET_SPEED) {
-        if (this.effect1Cooldown.checkFinished())
+        if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
         {
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                ship.getPositionY(), BULLET_SPEED));
+                    ship.getPositionY(), BULLET_SPEED));
         } else {
-            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY() + 10, BULLET_SPEED));
-            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
+            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 + 10,
                     ship.getPositionY(), BULLET_SPEED));
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
-                    ship.getPositionY() - 10, BULLET_SPEED));
+                    ship.getPositionY(), BULLET_SPEED));
+            bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2 - 10,
+                    ship.getPositionY(), BULLET_SPEED));
         }
     }
 
-
+    /**
+     * Bullet shooting effect
+     *
+     * @param bullets
+     *              The factor of the ship's shoot method.
+     * @param BULLETY_SPEED
+     *              the speed of a ship's bulletY
+     */
+    public void shootBulletY(final Set<BulletY> bulletsY, final int BULLETY_SPEED) {
+        if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
+        {
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
+                    ship.getPositionY(), BULLETY_SPEED));
+        } else {
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 + 10,
+                    ship.getPositionY(), BULLETY_SPEED));
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
+                    ship.getPositionY(), BULLETY_SPEED));
+            bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 - 10,
+                    ship.getPositionY(), BULLETY_SPEED));
+        }
+    }
 }

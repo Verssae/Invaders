@@ -17,16 +17,18 @@ import engine.DrawManager.SpriteType;
 public class Ship extends Entity {
 
 	/** Time between shots. */
-	private static final int SHOOTING_INTERVAL = 750;
+	private static int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
-	private static final int BULLET_SPEED = -6;
+	public static final int BULLET_SPEED = -6;
+	/** Speed of the bullets shot by the ship. */
+	public static final int BULLETY_SPEED = -9;
 	/** Movement of the ship for each unit of time. */
 	private static final int SPEED = 2;
 	
 	/** Minimum time between shots. */
-	private Cooldown shootingCooldown;
+	public Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
-	private Cooldown destructionCooldown;
+	public Cooldown destructionCooldown;
 
 	private ShipEffect shipEffect;
 
@@ -52,6 +54,7 @@ public class Ship extends Entity {
 	 * reached.
 	 */
 	public final void moveRight() {
+
 		this.positionX += SPEED;
 	}
 
@@ -60,6 +63,7 @@ public class Ship extends Entity {
 	 * reached.
 	 */
 	public final void moveLeft() {
+
 		this.positionX -= SPEED;
 	}
 
@@ -74,6 +78,15 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			return true;
+		}
+		return false;
+	}
+
+	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		if (this.shootingCooldown.checkFinished()) {
+			this.shootingCooldown.reset();
+			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
 			return true;
 		}
 		return false;
@@ -94,7 +107,6 @@ public class Ship extends Entity {
 	 */
 	public final void destroy() {
 		this.destructionCooldown.reset();
-		this.shipEffect.CooldownReset(null);
 	}
 
 	/**
@@ -114,13 +126,19 @@ public class Ship extends Entity {
 	public final int getSpeed() {
 		return SPEED;
 	}
-/*
-	public final void catchItem(Item item) {
-		if (item.spriteType == SpriteType.Item1) {
-			this.bulletEffectCooldown.reset();
-		} else if (item.spriteType == SpriteType.Item2) {
-			this.shipEffectCooldown.reset();
+
+	/**
+	 * Reset cooldown when ship get an item
+	 *
+	 * @param item Items acquired by ship
+	 */
+	public final void checkGetItem(final Item item) {
+		item.setDestroy(true);
+		if (item.spriteType == SpriteType.Buff_Item || item.spriteType == SpriteType.Debuff_Item) {
+			this.shipEffect.CooldownReset(item.getSpriteType());
 		}
 	}
- */
+
+	public Cooldown getShootingInterval(){return this.shootingCooldown;}
+	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
 }

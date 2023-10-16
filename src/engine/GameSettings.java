@@ -18,7 +18,10 @@ public class GameSettings {
 	private int shootingFrecuency;
 	/** Difficulty of Game */
 	private double difficulty;
+	private boolean isBossStage;
 
+	private int baseAreaDamage;
+	private int baseAttackDamage;
 	/**
 	 * Constructor.
 	 * 
@@ -34,12 +37,37 @@ public class GameSettings {
 	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
 	 */
 	public GameSettings(final int formationWidth, final int formationHeight,
-			final int baseSpeed, final int shootingFrecuency, final int difficulty) {
+			final int baseSpeed, final int shootingFrecuency, final int difficulty,
+			final int baseAreaDamage, final int baseAttackDamage) {
 		this.formationWidth = formationWidth;
 		this.formationHeight = formationHeight;
 		this.baseSpeed = baseSpeed;
 		this.shootingFrecuency = shootingFrecuency;
 		this.difficulty = difficulty;
+		this.isBossStage = false;
+		this.baseAreaDamage = baseAreaDamage;
+		this.baseAttackDamage = baseAttackDamage;
+	}
+	/**
+	 * Constructor, boss stage.
+	 *
+	 * @param baseSpeed
+	 *            Speed of the boss.
+	 * @param shootingFrecuency
+	 *            Frecuency of enemy shootings, +/- 30%.
+	 * @param  difficulty
+	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
+	 */
+	public GameSettings(final int baseSpeed, final int shootingFrecuency, final int difficulty,
+						final int baseAreaDamage, final int baseAttackDamage) {
+		this.formationWidth = 1;
+		this.formationHeight = 1;
+		this.baseSpeed = baseSpeed;
+		this.shootingFrecuency = shootingFrecuency;
+		this.difficulty = difficulty;
+		this.isBossStage = true;
+		this.baseAreaDamage = baseAreaDamage;
+		this.baseAttackDamage = baseAttackDamage;
 	}
 
 	/**
@@ -85,5 +113,32 @@ public class GameSettings {
 	 */
 	public final void setDifficulty(int difficulty) {
 		this.difficulty = difficulty;
+	}
+
+	/**
+	 * @return the difficulty
+	 */
+	public final double getDifficulty() { return this.difficulty; }
+
+	/**
+	 * Check if the stage is boss stage
+	 * @return True if the stage is boss stage
+	 */
+	public final boolean checkIsBoss() {return this.isBossStage; }
+
+	public final int getBaseAttackDamage(){
+		return this.baseAttackDamage;
+	}
+
+	public final int getBaseAreaDamage(){
+		return this.baseAreaDamage;
+	}
+
+	public final void setAttackDamage(int attackDamage) {
+		this.baseAttackDamage = attackDamage;
+	}
+
+	public final void setAreaDamage(int areaDamage) {
+		this.baseAreaDamage = areaDamage;
 	}
 }
