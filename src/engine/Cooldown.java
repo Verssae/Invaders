@@ -68,4 +68,16 @@ public class Cooldown {
 					+ (int) (Math.random()
 							* (this.milliseconds + this.variance));
 	}
+
+	/**
+	 * Returns how many milliseconds have passed.
+	 * @return
+	 */
+	public int timePassed(){
+		return (int)(System.currentTimeMillis() - this.time);
+	}
+
+	public static void main (String[] args){
+		System.out.println("test");
+	}
 }
