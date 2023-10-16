@@ -19,6 +19,7 @@ import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import entity.Entity;
@@ -73,8 +74,9 @@ public final class DrawManager {
 
 	public int timercount = 0;
 
-	BufferedImage img1, img2, img3, img4;
-
+	public int vector_x= 200, vector_y= 200, directionX = new Random().nextBoolean() ? 1 : -1,
+			directionY = new Random().nextBoolean() ? 1 : -1;
+	public Cooldown pump = new Cooldown(1000);
 	boolean isFirst = true;
 
 	/** Sprite types. */
@@ -1095,18 +1097,48 @@ public final class DrawManager {
 			if (!isFirst)
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
 			else {
-
+				// + 파도타기 Loading String  random ->
 				drawLoadingNeon(screen, "Loading...",
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3, number);
 				timercount++;
 			}
 		} else {
-			drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
+			// 반질반질
+			// random 1
+			//drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
+			// random 2
+			pingPongGO(screen);
 			isFirst = false;
 			timercount = 0;
 		}
 	}
+	public void moveLoading(){}
+
+
+	public void waveLoading(){
+	}
+
+	public void pingPongGO(Screen screen){
+		if(vector_x <=0 || vector_x >= screen.getWidth()) {
+			directionX *= -1;
+			backBufferGraphics.setColor(new Color(231, 206, 80));
+		}
+		if (vector_y<=0 || vector_y >= screen.getHeight())  {
+			directionY *= -1;
+			backBufferGraphics.setColor(new Color(255, 68, 0));
+		}
+
+		vector_x += 15 * directionX;
+		vector_y += 10 * directionY;
+
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.drawString("GO!",vector_x,vector_y);
+	}
+
+	public void lighteningLevel(){}
+
+	public void pumpingLevel(){}
 
 	public void drawGo(final Screen screen, final String string, final int height){
 		Font font = fontBig;
@@ -1137,8 +1169,6 @@ public final class DrawManager {
 		g2.setStroke(new BasicStroke(1.6f));
 		g2.translate(screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2 - 5, height);
 		g2.draw(shape);
-
-
 	}
 
 	/**
