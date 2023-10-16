@@ -116,7 +116,7 @@ public class GameScreen extends Screen {
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
 		//if (this.bonusLife)
-			//this.lives++;
+		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
@@ -155,7 +155,7 @@ public class GameScreen extends Screen {
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 
-		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
+		bgm.InGame_bgm_play();
 	}
 
 	/**
@@ -165,7 +165,6 @@ public class GameScreen extends Screen {
 	 */
 	public final int run() {
 		super.run();
-
 		this.score += LIFE_SCORE * (this.lives - 1);
 		this.logger.info("Screen cleared with a score of " + this.score);
 
@@ -295,6 +294,7 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
+		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
