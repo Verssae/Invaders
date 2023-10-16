@@ -120,7 +120,9 @@ public class GameState {
 	 * Set LifeRecovery
 	 */
 
-	 public final void setLifeRecovery(int i) {
+	 public final void setLivesRecovery() {
+		this.score = getScore() + 100;
+		this.level = getLevel() -1;
 		this.livesRemaining = 3;
 	 }
 }

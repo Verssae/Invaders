@@ -313,12 +313,6 @@ public final class Core {
 =======
 					if (returnCode == 30) {// Continuing game with default state
 						gameState.setLivesRecovery();
-						gameState = new GameState(gameState.getLevel() - 1,
-								gameState.getScore(),
-								gameState.getLivesRemaining(),
-								gameState.getBulletsShot(),
-								gameState.getShipsDestroyed(),
-								gameState.getHardCore());
 						currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel() - 1),
 								width, height, FPS);
