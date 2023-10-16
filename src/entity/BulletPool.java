@@ -13,6 +13,7 @@ public final class BulletPool {
 
 	/** Set of already created bullets. */
 	private static Set<Bullet> pool = new HashSet<Bullet>();
+	private static Set<BulletY> poolY = new HashSet<BulletY>();
 
 	/**
 	 * Constructor, not called.
@@ -52,6 +53,36 @@ public final class BulletPool {
 	}
 
 	/**
+	 * Returns a bullet from the pool if one is available, a new one if there
+	 * isn't.
+	 *
+	 * @param positionX
+	 *            Requested position of the bullet in the X axis.
+	 * @param positionY
+	 *            Requested position of the bullet in the Y axis.
+	 * @param speed
+	 *            Requested speed of the bullet, positive or negative depending
+	 *            on direction - positive is down.
+	 * @return Requested bulletY.
+	 */
+	public static BulletY getBulletY(final int positionX,
+									 final int positionY, int speed) {
+		BulletY bulletY;
+		if (!poolY.isEmpty()) {
+			bulletY = poolY.iterator().next();
+			poolY.remove(bulletY);
+			bulletY.setPositionX(positionX - bulletY.getWidth() / 2);
+			bulletY.setPositionY(positionY);
+			bulletY.setSpeed(speed);
+			bulletY.setSprite();
+		} else {
+			bulletY = new BulletY(positionX, positionY, speed);
+			bulletY.setPositionX(positionX - bulletY.getWidth() / 2);
+		}
+		return bulletY;
+	}
+
+	/**
 	 * Adds one or more bullets to the list of available ones.
 	 * 
 	 * @param bullet
@@ -59,5 +90,8 @@ public final class BulletPool {
 	 */
 	public static void recycle(final Set<Bullet> bullet) {
 		pool.addAll(bullet);
+	}
+	public static void recycleBulletY(final Set<BulletY> bulletY) {
+		poolY.addAll(bulletY);
 	}
 }
