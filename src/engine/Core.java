@@ -288,7 +288,7 @@ public final class Core {
 
 
 					if (returnCode == 30) {// Continuing game with default state
-						gameState.setLifeRecovery(gameState.getLevel());
+						gameState.setLivesRecovery();
 						gameState = new GameState(gameState.getLevel() - 1,
 								gameState.getScore(),
 								gameState.getLivesRemaining(),
