@@ -489,19 +489,25 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
-						this.score += enemyShip.getPointValue();
-						this.shipsDestroyed++;
-						this.enemyShipFormation.destroy(enemyShip, this.items);
+						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						if(enemyShip.getEnemyLife() < 1) {
+							this.score += enemyShip.getPointValue();
+							this.shipsDestroyed++;
+							this.enemyShipFormation.destroy(enemyShip, this.items);
+						}
 						recyclableBulletY.add(bulletY);
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bulletY, this.enemyShipSpecial)) {
-					this.score += this.enemyShipSpecial.getPointValue();
-					this.shipsDestroyed++;
-					this.enemyShipSpecial.destroy(this.items);
-					bgm.enemyShipSpecialbgm_stop();
-					this.enemyShipSpecialExplosionCooldown.reset();
+					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
+					if(enemyShipSpecial.getEnemyLife() < 1) {
+						this.score += this.enemyShipSpecial.getPointValue();
+						this.shipsDestroyed++;
+						this.enemyShipSpecial.destroy(this.items);
+						bgm.enemyShipSpecialbgm_stop();
+						this.enemyShipSpecialExplosionCooldown.reset();
+					}
 					recyclableBulletY.add(bulletY);
 				}
 			}
