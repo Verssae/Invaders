@@ -2,6 +2,7 @@ package screen;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.SoundEffect;
 
 import java.awt.event.KeyEvent;
 
@@ -18,6 +19,9 @@ public class StageSelectScreen extends Screen {
 
     /** Total number of Stages. */
     private int TotalStage;
+
+    /** For selection moving sound */
+    private SoundEffect soundEffect;
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -61,26 +65,32 @@ public class StageSelectScreen extends Screen {
                 && this.inputDelay.checkFinished()) {
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
                     || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                soundEffect.playButtonClickSound();
                 UpMenuItem(Stage);
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
                     || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                soundEffect.playButtonClickSound();
                 DownMenuItem(Stage);
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
                     || inputManager.isKeyDown(KeyEvent.VK_D)) {
+                soundEffect.playButtonClickSound();
                 RightMenuItem(Stage);
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
                     || inputManager.isKeyDown(KeyEvent.VK_A)) {
+                soundEffect.playButtonClickSound();
                 LeftMenuItem(Stage);
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+                soundEffect.playSpaceButtonSound();
                 this.isRunning = false;
+            }
             if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
                 this.Stage = -1;
                 this.isRunning = false;

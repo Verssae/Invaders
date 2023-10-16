@@ -11,6 +11,8 @@ import engine.GameSettings;
 import engine.GameState;
 import entity.Bullet;
 
+import engine.SoundEffect;
+
 public class EnhanceScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
@@ -35,7 +37,8 @@ public class EnhanceScreen extends Screen {
     private int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
     private EnhanceManager enhanceManager;
     private List<GameSettings> gameSettings;
-
+    /** For selection moving sound */
+    private SoundEffect soundEffect;
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -82,25 +85,30 @@ public class EnhanceScreen extends Screen {
                 && this.inputDelay.checkFinished()) {
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
                     || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                soundEffect.playButtonClickSound();
                 previousVerticalMenuItem();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
                     || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                soundEffect.playButtonClickSound();
                 nextVerticalMenuItem();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
                     || inputManager.isKeyDown(KeyEvent.VK_A)) {
+                soundEffect.playButtonClickSound();
                 previousHorizontalMenuItem();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
                     || inputManager.isKeyDown(KeyEvent.VK_D)) {
+                soundEffect.playButtonClickSound();
                 nextHorizontalMenuItem();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
+                soundEffect.playSpaceButtonSound();
                 if (this.returnCode == 8) {
                     this.enhanceManager.enhanceAreaDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
