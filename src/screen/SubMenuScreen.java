@@ -35,6 +35,8 @@ public class SubMenuScreen extends Screen {
         this.returnCode = 6;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
+
+        soundEffect = new SoundEffect();
     }
 
     /**

@@ -61,6 +61,8 @@ public class EnhanceScreen extends Screen {
         this.selectionCooldown.reset();
         this.score = gameState.getScore();
         this.lives = gameState.getLivesRemaining();
+
+        soundEffect = new SoundEffect();
     }
 
     /**
