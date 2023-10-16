@@ -106,7 +106,12 @@ public final class DrawManager {
 		/** Destroyed enemy ship3. */
 		Explosion3,
 		/** Buff_item dummy sprite*/
-		Buff_Item;
+		Buff_Item,// ;이 밑부터 테스트 이넘
+		Buff_Item2,
+		Coin,
+		EnhanceStone,
+		Debuff_Item,
+		Debuff_Item2;
 	};
 
 	/**
@@ -139,6 +144,10 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
 			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
+			spriteMap.put(SpriteType.Debuff_Item, new boolean[9][9]);
+			spriteMap.put(SpriteType.Coin, new boolean[9][9]); //
+			spriteMap.put(SpriteType.EnhanceStone, new boolean[9][9]); // 여기까지
+
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");

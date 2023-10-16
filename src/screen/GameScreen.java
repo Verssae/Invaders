@@ -91,7 +91,6 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
-
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -458,6 +457,12 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
+//				if(item.spriteType == SpriteType.Coin){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
+//				if(item.spriteType == SpriteType.EnhanceStone){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
 				this.ship.checkGetItem(item);
 			}
 		}

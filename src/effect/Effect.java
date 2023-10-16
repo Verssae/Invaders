@@ -11,22 +11,24 @@ public class Effect {
     /**
      * dummy item 1 effectCooldown
      */
-    protected Cooldown item1EffectCooldown;
-
-
+    protected Cooldown tripleshotEffectCooldown;
     /**
      * dummy item 2 effectCooldown
+     * 만드는 버프에 따라 이름을 달리 할 것.
      */
-    protected Cooldown item2EffectCooldown;
+    protected Cooldown Buff2EffectCooldown;
+    protected Cooldown DebuffEffectCooldown;
+    protected Cooldown Debuff2EffectCooldown;
 
 
     /**
      * Initialize effect cool time
      */
     public Effect() {
-
-        item1EffectCooldown = Core.getCooldown(5000);
-        item2EffectCooldown = Core.getCooldown(5000);
+        tripleshotEffectCooldown = Core.getCooldown(5000);
+        Buff2EffectCooldown = Core.getCooldown(5000);
+        DebuffEffectCooldown = Core.getCooldown(5000);
+        Debuff2EffectCooldown = Core.getCooldown(5000);
     }
     /**
      * Initialize effect cool time according to item Sprite
@@ -38,16 +40,32 @@ public class Effect {
     public void CooldownReset(SpriteType s) {
         switch (s) {
             case Buff_Item:
-                item1EffectCooldown.reset();
-                break ;
-
+                tripleshotEffectCooldown.reset();
+                break;
+            case Buff_Item2:
+                Buff2EffectCooldown.reset();
+                break;
+            case Debuff_Item:
+                DebuffEffectCooldown.reset();
+                break;
+            case Debuff_Item2:
+                Debuff2EffectCooldown.reset();
+                break;
+            default:
+                break;
         }
     }
 
     public Cooldown getCooldown(SpriteType s) {
         switch (s) {
             case Buff_Item:
-                return (item1EffectCooldown);
+                return (tripleshotEffectCooldown);
+            case Buff_Item2:
+                return (Buff2EffectCooldown);
+            case Debuff_Item:
+                return (DebuffEffectCooldown);
+            case Debuff_Item2:
+                return (Debuff2EffectCooldown);
             default:
                 return (null);
         }
