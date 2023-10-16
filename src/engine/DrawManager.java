@@ -25,6 +25,8 @@ import java.util.TimerTask;
 
 import entity.Entity;
 import entity.Ship;
+import screen.GameScreen;
+import screen.GameScreen_2P;
 import screen.Screen;
 
 
