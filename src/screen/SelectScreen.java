@@ -34,6 +34,8 @@ public class SelectScreen extends Screen {
         difficulty = diff;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
+
+        soundEffect = new SoundEffect();
     }
 
     /**

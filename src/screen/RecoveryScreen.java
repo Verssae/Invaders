@@ -33,7 +33,8 @@ public class RecoveryScreen extends Screen {
         this.returnCode = 30;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-
+        
+        soundEffect = new SoundEffect();
     }
 
     /**

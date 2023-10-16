@@ -40,6 +40,8 @@ public class StageSelectScreen extends Screen {
         TotalStage = Totalstage;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
+
+        soundEffect = new SoundEffect();
     }
 
     /**

@@ -40,6 +40,8 @@ public class TitleScreen extends Screen {
 		this.returnCode = 2;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
+
+		soundEffect = new SoundEffect();
 	}
 
 	/**
