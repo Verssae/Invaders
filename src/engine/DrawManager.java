@@ -28,8 +28,7 @@ import entity.Entity;
 import entity.Ship;
 import screen.Screen;
 import engine.Coin;
-
-
+import java.awt.image.RescaleOp;
 /**
  * Manages screen drawing.
  *
@@ -658,19 +657,36 @@ public final class DrawManager {
 		String threeString = "3";
 		try {
 			BufferedImage image1 = ImageIO.read(new File("res/giftbox1.png"));
-			backBufferGraphics.drawImage(image1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
+			BufferedImage greenImage1 = image1; // 먼저 초록색으로 처리할 이미지를 원래 이미지로 초기화
+			if (option == 10) { // 옵션에 따라 이미지를 초록색으로 변환
+				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
+				greenImage1 = greenFilter.filter(image1, null);
+			}
+			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	
 		try {
 			BufferedImage image2 = ImageIO.read(new File("res/giftbox1.png"));
-			backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
+			BufferedImage greenImage2 = image2;
+			if (option == 7) {
+				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
+				greenImage2 = greenFilter.filter(image2, null);
+			}
+			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	
 		try {
 			BufferedImage image3 = ImageIO.read(new File("res/giftbox1.png"));
-			backBufferGraphics.drawImage(image3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
+			BufferedImage greenImage3 = image3;
+			if (option == 2) {
+				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
+				greenImage3 = greenFilter.filter(image3, null);
+			}
+			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
