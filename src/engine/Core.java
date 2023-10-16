@@ -308,7 +308,25 @@ public final class Core {
 
 
 
+<<<<<<< HEAD
                     // if (currentScreen.returnCode == 30) {
+=======
+					if (returnCode == 30) {// Continuing game with default state
+						gameState.setLivesRecovery();
+						gameState = new GameState(gameState.getLevel() - 1,
+								gameState.getScore(),
+								gameState.getLivesRemaining(),
+								gameState.getBulletsShot(),
+								gameState.getShipsDestroyed(),
+								gameState.getHardCore());
+						currentScreen = new GameScreen(gameState,
+								gameSettings.get(gameState.getLevel() - 1),
+								width, height, FPS);
+						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+								+ " game screen at " + FPS + " fps.");
+						returnCode = frame.setScreen(currentScreen);
+						LOGGER.info("Closing game screen.");
+>>>>>>> f9933ac (feat: edit variables naming in Core.java)
 
                     // }
 
