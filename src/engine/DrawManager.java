@@ -1168,34 +1168,25 @@ public final class DrawManager {
 				timercount++;
 			}
 		} else {
-			/*drawCenteredBigString(screen, "GO!", screen.getHeight() / 2
-					+ fontBigMetrics.getHeight() / 3);
-
-			 */
-			drawGo(screen, "GO!", screen.getHeight() / 2
-					+ fontBigMetrics.getHeight() / 3);
+			drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
 			isFirst = false;
 			timercount = 0;
 		}
 	}
 
 	public void drawGo(final Screen screen, final String string, final int height){
-		Font font1 = fontBig;
+		Font font = fontBig;
 		try {
-			font1 = fileManager.loadFont(30);
+			font = fileManager.loadFont(30);
 		} catch (IOException e) {
 			logger.warning("Loading failed.");
 		} catch (FontFormatException e) {
 			logger.warning("Font formating failed.");
 		}
 
-
-
 		Graphics2D g2 = (Graphics2D)backBufferGraphics;
-		g2.setFont(font1);
-		g2.setColor(new Color(45, 255, 167, 255));
+		g2.setFont(font);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
 
 		float[] fractions = new float[30];
 		Color[] colors = new Color[30];
@@ -1204,10 +1195,10 @@ public final class DrawManager {
 			float hue = fractions[i];
 			colors[i] = Color.getHSBColor(hue, 1f, 1f);
 		}
-		Paint p = new LinearGradientPaint(0, 0, 40, 0, fractions, colors);
+		Paint p = new LinearGradientPaint(0, 0, 80, 0, fractions, colors);
 		g2.setPaint(p);
 
-		GlyphVector gv = font1.createGlyphVector(g2.getFontRenderContext(),string);
+		GlyphVector gv = font.createGlyphVector(g2.getFontRenderContext(),string);
 		Shape shape = gv.getOutline();
 		g2.setStroke(new BasicStroke(1.6f));
 		g2.translate(screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2 - 5, height);
