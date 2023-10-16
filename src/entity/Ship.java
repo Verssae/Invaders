@@ -17,18 +17,18 @@ import engine.DrawManager.SpriteType;
 public class Ship extends Entity {
 
 	/** Time between shots. */
-	private static final int SHOOTING_INTERVAL = 750;
+	private static int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
-	private static final int BULLET_SPEED = -6;
+	public static final int BULLET_SPEED = -6;
 	/** Speed of the bullets shot by the ship. */
-	private static final int BULLETY_SPEED = -9;
+	public static final int BULLETY_SPEED = -9;
 	/** Movement of the ship for each unit of time. */
 	private static final int SPEED = 2;
 	
 	/** Minimum time between shots. */
-	private Cooldown shootingCooldown;
+	public Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
-	private Cooldown destructionCooldown;
+	public Cooldown destructionCooldown;
 
 	private ShipEffect shipEffect;
 
@@ -54,6 +54,7 @@ public class Ship extends Entity {
 	 * reached.
 	 */
 	public final void moveRight() {
+
 		this.positionX += SPEED;
 	}
 
@@ -62,6 +63,7 @@ public class Ship extends Entity {
 	 * reached.
 	 */
 	public final void moveLeft() {
+
 		this.positionX -= SPEED;
 	}
 
@@ -135,6 +137,8 @@ public class Ship extends Entity {
 		this.shipEffect.CooldownReset(item.getSpriteType());
 	}
 
+	public Cooldown getShootingInterval(){return this.shootingCooldown;}
+	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
 /* -- Item 6. some helpful code
 	public final void catchItem(Item item) {
 		if (item.spriteType == SpriteType.Item1) {

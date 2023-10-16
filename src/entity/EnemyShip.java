@@ -29,7 +29,9 @@ public class EnemyShip extends Entity {
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
 	/** Item drop percent*/
-	private final double DROP_ITEM_PROB = 0.05;
+	private final double DROP_BUFF_PROB = 0.05;
+	private final double DROP_COIN_PROB = 0.1;
+	private final double DROP_ENHANCE_PROB = 0.07;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -102,7 +104,6 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
-
 	}
 
 	/**
@@ -200,13 +201,29 @@ public class EnemyShip extends Entity {
 
 	/**
 	 * Destroys the ship, causing an explosion.
+	 * whenever buff is dropped, not dropped debuff item.
+	 * coin was dropped in number of 0~3
+	 * the way enhance stone was dropped is similar to buff dropped.
 	 */
 	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
-		if (Math.random() < DROP_ITEM_PROB
-				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
-			items.add(ItemPool.getItem(this.positionX, this.positionY));
+		if (Math.random() < (DROP_BUFF_PROB
+				+ (0.2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)))) {
+			items.add(ItemPool.getBuffItem(this.positionX, this.positionY));
+		}else if(Math.random() < (DROP_BUFF_PROB
+				+ (0.2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)))) {
+			items.add(ItemPool.getDeBuffItem(this.positionX, this.positionY));
+		}
+		for(int i = 0 ; i < (int)(Math.random() * 4) ; i++){
+			if (Math.random() < (DROP_COIN_PROB
+					+ (0.1 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)))) {
+				items.add(ItemPool.getCoin(this.positionX, this.positionY));
+			}
+		}
+		if (Math.random() < (DROP_ENHANCE_PROB
+				+ (0.2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)))) {
+			items.add(ItemPool.getEnhanceStone(this.positionX, this.positionY));
 		}
 	}
 

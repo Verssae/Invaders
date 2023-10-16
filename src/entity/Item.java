@@ -7,7 +7,7 @@ import engine.DrawManager.SpriteType;
 
 public class Item extends Entity {
     /** Movement of the Item for each unit of time. */
-    private final int speed = 3;
+    private final int speed = 2;
     /** Living-Time of Item */
     private final Cooldown livingTime = Core.getCooldown(20000);
     /** Movement direction X of item for each unit of time. */
@@ -27,20 +27,46 @@ public class Item extends Entity {
      *            Initial position of the Item in the Y axis.
      */
     public Item(final int positionX, final int positionY){
-        super(positionX, positionY, 9 * 2, 9 * 2, Color.GREEN);
+        super(positionX, positionY, 9 * 2, 9 * 2, Color.green);
         this.livingTime.reset();
         item_dx = Math.random() > 0.5 ? 1 : -1;
         item_dy = Math.random() > 0.5 ? 1 : -1;
-        setSprite();
         isdetroyed = false;
     }
 
     /**
      * Set Sprite dot image.
      */
-    public final void setSprite() {
-
-        this.spriteType = SpriteType.Buff_Item;
+    public void setSprite(int type) {
+        switch (type){
+            case 0:
+                this.spriteType = SpriteType.Buff_Item;
+                this.setColor(Color.GREEN);
+                break;
+            case 1:
+                this.spriteType = SpriteType.Buff_Item2;
+                this.setColor(Color.blue);
+                break;
+            case 2:
+                this.spriteType = SpriteType.Debuff_Item;
+                this.setColor(Color.darkGray);
+                break;
+            case 3:
+                this.spriteType = SpriteType.Debuff_Item2;
+                this.setColor(Color.lightGray);
+                break;
+            case 4:
+                this.spriteType = SpriteType.Coin;
+                this.setColor(Color.yellow);
+                break;
+            case 5:
+                this.spriteType = SpriteType.EnhanceStone;
+                this.setColor(Color.pink);
+                break;
+            default:
+                this.spriteType = null;
+                break;
+        }
     }
 
     /**
