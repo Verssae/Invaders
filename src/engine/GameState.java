@@ -117,7 +117,5 @@ public class GameState {
 
 	 public final void setLifeRecovery(int i) {
 		this.livesRemaining = 3;
-		this.level = getLevel();
-		this.score = getScore();
 	 }
 }
