@@ -14,6 +14,7 @@ import java.util.logging.*;
  */
 public final class Core {
     private static BGM outgame_bgm;
+
     /**
      * Width of current screen.
      */
@@ -47,38 +48,38 @@ public final class Core {
     /**
      * Difficulty settings for level 1.
      */
-    private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1);
+    private static GameSettings SETTINGS_LEVEL_1 = new GameSettings(5, 4, 60, 2000, 1, 1, 1);
     /**
      * Difficulty settings for level 2.
      */
-    private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(5, 5, 50, 2500, 1);
+    private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(5, 5, 50, 2500, 1, 1, 1);
     /**
      * Difficulty settings for level 3.
      */
-    private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(6, 5, 40, 1500, 1);
+    private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(6, 5, 40, 1500, 1, 1, 1);
     /**
      * Difficulty settings for level 4.
      */
-    private static GameSettings SETTINGS_LEVEL_4 = new GameSettings(6, 6, 30, 1500, 1);
+    private static GameSettings SETTINGS_LEVEL_4 = new GameSettings(6, 6, 30, 1500, 1, 1, 1);
     /**
      * Difficulty settings for level 5.
      */
-    private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 3900, 1);
+    private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 3900, 1, 1, 1);
     /**
      * Difficulty settings for level 6.
      */
-    private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 3600, 1);
+    private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 3600, 1, 1, 1);
     /**
      * Difficulty settings for level 7.
      */
 
-    private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 3300, 1);
+    private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 3300, 1, 1, 1);
 
     /**
      * Difficulty settings for level 8(Boss).
      */
     private static GameSettings SETTINGS_LEVEL_8 =
-            new GameSettings(10, 1000,1);
+            new GameSettings(10, 1000,1, 1, 1);
 
 
     /**
@@ -144,31 +145,28 @@ public final class Core {
         int stage;
 
         GameState gameState;
+        EnhanceManager enhanceManager;
 
         int returnCode = 1;
         do {
             gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false);
+            enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
             switch (returnCode) {
                 case 1:
                     // Main menu.
                     currentScreen = new TitleScreen(width, height, FPS);
 
-                    outgame_bgm.OutGame_bgm_play(); //대기화면 비지엠 수정중
+                    outgame_bgm.OutGame_bgm_play(); //대기화면 비지엠 (수정중)
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " title screen at " + FPS + " fps.");
-
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing title screen.");
-
                     if (currentScreen.returnCode == 6) {
                         currentScreen = new StoreScreen(width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " subMenu screen at " + FPS + " fps.");
-
-
-
                         returnCode = frame.setScreen(currentScreen);
                         LOGGER.info("Closing subMenu screen.");
                     }
@@ -215,8 +213,8 @@ public final class Core {
                     LOGGER.info("Closing Level screen.");
                     gameState.setLevel(stage);
 
-//					BGM ingame_bgm = new BGM();
-                    outgame_bgm.OutGame_bgm_stop(); //게임 대기 -> 시작으로 넘어가면서 bgm 시작
+                    outgame_bgm.OutGame_bgm_stop(); //게임 대기 -> 시작으로 넘어가면서 outgame bgm 종료
+
                     // Game & score.
                     do {
                         currentScreen = new GameScreen(gameState,
@@ -244,6 +242,8 @@ public final class Core {
                                 currentScreen = new RandomBoxScreen(width, height, FPS);
                                 returnCode = frame.setScreen(currentScreen);
                                 boxOpen = true;
+                                currentScreen = new RandomRewardScreen(width, height, FPS);
+                                returnCode = frame.setScreen(currentScreen);
                             }
                             if (isInitMenuScreen || currentScreen.returnCode == 5) {
                                 currentScreen = new SubMenuScreen(width, height, FPS);
@@ -256,14 +256,16 @@ public final class Core {
                             if (currentScreen.returnCode == 6) {
                                 currentScreen = new StoreScreen(width, height, FPS);
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                                        + " subMenu screen at " + FPS + " fps.");
+                                        + " store screen at " + FPS + " fps.");
                                 returnCode = frame.setScreen(currentScreen);
                                 LOGGER.info("Closing subMenu screen.");
                             }
-                            if (currentScreen.returnCode == 7) {
-                                currentScreen = new EnhanceScreen(gameState, width, height, FPS);
+                            if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+                                currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
+                                gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
+                                enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                                        + " subMenu screen at " + FPS + " fps.");
+                                        + " enhance screen at " + FPS + " fps.");
                                 returnCode = frame.setScreen(currentScreen);
                                 LOGGER.info("Closing subMenu screen.");
                             }
@@ -272,8 +274,6 @@ public final class Core {
                         isInitMenuScreen = true;
                     } while (gameState.getLivesRemaining() > 0
                             && gameState.getLevel() <= NUM_LEVELS);
-//					bgm.bgm_stop(); 수정중
-
 
                     // Recovery :
 
@@ -353,9 +353,7 @@ public final class Core {
                     }
                     LOGGER.info("Closing Level screen.");
                     gameState.setLevel(stage);
-//					bgm = new BGM(BGM_FILE_PATH);
-//					bgm.bgm_play();
-                    //new BGM.play_bgm(); 수정 및 비지엠 위치 조정 중
+
                     // Game & score.
                     do {
                         currentScreen = new GameScreen_2P(gameState,
@@ -400,11 +398,6 @@ public final class Core {
             }
 
         } while (returnCode != 0);
-
-//		if(returnCode ==0){ //게임이 종료(목숨을 다 소진함)했을 때 bgm 끄기
-//			BGM bgm = new BGM(BGM_FILE_PATH);
-//			bgm.bgm_stop(); 수정중
-//		}
 
         fileHandler.flush();
         fileHandler.close();

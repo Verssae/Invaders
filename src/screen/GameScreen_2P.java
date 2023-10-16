@@ -82,6 +82,8 @@ public class GameScreen_2P extends Screen {
     private boolean isItemAllEat;
     /** Check what color will be displayed*/
     private int color_variable;
+    private int attackDamage;
+    private int areaDamage;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -112,7 +114,8 @@ public class GameScreen_2P extends Screen {
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.hardcore = gameState.getHardCore();
         this.pause = false;
-
+		this.attackDamage = gameSettings.getBaseAttackDamage();
+		this.areaDamage = gameSettings.getBaseAreaDamage();
     }
 
     /**
@@ -146,6 +149,8 @@ public class GameScreen_2P extends Screen {
 
         soundEffect = new SoundEffect();
         bgm = new BGM();
+
+        drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
     }
 
     /**
@@ -334,6 +339,11 @@ public class GameScreen_2P extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
+        drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, (int)this.lives);
+        if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
+        drawManager.drawBackgroundLines(this, SEPARATION_LINE_HEIGHT);
+        drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship_1P.getPositionX(), this.ship_1P.getPositionY(), this.ship_1P.getWidth(), this.ship_1P.getHeight());
+        drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship_2P.getPositionX(), this.ship_2P.getPositionY(), this.ship_2P.getWidth(), this.ship_2P.getHeight());
 
         drawManager.drawEntity(this.ship_1P, this.ship_1P.getPositionX(),
                 this.ship_1P.getPositionY());
