@@ -13,8 +13,7 @@ import java.util.logging.*;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  */
 public final class Core {
-	private static final String BGM_FILE_PATH = "sound_BackGroundMusic/neon-gaming-128925.wav";
-
+    private static BGM outgame_bgm;
 	/**
 	 * Width of current screen.
 	 */
@@ -118,7 +117,8 @@ public final class Core {
 	 */
 	public static void main(final String[] args) {
 		try {
-			BGM bgm = new BGM(BGM_FILE_PATH);
+
+			outgame_bgm = new BGM();
 
 			LOGGER.setUseParentHandlers(false);
 
@@ -153,14 +153,22 @@ public final class Core {
 				case 1:
 					// Main menu.
 					currentScreen = new TitleScreen(width, height, FPS);
+
+					outgame_bgm.OutGame_bgm_play(); //대기화면 비지엠 수정중
+
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " title screen at " + FPS + " fps.");
+
 					returnCode = frame.setScreen(currentScreen);
 					LOGGER.info("Closing title screen.");
+
 					if (currentScreen.returnCode == 6) {
 						currentScreen = new StoreScreen(width, height, FPS);
 						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 								+ " subMenu screen at " + FPS + " fps.");
+
+
+
 						returnCode = frame.setScreen(currentScreen);
 						LOGGER.info("Closing subMenu screen.");
 					}
@@ -207,10 +215,8 @@ public final class Core {
 					LOGGER.info("Closing Level screen.");
 					gameState.setLevel(stage);
 
-
-					BGM bgm = new BGM(BGM_FILE_PATH);
-					bgm.bgm_play(); //게임 대기 -> 시작으로 넘어가면서 bgm 시작
-
+//					BGM ingame_bgm = new BGM();
+					outgame_bgm.OutGame_bgm_stop(); //게임 대기 -> 시작으로 넘어가면서 bgm 시작
 					// Game & score.
 					do {
 						currentScreen = new GameScreen(gameState,
@@ -266,7 +272,7 @@ public final class Core {
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
-					bgm.bgm_stop();
+//					bgm.bgm_stop(); 수정중
 
 
 					// Recovery :
@@ -347,9 +353,9 @@ public final class Core {
 					}
 					LOGGER.info("Closing Level screen.");
 					gameState.setLevel(stage);
-					bgm = new BGM(BGM_FILE_PATH);
-					bgm.bgm_play();
-					//new BGM.play_bgm();
+//					bgm = new BGM(BGM_FILE_PATH);
+//					bgm.bgm_play();
+					//new BGM.play_bgm(); 수정 및 비지엠 위치 조정 중
 					// Game & score.
 					do {
 						currentScreen = new GameScreen_2P(gameState,
@@ -395,10 +401,10 @@ public final class Core {
 
 		} while (returnCode != 0);
 
-		if(returnCode ==0){ //게임이 종료(목숨을 다 소진함)했을 때 bgm 끄기
-			BGM bgm = new BGM(BGM_FILE_PATH);
-			bgm.bgm_stop();
-		}
+//		if(returnCode ==0){ //게임이 종료(목숨을 다 소진함)했을 때 bgm 끄기
+//			BGM bgm = new BGM(BGM_FILE_PATH);
+//			bgm.bgm_stop(); 수정중
+//		}
 
 		fileHandler.flush();
 		fileHandler.close();
