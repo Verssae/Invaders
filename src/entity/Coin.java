@@ -18,7 +18,6 @@ public class Coin extends Item {
      */
     public Coin(int positionX, int positionY) {
         super(positionX, positionY);
-        setSprite(4);
     }
 
     public int addCoin(int addcoin) {

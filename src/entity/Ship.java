@@ -134,18 +134,11 @@ public class Ship extends Entity {
 	 */
 	public final void checkGetItem(final Item item) {
 		item.setDestroy(true);
-		this.shipEffect.CooldownReset(item.getSpriteType());
+		if (item.spriteType == SpriteType.Buff_Item || item.spriteType == SpriteType.Debuff_Item) {
+			this.shipEffect.CooldownReset(item.getSpriteType());
+		}
 	}
 
 	public Cooldown getShootingInterval(){return this.shootingCooldown;}
 	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
-/* -- Item 6. some helpful code
-	public final void catchItem(Item item) {
-		if (item.spriteType == SpriteType.Item1) {
-			this.bulletEffectCooldown.reset();
-		} else if (item.spriteType == SpriteType.Item2) {
-			this.shipEffectCooldown.reset();
-		}
-	}
- */
 }

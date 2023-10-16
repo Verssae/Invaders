@@ -31,40 +31,31 @@ public class Item extends Entity {
         this.livingTime.reset();
         item_dx = Math.random() > 0.5 ? 1 : -1;
         item_dy = Math.random() > 0.5 ? 1 : -1;
+        this.setSprite();
         isdetroyed = false;
     }
 
     /**
      * Set Sprite dot image.
      */
-    public void setSprite(int type) {
+    public void setSprite() {
+        int type = (int)(Math.random()*10);
         switch (type){
-            case 0:
+            case 1:
                 this.spriteType = SpriteType.Buff_Item;
                 this.setColor(Color.GREEN);
                 break;
-            case 1:
-                this.spriteType = SpriteType.Buff_Item2;
-                this.setColor(Color.blue);
-                break;
-            case 2:
+            case 2, 3:
                 this.spriteType = SpriteType.Debuff_Item;
                 this.setColor(Color.darkGray);
                 break;
-            case 3:
-                this.spriteType = SpriteType.Debuff_Item2;
-                this.setColor(Color.lightGray);
-                break;
-            case 4:
-                this.spriteType = SpriteType.Coin;
-                this.setColor(Color.yellow);
-                break;
-            case 5:
+            case 4, 5:
                 this.spriteType = SpriteType.EnhanceStone;
                 this.setColor(Color.pink);
                 break;
             default:
-                this.spriteType = null;
+                this.spriteType = SpriteType.Coin;
+                this.setColor(Color.yellow);
                 break;
         }
     }

@@ -17,7 +17,6 @@ public class EnhanceStone extends Item{
      */
     public EnhanceStone(int positionX, int positionY) {
         super(positionX, positionY);
-        setSprite(5);
         this.valEnhanceArea = 1;
         this.valEnhanceAttack = 1;
     }
