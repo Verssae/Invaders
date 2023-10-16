@@ -174,7 +174,7 @@ public final class Core {
 					difficulty = frame.setScreen(currentScreen);
 					if (difficulty == 4) {
 						returnCode = 1;
-						LOGGER.info("Go Main"git );
+						LOGGER.info("Go Main");
 						break;
 					} else {
 						gameSettings = new ArrayList<GameSettings>();

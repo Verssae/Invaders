@@ -118,7 +118,6 @@ public final class DrawManager {
 		try {
 			Random random = new Random();
 			int Trash_enemyA = random.nextInt(3);
-			System.out.print(Trash_enemyA);
 			spriteMap = new LinkedHashMap<SpriteType, boolean[][]>();
 			spriteMap.put(SpriteType.Ship, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipDestroyed, new boolean[13][8]);
