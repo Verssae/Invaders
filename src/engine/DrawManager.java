@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import entity.Entity;
 import entity.Ship;
@@ -380,6 +382,40 @@ public final class DrawManager {
 		backBufferGraphics.setColor(scoreColor(score));
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
+	}
+
+	public void drawTimer(final Screen screen){
+
+		Timer timer = new Timer();
+		TimerTask task = new TimerTask(){
+			@Override
+			public void run(){
+				timercount++;
+			}
+		};
+		timer.schedule(task, 1000, 1000);;
+	}
+	public void draw1P(GameScreen gamescreen_1P) {
+		// Assuming timercount is in milliseconds
+		int totalSeconds = timercount / 1000;
+		int minutes = totalSeconds / 60;
+		int seconds = totalSeconds % 60;
+
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(String.format("Timer : %d:%02d", minutes, seconds), 30, 450);
+	}
+
+
+
+	public void draw2P(GameScreen_2P gamescreen_2P){
+		int totalSeconds = timercount / 1000;
+		int minutes = totalSeconds / 60;
+		int seconds = totalSeconds % 60;
+
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.drawString(String.format("Timer : %d %02d", minutes, seconds), 30, 450);
 	}
 
 
