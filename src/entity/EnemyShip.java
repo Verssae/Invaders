@@ -39,6 +39,8 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+	/** Check the enemyship is boss */
+	private boolean isBoss;
 
 
 
@@ -61,6 +63,7 @@ public class EnemyShip extends Entity {
 		this.spriteType = spriteType;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
+		this.isBoss = false;
 
 		switch (this.spriteType) {
 		case EnemyShipA1:
@@ -102,6 +105,7 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
+		this.isBoss = false;
 
 	}
 
@@ -120,6 +124,7 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = false;
 		this.pointValue = BOSS_TYPE_POINTS;
 		this.EnemyLife = enemylife;
+		this.isBoss = true;
 
 	}
 
@@ -203,6 +208,15 @@ public class EnemyShip extends Entity {
 	 */
 	public final int getEnemyLife() {
 		return this.EnemyLife;
+	}
+
+	/**
+	 * Check the enemyship is boss.
+	 *
+	 * @return True if the enemyship is boss
+	 */
+	public final boolean checkIsBoss() {
+		return this.isBoss;
 	}
 
 	/**

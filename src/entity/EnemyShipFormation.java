@@ -220,7 +220,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.baseSpeed = gameSettings.getBaseSpeed();
 			this.movementSpeed = this.baseSpeed;
 			this.positionX = INIT_POS_X;
-			this.positionY = INIT_POS_Y;
+			this.positionY = INIT_POS_Y + 30;
 			this.difficulty = gameSettings.getDifficulty();
 			this.level = level;
 			this.shooters = new ArrayList<EnemyShip>();
@@ -514,6 +514,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
 				soundEffect.playEnemyShootingSound();
+				if(shooter.checkIsBoss()) {
+					bullets.add(BulletPool.getBullet(shooter.getPositionX()
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletLeft));
+					bullets.add(BulletPool.getBullet(shooter.getPositionX()
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletRight));
+
+				}
 			};
 		}
 	}
