@@ -190,7 +190,7 @@ public class GameScreen extends Screen {
 				this.lives = 0;
 				this.isRunning = false;
 			}
-		}			
+		}
 		else {
 			super.update();
 			if (this.inputDelay.checkFinished() && !this.levelFinished) {
