@@ -284,6 +284,7 @@ public class GameScreen extends Screen {
 		}
 
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 		}
 	}

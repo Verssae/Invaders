@@ -12,12 +12,23 @@ public class SoundEffect {
     File shipcollisionsound = new File("sound/soundEffect/Shipcollision.wav");
     File enemydestructionsound = new File("sound/soundEffect/Enemydestruction.wav");
     File enemyshootingsound = new File("sound/soundEffect/Enemyshooting.wav");
-
     File buttonclicksound = new File("sound/soundEffect/ButtonClick.wav");
     File spacebuttonsound = new File("sound/soundEffect/SpaceButton.wav");
+    File stagechangesound = new File("sound/soundEffect/StageChange.wav");
     /**
      * Play ship's shooting sound
      */
+    public void playStageChangeSound() {
+        try{
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(stagechangesound));
+            clip.start();
+
+            Thread.sleep(1);
+        }
+        catch(Exception e) { System.err.println("SOUND ERROR: Stage change sound does not played."); }
+    }
+
     public void playShipShootingSound() {
         try{
             Clip clip = AudioSystem.getClip();
@@ -149,6 +160,8 @@ public class SoundEffect {
             e.printStackTrace();
         }
     }
+
+
 
 
 //    public void play() {
