@@ -171,7 +171,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
-
+			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
+			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){
 				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
 				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
@@ -196,7 +197,6 @@ public final class DrawManager {
 				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
 				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
 			}
-
 			spriteMap.put(SpriteType.EnemyShipB1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipB2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipC1, new boolean[12][8]);
