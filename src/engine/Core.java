@@ -453,7 +453,7 @@ public final class Core {
 	public static FileManager getFileManager() {
 		return FileManager.getInstance();
 	}
-
+         
 	/**
 	 * Controls creation of new cooldowns.
 	 *

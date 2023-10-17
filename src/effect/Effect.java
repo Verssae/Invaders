@@ -16,7 +16,7 @@ public class Effect {
      * dummy item 2 effectCooldown
      * 만드는 버프에 따라 이름을 달리 할 것.
      */
-    protected Cooldown Buff2EffectCooldown;
+    static protected Cooldown buffSplashEffectCooldown;
     protected Cooldown DebuffEffectCooldown;
     protected Cooldown Debuff2EffectCooldown;
 
@@ -26,7 +26,7 @@ public class Effect {
      */
     public Effect() {
         tripleshotEffectCooldown = Core.getCooldown(5000);
-        Buff2EffectCooldown = Core.getCooldown(5000);
+        buffSplashEffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
         Debuff2EffectCooldown = Core.getCooldown(5000);
     }
@@ -40,10 +40,11 @@ public class Effect {
     public void CooldownReset(SpriteType s) {
         switch (s) {
             case Buff_Item:
-                tripleshotEffectCooldown.reset();
+                System.out.println("reset");
+                buffSplashEffectCooldown.reset();
                 break;
             case Buff_Item2:
-                Buff2EffectCooldown.reset();
+                buffSplashEffectCooldown.reset();
                 break;
             case Debuff_Item:
                 DebuffEffectCooldown.reset();
@@ -61,7 +62,7 @@ public class Effect {
             case Buff_Item:
                 return (tripleshotEffectCooldown);
             case Buff_Item2:
-                return (Buff2EffectCooldown);
+                return (buffSplashEffectCooldown);
             case Debuff_Item:
                 return (DebuffEffectCooldown);
             case Debuff_Item2:

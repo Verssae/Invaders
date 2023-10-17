@@ -466,6 +466,11 @@ public class GameScreen extends Screen {
 				this.ship.checkGetItem(item);
 			}
 		}
+		for (Bullet bullet : recyclableBullet) {
+			if (bullet.getSpeed() < 0 && bullet.isEffectBullet() == 0) {
+				bullet.splash(this.bullets);
+			}
+		}
 		this.items.removeAll(recyclableItem);
 		this.bullets.removeAll(recyclableBullet);
 		ItemPool.recycle(recyclableItem);
