@@ -1151,8 +1151,8 @@ public final class DrawManager {
 	public void drawItemStore(final Screen screen, final int option) {
 		Coin coinInstance = new Coin();
 		int coinValue = coinInstance.getCoin(); 
-		String itemStoretxt = " I T E M S T O R E";
-		String txt = " TESTTXT";
+		String itemStoretxt = " * I T E M S T O R E * ";
+		String txt = " C O N T I N U E";
 		String buyString = " B U Y";
 		String addcoinString = " P L U S C O I N";
 		String coinString = " C O I N : " + coinValue;
@@ -1162,10 +1162,12 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.green);
-		drawCenteredRegularString(screen, itemStoretxt,	screen.getHeight()/4 - 80);
+		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
 		backBufferGraphics.setColor(Color.YELLOW);
-		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
-		if (option == 13)
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) - 10, screen.getHeight()/8 - 8);
+		drawHorizontalLine(screen, screen.getHeight()/14);
+		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));

@@ -65,7 +65,7 @@ public class StoreScreen extends Screen {
         }
     }
     private void nextMenuItem() {
-        if (this.returnCode == 13)
+        if (this.returnCode == 2)
             this.returnCode = 14;
         else 
             this.returnCode = 15;
@@ -78,7 +78,7 @@ public class StoreScreen extends Screen {
         if (this.returnCode == 15)
             this.returnCode = 14;
         else 
-            this.returnCode = 13;
+            this.returnCode = 2;
     }
     /**
      * Draws the elements associated with the screen.123
