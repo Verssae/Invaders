@@ -1,11 +1,9 @@
 package screen;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.*;
 
 import engine.*;
 import entity.*;
@@ -155,6 +153,8 @@ public class GameScreen extends Screen {
 
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
+
+		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
 
 	/**
@@ -278,6 +278,7 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 		}
 		if (this.lives == 0 && !this.levelFinished) {
+			this.ship.update();
 			this.levelFinished = true;
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
@@ -312,6 +313,10 @@ public class GameScreen extends Screen {
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
+		drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, (int)this.lives);
+		if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
+		drawManager.drawBackgroundLines(this, SEPARATION_LINE_HEIGHT);
+		drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship.getPositionX(), this.ship.getPositionY(), this.ship.getWidth(), this.ship.getHeight());
 
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
@@ -341,6 +346,7 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
+		drawManager.gameOver(this, this.levelFinished);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
@@ -351,7 +357,8 @@ public class GameScreen extends Screen {
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
 
-
+			// Fade from white at game start.
+			drawManager.drawBackgroundStart(this, SEPARATION_LINE_HEIGHT);
 
 			/* this code is modified with Clean Code (dodo_kdy)  */
 			//drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
@@ -489,19 +496,25 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
-						this.score += enemyShip.getPointValue();
-						this.shipsDestroyed++;
-						this.enemyShipFormation.destroy(enemyShip, this.items);
+						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						if(enemyShip.getEnemyLife() < 1) {
+							this.score += enemyShip.getPointValue();
+							this.shipsDestroyed++;
+							this.enemyShipFormation.destroy(enemyShip, this.items);
+						}
 						recyclableBulletY.add(bulletY);
 					}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bulletY, this.enemyShipSpecial)) {
-					this.score += this.enemyShipSpecial.getPointValue();
-					this.shipsDestroyed++;
-					this.enemyShipSpecial.destroy(this.items);
-					bgm.enemyShipSpecialbgm_stop();
-					this.enemyShipSpecialExplosionCooldown.reset();
+					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
+					if(enemyShipSpecial.getEnemyLife() < 1) {
+						this.score += this.enemyShipSpecial.getPointValue();
+						this.shipsDestroyed++;
+						this.enemyShipSpecial.destroy(this.items);
+						bgm.enemyShipSpecialbgm_stop();
+						this.enemyShipSpecialExplosionCooldown.reset();
+					}
 					recyclableBulletY.add(bulletY);
 				}
 			}
