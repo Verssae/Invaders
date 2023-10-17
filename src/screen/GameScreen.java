@@ -1,15 +1,12 @@
 package screen;
 
+import engine.*;
+import entity.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-
-import engine.*;
-import entity.*;
-
-
-import javax.swing.*;
 
 /**
  * Implements the game screen, where the action happens.
@@ -115,7 +112,7 @@ public class GameScreen extends Screen {
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
 		//if (this.bonusLife)
-			//this.lives++;
+		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
@@ -153,6 +150,8 @@ public class GameScreen extends Screen {
 
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
+
+		bgm.InGame_bgm_play();
 
 		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
@@ -294,6 +293,7 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
+		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
@@ -497,6 +497,7 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
 						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						soundEffect.playEnemyDestructionSound();
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
