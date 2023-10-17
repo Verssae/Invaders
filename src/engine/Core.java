@@ -148,7 +148,7 @@ public final class Core {
 
         int returnCode = 1;
         do {
-            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false);
+            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false,MAX_LIVES);
             enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
             switch (returnCode) {
@@ -233,7 +233,8 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                gameState.getLivesRemaining_2p());
 
 
                         // SubMenu : Item Store / Enhancement / Continue
@@ -372,10 +373,11 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                gameState.getLivesRemaining_2p());
 
                     } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS);
+                            && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);

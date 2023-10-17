@@ -347,6 +347,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
+		drawManager.drawLevel(this, this.level);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
@@ -513,6 +514,7 @@ public class GameScreen extends Screen {
 						this.shipsDestroyed++;
 						this.enemyShipSpecial.destroy(this.items);
 						bgm.enemyShipSpecialbgm_stop();
+						if (this.lives < 2.9) this.lives = this.lives + 0.1;
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBulletY.add(bulletY);
@@ -556,6 +558,6 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives);
 	}
 }
