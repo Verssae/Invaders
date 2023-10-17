@@ -87,6 +87,8 @@ public class GameScreen extends Screen {
 	private int attackDamage;
 	private int areaDamage;
 
+	private CountUpTimer timer;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -119,6 +121,9 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+
+		timer = new CountUpTimer();
+
 	}
 
 	/**
@@ -286,6 +291,8 @@ public class GameScreen extends Screen {
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -347,6 +354,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
+		drawManager.drawTimer(this, timer.getElapsedTime());
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
