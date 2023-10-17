@@ -18,6 +18,8 @@ public class BulletY extends Entity {
      */
     private int speed;
 
+    private int damage;
+
     /**
      * Constructor, establishes the bullet's properties.
      *
@@ -32,6 +34,7 @@ public class BulletY extends Entity {
     public BulletY(final int positionX, final int positionY, final int speed) {
         super(positionX, positionY, 5*2 , 7*2 , Color.YELLOW);
         this.speed = speed;
+        this.damage = 3;
         setSprite();
     }
 
@@ -70,4 +73,6 @@ public class BulletY extends Entity {
     public final int getSpeed() {
         return this.speed;
     }
+
+    public final int getDamage() { return this.damage; }
 }

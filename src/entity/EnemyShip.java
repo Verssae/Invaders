@@ -114,8 +114,8 @@ public class EnemyShip extends Entity {
 	 * 			  Color of the boss ship.
 	 */
 	public EnemyShip(final int positionX, final int positionY, final int enemylife, Color bossColor) {
-		super(positionX, positionY, 12 * 2, 8 * 2, Color.BLUE);
-		this.spriteType = SpriteType.Boss;
+		super(positionX, positionY, 22 * 2, 13 * 2, Color.RED);
+		this.spriteType = SpriteType.BossA1;
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
 		this.pointValue = BOSS_TYPE_POINTS;
@@ -177,7 +177,14 @@ public class EnemyShip extends Entity {
 			case EnemyShipSC2:
 				this.spriteType = SpriteType.EnemyShipSC1;
 				break;
-			default:
+			case BossA1:
+				this.spriteType = SpriteType.BossA2;
+				break;
+			case BossA2:
+				this.spriteType = SpriteType.BossA1;
+				break;
+
+				default:
 				break;
 			}
 		}
@@ -186,8 +193,8 @@ public class EnemyShip extends Entity {
 	/**
 	 * Reduces enemy's life when hit
 	 */
-	public final void reduceEnemyLife() {
-		this.EnemyLife -= 1;
+	public final void reduceEnemyLife(final int attackDamage) {
+		this.EnemyLife -= attackDamage;
 	}
 	/**
 	 * Getter for the life of enemyship.
