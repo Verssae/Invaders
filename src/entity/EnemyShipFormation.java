@@ -169,15 +169,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			for (List<EnemyShip> column : this.enemyShips) {
 				for (int i = 0; i < this.nShipsHigh; i++) {
 					Random rnd = new Random();
-					int r, g, b;
+					int r, r2, g, b;
 					r = rnd.nextInt(200);
+					r2 = rnd.nextInt(80,180);
 					g = rnd.nextInt(200);
 					b = rnd.nextInt(200);
 					Color color = new Color(r, g, b);
 					Color A_color = new Color(r, 255, 255);
-					Color B_color = new Color(255, 255, b);
-					Color C_color = new Color(255, g, 255);
-					Color D_color = new Color(255, 255, 255);
+					Color B_color = new Color(255, g, 255);
+					Color C_color = new Color(r2, 125, 255);
+					Color D_color = new Color(255, 255, b);
 					if (i / (float) this.nShipsHigh < PROPORTION_C) {
 						spriteType = SpriteType.EnemyShipD1;
 						enemyColor = D_color;
