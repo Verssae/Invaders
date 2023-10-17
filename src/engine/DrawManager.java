@@ -135,7 +135,11 @@ public final class DrawManager {
 		/** Destroyed enemy ship3. */
 		Explosion3,
 		/** Buff_item dummy sprite*/
-		Buff_Item;
+		Buff_Item,
+		/** Debuff_item dummy sprite */
+		Debuff_Item,
+		/** Buff_item dummy sprite */
+		EnhanceStone;
 	};
 
 	/**
@@ -197,6 +201,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
 			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
+			spriteMap.put(SpriteType.Debuff_Item, new boolean[9][9]);
+			spriteMap.put(SpriteType.EnhanceStone, new boolean[7][7]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
 
