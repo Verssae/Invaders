@@ -2,10 +2,9 @@ package screen;
 
 import java.awt.event.KeyEvent;
 
-import engine.SoundEffect;
 import engine.Cooldown;
 import engine.Core;
-import engine.GameState;
+import engine.SoundEffect;
 
 public class SubMenuScreen extends Screen {
     /** Milliseconds between changes in user selection. */
@@ -86,6 +85,8 @@ public class SubMenuScreen extends Screen {
             this.returnCode = 7;
         else if (this.returnCode == 7)
             this.returnCode = 2;
+        else if (this.returnCode == 2)
+            this.returnCode = 86;
         else
             this.returnCode = 6;
     }
@@ -94,12 +95,14 @@ public class SubMenuScreen extends Screen {
      * Shifts the focus to the previous menu item.
      */
     private void previousMenuItem() {
-        if (this.returnCode == 2)
+        if (this.returnCode == 86)
+            this.returnCode = 2;
+        else if (this.returnCode == 2)
             this.returnCode = 7;
         else if (this.returnCode == 7)
             this.returnCode = 6;
         else
-            this.returnCode = 2;
+            this.returnCode = 86;
     }
 
     /**
