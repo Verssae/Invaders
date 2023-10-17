@@ -1289,7 +1289,6 @@ public final class DrawManager {
         int leftCircleX = (screenWidth - 220) / 2;
         int rightCircleX = screenWidth - (screenWidth - 220) / 2 - 70;
         int sideCircleY = SEPARATION_LINE_HEIGHT * 5;	
-		
 
 		backBufferGraphics.setColor(Color.GREEN);
 
