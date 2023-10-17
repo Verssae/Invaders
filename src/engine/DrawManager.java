@@ -129,13 +129,13 @@ public final class DrawManager {
 		BossA1,
 		/** Boss ship - second form. */
 		BossA2,
-		/** Destroyed enemy ship. */
+		/** Destroyed enemy ship. * basic */
 		Explosion,
 
 		BulletLine,
-		/** Destroyed enemy ship2. */
+		/** Destroyed enemy ship2. * blank*/
 		Explosion2,
-		/** Destroyed enemy ship3. */
+		/** Destroyed enemy ship3. * skull*/
 		Explosion3,
 		/** Buff_item dummy sprite*/
 		Buff_Item,

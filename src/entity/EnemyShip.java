@@ -241,7 +241,11 @@ public class EnemyShip extends Entity {
 	}
 
 	/**
-	 * @return
+	 * Get a random number and select death effect
+	 * 
+	 * [Clean Code Team] This method was created by NiceGuy1313
+	 * 
+	 * @return Random Death Effect
 	 */
 	public final SpriteType randomDestroy(){
 		Random random = new Random();
