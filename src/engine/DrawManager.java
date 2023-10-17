@@ -1652,10 +1652,10 @@ public final class DrawManager {
 			if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y1 -=5;
 			else if (70<timercount && timercount <90) x1+=5;
 
-			this.drawEntity(SpriteType.values()[5],x1+15,y1+10,2.3,2.3);
-			this.drawEntity(SpriteType.values()[6],x1+60,y1+10,2.4,2.4);
-			this.drawEntity(SpriteType.values()[8],x1+100,y1+10,3,2.4);
-			this.drawEntity(SpriteType.values()[10],x1+145,y1+13,2,2);
+			this.drawEntity(SpriteType.values()[12],x1+15,y1+10,2.3,2.3);
+			this.drawEntity(SpriteType.values()[14],x1+60,y1+10,2.4,2.4);
+			this.drawEntity(SpriteType.values()[18],x1+100,y1+10,3,2.4);
+			this.drawEntity(SpriteType.values()[25],x1+145,y1+13,2,2);
 		}
 
 
