@@ -442,6 +442,26 @@ public final class DrawManager {
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 65);
 	}
+
+
+	public void drawTimer(final Screen screen, final long elapsedTime) {
+		backBufferGraphics.setFont(fontSmall);
+		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
+		String timeString = formatTime(elapsedTime);
+		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
+	}
+
+	private String formatTime(long elapsedTime) {
+		// Convert milliseconds to a formatted time string (e.g., "00:00:00")
+		long totalSeconds = elapsedTime / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+
+		return String.format("%02d:%02d", minutes, seconds);
+	}
+
+
+
 	/**
 	 * Draws number of remaining lives on screen.
 	 *

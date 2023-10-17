@@ -125,12 +125,15 @@ public class GameScreen extends Screen {
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
 
+
 	}
 
 
-	/**
-	 * Initializes basic screen properties, and adds necessary elements.
-	 */
+
+
+		/**
+         * Initializes basic screen properties, and adds necessary elements.
+         */
 	public final void initialize() {
 		super.initialize();
 
@@ -378,7 +381,10 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
-	}
+
+
+		}
+
 
 	/**
 	 * Cleans bullets that go off screen.
