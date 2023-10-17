@@ -61,6 +61,10 @@ public final class DrawManager {
 	/** Big sized font properties. */
 	private static FontMetrics fontBigMetrics;
 
+	private  static Font fontVeryBig;
+	private Cooldown endTimer = new Cooldown(2000);
+	private int endBright = 150;
+
 	/** Cooldown timer for background animation. */
 	private Cooldown bgTimer = new Cooldown(100);  // Draw bg interval
 	private int brightness = 0;  // Used as RGB values for changing colors
@@ -180,6 +184,7 @@ public final class DrawManager {
 			fontSmall = fileManager.loadFont(12f);
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
+			fontVeryBig = fileManager.loadFont(40f);
 			logger.info("Finished loading the fonts.");
 
 		} catch (IOException e) {
@@ -1576,6 +1581,51 @@ public final class DrawManager {
 		// drawEntity(dummyShip, 40 + 35, 10);
 	}
 
+	public void gameOver(final Screen screen, boolean levelFinished, double lives, double time){
+		if(levelFinished){
+			if(lives == 0){
+				/*
+				Color bgColor = backBuffer.createGraphics().getColor();
+				//backBufferGraphics.setColor(animateColor(new Color(bgColor.getRed(),bgColor.getGreen(),bgColor.getBlue()) , Color.black, 3000, endTimer));
+				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight() );
+				if ( endTimer.checkFinished() && endBright > 1)
+				{
+					endBright -= 1;
+					int bgRed = bgColor.getRed();
+					int bgGreen = bgColor.getGreen();
+					int bgBlue = bgColor.getBlue();
+					System.out.print(bgColor.getRed());
+					backBufferGraphics.setColor(new Color(bgRed, bgGreen, bgBlue));
+				}*/
+				//backBufferGraphics.setColor(Color.gray);
+				//backBufferGraphics.fillRect(screen.getWidth() / 3 - 13, screen.getHeight() / 2 - 23, fontBigMetrics.stringWidth("Game Over...") - 5, 50);
+				//double time = System.currentTimeMillis();
+				backBufferGraphics.setFont(fontBig);
+				backBufferGraphics.setColor(Color.red);
+				backBufferGraphics.drawString("Game Over", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Game Over") / 2, screen.getHeight() / 2);
+			}
+			else {
+				backBufferGraphics.setFont(fontBig);
+				backBufferGraphics.setColor(Color.white);
+				backBufferGraphics.drawString("Stage Clear", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Stage Clear") / 2, screen.getHeight() / 2);
+			}
+			/*
+			while(2000 > System.currentTimeMillis() - time )
+			{
+				System.out.println(System.currentTimeMillis() - time);
+
+				if (((System.currentTimeMillis() - time) < 500) || ((System.currentTimeMillis() - time) > 1500)){
+					this.drawEntity(SpriteType.EnemyShipC1, screen.getWidth() / 5, screen.getHeight() / 2, 3, 3);
+					//System.out.print("EnemyShipC1");
+				}
+				else {
+					this.drawEntity(SpriteType.EnemyShipC2, screen.getWidth() / 5, screen.getHeight() / 2, 3, 3);
+					//System.out.print("EnemyShipC2");
+				}
+
+			}*/
+		}
+	}
 
 	/**
 	 * Creates an animation of monster.
