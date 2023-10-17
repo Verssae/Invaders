@@ -109,7 +109,8 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
-
+	/** Combo counting*/
+	private int combo=0;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -423,7 +424,9 @@ public class GameScreen extends Screen {
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
 		drawManager.drawLevel(this, this.level);
-
+		if (combo !=0) {
+			drawManager.ComboCount(this, this.combo);
+		}
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
@@ -457,9 +460,13 @@ public class GameScreen extends Screen {
 		Set<Bullet> recyclable = new HashSet<Bullet>();
 		for (Bullet bullet : this.bullets) {
 			bullet.update();
+			if (bullet.getPositionY() > this.height){
+				bullet.getPositionY();
+			}
 			if (bullet.getPositionY() < SEPARATION_LINE_HEIGHT
-					|| bullet.getPositionY() > this.height)
+					|| bullet.getPositionY() > this.height) {
 				recyclable.add(bullet);
+			}
 		}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
@@ -468,9 +475,13 @@ public class GameScreen extends Screen {
 		Set<BulletY> recyclable = new HashSet<BulletY>();
 		for (BulletY bulletY : this.bulletsY) {
 			bulletY.update();
+			if (bulletY.getPositionY() > this.height){
+				bulletY.getPositionY();
+			}
 			if (bulletY.getPositionY() < SEPARATION_LINE_HEIGHT
-					|| bulletY.getPositionY() > this.height)
+					|| bulletY.getPositionY() > this.height) {
 				recyclable.add(bulletY);
+			}
 		}
 		this.bulletsY.removeAll(recyclable);
 		BulletPool.recycleBulletY(recyclable);
@@ -514,6 +525,8 @@ public class GameScreen extends Screen {
 							&& checkCollision(bullet, enemyShip)) {
 						enemyShip.reduceEnemyLife(this.attackDamage);
 						soundEffect.playEnemyDestructionSound();
+						this.combo++;
+						this.score += combo;
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
@@ -521,10 +534,15 @@ public class GameScreen extends Screen {
 						}
 						recyclableBullet.add(bullet);
 					}
+				if (bullet.getPositionY()<50){
+						combo =0;
+				}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
 					enemyShipSpecial.reduceEnemyLife(this.attackDamage);
+					this.combo ++;
+					this.score += combo;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
@@ -534,6 +552,9 @@ public class GameScreen extends Screen {
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBullet.add(bullet);
+				}
+				if (bullet.getPositionY()<50){
+					combo =0;
 				}
 			}
 		if (this.laser != null) {
@@ -585,6 +606,8 @@ public class GameScreen extends Screen {
 							&& checkCollision(bulletY, enemyShip)) {
 						enemyShip.reduceEnemyLife(bulletY.getDamage());
 						soundEffect.playEnemyDestructionSound();
+						this.combo ++;
+						this.score += combo;
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
@@ -596,6 +619,8 @@ public class GameScreen extends Screen {
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bulletY, this.enemyShipSpecial)) {
 					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
+					this.combo ++;
+					this.score += combo;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
@@ -605,6 +630,9 @@ public class GameScreen extends Screen {
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBulletY.add(bulletY);
+				}
+				if (bulletY.getPositionY()<50){
+					combo =0;
 				}
 			}
 		this.items.removeAll(recyclableItem);
