@@ -416,12 +416,16 @@ public class GameScreen extends Screen {
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
 					recyclableBullet.add(bullet);
-					if (!this.ship.isDestroyed()) {
-						this.ship.destroy();
-						if (this.lives != 1) soundEffect.playShipCollisionSound();
-						this.lives--;
-						this.logger.info("Hit on player ship, " + this.lives
-								+ " lives remaining.");
+					if (this.ship.getShieldState()){
+						this.ship.setShieldState(false);
+					} else {
+						if (!this.ship.isDestroyed()) {
+							this.ship.destroy();
+							if (this.lives != 1) soundEffect.playShipCollisionSound();
+							this.lives--;
+							this.logger.info("Hit on player ship, " + this.lives
+									+ " lives remaining.");
+						}
 					}
 				}
 			} else {

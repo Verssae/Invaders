@@ -2,9 +2,7 @@ package effect;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.DrawManager;
 import engine.DrawManager.SpriteType;
-import entity.Item;
 
 public class Effect {
 
@@ -17,8 +15,15 @@ public class Effect {
      * 만드는 버프에 따라 이름을 달리 할 것.
      */
     static protected Cooldown buffSplashEffectCooldown;
+    protected Cooldown Buff2EffectCooldown;
+    protected Cooldown attackSpeedEffectCooldown;
     protected Cooldown DebuffEffectCooldown;
-    protected Cooldown Debuff2EffectCooldown;
+    /** 스턴 아이템 */
+    protected Cooldown debuffSturnEffect;
+    /** Shield Item **/
+    protected boolean shieldState = false;
+
+
 
 
     /**
@@ -27,8 +32,9 @@ public class Effect {
     public Effect() {
         tripleshotEffectCooldown = Core.getCooldown(5000);
         buffSplashEffectCooldown = Core.getCooldown(5000);
+        attackSpeedEffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
-        Debuff2EffectCooldown = Core.getCooldown(5000);
+        debuffSturnEffect = Core.getCooldown(2000);
     }
     /**
      * Initialize effect cool time according to item Sprite
@@ -38,37 +44,30 @@ public class Effect {
      *          a sprite type of the item is received.
      */
     public void CooldownReset(SpriteType s) {
+        double prob = Math.random();
         switch (s) {
             case Buff_Item:
-                System.out.println("reset");
-                buffSplashEffectCooldown.reset();
-                break;
-            case Buff_Item2:
-                buffSplashEffectCooldown.reset();
+                if(prob < 0.25){
+                    tripleshotEffectCooldown.reset();
+                } else if (prob < 0.5){
+                    attackSpeedEffectCooldown.reset();
+                } else if (prob < 0.75){
+                    this.shieldState = true;
+                }else{
+                    buffSplashEffectCooldown.reset();
+                }
                 break;
             case Debuff_Item:
-                DebuffEffectCooldown.reset();
-                break;
-            case Debuff_Item2:
-                Debuff2EffectCooldown.reset();
+                if(prob < 0.5){
+                    DebuffEffectCooldown.reset();
+                }else{
+                    debuffSturnEffect.reset();
+                }
                 break;
             default:
                 break;
         }
     }
-
-    public Cooldown getCooldown(SpriteType s) {
-        switch (s) {
-            case Buff_Item:
-                return (tripleshotEffectCooldown);
-            case Buff_Item2:
-                return (buffSplashEffectCooldown);
-            case Debuff_Item:
-                return (DebuffEffectCooldown);
-            case Debuff_Item2:
-                return (Debuff2EffectCooldown);
-            default:
-                return (null);
-        }
-    }
+    public boolean getShieldState() { return this.shieldState; }
+    public void setShieldState(boolean state) { this.shieldState = state; }
 }

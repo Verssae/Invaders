@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.util.Set;
 
+import effect.Effect;
 import effect.ShipEffect;
 import engine.Cooldown;
 import engine.Core;
@@ -52,19 +53,21 @@ public class Ship extends Entity {
 	/**
 	 * Moves the ship speed uni ts right, or until the right screen border is
 	 * reached.
+	 *
+	 * jtaejune : 스턴 아이템을 먹으면 속도가 0이 됨.
 	 */
 	public final void moveRight() {
-
-		this.positionX += SPEED;
+		this.shipEffect.moveRightEffect();
 	}
 
 	/**
 	 * Moves the ship speed units left, or until the left screen border is
 	 * reached.
+	 *
+	 * jtaejune : 스턴 아이템을 먹으면 속도가 0이 됨.
 	 */
 	public final void moveLeft() {
-
-		this.positionX -= SPEED;
+		this.shipEffect.moveLeftEffect();
 	}
 
 	/**
@@ -75,6 +78,7 @@ public class Ship extends Entity {
 	 * @return Checks if the bullet was shot correctly.
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
+		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shoot(bullets, BULLET_SPEED);
@@ -84,6 +88,7 @@ public class Ship extends Entity {
 	}
 
 	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
@@ -141,4 +146,7 @@ public class Ship extends Entity {
 
 	public Cooldown getShootingInterval(){return this.shootingCooldown;}
 	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
+
+	public boolean getShieldState() { return this.shipEffect.getShieldState(); }
+	public void setShieldState(boolean state) { this.shipEffect.setShieldState(state); }
 }

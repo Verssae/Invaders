@@ -1,8 +1,6 @@
 package effect;
 
-import engine.Cooldown;
 import engine.Core;
-import engine.DrawManager.*;
 import entity.Bullet;
 import entity.BulletY;
 import entity.BulletPool;
@@ -33,8 +31,22 @@ public class ShipEffect extends Effect{
      * 크게 안건들고 수정하길 바람.
      */
 
-    public void moveEffect(){
+    public void moveRightEffect(){
+        if (this.DebuffEffectCooldown.checkFinished()) {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed() * this.shipSturnEffect());
+        }
+        else {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed() * this.shipSturnEffect());
+        }
+    }
 
+    public void moveLeftEffect(){
+        if (this.DebuffEffectCooldown.checkFinished()) {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed() * this.shipSturnEffect());
+        }
+        else {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed() * this.shipSturnEffect());
+        }
     }
 
     /**
@@ -50,7 +62,7 @@ public class ShipEffect extends Effect{
      *              the speed of a ship's bullet
      */
     public void shoot(final Set<Bullet> bullets, final int BULLET_SPEED) {
-        if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
+        if (this.tripleshotEffectCooldown.checkFinished())
         {
             bullets.add(BulletPool.getBullet(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY(), BULLET_SPEED));
@@ -67,13 +79,13 @@ public class ShipEffect extends Effect{
     /**
      * Bullet shooting effect
      *
-     * @param bullets
+     * @param bulletsY
      *              The factor of the ship's shoot method.
      * @param BULLETY_SPEED
      *              the speed of a ship's bulletY
      */
     public void shootBulletY(final Set<BulletY> bulletsY, final int BULLETY_SPEED) {
-        if (this.getCooldown(SpriteType.Buff_Item).checkFinished())
+        if (this.tripleshotEffectCooldown.checkFinished())
         {
             bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2,
                     ship.getPositionY(), BULLETY_SPEED));
@@ -85,5 +97,28 @@ public class ShipEffect extends Effect{
             bulletsY.add(BulletPool.getBulletY(ship.getPositionX() + ship.getWidth() / 2 - 10,
                     ship.getPositionY(), BULLETY_SPEED));
         }
+    }
+
+    
+    public void attackSpeedUp() {
+        if (this.attackSpeedEffectCooldown.checkFinished()) {
+            if (ship.getShootingInterval().getMilliseconds() == 100)
+                ship.setShootingInterval(Core.getCooldown(750));
+        } else {
+            if (ship.getShootingInterval().getMilliseconds() == 750)
+                ship.setShootingInterval(Core.getCooldown(100));
+        }
+    }
+/**
+     *  스턴 디버프에 걸리면 0반환
+     *  평소에는 1을 반환
+     *
+     *  사용처 : Ship 클래스
+     */
+    public int shipSturnEffect() {
+        if (this.debuffSturnEffect.checkFinished())
+            return (1);
+        else
+            return (0);
     }
 }
