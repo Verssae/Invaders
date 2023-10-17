@@ -49,9 +49,6 @@ public class EnemyShip extends Entity {
 	private boolean isBoss;
 
 
-
-
-
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -110,6 +107,7 @@ public class EnemyShip extends Entity {
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
 		spVariable = (int)(Math.random()*2);
+
 		switch (spVariable) {
 			case 0:
 				this.spriteType = SpriteType.EnemyShipSpecial1;
@@ -118,6 +116,7 @@ public class EnemyShip extends Entity {
 				this.spriteType = SpriteType.EnemyShipSpecial2;
 				break;
 		}
+
 
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
