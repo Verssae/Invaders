@@ -26,23 +26,10 @@ public class ShipEffect extends Effect{
     /**
      * Item Effect: Effect on reversal.
      */
-
-    public void moveRightEffect(){
-        if (this.DebuffEffectCooldown.checkFinished()) {
-            ship.setPositionX(ship.getPositionX() + ship.getSpeed() * this.shipSturnEffect());
-        }
-        else {
-            ship.setPositionX(ship.getPositionX() - ship.getSpeed() * this.shipSturnEffect());
-        }
-    }
-
-    public void moveLeftEffect(){
-        if (this.DebuffEffectCooldown.checkFinished()) {
-            ship.setPositionX(ship.getPositionX() - ship.getSpeed() * this.shipSturnEffect());
-        }
-        else {
-            ship.setPositionX(ship.getPositionX() + ship.getSpeed() * this.shipSturnEffect());
-        }
+    public int moveEffect(){
+        if (this.DebuffEffectCooldown.checkFinished())
+            return (shipSturnEffect());
+        return (-1 * shipSturnEffect());
     }
 
     /**

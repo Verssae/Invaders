@@ -198,11 +198,22 @@ public class GameScreen extends Screen {
 							+ this.ship.getWidth() + this.ship.getSpeed() > this.width - 1;
 					boolean isLeftBorder = this.ship.getPositionX()
 							- this.ship.getSpeed() < 1;
-					if (moveRight && !isRightBorder) {
-						this.ship.moveRight();
-					}
-					if (moveLeft && !isLeftBorder) {
-						this.ship.moveLeft();
+
+					if (this.ship.getSpeed() >= 0)
+					{
+						if (moveRight && !isRightBorder) {
+							this.ship.moveRight();
+						}
+						if (moveLeft && !isLeftBorder) {
+							this.ship.moveLeft();
+						}
+					} else {
+						if (moveRight && !isLeftBorder) {
+							this.ship.moveRight();
+						}
+						if (moveLeft && !isRightBorder) {
+							this.ship.moveLeft();
+						}
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 						if(bulletsShot % 3 == 0 && !(bulletsShot == 0)) {

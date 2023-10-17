@@ -664,7 +664,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	public final void bombDestroy(Set<Item> items) {
 		int t = Math.min((int)(Math.random() * 10), (this.enemyShips.size()) - 1);
-		this.logger.info("Bomb detected" + t + " column has removed");
+		this.logger.info("Bomb detected " + t + " : column has removed");
 		List<EnemyShip> temp = this.enemyShips.get(t);
 		for(EnemyShip destroyedShip : temp){
 			for(int i = 0 ; i < temp.size(); i++){

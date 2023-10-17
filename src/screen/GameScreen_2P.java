@@ -198,11 +198,21 @@ public class GameScreen_2P extends Screen {
                     boolean isLeftBorder = this.ship_1P.getPositionX()
                             - this.ship_1P.getSpeed() < 1;
 
-                    if (moveRight && !isRightBorder) {
-                        this.ship_1P.moveRight();
-                    }
-                    if (moveLeft && !isLeftBorder) {
-                        this.ship_1P.moveLeft();
+                    if (this.ship_1P.getSpeed() >= 0)
+                    {
+                        if (moveRight && !isRightBorder) {
+                            this.ship_1P.moveRight();
+                        }
+                        if (moveLeft && !isLeftBorder) {
+                            this.ship_1P.moveLeft();
+                        }
+                    } else {
+                        if (moveRight && !isLeftBorder) {
+                            this.ship_1P.moveRight();
+                        }
+                        if (moveLeft && !isRightBorder) {
+                            this.ship_1P.moveLeft();
+                        }
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SHIFT)) {
                         if(bulletsShot % 6 == 0 && !(bulletsShot == 0)) {
@@ -234,11 +244,21 @@ public class GameScreen_2P extends Screen {
                     boolean isLeftBorder = this.ship_2P.getPositionX()
                             - this.ship_2P.getSpeed() < 1;
 
-                    if (moveRight && !isRightBorder) {
-                        this.ship_2P.moveRight();
-                    }
-                    if (moveLeft && !isLeftBorder) {
-                        this.ship_2P.moveLeft();
+                    if (this.ship_2P.getSpeed() >= 0)
+                    {
+                        if (moveRight && !isRightBorder) {
+                            this.ship_2P.moveRight();
+                        }
+                        if (moveLeft && !isLeftBorder) {
+                            this.ship_2P.moveLeft();
+                        }
+                    } else {
+                        if (moveRight && !isLeftBorder) {
+                            this.ship_2P.moveRight();
+                        }
+                        if (moveLeft && !isRightBorder) {
+                            this.ship_2P.moveLeft();
+                        }
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                         if(bulletsShot % 6 == 0 && !(bulletsShot == 0)) {

@@ -57,7 +57,8 @@ public class Ship extends Entity {
 	 * jtaejune : 스턴 아이템을 먹으면 속도가 0이 됨.
 	 */
 	public final void moveRight() {
-		this.shipEffect.moveRightEffect();
+
+		this.positionX += SPEED * this.shipEffect.moveEffect();
 	}
 
 	/**
@@ -67,7 +68,7 @@ public class Ship extends Entity {
 	 * jtaejune : 스턴 아이템을 먹으면 속도가 0이 됨.
 	 */
 	public final void moveLeft() {
-		this.shipEffect.moveLeftEffect();
+		this.positionX -= SPEED * this.shipEffect.moveEffect();
 	}
 
 	/**
@@ -133,7 +134,7 @@ public class Ship extends Entity {
 	 * @return Speed of the ship.
 	 */
 	public final int getSpeed() {
-		return SPEED;
+		return SPEED * this.shipEffect.moveEffect();
 	}
 
 	/**
