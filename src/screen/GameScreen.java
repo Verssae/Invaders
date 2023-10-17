@@ -442,7 +442,6 @@ public class GameScreen extends Screen {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip, this.items);
-
 						}
 						recyclableBullet.add(bullet);
 					}
