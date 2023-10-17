@@ -280,6 +280,7 @@ public class GameScreen extends Screen {
 		if (this.lives == 0 && !this.levelFinished) {
 			this.ship.update();
 			this.levelFinished = true;
+			drawManager.endTimer.reset();
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
 		}
@@ -365,6 +366,7 @@ public class GameScreen extends Screen {
 			//drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
 
 		}
+
 
 		// If Game has been paused
 		if (this.pause) {
