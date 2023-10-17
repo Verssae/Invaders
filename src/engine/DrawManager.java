@@ -339,6 +339,25 @@ public final class DrawManager {
 			return blinkingColor("HIGH_SCORES");
 	}
 
+	private Color levelColor(final int level) {
+		if (level == 1)
+			return Color.WHITE;
+		if (level == 2)
+			return new Color(206, 255, 210);
+		if (level == 3)
+			return new Color(151, 255, 158);
+		if (level == 4)
+			return new Color(88, 255, 99);
+		if (level == 5)
+			return new Color(50, 255, 64);
+		if (level == 6)
+			return new Color(0, 255, 17);
+		if (level == 7)
+			return new Color(0,240,10);
+		else
+			return blinkingColor("HIGH_SCORES");
+	}
+
 	/**
 	 * The emoji changes slightly depending on the score.
 	 * [Clean Code Team] This method was created by highlees.
@@ -373,6 +392,12 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
 			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
 		}
+	}
+
+	public void drawLevel(final Screen screen, final int level){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(levelColor(level));
+		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
 	}
 
 	/**
