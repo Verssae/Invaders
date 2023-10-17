@@ -273,11 +273,13 @@ public class GameScreen extends Screen {
 		}
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
 			endStageAllEat();
+			bgm.enemyShipSpecialbgm_stop();
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 		}
 		if (this.lives == 0 && !this.levelFinished) {
 			this.ship.update();
+			bgm.enemyShipSpecialbgm_stop();
 			this.levelFinished = true;
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
@@ -294,7 +296,6 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
-		bgm.enemyShipSpecialbgm_stop();
 		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
