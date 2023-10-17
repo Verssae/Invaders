@@ -1,5 +1,16 @@
 package engine;
+
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
 import java.io.IOException;
@@ -7,13 +18,14 @@ import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
 
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
 
-import java.util.Random;
+
 /**
  * Manages screen drawing.
  *
@@ -1492,7 +1504,7 @@ public final class DrawManager {
 		}
 
 		Graphics2D g2 = (Graphics2D)backBufferGraphics;
-		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(31, 0, 0, 216), 0, height, new Color(brightness,brightness,100+brightness,230));
+		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(31, 0, 0, 216), 0, height, new Color(brightness/2,brightness/2,100+brightness/2,230));
 		g2.setPaint(gp);
 		g2.fill(new Rectangle(0, separationLineHeight, width, height));
 
@@ -1558,6 +1570,14 @@ public final class DrawManager {
 		return new Color(red, green, blue, alpha);
 	}
 
-
+	public void drawBackgroundPlayer(final Screen screen, int separationLineHeight, int playerX, int playerY, int playerWidth, int playerHeight){
+		Point2D center = new Point2D.Float(playerX + playerWidth/2, playerY + playerHeight/2);
+		float radius = 90;
+		float[] dist = {0.0f, 0.2f, 1.0f};
+		Color[] colors = {new Color(178,245,149,brightness*2), new Color(178,245,149,brightness+20), new Color(0,0,0,0)};
+		RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
+		Graphics2D g2 = (Graphics2D) backBufferGraphics;
+		g2.setPaint(p);
+		g2.fillRect(0, separationLineHeight, screen.getWidth(), screen.getHeight());
+	}
 }
-
