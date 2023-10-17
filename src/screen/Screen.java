@@ -21,7 +21,7 @@ public class Screen {
 	private static final int INPUT_DELAY = 1000;
 
 	/** Draw Manager instance. */
-	protected DrawManager drawManager;
+    public DrawManager drawManager;
 	/** Input Manager instance. */
 	protected InputManager inputManager;
 	/** Application logger. */
