@@ -1,17 +1,5 @@
 package screen;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
-
-import engine.*;
-import entity.*;
-
-
-
-
-import javax.swing.*;
 import engine.*;
 import entity.*;
 
@@ -88,13 +76,18 @@ public class GameScreen extends Screen {
 	private boolean pause;
 	/** Set of all items.*/
 	private Set<Item> items;
+
 	/** is none exist dropped item?*/
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
-	private int colorVariable;
+	private int color_variable;
+
 	private int BulletsCount = 99;
+
 	private int attackDamage;
 	private int areaDamage;
+
+	private CountUpTimer timer;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -128,6 +121,9 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+
+		timer = new CountUpTimer();
+
 	}
 
 	/**
@@ -172,6 +168,7 @@ public class GameScreen extends Screen {
 	 */
 	public final int run() {
 		super.run();
+
 		this.score += LIFE_SCORE * (this.lives - 1);
 		this.logger.info("Screen cleared with a score of " + this.score);
 
@@ -189,7 +186,6 @@ public class GameScreen extends Screen {
 				this.returnCode = 1;
 				this.lives = 0;
 				this.isRunning = false;
-				bgm.InGame_bgm_stop();
 			}
 		}
 		else {
@@ -237,23 +233,26 @@ public class GameScreen extends Screen {
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {
-					bgm.enemyShipSpecialbgm_play();
-					colorVariable = (int)(Math.random()*4);
-					switch (colorVariable) {
-						case 0:
-							this.enemyShipSpecial = new EnemyShip(Color.RED);
-							break;
-						case 1:
-							this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
-							break;
-						case 2:
-							this.enemyShipSpecial = new EnemyShip(Color.BLUE);
-							break;
-						case 3:
-							this.enemyShipSpecial = new EnemyShip(Color.WHITE);
-							break;
-						default:
-							break;
+					color_variable = (int)(Math.random()*4);
+					if (color_variable == 0) {
+						this.enemyShipSpecial = new EnemyShip(Color.RED);
+						bgm.enemyShipSpecialbgm_play();
+
+					}
+					else if (color_variable == 1) {
+						this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+						bgm.enemyShipSpecialbgm_play();
+
+					}
+					else if (color_variable == 2) {
+						this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+						bgm.enemyShipSpecialbgm_play();
+
+					}
+					else if (color_variable == 3) {
+						this.enemyShipSpecial = new EnemyShip(Color.white);
+						bgm.enemyShipSpecialbgm_play();
+
 					}
 					this.enemyShipSpecialCooldown.reset();
 					this.logger.info("A special ship appears");
@@ -292,6 +291,8 @@ public class GameScreen extends Screen {
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -353,7 +354,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
-		drawManager.drawLevel(this, this.level);
+		drawManager.drawTimer(this, timer.getElapsedTime());
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
@@ -449,6 +450,7 @@ public class GameScreen extends Screen {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
 							this.enemyShipFormation.destroy(enemyShip, this.items);
+
 						}
 						recyclableBullet.add(bullet);
 					}
@@ -520,7 +522,6 @@ public class GameScreen extends Screen {
 						this.shipsDestroyed++;
 						this.enemyShipSpecial.destroy(this.items);
 						bgm.enemyShipSpecialbgm_stop();
-						if (this.lives < 2.9) this.lives = this.lives + 0.1;
 						this.enemyShipSpecialExplosionCooldown.reset();
 					}
 					recyclableBulletY.add(bulletY);

@@ -494,6 +494,20 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
+	public void drawTimer(final Screen screen, final long elapsedTime) {
+		backBufferGraphics.setFont(fontSmall);
+		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
+		String timeString = formatTime(elapsedTime);
+		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
+	}
+
+	private String formatTime(long elapsedTime) {
+		long totalSeconds = elapsedTime / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+
+		return String.format("%02d:%02d", minutes, seconds);
+	}
 
     public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
