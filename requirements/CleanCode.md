@@ -20,7 +20,7 @@ Visual Effect System
 - Gradient background that gradually changes between colors
 - Green glow behind player sprites
 - Background becomes darker as player lives reaches 0 (from <=3)
-- Background becomes yellower when special ship appears
+- Background becomes yellower when special ship appears <br></br>
 💡 Countdown Design -> [Doyoon Kim](https://github.com/doyoon323/doyoon323.git) <br></br>
 💡 Game Item Design(Hats) -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
 💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)<br></br>
