@@ -153,7 +153,6 @@ public class GameScreen extends Screen {
 
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
-		drawManager.initBackgroundTimer();
 
 		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 
