@@ -92,9 +92,6 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
-
-	private boolean bomb; // testing
-	private Cooldown bombCool;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -155,8 +152,6 @@ public class GameScreen extends Screen {
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
-		this.bombCool = Core.getCooldown(1000);
-		bombCool.reset();
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 	}
