@@ -24,6 +24,8 @@ public class EnemyShip extends Entity {
 	private static final int B_TYPE_POINTS = 20;
 	/** Point value of a type C enemy. */
 	private static final int C_TYPE_POINTS = 30;
+	/** Point value of a type C enemy. */
+	private static final int D_TYPE_POINTS = 40;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
@@ -86,6 +88,15 @@ public class EnemyShip extends Entity {
 		case EnemyShipSC2:
 			this.pointValue = C_TYPE_POINTS;
 			this.EnemyLife = 2;
+			break;
+		case EnemyShipD1:
+		case EnemyShipD2:
+		case EnemyShipD3:
+		case EnemyShipD4:
+		case EnemyShipD5:
+		case EnemyShipD6:
+			this.pointValue = D_TYPE_POINTS;
+			this.EnemyLife = 3;
 			break;
 		default:
 			this.pointValue = 0;
@@ -166,30 +177,54 @@ public class EnemyShip extends Entity {
 			this.animationCooldown.reset();
 
 			switch (this.spriteType) {
+
 			case EnemyShipA1:
 				this.spriteType = SpriteType.EnemyShipA2;
 				break;
+
 			case EnemyShipA2:
 				this.spriteType = SpriteType.EnemyShipA1;
 				break;
+
 			case EnemyShipB1:
 				this.spriteType = SpriteType.EnemyShipB2;
 				break;
+
 			case EnemyShipB2:
 				this.spriteType = SpriteType.EnemyShipB1;
 				break;
-			case EnemyShipC1:
-				this.spriteType = SpriteType.EnemyShipC2;
-				break;
-			case EnemyShipC2:
-				this.spriteType = SpriteType.EnemyShipC1;
-				break;
+
+			/** 2 forms of enemyC - change form whenever life is reduced */
 			case EnemyShipSC1:
-				this.spriteType = SpriteType.EnemyShipSC2;
+			case EnemyShipC1:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC2;
+				else this.spriteType = SpriteType.EnemyShipSC2;
 				break;
+
 			case EnemyShipSC2:
-				this.spriteType = SpriteType.EnemyShipSC1;
+			case EnemyShipC2:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC1;
+				else this.spriteType = SpriteType.EnemyShipSC1;
 				break;
+
+			/** 3 forms of enemyD - change form whenever life is reduced */
+			case EnemyShipD1:
+			case EnemyShipD3:
+			case EnemyShipD5:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD6;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD4;
+				else this.spriteType = SpriteType.EnemyShipD2;
+				break;
+
+			case EnemyShipD2:
+			case EnemyShipD4:
+			case EnemyShipD6:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD5;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD3;
+				else this.spriteType = SpriteType.EnemyShipD1;
+				break;
+
+
 			default:
 				break;
 			}

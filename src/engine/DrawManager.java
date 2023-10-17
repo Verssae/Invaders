@@ -94,6 +94,18 @@ public final class DrawManager {
 		EnemyShipSC1,
 		/** Reinforced third enemy ship - second form. */
 		EnemyShipSC2,
+		/** Forth enemy ship - first form. */
+		EnemyShipD1,
+		/** Forth enemy ship - second form. */
+		EnemyShipD2,
+		/** Forth enemy ship (hit 1) - third form. */
+		EnemyShipD3,
+		/** Forth enemy ship (hit 1) - forth form. */
+		EnemyShipD4,
+		/** Forth enemy ship (hit 2) - fifth form. */
+		EnemyShipD5,
+		/** Forth enemy ship (hit 2)- sixth form. */
+		EnemyShipD6,
 		/** Bonus ship. */
 		EnemyShipSpecial,
 		/** Bonus ship1. */
@@ -137,6 +149,12 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSC1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSC2, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD1, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD2, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD3, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD4, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD5, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD6, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial1, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial2, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
