@@ -45,24 +45,19 @@ public class Item extends Entity {
      * Set Sprite dot image.
      */
     public void setSprite() {
-        int type = (int) (Math.random() * 10);
-        switch (type) {
-            case 1:
-                this.spriteType = SpriteType.Buff_Item;
-                this.setColor(Color.GREEN);
-                break;
-            case 2, 3:
-                this.spriteType = SpriteType.Debuff_Item;
-                this.setColor(Color.darkGray);
-                break;
-            case 4, 5:
-                this.spriteType = SpriteType.EnhanceStone;
-                this.setColor(Color.pink);
-                break;
-            default:
-                this.spriteType = SpriteType.Coin;
-                this.setColor(Color.yellow);
-                break;
+        double type = Math.random();
+        if(type < 0.2){ //20%
+            this.spriteType = SpriteType.Buff_Item;
+            this.setColor(Color.GREEN);
+        }else if(type < 0.4){ //20%
+            this.spriteType = SpriteType.Debuff_Item;
+            this.setColor(Color.GRAY);
+        }else if(type < 0.6){ //20%
+            this.spriteType = SpriteType.EnhanceStone;
+            this.setColor(Color.BLUE);
+        }else{ // 40%
+            this.spriteType = SpriteType.Coin;
+            this.setColor(Color.YELLOW);
         }
     }
 
@@ -121,19 +116,6 @@ public class Item extends Entity {
     /**
      * get dropped item when stage is ended.
      */
-
-    public final int getSpeed() {
-        return this.speed;
-    }
-
-    private boolean eatItem = false;
-
-    /**
-     * check Eat Item
-     */
-    public void checkEatItem() {
-        eatItem = true;
-    }
 
 
     public final void resetItem(Ship ship) {

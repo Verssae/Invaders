@@ -1,8 +1,6 @@
 package effect;
 
-import engine.Cooldown;
 import engine.Core;
-import engine.DrawManager.*;
 import entity.Bullet;
 import entity.BulletY;
 import entity.BulletPool;
@@ -34,20 +32,20 @@ public class ShipEffect extends Effect{
      */
 
     public void moveRightEffect(){
-        if (this.getCooldown(SpriteType.Debuff_Item).checkFinished()) {
-            ship.setPositionX(ship.getPositionX() + ship.getSpeed());
+        if (this.DebuffEffectCooldown.checkFinished()) {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed() * this.shipSturnEffect());
         }
         else {
-            ship.setPositionX(ship.getPositionX() - ship.getSpeed());
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed() * this.shipSturnEffect());
         }
     }
 
     public void moveLeftEffect(){
-        if (this.getCooldown(SpriteType.Debuff_Item).checkFinished()) {
-            ship.setPositionX(ship.getPositionX() - ship.getSpeed());
+        if (this.DebuffEffectCooldown.checkFinished()) {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed() * this.shipSturnEffect());
         }
         else {
-            ship.setPositionX(ship.getPositionX() + ship.getSpeed());
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed() * this.shipSturnEffect());
         }
     }
 
@@ -110,6 +108,7 @@ public class ShipEffect extends Effect{
             if (ship.getShootingInterval().getMilliseconds() == 750)
                 ship.setShootingInterval(Core.getCooldown(100));
         }
+    }
 /**
      *  스턴 디버프에 걸리면 0반환
      *  평소에는 1을 반환

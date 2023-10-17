@@ -2,9 +2,7 @@ package effect;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.DrawManager;
 import engine.DrawManager.SpriteType;
-import entity.Item;
 
 public class Effect {
 
@@ -21,6 +19,7 @@ public class Effect {
     protected Cooldown DebuffEffectCooldown;
     /** 스턴 아이템 */
     protected Cooldown debuffSturnEffect;
+
 
 
     /**
@@ -40,34 +39,24 @@ public class Effect {
      *          a sprite type of the item is received.
      */
     public void CooldownReset(SpriteType s) {
+        double prob = Math.random();
         switch (s) {
             case Buff_Item:
-                tripleshotEffectCooldown.reset();
-                attackSpeedEffectCooldown.reset();
-                break;
-            case Buff_Item2:
-                Buff2EffectCooldown.reset();
+                if(prob < 0.5){
+                    tripleshotEffectCooldown.reset();
+                }else{
+                    attackSpeedEffectCooldown.reset();
+                }
                 break;
             case Debuff_Item:
-                debuffSturnEffect.reset();
+                if(prob < 0.5){
+                    DebuffEffectCooldown.reset();
+                }else{
+                    debuffSturnEffect.reset();
+                }
                 break;
             default:
                 break;
-        }
-    }
-
-    public Cooldown getCooldown(SpriteType s) {
-        switch (s) {
-            case Buff_Item:
-                return (tripleshotEffectCooldown);
-            case Buff_Item2:
-                return (Buff2EffectCooldown);
-            case Debuff_Item:
-                return (DebuffEffectCooldown);
-            case Debuff_Item2:
-                return (debuffSturnEffect);
-            default:
-                return (null);
         }
     }
 }
