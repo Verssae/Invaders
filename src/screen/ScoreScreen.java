@@ -10,6 +10,8 @@ import engine.Core;
 import engine.GameState;
 import engine.Score;
 
+import engine.SoundEffect;
+
 /**
  * Implements the score screen.
  * 
@@ -47,6 +49,8 @@ public class ScoreScreen extends Screen {
 	private Cooldown selectionCooldown;
 	/** Game Difficulty. */
 	private int difficulty;
+	/** For selection moving sound */
+	private SoundEffect soundEffect;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -73,6 +77,8 @@ public class ScoreScreen extends Screen {
 		this.nameCharSelected = 0;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
+
+		soundEffect = new SoundEffect();
 
 		try {
 			this.highScores = Core.getFileManager().loadHighScores();
@@ -106,12 +112,14 @@ public class ScoreScreen extends Screen {
 		draw();
 		if (this.inputDelay.checkFinished()) {
 			if (inputManager.isKeyDown(KeyEvent.VK_ESCAPE)) {
+				soundEffect.playSpaceButtonSound();
 				// Return to main menu.
 				this.returnCode = 1;
 				this.isRunning = false;
 				if (this.isNewRecord)
 					saveScore();
 			} else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+				soundEffect.playSpaceButtonSound();
 				// Play again.
 				this.returnCode = 2;
 				this.isRunning = false;
@@ -121,16 +129,19 @@ public class ScoreScreen extends Screen {
 
 			if (this.isNewRecord && this.selectionCooldown.checkFinished()) {
 				if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)) {
+					soundEffect.playButtonClickSound();
 					this.nameCharSelected = this.nameCharSelected == 2 ? 0
 							: this.nameCharSelected + 1;
 					this.selectionCooldown.reset();
 				}
 				if (inputManager.isKeyDown(KeyEvent.VK_LEFT)) {
+					soundEffect.playButtonClickSound();
 					this.nameCharSelected = this.nameCharSelected == 0 ? 2
 							: this.nameCharSelected - 1;
 					this.selectionCooldown.reset();
 				}
 				if (inputManager.isKeyDown(KeyEvent.VK_UP)) {
+					soundEffect.playButtonClickSound();
 					this.name[this.nameCharSelected] =
 							(char) (this.name[this.nameCharSelected]
 									== LAST_CHAR ? FIRST_CHAR
@@ -138,6 +149,7 @@ public class ScoreScreen extends Screen {
 					this.selectionCooldown.reset();
 				}
 				if (inputManager.isKeyDown(KeyEvent.VK_DOWN)) {
+					soundEffect.playButtonClickSound();
 					this.name[this.nameCharSelected] =
 							(char) (this.name[this.nameCharSelected]
 									== FIRST_CHAR ? LAST_CHAR
