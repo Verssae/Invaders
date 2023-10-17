@@ -20,8 +20,6 @@ public class Effect {
     /** 스턴 아이템 */
     protected Cooldown debuffSturnEffect;
 
-    protected boolean shield;
-    protected boolean bomb;
 
 
     /**
@@ -32,8 +30,6 @@ public class Effect {
         attackSpeedEffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
         debuffSturnEffect = Core.getCooldown(2000);
-        shield = false;
-        bomb = false;
     }
     /**
      * Initialize effect cool time according to item Sprite
