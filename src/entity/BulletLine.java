@@ -14,7 +14,7 @@ public class BulletLine extends Entity{
      */
     public BulletLine(final int positionX, final int positionY){
 
-        super(positionX, positionY, 1 * 1,  160 * 2, Color.darkGray);
+        super(positionX, positionY, 1 * 1,  160 * 2, Color.GREEN);
 
         this.spriteType = SpriteType.BulletLine;
     }
