@@ -3,6 +3,7 @@ package screen;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.*;
@@ -91,6 +92,9 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
+
+	private boolean bomb; // testing
+	private Cooldown bombCool;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -151,7 +155,8 @@ public class GameScreen extends Screen {
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
-
+		this.bombCool = Core.getCooldown(1000);
+		bombCool.reset();
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 	}
@@ -216,6 +221,17 @@ public class GameScreen extends Screen {
 								this.bulletsShot++;
 								this.BulletsCount--;
 							}
+						}
+					}
+					/**
+					 * B키를 누르면 폭탄이 나갑니다! 헉!
+					 * 폭탄은 데미지랑 상관 없이 한 열을 지워버리나봐요!!
+					 * 너무 사기적이라 보스에는 아마 적용이 안 될 거 같아요!!
+					 */
+					if(inputManager.isKeyDown(KeyEvent.VK_B)) {
+						if(ship.getBomb()){
+							this.enemyShipFormation.bombDestroy(items);
+							this.ship.setBomb(false);
 						}
 					}
 				}

@@ -14,12 +14,12 @@ public class Effect {
      * dummy item 2 effectCooldown
      * 만드는 버프에 따라 이름을 달리 할 것.
      */
-    protected Cooldown Buff2EffectCooldown;
     protected Cooldown attackSpeedEffectCooldown;
     protected Cooldown DebuffEffectCooldown;
     /** 스턴 아이템 */
     protected Cooldown debuffSturnEffect;
-
+    protected boolean shield;
+    public boolean bomb;
 
 
     /**
@@ -30,6 +30,8 @@ public class Effect {
         attackSpeedEffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
         debuffSturnEffect = Core.getCooldown(2000);
+        shield = false;
+        bomb = true;
     }
     /**
      * Initialize effect cool time according to item Sprite
@@ -42,9 +44,10 @@ public class Effect {
         double prob = Math.random();
         switch (s) {
             case Buff_Item:
-                if(prob < 0.5){
+                bomb = true;
+                if(prob < 0.3){
                     tripleshotEffectCooldown.reset();
-                }else{
+                }else if(prob < 0.6){
                     attackSpeedEffectCooldown.reset();
                 }
                 break;
