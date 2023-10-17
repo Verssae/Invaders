@@ -1,6 +1,9 @@
 package entity;
 
 import java.awt.Color;
+import java.util.Random;
+import java.util.Map;
+import java.util.Set;
 
 import engine.Cooldown;
 import engine.Core;
@@ -25,6 +28,8 @@ public class EnemyShip extends Entity {
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
+	/** Item drop percent*/
+	private final double DROP_ITEM_PROB = 0.05;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -34,6 +39,8 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+
+
 
 	/**
 	 * Constructor, establishes the ship's properties.
@@ -69,6 +76,11 @@ public class EnemyShip extends Entity {
 		case EnemyShipC1:
 		case EnemyShipC2:
 			this.pointValue = C_TYPE_POINTS;
+			this.EnemyLife = 1;
+			break;
+		case EnemyShipSC1:
+		case EnemyShipSC2:
+			this.pointValue = C_TYPE_POINTS;
 			this.EnemyLife = 2;
 			break;
 		default:
@@ -86,11 +98,11 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
-
 		this.spriteType = SpriteType.EnemyShipSpecial;
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
+
 	}
 
 	/**
@@ -101,13 +113,13 @@ public class EnemyShip extends Entity {
 	 * @param bossColor
 	 * 			  Color of the boss ship.
 	 */
-	public EnemyShip(final int enemylife, Color bossColor) {
-		super(224, 100, 25 * 2, 14 * 2,bossColor);
-
-		this.spriteType = SpriteType.Boss;
+	public EnemyShip(final int positionX, final int positionY, final int enemylife, Color bossColor) {
+		super(positionX, positionY, 22 * 2, 13 * 2, Color.RED);
+		this.spriteType = SpriteType.BossA1;
+		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
-		this.EnemyLife = enemylife;
 		this.pointValue = BOSS_TYPE_POINTS;
+		this.EnemyLife = enemylife;
 
 	}
 
@@ -159,7 +171,20 @@ public class EnemyShip extends Entity {
 			case EnemyShipC2:
 				this.spriteType = SpriteType.EnemyShipC1;
 				break;
-			default:
+			case EnemyShipSC1:
+				this.spriteType = SpriteType.EnemyShipSC2;
+				break;
+			case EnemyShipSC2:
+				this.spriteType = SpriteType.EnemyShipSC1;
+				break;
+			case BossA1:
+				this.spriteType = SpriteType.BossA2;
+				break;
+			case BossA2:
+				this.spriteType = SpriteType.BossA1;
+				break;
+
+				default:
 				break;
 			}
 		}
@@ -168,8 +193,8 @@ public class EnemyShip extends Entity {
 	/**
 	 * Reduces enemy's life when hit
 	 */
-	public final void reduceEnemyLife() {
-		this.EnemyLife -= 1;
+	public final void reduceEnemyLife(final int attackDamage) {
+		this.EnemyLife -= attackDamage;
 	}
 	/**
 	 * Getter for the life of enemyship.
@@ -183,9 +208,13 @@ public class EnemyShip extends Entity {
 	/**
 	 * Destroys the ship, causing an explosion.
 	 */
-	public final void destroy() {
+	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
-		this.spriteType = SpriteType.Explosion;
+		this.spriteType = randomDestroy();
+		if (Math.random() < DROP_ITEM_PROB
+				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
+			items.add(ItemPool.getItem(this.positionX, this.positionY));
+		}
 	}
 
 	/**
@@ -195,5 +224,14 @@ public class EnemyShip extends Entity {
 	 */
 	public final boolean isDestroyed() {
 		return this.isDestroyed;
+	}
+
+	/**
+	 * @return
+	 */
+	public final SpriteType randomDestroy(){
+		Random random = new Random();
+		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3};
+		return destroys[random.nextInt(3)];
 	}
 }

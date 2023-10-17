@@ -3,6 +3,7 @@ package screen;
 import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
+import engine.SoundEffect;
 
 public class RecoveryScreen extends Screen {
 
@@ -11,6 +12,9 @@ public class RecoveryScreen extends Screen {
 
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
+
+    /** For selection moving sound */
+    private SoundEffect soundEffect;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -22,14 +26,15 @@ public class RecoveryScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public RecoveryScreen(int width, int height, int fps) {
+    public RecoveryScreen(int width, int height, int fps ) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 5;
+        this.returnCode = 30;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-
+        
+        soundEffect = new SoundEffect();
     }
 
     /**
@@ -55,16 +60,20 @@ public class RecoveryScreen extends Screen {
                 && this.inputDelay.checkFinished()) {
             if (inputManager.isKeyDown(KeyEvent.VK_UP)
                     || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                soundEffect.playButtonClickSound();
                 previousMenuItem();
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
                     || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                soundEffect.playButtonClickSound();
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+                soundEffect.playSpaceButtonSound();
                 this.isRunning = false;
+            }
         }
     }
 
@@ -73,10 +82,10 @@ public class RecoveryScreen extends Screen {
      */
     private void nextMenuItem() {
 
-        if (this.returnCode == 8)
-        this.returnCode = 9;
+        if (this.returnCode == 30)
+        this.returnCode = 31;
     else
-        this.returnCode = 8;
+        this.returnCode = 30;
 
 
     }
@@ -87,10 +96,10 @@ public class RecoveryScreen extends Screen {
 
     private void previousMenuItem() {
 
-        if (this.returnCode == 9)
-            this.returnCode = 8;
+        if (this.returnCode == 31)
+            this.returnCode = 30;
         else
-            this.returnCode = 9;
+            this.returnCode = 31;
 
     }
 
@@ -100,9 +109,7 @@ public class RecoveryScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawTitle(this);
-
-        drawManager.drawRecoveryMenu(this, fps);
+        drawManager.drawRecoveryMenu(this,this.returnCode);
 
         drawManager.completeDrawing(this);
     }
