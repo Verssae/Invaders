@@ -1147,7 +1147,7 @@ public final class DrawManager {
 								+ fontBigMetrics.getHeight() / 3);
 			}
 		else if (number != 0) {
-			if (!isFirst)
+			if (isFirst)
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
 			else {
 				drawLoadingNeon(screen, "Loading...",
@@ -1250,7 +1250,6 @@ public final class DrawManager {
 		Graphics2D g2d = (Graphics2D)backBufferGraphics;
 		g2d.setFont(font1);
 		g2d.setColor(new Color(26, 255, 0));
-		//g2d.setColor(new Color(45, 255, 167, 255));
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		if ((25 + 20 * (3 - number) < timercount && timercount < 40 + 20 * (3 - number)))
@@ -1263,9 +1262,6 @@ public final class DrawManager {
 		g2d.translate(screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2 - 5, height);
 		g2d.draw(shape);
 	}
-
-
-
 
 
 
