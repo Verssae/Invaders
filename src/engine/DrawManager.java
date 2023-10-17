@@ -351,6 +351,25 @@ public final class DrawManager {
 			return blinkingColor("HIGH_SCORES");
 	}
 
+	private Color levelColor(final int level) {
+		if (level == 1)
+			return Color.WHITE;
+		if (level == 2)
+			return new Color(206, 255, 210);
+		if (level == 3)
+			return new Color(151, 255, 158);
+		if (level == 4)
+			return new Color(88, 255, 99);
+		if (level == 5)
+			return new Color(50, 255, 64);
+		if (level == 6)
+			return new Color(0, 255, 17);
+		if (level == 7)
+			return new Color(0,240,10);
+		else
+			return blinkingColor("HIGH_SCORES");
+	}
+
 	/**
 	 * The emoji changes slightly depending on the score.
 	 * [Clean Code Team] This method was created by highlees.
@@ -385,6 +404,12 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
 			backBufferGraphics.drawString("             \\_( 0 ^ 0 )_/", screen.getWidth() - 240, 25);
 		}
+	}
+
+	public void drawLevel(final Screen screen, final int level){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(levelColor(level));
+		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
 	}
 
 	/**
@@ -1581,51 +1606,6 @@ public final class DrawManager {
 		// drawEntity(dummyShip, 40 + 35, 10);
 	}
 
-	public void gameOver(final Screen screen, boolean levelFinished, double lives, double time){
-		if(levelFinished){
-			if(lives == 0){
-				/*
-				Color bgColor = backBuffer.createGraphics().getColor();
-				//backBufferGraphics.setColor(animateColor(new Color(bgColor.getRed(),bgColor.getGreen(),bgColor.getBlue()) , Color.black, 3000, endTimer));
-				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight() );
-				if ( endTimer.checkFinished() && endBright > 1)
-				{
-					endBright -= 1;
-					int bgRed = bgColor.getRed();
-					int bgGreen = bgColor.getGreen();
-					int bgBlue = bgColor.getBlue();
-					System.out.print(bgColor.getRed());
-					backBufferGraphics.setColor(new Color(bgRed, bgGreen, bgBlue));
-				}*/
-				//backBufferGraphics.setColor(Color.gray);
-				//backBufferGraphics.fillRect(screen.getWidth() / 3 - 13, screen.getHeight() / 2 - 23, fontBigMetrics.stringWidth("Game Over...") - 5, 50);
-				//double time = System.currentTimeMillis();
-				backBufferGraphics.setFont(fontBig);
-				backBufferGraphics.setColor(Color.red);
-				backBufferGraphics.drawString("Game Over", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Game Over") / 2, screen.getHeight() / 2);
-			}
-			else {
-				backBufferGraphics.setFont(fontBig);
-				backBufferGraphics.setColor(Color.white);
-				backBufferGraphics.drawString("Stage Clear", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Stage Clear") / 2, screen.getHeight() / 2);
-			}
-			/*
-			while(2000 > System.currentTimeMillis() - time )
-			{
-				System.out.println(System.currentTimeMillis() - time);
-
-				if (((System.currentTimeMillis() - time) < 500) || ((System.currentTimeMillis() - time) > 1500)){
-					this.drawEntity(SpriteType.EnemyShipC1, screen.getWidth() / 5, screen.getHeight() / 2, 3, 3);
-					//System.out.print("EnemyShipC1");
-				}
-				else {
-					this.drawEntity(SpriteType.EnemyShipC2, screen.getWidth() / 5, screen.getHeight() / 2, 3, 3);
-					//System.out.print("EnemyShipC2");
-				}
-
-			}*/
-		}
-	}
 
 	/**
 	 * Creates an animation of monster.
