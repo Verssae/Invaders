@@ -249,7 +249,7 @@ public class EnemyShip extends Entity {
 	 */
 	public final SpriteType randomDestroy(){
 		Random random = new Random();
-		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3};
-		return destroys[random.nextInt(3)];
+		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3, SpriteType.Explosion4};
+		return destroys[random.nextInt(4)];
 	}
 }

@@ -137,6 +137,8 @@ public final class DrawManager {
 		Explosion2,
 		/** Destroyed enemy ship3. * skull*/
 		Explosion3,
+		/** Destroyed enemy ship3. * vortex*/
+		Explosion4,
 		/** Buff_item dummy sprite*/
 		Buff_Item,
 		/** Debuff_item dummy sprite */
@@ -176,6 +178,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
 			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
 			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
+			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.Debuff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.EnhanceStone, new boolean[8][8]);
