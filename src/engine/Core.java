@@ -27,23 +27,42 @@ public final class Core {
      * Max fps of current screen.
      */
     private static final int FPS = 60;
-
-    /**
-     * Max lives.
-     */
-    private static final int MAX_LIVES = 3;
-    /**
-     * Levels between extra life.
-     */
-    private static final int EXTRA_LIFE_FRECUENCY = 3;
-    /**
-     * Total number of levels.
-     */
-    private static final int NUM_LEVELS = 7;
-    /**
-     * difficulty of the game
-     */
-    private static int difficulty = 1;
+//
+//<<<<<<< HEAD
+//    /**
+//     * Max lives.
+//     */
+//    private static final int MAX_LIVES = 3;
+//    /**
+//     * Levels between extra life.
+//     */
+//    private static final int EXTRA_LIFE_FRECUENCY = 3;
+//    /**
+//     * Total number of levels.
+//     */
+//    private static final int NUM_LEVELS = 7;
+//    /**
+//     * difficulty of the game
+//     */
+//    private static int difficulty = 1;
+//=======
+	/**
+	 * Max lives.
+	 */
+	private static final int MAX_LIVES = 3;
+	/**
+	 * Levels between extra life.
+	 */
+	private static final int EXTRA_LIFE_FRECUENCY = 3;
+	/**
+	 * Total number of levels.
+	 */
+	private static final int NUM_LEVELS = 8;
+	/**
+	 * difficulty of the game
+	 */
+	private static int difficulty = 1;
+//>>>>>>> 1d273b166703777df1e6cfe87f2add5620c73604
 
     /**
      * Difficulty settings for level 1.
@@ -152,10 +171,42 @@ public final class Core {
             gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false);
             enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
+//<<<<<<< HEAD
             switch (returnCode) {
                 case 1:
                     // Main menu.
                     currentScreen = new TitleScreen(width, height, FPS);
+//=======
+//				case 2:
+//					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
+//					LOGGER.info("Select Difficulty");
+//					difficulty = frame.setScreen(currentScreen);
+//					if (difficulty == 4) {
+//						returnCode = 1;
+//						LOGGER.info("Go Main");
+//						break;
+//					} else {
+//						gameSettings = new ArrayList<GameSettings>();
+//						if (difficulty == 3)
+//							gameState.setHardCore();
+//						LOGGER.info("Difficulty : " + difficulty);
+//						SETTINGS_LEVEL_1.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_2.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_3.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_4.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_5.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_6.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_7.setDifficulty(difficulty);
+//						SETTINGS_LEVEL_8.setDifficulty(difficulty);
+//						gameSettings.add(SETTINGS_LEVEL_1);
+//						gameSettings.add(SETTINGS_LEVEL_2);
+//						gameSettings.add(SETTINGS_LEVEL_3);
+//						gameSettings.add(SETTINGS_LEVEL_4);
+//						gameSettings.add(SETTINGS_LEVEL_5);
+//						gameSettings.add(SETTINGS_LEVEL_6);
+//						gameSettings.add(SETTINGS_LEVEL_7);
+//						gameSettings.add(SETTINGS_LEVEL_8);
+//>>>>>>> 1d273b166703777df1e6cfe87f2add5620c73604
 
                     outgame_bgm.OutGame_bgm_play(); //대기화면 비지엠 (수정중)
 
