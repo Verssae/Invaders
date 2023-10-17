@@ -110,8 +110,6 @@ public final class DrawManager {
 		EnemyShipSC1,
 		/** Reinforced third enemy ship - second form. */
 		EnemyShipSC2,
-		/** Bonus ship. */
-		EnemyShipSpecial,
 		/** Bonus ship1. */
 		EnemyShipSpecial1,
 		/** Bonus ship2. */
@@ -662,7 +660,7 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
-		String storeString1 = "S T O R E"; 
+		String storeString1 = "S T O R E";
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -718,7 +716,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
-		
+
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -793,7 +791,7 @@ public final class DrawManager {
 		drawCenteredBigString(screen, recoveryString, screen.getHeight() / 5);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 3);
-		
+
 		if (option == 30)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -1190,7 +1188,7 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, addcoinString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
-	
+
 	/**
 	 * Draws  skin store.
 	 *
@@ -1202,7 +1200,7 @@ public final class DrawManager {
 
 	public void drawSkinStore(final Screen screen, final int option) {
 		String skinStoreString = "Welcome to Skin Store!";
-		
+
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
@@ -1235,10 +1233,10 @@ public final class DrawManager {
 	 *               Option of font size.
 	 */
 
-	public void drawEnhanceStoneString(final Screen screen, final String enhanceString, 
-										final int positionX, final int positionY, 
+	public void drawEnhanceStoneString(final Screen screen, final String enhanceString,
+										final int positionX, final int positionY,
 										final Color color, int fontSizeOption) {
-		
+
 		if (fontSizeOption == 0)
 			backBufferGraphics.setFont(fontSmall);
 		else if (fontSizeOption == 1)
@@ -1268,8 +1266,8 @@ public final class DrawManager {
 	 *               Current Level of Enhanced Damage.
 	 */
 
-	public void drawEnhanceMenu(final Screen screen, final int option, 
-								int valEnhanceArea, int valEnhanceDamage, 
+	public void drawEnhanceMenu(final Screen screen, final int option,
+								int valEnhanceArea, int valEnhanceDamage,
 								int lvEnhanceArea, int lvEnhanceDamage) {
 
 		String subMenuString = "S U B M E N U";
@@ -1287,29 +1285,29 @@ public final class DrawManager {
 
 		int screenWidth = screen.getWidth();
 		int centeredCircleWidth = 170;
-        int centeredCircleHeight = 170;		
+        int centeredCircleHeight = 170;
 		int centeredCircleX = (screenWidth - 170) / 2;
-        int centeredCircleY = SEPARATION_LINE_HEIGHT * 2;		
+        int centeredCircleY = SEPARATION_LINE_HEIGHT * 2;
         int sideCircleWidth = 70;
         int sideCircleHeight = 70;
         int leftCircleX = (screenWidth - 220) / 2;
         int rightCircleX = screenWidth - (screenWidth - 220) / 2 - 70;
-        int sideCircleY = SEPARATION_LINE_HEIGHT * 5;	
-		
+        int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
+
 		// backBufferGraphics.setFont(fontRegular);
 		// backBufferGraphics.setColor(Color.WHITE);
 		// backBufferGraphics.drawString("Reinforced Stone: ", 20, 25);
-		
+
 		backBufferGraphics.setColor(Color.GREEN);
-				
+
 		if (option == 8){
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
-				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.GREEN, 1);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
-				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.WHITE, 1);
 		}
 		drawEnhanceStoneString(screen, lvEnhanceAreaString,
@@ -1317,12 +1315,12 @@ public final class DrawManager {
 			Color.GRAY, 0);
 		if (option == 9){
 			drawEnhanceStoneString(screen, valEnhanceDamageString,
-				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.GREEN, 1);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceDamageString,
-				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60, 
+				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.WHITE, 1);
 		}
 		drawEnhanceStoneString(screen, lvEnhanceDamageString,

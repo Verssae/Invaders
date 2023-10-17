@@ -1,5 +1,6 @@
 package screen;
 
+<<<<<<< HEAD
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -11,6 +12,15 @@ import entity.*;
 
 
 import javax.swing.*;
+=======
+import engine.*;
+import entity.*;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Set;
+>>>>>>> a8fc0065950c1a4c2641c1baf73ad4d83e652212
 
 /**
  * Implements the game screen, where the action happens.
@@ -154,9 +164,9 @@ public class GameScreen extends Screen {
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 
-		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
-
 		bgm.InGame_bgm_play();
+
+		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
 
 	/**
