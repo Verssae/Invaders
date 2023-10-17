@@ -120,6 +120,5 @@ public class ShipEffect extends Effect{
             return (1);
         else
             return (0);
-}
-
+    }
 }
