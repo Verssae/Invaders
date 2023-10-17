@@ -25,7 +25,7 @@ Visual Effect System
 💡 Game Item Design(Hats) -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
 💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)<br></br>
 💡 Score Effects -> [Chaeheon Lee](https://github.com/highlees/highlees) <br></br>
-💡 Flickering Effect in Title Screen (Like Retro Game Screen) -> Chaeheon Lee <br></br>
+💡 Flickering Effect in Title Screen (Like Retro Game Screen) -> [Chaeheon Lee](https://github.com/highlees/highlees) <br></br>
 💡 Bullet Effects -> [Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo) <br></br>
 
 > ## Dependencies on Other Teams
