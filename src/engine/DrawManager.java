@@ -358,9 +358,9 @@ public final class DrawManager {
 		if (level == 6)
 			return new Color(0, 255, 17);
 		if (level == 7)
-			return new Color(0,240,10);
+			return new Color(0,250,13);
 		else
-			return blinkingColor("HIGH_SCORES");
+			return new Color(0,250,10);
 	}
 
 	/**
