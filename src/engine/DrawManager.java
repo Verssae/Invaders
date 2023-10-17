@@ -445,7 +445,7 @@ public final class DrawManager {
 
 
 	public void drawTimer(final Screen screen, final long elapsedTime) {
-		backBufferGraphics.setFont(fontSmall);
+		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
 		String timeString = formatTime(elapsedTime);
 		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
