@@ -293,6 +293,7 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
+		bgm.enemyShipSpecialbgm_stop();
 		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
