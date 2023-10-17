@@ -1,14 +1,12 @@
 package screen;
 
+import engine.*;
+import entity.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-
-import engine.*;
-import entity.*;
-
-import javax.swing.*;
 
 /**
  * Implements the game screen, where the action happens.
@@ -29,7 +27,7 @@ public class GameScreen extends Screen {
 	/** Time until bonus ship explosion disappears. */
 	private static final int BONUS_SHIP_EXPLOSION = 500;
 	/** Time from finishing the level to screen change. */
-	private static final int SCREEN_CHANGE_INTERVAL = 1500;
+	private static final int SCREEN_CHANGE_INTERVAL = 2000; //1500;
 	/** Height of the interface separation line. */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
 	/** Current game difficulty settings. */
@@ -69,7 +67,7 @@ public class GameScreen extends Screen {
 	/** Moment the game starts. */
 	private long gameStartTime;
 	/** Checks if the level is finished. */
-	public boolean levelFinished;
+	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
@@ -88,9 +86,6 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
-
-	private CountUpTimer timer;
-
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -111,31 +106,24 @@ public class GameScreen extends Screen {
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
-
 		this.gameSettings = gameSettings;
 		//this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.lives = gameState.getLivesRemaining();
 		//if (this.bonusLife)
-			//this.lives++;
+		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
-
-		timer = new CountUpTimer();
-
 	}
 
-
-
-
-		/**
-         * Initializes basic screen properties, and adds necessary elements.
-         */
+	/**
+	 * Initializes basic screen properties, and adds necessary elements.
+	 */
 	public final void initialize() {
 		super.initialize();
 
@@ -162,6 +150,8 @@ public class GameScreen extends Screen {
 
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
+
+		bgm.InGame_bgm_play();
 
 		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
@@ -296,8 +286,6 @@ public class GameScreen extends Screen {
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
 		}
-
-		timer.update();
 	}
 
 	/**
@@ -305,6 +293,7 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
+		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
@@ -357,11 +346,8 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-		drawManager.gameOver(this, this.levelFinished);
-		drawManager.drawTimer(this, timer.getElapsedTime());
+		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
 
-
-		
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
@@ -386,10 +372,7 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
-
-
-		}
-
+	}
 
 	/**
 	 * Cleans bullets that go off screen.
@@ -514,6 +497,7 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
 						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						soundEffect.playEnemyDestructionSound();
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
