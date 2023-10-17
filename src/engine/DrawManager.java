@@ -106,12 +106,10 @@ public final class DrawManager {
 		/** Destroyed enemy ship3. */
 		Explosion3,
 		/** Buff_item dummy sprite*/
-		Buff_Item,// ;이 밑부터 테스트 이넘
-		Buff_Item2,
-		Coin,
-		EnhanceStone,
+		Buff_Item,
 		Debuff_Item,
-		Debuff_Item2;
+		Coin,
+		EnhanceStone;
 	};
 
 	/**

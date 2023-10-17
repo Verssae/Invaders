@@ -6,21 +6,20 @@ import engine.DrawManager.SpriteType;
 
 public class Effect {
 
-    /**
-     * dummy item 1 effectCooldown
-     */
+    /** Cooltime in tripleshot */
     protected Cooldown tripleshotEffectCooldown;
-    /**
-     * dummy item 2 effectCooldown
-     * 만드는 버프에 따라 이름을 달리 할 것.
-     */
+    /** Cooltime in buffSplashEffect */
     static protected Cooldown buffSplashEffectCooldown;
+    /** Cooltime in attakSpeedEffect*/
     protected Cooldown attackSpeedEffectCooldown;
+    /** Cooltime in DebuffEffectCooldown */
     protected Cooldown DebuffEffectCooldown;
-    /** 스턴 아이템 */
+    /** Cooltime in debuffSturnEffect*/
     protected Cooldown debuffSturnEffect;
-    /** Shield Item **/
+    /** boolean in shieldState**/
     protected boolean shieldState = false;
+    /** boolean in bomb
+     * int로 바꾸셔서 개수 활용하셔도 됩니다.*/
     public boolean bomb;
 
 
@@ -69,6 +68,8 @@ public class Effect {
                 break;
         }
     }
+    /** get state of shiled.*/
     public boolean getShieldState() { return this.shieldState; }
+    /** set state of shiled.*/
     public void setShieldState(boolean state) { this.shieldState = state; }
 }

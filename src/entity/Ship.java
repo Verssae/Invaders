@@ -30,7 +30,7 @@ public class Ship extends Entity {
 	public Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
 	public Cooldown destructionCooldown;
-
+	/** EveryThing of item effect. */
 	private ShipEffect shipEffect;
 
 	/**
@@ -144,13 +144,28 @@ public class Ship extends Entity {
 		}
 	}
 
+	/** Return the ship's attack speed
+	 * @return shootingCooldown
+	 */
 	public Cooldown getShootingInterval(){return this.shootingCooldown;}
+	/** Set the ship's attack speed
+	 */
 	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
+	/** Return the ship's shiled state.
+	 * @return ShiledState
+	 */
 	public boolean getShieldState() { return this.shipEffect.getShieldState(); }
+	/** set the ship's shiled state.
+	 */
 	public void setShieldState(boolean state) { this.shipEffect.setShieldState(state); }
+	/** Return the ship has bomb?.
+	 * @return bomb
+	 */
 	public boolean getBomb(){
 		return shipEffect.bomb;
 	}
+	/** set the ship has bomb?.
+	 */
 	public void setBomb(boolean t){
 		this.shipEffect.bomb = t;
 	}
