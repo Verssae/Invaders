@@ -15,7 +15,7 @@ Visual Effect System
 
 > ## 💻 Development Contents
 
-💡 Game Background Animation -> Minkyeong Kang <br></br>
+💡 Game Background Animation -> Minkyeong Kang 
 - Animated background lines with perspective
 - Gradient background that gradually changes between colors
 - Green glow behind player sprites
