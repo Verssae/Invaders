@@ -46,6 +46,8 @@ public class EnemyShip extends Entity {
 
 
 
+
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
