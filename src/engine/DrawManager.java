@@ -1300,8 +1300,10 @@ public final class DrawManager {
 
 
 	public void drawItemStore(final Screen screen, final int option) {
-		String itemStoretxt = " I T E M S T O R E";
-		String txt = " TESTTXT";
+		Coin coinInstance = new Coin();
+		int coinValue = coinInstance.getCoin(); 
+		String itemStoretxt = " * I T E M S T O R E * ";
+		String txt = " C O N T I N U E";
 		String buyString = " B U Y";
 		String addcoinString = " P L U S C O I N";
 		int rectWidth = screen.getWidth();
@@ -1309,9 +1311,13 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
-		backBufferGraphics.setColor(Color.GREEN);
-		drawCenteredRegularString(screen, itemStoretxt,	screen.getHeight()/4 - 80);
-		if (option == 13)
+		backBufferGraphics.setColor(Color.green);
+		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
+		backBufferGraphics.setColor(Color.YELLOW);
+		backBufferGraphics.setFont(fontRegular);
+		// backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) - 10, screen.getHeight()/8 - 8);
+		drawHorizontalLine(screen, screen.getHeight()/14);
+		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
