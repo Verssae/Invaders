@@ -66,7 +66,8 @@ public final class DrawManager {
 	private int brightness = 0;
 	private int lighter = 1;
 	private Cooldown bgTimer_init = new Cooldown(3000); // 10 seconds
-
+	private Cooldown bgTimer_lines = new Cooldown(100);
+	private int lineConstant = 0;
 
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
@@ -1501,15 +1502,16 @@ public final class DrawManager {
 			brightness+= lighter;
 			if (brightness >= 70) lighter *= -1;
 			else if (brightness <= 0) lighter *= -1;
+			bgTimer.reset();
 		}
 
 		Graphics2D g2 = (Graphics2D)backBufferGraphics;
-		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(31, 0, 0, 216), 0, height, new Color(brightness/2,brightness/2,100+brightness/2,230));
+		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(31, 0, 0, 216), 0, height, new Color(brightness,brightness/2,100+brightness/2,230));
 		g2.setPaint(gp);
 		g2.fill(new Rectangle(0, separationLineHeight, width, height));
 
 		if (lives <= 3) {
-			backBufferGraphics.setColor(new Color(21, 0,  0, 200 - (lives * 50)));
+			backBufferGraphics.setColor(new Color(10, 0,  0, 200 - (lives * 50)));
 			backBufferGraphics.fillRect(0, separationLineHeight, width, height);
 		}
 	}
@@ -1542,13 +1544,7 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, separationLineHeight, width, height);
 	}
 
-	/**
-	 * Resets background timer.
-	 * [Clean Code Team] This method was created by alicek0.
-	 */
-	public void initBackgroundTimer(){
-		bgTimer_init.reset();
-	}
+
 
 	/**
 	 *	Returns color between two colors over duration. Used to animate color.
@@ -1570,14 +1566,79 @@ public final class DrawManager {
 		return new Color(red, green, blue, alpha);
 	}
 
+	/**
+	 * Draws green glow behind player sprite.
+	 * @param screen
+	 * @param separationLineHeight
+	 * @param playerX
+	 * @param playerY
+	 * @param playerWidth
+	 * @param playerHeight
+	 */
 	public void drawBackgroundPlayer(final Screen screen, int separationLineHeight, int playerX, int playerY, int playerWidth, int playerHeight){
 		Point2D center = new Point2D.Float(playerX + playerWidth/2, playerY + playerHeight/2);
 		float radius = 90;
 		float[] dist = {0.0f, 0.2f, 1.0f};
-		Color[] colors = {new Color(178,245,149,brightness*2), new Color(178,245,149,brightness+20), new Color(0,0,0,0)};
+		Color[] colors = {new Color(178,245,149,brightness), new Color(178,245,149,brightness+20), new Color(0,0,0,0)};
 		RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
 		Graphics2D g2 = (Graphics2D) backBufferGraphics;
 		g2.setPaint(p);
 		g2.fillRect(0, separationLineHeight, screen.getWidth(), screen.getHeight());
+	}
+
+	/**
+	 * Draws background lines.
+	 * @param screen
+	 * @param separationLineHeight
+	 */
+	public void drawBackgroundLines(final Screen screen, int separationLineHeight){
+
+		int xPaddingTop = 140;
+		int lineCount = 30;
+		int xPaddingBottom = -500;
+
+		// Vertical Lines
+		backBufferGraphics.setColor(new Color(255,255,255,70));
+		Graphics2D gr2 = (Graphics2D)backBufferGraphics;
+		Stroke defaultStroke=gr2.getStroke();
+		gr2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE,  BasicStroke.JOIN_MITER, 10.0f, new float[] {10.0f,9.0f,3.0f,9.0f},10.0f));
+
+		for (int i = 0; i<lineCount; i++){
+			gr2.drawLine(xPaddingTop + (screen.getWidth()-xPaddingTop-xPaddingTop)/(lineCount-1) * i , separationLineHeight, xPaddingBottom + (screen.getWidth()-xPaddingBottom-xPaddingBottom)/(lineCount-1) * i, screen.getHeight());
+		}
+
+		GradientPaint gp = new GradientPaint(0, separationLineHeight, new Color(21, 0, 0, 255), 0, screen.getHeight(), new Color(255,255,255,0));
+		gr2.setPaint(gp);
+		gr2.fillRect(0, separationLineHeight, screen.getWidth(), screen.getHeight());
+
+		// Horizontal Lines
+		gr2.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_SQUARE,  BasicStroke.JOIN_MITER, 10.0f, new float[] { 10.0f, 5.0f, 5.0f, 5.0f},10.0f));
+
+		backBufferGraphics.setColor(new Color(255,255,255,70));
+		for (int i = 0; i<lineCount; i++){
+			int max_opacity = 130;
+			int opacity = (i*10<=max_opacity?i*10:max_opacity);
+			backBufferGraphics.setColor(new Color(255,255,255,opacity));
+			backBufferGraphics.drawLine(0, separationLineHeight+lineConstant+i*30, screen.getWidth(), separationLineHeight+lineConstant+i*30);
+		}
+
+
+		((Graphics2D) backBufferGraphics).setStroke(defaultStroke);
+
+		if (bgTimer_lines.checkFinished()) {
+			lineConstant++;
+			bgTimer_lines.reset();
+		}
+		//if (test >= 1.0f) test = 0f;
+		if (lineConstant >= 30) lineConstant = 0;
+	}
+
+	/**
+	 * Resets background timer.
+	 * [Clean Code Team] This method was created by alicek0.
+	 */
+	public void initBackgroundTimer(final Screen screen, int separationLineHeight){
+		bgTimer_init.reset();
+		bgTimer_lines.reset();
 	}
 }
