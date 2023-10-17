@@ -139,18 +139,14 @@ public final class DrawManager {
 		Explosion3,
 		/** Buff_item dummy sprite*/
 		Buff_Item,
-<<<<<<< HEAD
+		/** Debuff_item dummy sprite */
+		Debuff_Item,
+		/** Buff_item dummy sprite */
+		EnhanceStone,
 		/** Laser */
 		Laser,
 		/** Laserline */
 		LaserLine;
-
-=======
-		/** Debuff_item dummy sprite */
-		Debuff_Item,
-		/** Buff_item dummy sprite */
-		EnhanceStone;
->>>>>>> upstream/main
 	};
 
 	/**

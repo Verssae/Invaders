@@ -291,20 +291,10 @@ public final class Core {
 
                     // }
 
-
-
-<<<<<<< HEAD
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
 						break;
 					}
-=======
-                    if (returnCode == 1) { //Quit during the game
-                        currentScreen = new TitleScreen(width, height, FPS);
-                        frame.setScreen(currentScreen);
-                        break;
-                    }
->>>>>>> upstream/main
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
@@ -382,23 +372,13 @@ public final class Core {
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
                                 gameState.getLivesRemaining_2p());
-
-<<<<<<< HEAD
-					if (returnCode == 1) { //Quit during the game
-						currentScreen = new TitleScreen(width, height, FPS);
-						break;
-					}
-=======
                     } while (gameState.getLivesRemaining() > 0
                             && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
-                        frame.setScreen(currentScreen);
                         break;
                     }
->>>>>>> upstream/main
-
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
