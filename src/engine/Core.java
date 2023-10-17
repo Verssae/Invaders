@@ -1,10 +1,28 @@
 package engine;
 
-import screen.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import screen.EnhanceScreen;
+import screen.GameScreen;
+import screen.GameScreen_2P;
+import screen.HighScoreScreen;
+import screen.RandomBoxScreen;
+import screen.RandomRewardScreen;
+import screen.RecoveryScreen;
+import screen.ScoreScreen;
+import screen.Screen;
+import screen.SelectScreen;
+import screen.SkinStoreScreen;
+import screen.StageSelectScreen;
+import screen.StoreScreen;
+import screen.SubMenuScreen;
+import screen.TitleScreen;
 
 
 /**
@@ -282,8 +300,12 @@ public final class Core {
 								gameState.getHardCore());
 
 
+<<<<<<< HEAD
 >>>>>>> 3630907 (comment: GameScreen, EnhanceScreen, EnhanceStone Class)
 						// SubMenu | Item Store & Enhancement & Continue
+=======
+						// SubMenu | Item Store & Enhancement & Continue & Skin Store
+>>>>>>> ca60d15 (feat: connect skin store screen)
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
 							if (!boxOpen){
@@ -314,6 +336,13 @@ public final class Core {
 								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " enhance screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							}
+							if (currentScreen.returnCode == 86) {
+								currentScreen = new SkinStoreScreen(width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ "skin store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
