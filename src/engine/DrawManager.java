@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+import entity.Coin;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
@@ -79,6 +80,8 @@ public final class DrawManager {
 	BufferedImage img1, img2, img3, img4;
 
 	boolean isFirst = true;
+
+	public String getRandomCoin;
 
 	/** Sprite types. */
 	public static enum SpriteType {
@@ -660,6 +663,8 @@ public final class DrawManager {
 			if (option == 10) { // 옵션에 따라 이미지를 초록색으로 변환
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
+				int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);
 			}
 			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -672,6 +677,8 @@ public final class DrawManager {
 			if (option == 7) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage2 = greenFilter.filter(image2, null);
+				int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);
 			}
 			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -684,6 +691,8 @@ public final class DrawManager {
 			if (option == 2) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage3 = greenFilter.filter(image3, null);
+				int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -713,15 +722,15 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() * 3 / 4);
 	}
-
+	
 	public void drawRandomReward(final Screen screen, final int option) {
+		
 		String introduceString = "RANDOM REWARD";
-		String getrandomCoin = "10";
 		String nextString = "N E X T";
 	
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
-		drawCenteredRegularString(screen, getrandomCoin, screen.getHeight() / 2);
+		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() / 2);
 		backBufferGraphics.setColor(blinkingColor("GREEN"));
 		backBufferGraphics.drawString(nextString, (screen.getWidth() - fontRegularMetrics.stringWidth(nextString)) / 2, screen.getHeight() * 3 / 4);
 	}
@@ -1157,8 +1166,8 @@ public final class DrawManager {
 	public void drawItemStore(final Screen screen, final int option) {
 		Coin coinInstance = new Coin();
 		int coinValue = coinInstance.getCoin(); 
-		String itemStoretxt = " I T E M S T O R E";
-		String txt = " TESTTXT";
+		String itemStoretxt = " * I T E M S T O R E * ";
+		String txt = " C O N T I N U E";
 		String buyString = " B U Y";
 		String addcoinString = " P L U S C O I N";
 		String coinString = " C O I N : " + coinValue;
@@ -1168,10 +1177,12 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.green);
-		drawCenteredRegularString(screen, itemStoretxt,	screen.getHeight()/4 - 80);
+		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
 		backBufferGraphics.setColor(Color.YELLOW);
-		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
-		if (option == 13)
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) - 10, screen.getHeight()/8 - 8);
+		drawHorizontalLine(screen, screen.getHeight()/14);
+		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));

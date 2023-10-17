@@ -31,7 +31,7 @@ public class SubMenuScreen extends Screen {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 6;
+        this.returnCode = 2;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
 
