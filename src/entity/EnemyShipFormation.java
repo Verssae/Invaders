@@ -5,12 +5,9 @@ import java.util.*;
 import java.util.List;
 import java.util.logging.Logger;
 
+import engine.*;
 import screen.Screen;
-import engine.Cooldown;
-import engine.Core;
-import engine.DrawManager;
 import engine.DrawManager.SpriteType;
-import engine.GameSettings;
 import screen.Screen;
 
 import java.util.*;
@@ -66,6 +63,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Logger logger;
 	/** Screen to draw ships on. */
 	private Screen screen;
+	/** Sound Effects for enemy's shooting. */
+	private SoundEffect soundEffect;
 
 	/** List of enemy ships forming the formation. */
 	private List<List<EnemyShip>> enemyShips;
@@ -73,7 +72,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private Cooldown shootingCooldown;
 	/** Number of ships in the formation - horizontally. */
 	private int nShipsWide;
-	/** Color for enemy ships */
+	/** Color for enemy ships. */
 	private Color enemyColor;
 	/** Number of ships in the formation - vertically. */
 	private int nShipsHigh;
@@ -169,18 +168,28 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips) {
 				for (int i = 0; i < this.nShipsHigh; i++) {
+					Random rnd = new Random();
+					int r, g, b;
+					r = rnd.nextInt(255);
+					g = rnd.nextInt(255);
+					b = rnd.nextInt(255);
+					Color color = new Color(r, g, b);
 					if (i / (float) this.nShipsHigh < PROPORTION_C) {
 						spriteType = SpriteType.EnemyShipC1;
-						enemyColor = Color.WHITE;
+						enemyColor = color;
+					}
+					else if (i / (float) this.nShipsHigh < PROPORTION_B) {
+						spriteType = SpriteType.EnemyShipSC1;
+						enemyColor = color;
 					}
 					else if (i / (float) this.nShipsHigh < PROPORTION_B
 							+ PROPORTION_C) {
 						spriteType = SpriteType.EnemyShipB1;
-						enemyColor = Color.CYAN;
+						enemyColor = color;
 					}
 					else {
 						spriteType = SpriteType.EnemyShipA1;
-						enemyColor = Color.YELLOW;
+						enemyColor = color;
 					}
 
 
@@ -504,12 +513,14 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 */
 	public final void shoot(final Set<Bullet> bullets) {
 		// For now, only ships in the bottom row are able to shoot.
+		soundEffect = new SoundEffect();
 		Set<EnemyShip> shooters = numberOfShooters();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+				soundEffect.playEnemyShootingSound();
 			};
 		}
 	}
@@ -520,11 +531,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * @param destroyedShip
 	 *            Ship to be destroyed.
 	 */
-	public final void destroy(final EnemyShip destroyedShip) {
+	public final void destroy(final EnemyShip destroyedShip, Set<Item> items) {
 		for (List<EnemyShip> column : this.enemyShips)
 			for (int i = 0; i < column.size(); i++)
 				if (column.get(i).equals(destroyedShip)) {
-					column.get(i).destroy();
+					column.get(i).destroy(items);
 					this.logger.info("Destroyed ship in ("
 							+ this.enemyShips.indexOf(column) + "," + i + ")");
 				}
