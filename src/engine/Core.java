@@ -194,35 +194,35 @@ public final class Core {
                     }
                     break;
 
-				case 2:
-					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
-					LOGGER.info("Select Difficulty");
-					difficulty = frame.setScreen(currentScreen);
-					if (difficulty == 4) {
-						returnCode = 1;
-						LOGGER.info("Go Main");
-						break;
-					} else {
-						gameSettings = new ArrayList<GameSettings>();
-						if (difficulty == 3)
-							gameState.setHardCore();
-						LOGGER.info("Difficulty : " + difficulty);
-						SETTINGS_LEVEL_1.setDifficulty(difficulty);
-						SETTINGS_LEVEL_2.setDifficulty(difficulty);
-						SETTINGS_LEVEL_3.setDifficulty(difficulty);
-						SETTINGS_LEVEL_4.setDifficulty(difficulty);
-						SETTINGS_LEVEL_5.setDifficulty(difficulty);
-						SETTINGS_LEVEL_6.setDifficulty(difficulty);
-						SETTINGS_LEVEL_7.setDifficulty(difficulty);
-						SETTINGS_LEVEL_8.setDifficulty(difficulty);
-						gameSettings.add(SETTINGS_LEVEL_1);
-						gameSettings.add(SETTINGS_LEVEL_2);
-						gameSettings.add(SETTINGS_LEVEL_3);
-						gameSettings.add(SETTINGS_LEVEL_4);
-						gameSettings.add(SETTINGS_LEVEL_5);
-						gameSettings.add(SETTINGS_LEVEL_6);
-						gameSettings.add(SETTINGS_LEVEL_7);
-						gameSettings.add(SETTINGS_LEVEL_8);
+                case 2:
+                    currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
+                    LOGGER.info("Select Difficulty");
+                    difficulty = frame.setScreen(currentScreen);
+                    if (difficulty == 4) {
+                        returnCode = 1;
+                        LOGGER.info("Go Main");
+                        break;
+                    } else {
+                        gameSettings = new ArrayList<GameSettings>();
+                        if (difficulty == 3)
+                            gameState.setHardCore();
+                        LOGGER.info("Difficulty : " + difficulty);
+                        SETTINGS_LEVEL_1.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_2.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_3.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_4.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_5.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_6.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_7.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        gameSettings.add(SETTINGS_LEVEL_1);
+                        gameSettings.add(SETTINGS_LEVEL_2);
+                        gameSettings.add(SETTINGS_LEVEL_3);
+                        gameSettings.add(SETTINGS_LEVEL_4);
+                        gameSettings.add(SETTINGS_LEVEL_5);
+                        gameSettings.add(SETTINGS_LEVEL_6);
+                        gameSettings.add(SETTINGS_LEVEL_7);
+                        gameSettings.add(SETTINGS_LEVEL_8);
                     }
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
