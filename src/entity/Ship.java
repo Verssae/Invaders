@@ -54,8 +54,7 @@ public class Ship extends Entity {
 	 * reached.
 	 */
 	public final void moveRight() {
-
-		this.positionX += SPEED;
+		this.shipEffect.moveRightEffect();
 	}
 
 	/**
@@ -63,8 +62,7 @@ public class Ship extends Entity {
 	 * reached.
 	 */
 	public final void moveLeft() {
-
-		this.positionX -= SPEED;
+		this.shipEffect.moveLeftEffect();
 	}
 
 	/**
