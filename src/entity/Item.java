@@ -46,7 +46,6 @@ public class Item extends Entity {
      */
     public void setSprite() {
         double type = Math.random();
-        type = 0.3;
         if(type < 0.2){//20%
             this.spriteType = SpriteType.Buff_Item;
             this.setColor(Color.GREEN);
