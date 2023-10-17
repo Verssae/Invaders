@@ -373,35 +373,25 @@ public final class Core {
 =======
 					if (returnCode == 30) {// Continuing game with default state
 						gameState.setLivesRecovery();
-						currentScreen = new GameScreen(gameState,
+						do { currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel()-1),
 								width, height, FPS);
-						LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-								+ " game screen at " + FPS + " fps.");
-						returnCode = frame.setScreen(currentScreen);
-						LOGGER.info("Closing game screen.");
-						gameState = ((GameScreen) currentScreen).getGameState();
-
-						do {
-							currentScreen = new GameScreen(gameState,
-								gameSettings.get(gameState.getLevel() - 1),
-								width, height, FPS);
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-								+ " game screen at " + FPS + " fps.");
+									+ " game screen at " + FPS + " fps.");
 							returnCode = frame.setScreen(currentScreen);
 							LOGGER.info("Closing game screen.");
-
 							gameState = ((GameScreen) currentScreen).getGameState();
 
+		
 							gameState = new GameState(gameState.getLevel()+1,
-								gameState.getScore(),
-								gameState.getLivesRemaining(),
-								gameState.getBulletsShot(),
-								gameState.getShipsDestroyed(),
-								gameState.getHardCore());
+									gameState.getScore(),
+									gameState.getLivesRemaining(),
+									gameState.getBulletsShot(),
+									gameState.getShipsDestroyed(),
+									gameState.getHardCore());
 
 
-						// SubMenu | Item Store & Enhancement & Continue
+							// SubMenu | Item Store & Enhancement & Continue
 							do{
 								if (gameState.getLivesRemaining() <= 0) { break; }
 								if (!boxOpen){
@@ -435,15 +425,19 @@ public final class Core {
 									returnCode = frame.setScreen(currentScreen);
 									LOGGER.info("Closing subMenu screen.");
 								}
-						} while (currentScreen.returnCode != 2);
-						boxOpen = false;
-						isInitMenuScreen = true;
-					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS);
-					bgm.bgm_stop();
-				}
+							} while (currentScreen.returnCode != 2);
+								boxOpen = false;
+								isInitMenuScreen = true;
+						} while (gameState.getLivesRemaining() > 0
+									&& gameState.getLevel() <= NUM_LEVELS);
+						
+						bgm.bgm_stop();
 
-	
+
+						if (returnCode == 1) { //Quit during the game
+							break;
+						}
+					}
 
 					if (returnCode == 1) { //Quit during the game
 						currentScreen = new TitleScreen(width, height, FPS);
