@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 
 import entity.Entity;
 import entity.Ship;
+import screen.GameScreen;
+import screen.GameScreen_2P;
 import screen.Screen;
 
 /**
@@ -78,9 +80,14 @@ public final class DrawManager {
 
 	public int timercount = 0;
 
+<
+	//BufferedImage img1, img2, img3, img4;
+
+
 	public int vector_x= 200, vector_y= 200, directionX = new Random().nextBoolean() ? 1 : -1,
 			directionY = new Random().nextBoolean() ? 1 : -1;
 	public Cooldown pump = new Cooldown(1000);
+
 	boolean isFirst = true;
 
 	int bigger = 36, direction = 1;
@@ -193,11 +200,13 @@ public final class DrawManager {
 		}
 	}
 
-	/**
-	 * Returns shared instance of DrawManager.
-	 *
-	 * @return Shared instance of DrawManager.
-	 */
+
+
+		/**
+         * Returns shared instance of DrawManager.
+         *
+         * @return Shared instance of DrawManager.
+         */
 	protected static DrawManager getInstance() {
 		if (instance == null)
 			instance = new DrawManager();
@@ -352,6 +361,25 @@ public final class DrawManager {
 			return blinkingColor("HIGH_SCORES");
 	}
 
+	private Color levelColor(final int level) {
+		if (level == 1)
+			return Color.WHITE;
+		if (level == 2)
+			return new Color(206, 255, 210);
+		if (level == 3)
+			return new Color(151, 255, 158);
+		if (level == 4)
+			return new Color(88, 255, 99);
+		if (level == 5)
+			return new Color(50, 255, 64);
+		if (level == 6)
+			return new Color(0, 255, 17);
+		if (level == 7)
+			return new Color(0,250,13);
+		else
+			return new Color(0,250,10);
+	}
+
 	/**
 	 * The emoji changes slightly depending on the score.
 	 * [Clean Code Team] This method was created by highlees.
@@ -360,6 +388,8 @@ public final class DrawManager {
 	 * @param score
 	 *
 	 */
+
+
 	public void scoreEmoji(final Screen screen, final int score) {
 		backBufferGraphics.setFont(fontRegular);
 		if (score >= 800 && score < 1600) {
@@ -388,6 +418,12 @@ public final class DrawManager {
 		}
 	}
 
+	public void drawLevel(final Screen screen, final int level){
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(levelColor(level));
+		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
+	}
+
 	/**
 	 * Draws current score on screen.
 	 *
@@ -403,13 +439,32 @@ public final class DrawManager {
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
-
-	public void BulletsCount(final Screen screen, final int BulletsCount) {
+    public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 65);
 	}
+
+
+	public void drawTimer(final Screen screen, final long elapsedTime) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
+		String timeString = formatTime(elapsedTime);
+		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
+	}
+
+	private String formatTime(long elapsedTime) {
+		// Convert milliseconds to a formatted time string (e.g., "00:00:00")
+		long totalSeconds = elapsedTime / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+
+		return String.format("%02d:%02d", minutes, seconds);
+	}
+
+
+
 	/**
 	 * Draws number of remaining lives on screen.
 	 *
