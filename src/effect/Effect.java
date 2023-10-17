@@ -14,6 +14,7 @@ public class Effect {
      * dummy item 2 effectCooldown
      * 만드는 버프에 따라 이름을 달리 할 것.
      */
+    static protected Cooldown buffSplashEffectCooldown;
     protected Cooldown Buff2EffectCooldown;
     protected Cooldown attackSpeedEffectCooldown;
     protected Cooldown DebuffEffectCooldown;
@@ -30,6 +31,7 @@ public class Effect {
      */
     public Effect() {
         tripleshotEffectCooldown = Core.getCooldown(5000);
+        buffSplashEffectCooldown = Core.getCooldown(5000);
         attackSpeedEffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
         debuffSturnEffect = Core.getCooldown(2000);
@@ -45,12 +47,14 @@ public class Effect {
         double prob = Math.random();
         switch (s) {
             case Buff_Item:
-                if(prob < 0.33){
+                if(prob < 0.25){
                     tripleshotEffectCooldown.reset();
-                } else if (prob < 0.66){
+                } else if (prob < 0.5){
                     attackSpeedEffectCooldown.reset();
-                } else {
+                } else if (prob < 0.75){
                     this.shieldState = true;
+                }else{
+                    buffSplashEffectCooldown.reset();
                 }
                 break;
             case Debuff_Item:
@@ -64,7 +68,6 @@ public class Effect {
                 break;
         }
     }
-
     public boolean getShieldState() { return this.shieldState; }
     public void setShieldState(boolean state) { this.shieldState = state; }
 }
