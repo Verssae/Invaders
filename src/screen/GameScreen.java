@@ -92,11 +92,7 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
 	private int colorVariable;
-	/** Check what color will be displayed*/
-	private int color_variable;
-
 	private int BulletsCount = 99;
-
 	private int attackDamage;
 	private int areaDamage;
 
@@ -194,49 +190,6 @@ public class GameScreen extends Screen {
 				this.lives = 0;
 				this.isRunning = false;
 			}
-
-			if (this.enemyShipSpecial != null) {
-				if (!this.enemyShipSpecial.isDestroyed())
-					this.enemyShipSpecial.move(2, 0);
-				else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
-					this.enemyShipSpecial = null;
-
-			}
-			if (this.enemyShipSpecial == null
-					&& this.enemyShipSpecialCooldown.checkFinished()) {
-				color_variable = (int)(Math.random()*4);
-				if (color_variable == 0) {
-					this.enemyShipSpecial = new EnemyShip(Color.RED);
-
-				}
-				else if (color_variable == 1) {
-					this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
-
-				}
-				else if (color_variable == 2) {
-					this.enemyShipSpecial = new EnemyShip(Color.BLUE);
-
-				}
-				else if (color_variable == 3) {
-					this.enemyShipSpecial = new EnemyShip(Color.white);
-
-				}
-
-
-
-
-				this.enemyShipSpecialCooldown.reset();
-				this.logger.info("A special ship appears");
-			}
-			if (this.enemyShipSpecial != null
-					&& this.enemyShipSpecial.getPositionX() > this.width) {
-				this.enemyShipSpecial = null;
-				this.logger.info("The special ship has escaped");
-			}
-
-			this.ship.update();
-			this.enemyShipFormation.update();
-			this.enemyShipFormation.shoot(this.bullets);
 		}
 		else {
 			super.update();

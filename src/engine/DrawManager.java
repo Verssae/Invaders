@@ -121,6 +121,20 @@ public final class DrawManager {
 		EnemyShipSC1,
 		/** Reinforced third enemy ship - second form. */
 		EnemyShipSC2,
+		/** Forth enemy ship - first form. */
+		EnemyShipD1,
+		/** Forth enemy ship - second form. */
+		EnemyShipD2,
+		/** Forth enemy ship (hit 1) - third form. */
+		EnemyShipD3,
+		/** Forth enemy ship (hit 1) - forth form. */
+		EnemyShipD4,
+		/** Forth enemy ship (hit 2) - fifth form. */
+		EnemyShipD5,
+		/** Forth enemy ship (hit 2)- sixth form. */
+		EnemyShipD6,
+		/** Bonus ship. */
+		EnemyShipSpecial,
 		/** Bonus ship1. */
 		EnemyShipSpecial1,
 		/** Bonus ship2. */
@@ -203,6 +217,12 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSC1, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSC2, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD1, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD2, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD3, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD4, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD5, new boolean[12][8]);
+			spriteMap.put(SpriteType.EnemyShipD6, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial1, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial2, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
@@ -461,7 +481,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-		Ship dummyShip = new Ship(0, 0, "b", Color.RED);
+		Ship dummyShip = new Ship(0, 0,"b", Color.RED);
 		for (int i = 0; i < lives; i++)
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
@@ -671,7 +691,7 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
-		String storeString1 = "S T O R E";
+		String storeString1 = "S T O R E"; 
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -727,7 +747,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
-
+		
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -739,7 +759,7 @@ public final class DrawManager {
 		String introduceString = "RANDOM REWARD";
 		String getrandomCoin = "10";
 		String nextString = "N E X T";
-
+	
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, getrandomCoin, screen.getHeight() / 2);
@@ -802,7 +822,7 @@ public final class DrawManager {
 		drawCenteredBigString(screen, recoveryString, screen.getHeight() / 5);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 3);
-
+		
 		if (option == 30)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -1292,7 +1312,7 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, addcoinString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
 	}
-
+	
 	/**
 	 * Draws  skin store.
 	 *
@@ -1304,7 +1324,7 @@ public final class DrawManager {
 
 	public void drawSkinStore(final Screen screen, final int option) {
 		String skinStoreString = "Welcome to Skin Store!";
-
+		
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
@@ -1337,10 +1357,10 @@ public final class DrawManager {
 	 *               Option of font size.
 	 */
 
-	public void drawEnhanceStoneString(final Screen screen, final String enhanceString,
-										final int positionX, final int positionY,
+	public void drawEnhanceStoneString(final Screen screen, final String enhanceString, 
+										final int positionX, final int positionY, 
 										final Color color, int fontSizeOption) {
-
+		
 		if (fontSizeOption == 0)
 			backBufferGraphics.setFont(fontSmall);
 		else if (fontSizeOption == 1)
@@ -1370,8 +1390,8 @@ public final class DrawManager {
 	 *               Current Level of Enhanced Damage.
 	 */
 
-	public void drawEnhanceMenu(final Screen screen, final int option,
-								int valEnhanceArea, int valEnhanceDamage,
+	public void drawEnhanceMenu(final Screen screen, final int option, 
+								int valEnhanceArea, int valEnhanceDamage, 
 								int lvEnhanceArea, int lvEnhanceDamage) {
 
 		String subMenuString = "S U B M E N U";
