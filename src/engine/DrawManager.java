@@ -80,6 +80,7 @@ public final class DrawManager {
 	boolean isFirst = true;
 
 	public String getRandomCoin;
+	int bigger = 36, direction = 1;
 
 	/** Sprite types. */
 	public static enum SpriteType {
@@ -1143,11 +1144,17 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GREEN);
 
 
+
 		if (number >= 4)
 			if (!bonusLife) {
+				/*
 				drawCenteredBigString(screen, "Level " + level,
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3);
+
+				 */
+				pumpingLevel(screen, "Level " + level,screen.getHeight() / 2
+						+ fontBigMetrics.getHeight() / 3);
 			} else {
 				drawCenteredBigString(screen, "Level " + level
 						+ " - Bonus life!",
@@ -1159,26 +1166,23 @@ public final class DrawManager {
 			if (!isFirst)
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
 			else {
+
 				drawLoadingNeon(screen, "Loading...",
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3, number);
+								screen.getHeight() / 2
+										+ fontBigMetrics.getHeight() / 3, number);
 				timercount++;
 			}
 		} else {
 			// 반질반질
-			// random 1
-			//drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
-			// random 2
+			//if (n == 1) drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
 			pingPongGO(screen);
+
 			isFirst = false;
 			timercount = 0;
 		}
 	}
-	public void moveLoading(){}
 
 
-	public void waveLoading(){
-	}
 
 	public void pingPongGO(Screen screen){
 		if(vector_x <=0 || vector_x >= screen.getWidth()) {
@@ -1197,9 +1201,37 @@ public final class DrawManager {
 		backBufferGraphics.drawString("GO!",vector_x,vector_y);
 	}
 
-	public void lighteningLevel(){}
 
-	public void pumpingLevel(){}
+	public void pumpingLevel(Screen screen,String string,int height){
+		Font font = fontBig;
+		try {
+			font = fileManager.loadFont(bigger);
+			if (bigger >= 40 || bigger <= 25 ) direction *= -1;
+		} catch (IOException e) {
+			logger.warning("Loading failed.");
+		} catch (FontFormatException e) {
+			logger.warning("Font formating failed.");
+		}
+
+		Graphics2D g2 = (Graphics2D)backBufferGraphics;
+		g2.setColor(pumpColor());
+		g2.setFont(font);
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.drawString(string,screen.getWidth() / 2 - g2.getFontMetrics().stringWidth(string) / 2 - 5, height);
+
+		bigger+=direction;
+	}
+
+	public Color pumpColor(){
+		//231~255 40~60 0~70
+		Random r = new Random();
+		int R,G,B;
+		R = r.nextInt(24) + 231;
+		G = r.nextInt(140);
+		B = r.nextInt(70);
+		return new Color(R,G,B);
+ 	}
+
 
 	public void drawGo(final Screen screen, final String string, final int height){
 		Font font = fontBig;
@@ -1222,14 +1254,15 @@ public final class DrawManager {
 			float hue = fractions[i];
 			colors[i] = Color.getHSBColor(hue, 1f, 1f);
 		}
-		Paint p = new LinearGradientPaint(0, 0, 80, 0, fractions, colors);
-		g2.setPaint(p);
+		//Paint p = new LinearGradientPaint(0, 0, 80, 0, fractions, colors);
+		//g2.setPaint(p);
 
 		GlyphVector gv = font.createGlyphVector(g2.getFontRenderContext(),string);
 		Shape shape = gv.getOutline();
 		g2.setStroke(new BasicStroke(1.6f));
 		g2.translate(screen.getWidth() / 2 - fontBigMetrics.stringWidth(string) / 2 - 5, height);
 		g2.draw(shape);
+
 	}
 
 	/**
