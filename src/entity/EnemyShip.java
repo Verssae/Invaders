@@ -49,6 +49,8 @@ public class EnemyShip extends Entity {
 	private boolean isBoss;
 
 
+
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
