@@ -41,12 +41,6 @@ public class EnemyShip extends Entity {
 	private int EnemyLife;
 	/** check which special enemy to generate. */
 	private int spVariable;
-
-
-
-
-
-
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -113,8 +107,6 @@ public class EnemyShip extends Entity {
 				this.spriteType = SpriteType.EnemyShipSpecial2;
 				break;
 		}
-
-
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;

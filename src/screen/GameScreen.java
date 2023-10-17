@@ -87,9 +87,12 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
 	private int colorVariable;
+
+
 	private int BulletsCount = 99;
 	private int attackDamage;
 	private int areaDamage;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -182,7 +185,6 @@ public class GameScreen extends Screen {
 				this.lives = 0;
 				this.isRunning = false;
 			}
-
 		}
 		else {
 			super.update();
