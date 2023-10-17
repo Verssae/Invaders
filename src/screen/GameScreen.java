@@ -1,11 +1,9 @@
 package screen;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.*;
 
 import engine.*;
 import entity.*;
@@ -155,6 +153,7 @@ public class GameScreen extends Screen {
 
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
+		drawManager.initBackgroundTimer();
 	}
 
 	/**
@@ -308,6 +307,8 @@ public class GameScreen extends Screen {
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
+		drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, this.lives);
+		if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
 
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
@@ -347,7 +348,7 @@ public class GameScreen extends Screen {
 			drawManager.drawCountDown(this, this.level, countdown,
 					this.bonusLife);
 
-
+			drawManager.drawBackgroundStart(this, SEPARATION_LINE_HEIGHT);
 
 			/* this code is modified with Clean Code (dodo_kdy)  */
 			//drawManager.drawHorizontalLine(this, this.height / 2 - this.height / 12);
