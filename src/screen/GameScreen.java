@@ -151,6 +151,7 @@ public class GameScreen extends Screen {
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 
+//		bgm.InGame_bgm_stop();
 		bgm.InGame_bgm_play();
 
 		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
@@ -273,11 +274,16 @@ public class GameScreen extends Screen {
 		}
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
 			endStageAllEat();
+//<<<<<<< HEAD
 			bgm.enemyShipSpecialbgm_stop();
+//=======
+			bgm.InGame_bgm_stop();
+//>>>>>>> f-bgm
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 		}
 		if (this.lives == 0 && !this.levelFinished) {
+			bgm.InGame_bgm_stop();
 			this.ship.update();
 			bgm.enemyShipSpecialbgm_stop();
 			this.levelFinished = true;
@@ -296,7 +302,7 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
-		bgm.InGame_bgm_stop();
+//		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
