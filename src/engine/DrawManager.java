@@ -1,7 +1,5 @@
 package engine;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -10,16 +8,19 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
+import java.awt.Stroke;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
+import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime; // blinkingColor(String color)
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -27,8 +28,6 @@ import javax.imageio.ImageIO;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
-import engine.Coin;
-import java.awt.image.RescaleOp;
 /**
  * Manages screen drawing.
  *
@@ -740,6 +739,7 @@ public final class DrawManager {
 		String itemStoreString = "I T E M S T O R E";
 		String ehanceString = "E N H A N C E M E N T";
 		String playString = "C O N T I N U E";
+		String skinStoreString = "S K I N S T O R E";
 
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
@@ -761,6 +761,12 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, playString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+		if (option == 86)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, skinStoreString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 6);	
 	}
 
 	/**
@@ -1195,7 +1201,13 @@ public final class DrawManager {
 	 */
 
 	public void drawSkinStore(final Screen screen, final int option) {
-		String skinStoreString = "Welcome to Skin Store!";
+		Coin coinInstance = new Coin();
+		int coinValue = coinInstance.getCoin();
+
+		String skinStoreTxt = " S K I N S T O R E";
+		String buyString = " B U Y";
+		String coinString = " C O I N : " + coinValue;
+		String gameAgain = " C O N T I N U E";
 
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
@@ -1203,13 +1215,24 @@ public final class DrawManager {
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.GREEN);
+		drawCenteredRegularString(screen, skinStoreTxt,	screen.getHeight()/4 - 80);
+		backBufferGraphics.setColor(Color.YELLOW);
+		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
 
-		if (option == 11)
+		if (option == 16)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, skinStoreString,
-				screen.getHeight() / 3);
+		drawCenteredRegularString(screen, buyString,
+				screen.getHeight() / 3* 2 + fontRegularMetrics.getHeight() * 2);
+		
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, gameAgain,
+				screen.getHeight() / 3* 2 + fontRegularMetrics.getHeight() * 4);
+		
 	}
 
 	/**
