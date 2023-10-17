@@ -3,18 +3,17 @@ import java.util.Random;
 
 public class Coin {
 
-    public int coin = 0;
+    private int coin = 0;
 
-    public int addCoin() {
-        Random random = new Random();
-        int addCoin = random.nextInt(1, 11); //
-        coin += addCoin;
-        return coin;
+    public void addCoin(int addCoin) {
+        this.coin += addCoin;
     }
 
-    public int minusCoin(int cost) { // when buy an item
-        coin -= cost;
-        return coin;
+    public void minusCoin(int cost) { // when buy an item
+        this.coin -= cost;
     }
 
+    public int getCoin() {
+        return this.coin;
+    }
 }

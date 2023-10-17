@@ -33,6 +33,7 @@ import entity.Ship;
 import screen.GameScreen;
 import screen.GameScreen_2P;
 import screen.Screen;
+import entity.Coin;
 import java.awt.image.RescaleOp;
 
 /**
