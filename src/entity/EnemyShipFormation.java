@@ -207,8 +207,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				this.shooters.add(column.get((column.size() - 1))); // (int) (Math.random() * (column.size() - 1))
 
 
-			for (List<EnemyShip> column : this.enemyShips)
-				this.shooters.add(column.get(column.size() - 1));
 		}
 		//enemy is a boss
 		else {
