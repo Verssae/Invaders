@@ -387,7 +387,7 @@ public final class DrawManager {
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
-	public void drawTimer(final Screen screen){
+	/*public void drawTimer(final Screen screen){
 
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask(){
@@ -420,7 +420,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.drawString(String.format("Timer : %d %02d", minutes, seconds), 30, 450);
 	}
-
+	*/
 
 	public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
