@@ -24,11 +24,7 @@ public class ShipEffect extends Effect{
     }
 
     /**
-     * shipeffect.Shoot과 비슷하게 move effct를 적용
-     * 이 코드에 디버프에 해당하는 것을 작성하면 됨.
-     * 그후 ship.shoot과 비슷하게
-     * moveRight or Left 등을 수정. -> 스피드를 바로 수정하는거는 static 이랑 private을 건드는 일이라
-     * 크게 안건들고 수정하길 바람.
+     * Item Effect: Effect on reversal.
      */
 
     public void moveRightEffect(){
@@ -50,10 +46,6 @@ public class ShipEffect extends Effect{
     }
 
     /**
-     * 이와 비슷하게 여기서도 shoot에서도 Bullet speed를 바꾼다던가
-     * shooting interval을 줄인다거나 그러한 쿨타임을 조정 가능.
-     * 이에 대해서도 위에 서술한 대로 코드 구현 바람.
-     *
      * Bullet shooting effect
      *
      * @param bullets
@@ -98,8 +90,9 @@ public class ShipEffect extends Effect{
                     ship.getPositionY(), BULLETY_SPEED));
         }
     }
-
-    
+    /**
+     * attack speed variety effect
+     */
     public void attackSpeedUp() {
         if (this.attackSpeedEffectCooldown.checkFinished()) {
             if (ship.getShootingInterval().getMilliseconds() == 100)
@@ -109,7 +102,7 @@ public class ShipEffect extends Effect{
                 ship.setShootingInterval(Core.getCooldown(100));
         }
     }
-/**
+    /**
      *  스턴 디버프에 걸리면 0반환
      *  평소에는 1을 반환
      *
