@@ -160,7 +160,21 @@ public class SoundEffect {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Play Enemyshipspecial's destruction sound
+     */
+    public void enemyshipspecialDestructionSound(){
+        try {
+            String soundFilePath = "sound/soundEffect/enemyshipspecialdestructionsound.wav";
+            File soundFile = new File(soundFilePath).getAbsoluteFile();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile.getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
