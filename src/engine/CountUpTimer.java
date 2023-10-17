@@ -1,40 +1,33 @@
 package engine;
-
-import screen.GameScreen;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class CountUpTimer {
-    private Timer timer;
-    private int seconds;
-    private GameScreen gameScreen;
-    private DrawManager drawManager;
+    private long startTime;
+    private long elapsedTime;
+    private boolean running;
 
-    public CountUpTimer(GameScreen gameScreen, DrawManager drawManager) {
-        this.gameScreen = gameScreen;
-        this.drawManager = drawManager;
-        timer = new Timer();
-        seconds = 0;
+    public CountUpTimer() {
+        startTime = System.currentTimeMillis();
+        elapsedTime = 0;
+        running = true;
+    }
+
+    public void update() {
+        if (running) {
+            long currentTime = System.currentTimeMillis();
+            elapsedTime = currentTime - startTime;
+        }
     }
 
     public void start() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                seconds++;
-
-                drawManager.setTimerValue(seconds);
-            }
-        }, 1000, 1000);
-    }
-
-    public int getSeconds() {
-        return seconds;
+        running = true;
+        startTime = System.currentTimeMillis() - elapsedTime;
     }
 
     public void stop() {
-        timer.cancel();
+        running = false;
+    }
+
+    public long getElapsedTime() {
+        return elapsedTime;
     }
 }
 

@@ -89,6 +89,8 @@ public class GameScreen extends Screen {
 	private int attackDamage;
 	private int areaDamage;
 
+	private CountUpTimer timer;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -124,12 +126,16 @@ public class GameScreen extends Screen {
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
 
+		timer = new CountUpTimer();
+
 	}
 
 
-	/**
-	 * Initializes basic screen properties, and adds necessary elements.
-	 */
+
+
+		/**
+         * Initializes basic screen properties, and adds necessary elements.
+         */
 	public final void initialize() {
 		super.initialize();
 
@@ -290,6 +296,8 @@ public class GameScreen extends Screen {
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -350,6 +358,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished);
+		drawManager.drawTimer(this, timer.getElapsedTime());
 
 
 		
@@ -377,7 +386,10 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
-	}
+
+
+		}
+
 
 	/**
 	 * Cleans bullets that go off screen.
