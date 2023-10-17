@@ -28,14 +28,17 @@ public class CountUpTimer {
     }
 
     public void stop() {
+
         running = false;
     }
 
     public long getElapsedTime() {
+
         return elapsedTime;
     }
 
     public long getGamePlayTime() {
+
         return gamePlayTime;
     }
 }
