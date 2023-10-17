@@ -353,11 +353,7 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-<<<<<<< HEAD
 		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
-=======
-		drawManager.gameOver(this, this.levelFinished);
->>>>>>> d8fff55 (level)
 		drawManager.drawLevel(this, this.level);
 
 		

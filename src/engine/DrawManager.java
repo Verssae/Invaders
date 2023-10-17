@@ -82,6 +82,12 @@ public final class DrawManager {
 
 	public int timercount = 0;
 
+<<<<<<< HEAD
+=======
+
+	//BufferedImage img1, img2, img3, img4;
+
+>>>>>>> 54614de (level)
 
 	public int vector_x= 200, vector_y= 200, directionX = new Random().nextBoolean() ? 1 : -1,
 			directionY = new Random().nextBoolean() ? 1 : -1;
@@ -478,6 +484,8 @@ public final class DrawManager {
 		for (int i = 0; i < lives; i++)
 			drawEntity(dummyShip, 40 + 35 * i, 10);
 	}
+
+
 
 	public void drawLivesbar(final Screen screen, final double lives) {
 		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
