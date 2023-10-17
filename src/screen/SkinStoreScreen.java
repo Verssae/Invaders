@@ -4,12 +4,8 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-<<<<<<< HEAD
 import engine.GameState;
 import engine.SoundEffect;
-=======
-
->>>>>>> ca60d15 (feat: connect skin store screen)
 
 public class SkinStoreScreen extends Screen {
      /** Milliseconds between changes in user selection. */
@@ -17,14 +13,12 @@ public class SkinStoreScreen extends Screen {
   
      /** Time between changes in user selection. */
      private Cooldown selectionCooldown;
-<<<<<<< HEAD
+
      private int enhanceStone = 0;
      private int numEnhanceArea = 0;
      private int numEnhanceDamage = 0;
     /** For selection moving sound */
     private SoundEffect soundEffect;
-=======
->>>>>>> ca60d15 (feat: connect skin store screen)
  
      /**
       * Constructor, establishes the properties of the screen.
@@ -43,12 +37,9 @@ public class SkinStoreScreen extends Screen {
          this.returnCode = 86;
          this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
          this.selectionCooldown.reset();
-<<<<<<< HEAD
-         this.score = gameState.getScore();
+        //  this.score = gameState.getScore();
 
          soundEffect = new SoundEffect();
-=======
->>>>>>> ca60d15 (feat: connect skin store screen)
      }
  
      /**
