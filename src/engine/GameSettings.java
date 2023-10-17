@@ -120,7 +120,7 @@ public class GameSettings {
 	/**
 	 * @return the difficulty
 	 */
-	public final int getDifficulty() { return this.difficulty; }
+	public final double getDifficulty() { return this.difficulty; }
 
 	/**
 	 * Check if the stage is boss stage
