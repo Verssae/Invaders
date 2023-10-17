@@ -90,9 +90,11 @@ public final class DrawManager {
 		EnemyShipSC1,
 		/** Reinforced third enemy ship - second form. */
 		EnemyShipSC2,
-		/** Bonus ship. */
-		EnemyShipSpecial,
-		/** Bonus ship1. */
+
+		/** Bonus ship(replaced by 1, 2) */
+		/**EnemyShipSpecial(replaced by 1, 2),
+
+		 /** Bonus ship1. */
 		EnemyShipSpecial1,
 		/** Bonus ship2. */
 		EnemyShipSpecial2,
