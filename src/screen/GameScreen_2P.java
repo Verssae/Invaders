@@ -381,7 +381,12 @@ public class GameScreen_2P extends Screen {
         drawManager.drawLivesbar(this, this.lives);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
+<<<<<<< HEAD
         drawManager.drawLevel(this, this.level);
+=======
+
+
+>>>>>>> d855769 (remake the timer-class #2)
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {

@@ -8,7 +8,6 @@ import java.util.Set;
 import engine.*;
 import entity.*;
 
-
 import javax.swing.*;
 
 /**
@@ -91,6 +90,7 @@ public class GameScreen extends Screen {
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
 
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -110,6 +110,7 @@ public class GameScreen extends Screen {
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
+
 		this.gameSettings = gameSettings;
 		//this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
@@ -123,7 +124,9 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+
 	}
+
 
 	/**
 	 * Initializes basic screen properties, and adds necessary elements.
@@ -347,9 +350,10 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-		drawManager.gameOver(this, this.levelFinished);
+		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
 		drawManager.drawLevel(this, this.level);
 
+		
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY

@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -83,6 +81,7 @@ public final class DrawManager {
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	public int timercount = 0;
+
 
 	public int vector_x= 200, vector_y= 200, directionX = new Random().nextBoolean() ? 1 : -1,
 			directionY = new Random().nextBoolean() ? 1 : -1;
@@ -200,11 +199,13 @@ public final class DrawManager {
 		}
 	}
 
-	/**
-	 * Returns shared instance of DrawManager.
-	 *
-	 * @return Shared instance of DrawManager.
-	 */
+
+
+		/**
+         * Returns shared instance of DrawManager.
+         *
+         * @return Shared instance of DrawManager.
+         */
 	protected static DrawManager getInstance() {
 		if (instance == null)
 			instance = new DrawManager();
@@ -384,6 +385,8 @@ public final class DrawManager {
 	 * @param score
 	 *
 	 */
+
+
 	public void scoreEmoji(final Screen screen, final int score) {
 		backBufferGraphics.setFont(fontRegular);
 		if (score >= 800 && score < 1600) {
@@ -433,42 +436,7 @@ public final class DrawManager {
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
-	/*public void drawTimer(final Screen screen){
-
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask(){
-			@Override
-			public void run(){
-				timercount++;
-			}
-		};
-		timer.schedule(task, 1000, 1000);;
-	}
-	public void draw1P(GameScreen gamescreen_1P) {
-		// Assuming timercount is in milliseconds
-		int totalSeconds = timercount / 1000;
-		int minutes = totalSeconds / 60;
-		int seconds = totalSeconds % 60;
-
-		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString(String.format("Timer : %d:%02d", minutes, seconds), 30, 450);
-	}
-
-
-
-	public void draw2P(GameScreen_2P gamescreen_2P){
-		int totalSeconds = timercount / 1000;
-		int minutes = totalSeconds / 60;
-		int seconds = totalSeconds % 60;
-
-		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString(String.format("Timer : %d %02d", minutes, seconds), 30, 450);
-	}
-	*/
-
-	public void BulletsCount(final Screen screen, final int BulletsCount) {
+    public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
