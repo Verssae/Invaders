@@ -29,7 +29,7 @@ public class EnemyShip extends Entity {
 	/** Point value of a boss enemy. */
 	private static final int BOSS_TYPE_POINTS = 1000;
 	/** Item drop percent*/
-	private final double DROP_ITEM_PROB = 0.05;
+	private final double DROP_ITEM_PROB = 1;
 
 	/** Cooldown between sprite changes. */
 	private Cooldown animationCooldown;
@@ -106,7 +106,6 @@ public class EnemyShip extends Entity {
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
 		this.isBoss = false;
-
 	}
 
 	/**
@@ -225,8 +224,8 @@ public class EnemyShip extends Entity {
 	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
-		if (Math.random() < DROP_ITEM_PROB
-				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
+		if (Math.random() < (DROP_ITEM_PROB
+				+ (0.2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0)))) {
 			items.add(ItemPool.getItem(this.positionX, this.positionY));
 		}
 	}

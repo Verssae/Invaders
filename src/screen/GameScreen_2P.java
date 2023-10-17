@@ -218,6 +218,12 @@ public class GameScreen_2P extends Screen {
                             }
                         }
                     }
+                    if(inputManager.isKeyDown(KeyEvent.VK_B)) {
+                        if(ship_1P.getBomb()){
+                            this.enemyShipFormation.bombDestroy(items);
+                            this.ship_1P.setBomb(false);
+                        }
+                    }
                 }
                 if (!this.ship_2P.isDestroyed()) {
                     boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT);
@@ -246,6 +252,12 @@ public class GameScreen_2P extends Screen {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
                             }
+                        }
+                    }
+                    if(inputManager.isKeyDown(KeyEvent.VK_V)) {
+                        if(ship_2P.getBomb()){
+                            this.enemyShipFormation.bombDestroy(items);
+                            this.ship_2P.setBomb(false);
                         }
                     }
                 }
@@ -515,12 +527,29 @@ public class GameScreen_2P extends Screen {
             if(checkCollision(item, this.ship_1P) && !this.levelFinished && !item.isDestroyed()){
                 recyclableItem.add(item);
                 this.logger.info("Get Item Ship_1");
+                //	if(item.spriteType == SpriteType.Coin){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
+//				if(item.spriteType == SpriteType.EnhanceStone){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
                 this.ship_1P.checkGetItem(item);
             }
             if(checkCollision(item, this.ship_2P) && !this.levelFinished && !item.isDestroyed()){
                 recyclableItem.add(item);
                 this.logger.info("Get Item Ship_2");
+                //	if(item.spriteType == SpriteType.Coin){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
+//				if(item.spriteType == SpriteType.EnhanceStone){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
                 this.ship_2P.checkGetItem(item);
+            }
+        }
+        for (Bullet bullet : recyclableBullet) {
+            if (bullet.getSpeed() < 0 && bullet.isEffectBullet() == 0) {
+                bullet.splash(this.bullets);
             }
         }
         this.items.removeAll(recyclableItem);

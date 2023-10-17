@@ -1,5 +1,6 @@
 package screen;
 
+
 import engine.*;
 import entity.*;
 
@@ -87,6 +88,8 @@ public class GameScreen extends Screen {
 	private int attackDamage;
 	private int areaDamage;
 
+	private boolean bomb; // testing
+	private Cooldown bombCool;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -147,7 +150,6 @@ public class GameScreen extends Screen {
 		this.gameStartTime = System.currentTimeMillis();
 		this.inputDelay = Core.getCooldown(INPUT_DELAY);
 		this.inputDelay.reset();
-
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
 
@@ -216,6 +218,17 @@ public class GameScreen extends Screen {
 								this.bulletsShot++;
 								this.BulletsCount--;
 							}
+						}
+					}
+					/**
+					 * B키를 누르면 폭탄이 나갑니다! 헉!
+					 * 폭탄은 데미지랑 상관 없이 한 열을 지워버리나봐요!!
+					 * 너무 사기적이라 보스에는 아마 적용이 안 될 거 같아요!!
+					 */
+					if(inputManager.isKeyDown(KeyEvent.VK_B)) {
+						if(ship.getBomb()){
+							this.enemyShipFormation.bombDestroy(items);
+							this.ship.setBomb(false);
 						}
 					}
 				}
@@ -425,12 +438,16 @@ public class GameScreen extends Screen {
 			if (bullet.getSpeed() > 0) {
 				if (checkCollision(bullet, this.ship) && !this.levelFinished) {
 					recyclableBullet.add(bullet);
-					if (!this.ship.isDestroyed()) {
-						this.ship.destroy();
-						if (this.lives != 1) soundEffect.playShipCollisionSound();
-						this.lives--;
-						this.logger.info("Hit on player ship, " + this.lives
-								+ " lives remaining.");
+					if (this.ship.getShieldState()){
+						this.ship.setShieldState(false);
+					} else {
+						if (!this.ship.isDestroyed()) {
+							this.ship.destroy();
+							if (this.lives != 1) soundEffect.playShipCollisionSound();
+							this.lives--;
+							this.logger.info("Hit on player ship, " + this.lives
+									+ " lives remaining.");
+						}
 					}
 				}
 			} else {
@@ -465,7 +482,18 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
+//				if(item.spriteType == SpriteType.Coin){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
+//				if(item.spriteType == SpriteType.EnhanceStone){
+//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
+//				}
 				this.ship.checkGetItem(item);
+			}
+		}
+		for (Bullet bullet : recyclableBullet) {
+			if (bullet.getSpeed() < 0 && bullet.isEffectBullet() == 0) {
+				bullet.splash(this.bullets);
 			}
 		}
 		this.items.removeAll(recyclableItem);
