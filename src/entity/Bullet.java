@@ -79,8 +79,19 @@ public class Bullet extends Entity {
 	 * Updates the bullet's position.
 	 */
 	public final void update() {
-		this.positionY += this.speed;
+		if(this.spriteType == SpriteType.Bullet || this.spriteType == SpriteType.EnemyBullet) {
+			this.positionY += this.speed;
+		}
+		else if(this.spriteType == SpriteType.EnemyBulletLeft) {
+			this.positionX -= (int)(this.speed*0.51449575542753);
+			this.positionY += this.speed;
+		}
+		else {
+			this.positionX += (int)(this.speed*0.51449575542753);
+			this.positionY += this.speed;
+		}
 	}
+
 
 	/**
 	 * Setter of the speed of the bullet.

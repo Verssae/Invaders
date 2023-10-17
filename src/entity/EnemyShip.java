@@ -215,7 +215,9 @@ public class EnemyShip extends Entity {
 	 *
 	 * @return True if the enemyship is boss
 	 */
-	public final boolean checkIsBoss() {return this.isBoss; }
+	public final boolean checkIsBoss() {
+		return this.isBoss;
+	}
 
 	/**
 	 * Destroys the ship, causing an explosion.

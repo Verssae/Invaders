@@ -27,25 +27,6 @@ public final class Core {
      * Max fps of current screen.
      */
     private static final int FPS = 60;
-//
-//<<<<<<< HEAD
-//    /**
-//     * Max lives.
-//     */
-//    private static final int MAX_LIVES = 3;
-//    /**
-//     * Levels between extra life.
-//     */
-//    private static final int EXTRA_LIFE_FRECUENCY = 3;
-//    /**
-//     * Total number of levels.
-//     */
-//    private static final int NUM_LEVELS = 7;
-//    /**
-//     * difficulty of the game
-//     */
-//    private static int difficulty = 1;
-//=======
 	/**
 	 * Max lives.
 	 */
@@ -62,7 +43,6 @@ public final class Core {
 	 * difficulty of the game
 	 */
 	private static int difficulty = 1;
-//>>>>>>> 1d273b166703777df1e6cfe87f2add5620c73604
 
     /**
      * Difficulty settings for level 1.
@@ -168,7 +148,7 @@ public final class Core {
 
         int returnCode = 1;
         do {
-            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false);
+            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false,MAX_LIVES);
             enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
             switch (returnCode) {
@@ -253,7 +233,8 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                gameState.getLivesRemaining_2p());
 
 
                         // SubMenu : Item Store / Enhancement / Continue
@@ -392,10 +373,11 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                gameState.getLivesRemaining_2p());
 
                     } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS);
+                            && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
