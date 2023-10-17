@@ -33,8 +33,22 @@ public class ShipEffect extends Effect{
      * 크게 안건들고 수정하길 바람.
      */
 
-    public void moveEffect(){
+    public void moveRightEffect(){
+        if (this.getCooldown(SpriteType.Debuff_Item).checkFinished()) {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed());
+        }
+        else {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed());
+        }
+    }
 
+    public void moveLeftEffect(){
+        if (this.getCooldown(SpriteType.Debuff_Item).checkFinished()) {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed());
+        }
+        else {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed());
+        }
     }
 
     /**
