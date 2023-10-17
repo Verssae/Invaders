@@ -77,6 +77,7 @@ public class Ship extends Entity {
 	 * @return Checks if the bullet was shot correctly.
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
+		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shoot(bullets, BULLET_SPEED);
@@ -86,6 +87,7 @@ public class Ship extends Entity {
 	}
 
 	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
