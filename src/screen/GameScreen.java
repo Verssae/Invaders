@@ -92,6 +92,9 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
+
+	private boolean bomb; // testing
+	private Cooldown bombCool;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
