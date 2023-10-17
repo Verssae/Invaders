@@ -172,7 +172,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.Debuff_Item, new boolean[9][9]);
-			spriteMap.put(SpriteType.EnhanceStone, new boolean[7][7]);
+			spriteMap.put(SpriteType.EnhanceStone, new boolean[8][8]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
 
