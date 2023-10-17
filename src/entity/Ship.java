@@ -24,7 +24,7 @@ public class Ship extends Entity {
 	private static final int BULLETY_SPEED = -9;
 	/** Movement of the ship for each unit of time. */
 	private static final int SPEED = 2;
-	
+
 	/** Minimum time between shots. */
 	private Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
@@ -34,17 +34,26 @@ public class Ship extends Entity {
 
 	/**
 	 * Constructor, establishes the ship's properties.
-	 * 
+	 *
 	 * @param positionX
 	 *            Initial position of the ship in the X axis.
 	 * @param positionY
 	 *            Initial position of the ship in the Y axis.
 	 */
-	public Ship(final int positionX, final int positionY) {
-		super(positionX, positionY, 13 * 2, 8 * 2, Color.GREEN);
+	public Ship(final int positionX, final int positionY, String type, Color color) {
 
+		super(positionX, positionY, 13 * 2, 8 * 2, color);
 		this.shipEffect = new ShipEffect(this);
-		this.spriteType = SpriteType.Ship;
+		if(type == "a") {
+			this.spriteType = SpriteType.ShipA;
+		}
+		else if(type == "b"){
+			this.spriteType = SpriteType.ShipB;
+		}
+		else if(type == "c"){
+			this.spriteType = SpriteType.ShipC;
+		}
+
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);
 	}
@@ -94,10 +103,24 @@ public class Ship extends Entity {
 	 * Updates status of the ship.
 	 */
 	public final void update() {
-		if (!this.destructionCooldown.checkFinished())
-			this.spriteType = SpriteType.ShipDestroyed;
-		else
-			this.spriteType = SpriteType.Ship;
+		if(this.spriteType == spriteType.ShipA || this.spriteType == spriteType.ShipADestroyed) {
+			if (!this.destructionCooldown.checkFinished())
+				this.spriteType = SpriteType.ShipADestroyed;
+			else
+				this.spriteType = SpriteType.ShipA;
+		}
+		else if(this.spriteType == spriteType.ShipB || this.spriteType == spriteType.ShipBDestroyed) {
+			if (!this.destructionCooldown.checkFinished())
+				this.spriteType = SpriteType.ShipBDestroyed;
+			else
+				this.spriteType = SpriteType.ShipB;
+		}
+		else if(this.spriteType == spriteType.ShipC || this.spriteType == spriteType.ShipCDestroyed) {
+			if (!this.destructionCooldown.checkFinished())
+				this.spriteType = SpriteType.ShipCDestroyed;
+			else
+				this.spriteType = SpriteType.ShipC;
+		}
 	}
 
 	/**
