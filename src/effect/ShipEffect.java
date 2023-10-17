@@ -33,8 +33,22 @@ public class ShipEffect extends Effect{
      * 크게 안건들고 수정하길 바람.
      */
 
-    public void moveEffect(){
+    public void moveRightEffect(){
+        if (this.getCooldown(SpriteType.Debuff_Item).checkFinished()) {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed());
+        }
+        else {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed());
+        }
+    }
 
+    public void moveLeftEffect(){
+        if (this.getCooldown(SpriteType.Debuff_Item).checkFinished()) {
+            ship.setPositionX(ship.getPositionX() - ship.getSpeed());
+        }
+        else {
+            ship.setPositionX(ship.getPositionX() + ship.getSpeed());
+        }
     }
 
     /**
@@ -87,9 +101,7 @@ public class ShipEffect extends Effect{
         }
     }
 
-    /**
-     * Attack Speed Up Effect
-     */
+    
     public void attackSpeedUp() {
         if (this.attackSpeedEffectCooldown.checkFinished()) {
             if (ship.getShootingInterval().getMilliseconds() == 100)
@@ -98,5 +110,16 @@ public class ShipEffect extends Effect{
             if (ship.getShootingInterval().getMilliseconds() == 750)
                 ship.setShootingInterval(Core.getCooldown(100));
         }
+/**
+     *  스턴 디버프에 걸리면 0반환
+     *  평소에는 1을 반환
+     *
+     *  사용처 : Ship 클래스
+     */
+    public int shipSturnEffect() {
+        if (this.debuffSturnEffect.checkFinished())
+            return (1);
+        else
+            return (0);
     }
 }
