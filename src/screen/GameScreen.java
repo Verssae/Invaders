@@ -27,7 +27,7 @@ public class GameScreen extends Screen {
 	/** Time until bonus ship explosion disappears. */
 	private static final int BONUS_SHIP_EXPLOSION = 500;
 	/** Time from finishing the level to screen change. */
-	private static final int SCREEN_CHANGE_INTERVAL = 1500;
+	private static final int SCREEN_CHANGE_INTERVAL = 2000; //1500;
 	/** Height of the interface separation line. */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
 	/** Current game difficulty settings. */
@@ -346,7 +346,7 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-		drawManager.gameOver(this, this.levelFinished);
+		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
