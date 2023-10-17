@@ -19,6 +19,9 @@ public class Effect {
     protected Cooldown DebuffEffectCooldown;
     /** 스턴 아이템 */
     protected Cooldown debuffSturnEffect;
+    /** Shield Item **/
+    protected boolean shieldState = false;
+
 
 
 
@@ -42,10 +45,12 @@ public class Effect {
         double prob = Math.random();
         switch (s) {
             case Buff_Item:
-                if(prob < 0.5){
+                if(prob < 0.33){
                     tripleshotEffectCooldown.reset();
-                }else{
+                } else if (prob < 0.66){
                     attackSpeedEffectCooldown.reset();
+                } else {
+                    this.shieldState = true;
                 }
                 break;
             case Debuff_Item:
@@ -59,4 +64,7 @@ public class Effect {
                 break;
         }
     }
+
+    public boolean getShieldState() { return this.shieldState; }
+    public void setShieldState(boolean state) { this.shieldState = state; }
 }
