@@ -15,7 +15,12 @@ Visual Effect System
 
 > ## 💻 Development Contents
 
-💡 Title/Game Background Animation -> Minkyeong Kang <br></br>
+💡 Game Background Animation -> Minkyeong Kang <br></br>
+- Animated background lines with perspective
+- Gradient background that gradually changes between colors
+- Green glow behind player sprites
+- Background becomes darker as player lives reaches 0 (from <=3)
+- Background becomes yellower when special ship appears
 💡 Countdown Design -> Doyoon Kim <br></br>
 💡 Game Item Design(Hats) -> Hyeonjeong Kim<br></br>
 💡 Player & Enemy New Death FX -> Jinho Shin<br></br>
