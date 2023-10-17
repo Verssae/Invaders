@@ -27,7 +27,7 @@ import javax.imageio.ImageIO;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
-import engine.Coin;
+import entity.Coin;
 import java.awt.image.RescaleOp;
 /**
  * Manages screen drawing.
