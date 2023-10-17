@@ -1,21 +1,11 @@
 package engine;
 
 import entity.Entity;
-import entity.Ship;
 import screen.Screen;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.font.GlyphVector;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -23,13 +13,8 @@ import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Logger;
-
-import entity.Entity;
-import entity.Ship;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.Screen;
 
 /**
  * Manages screen drawing.
