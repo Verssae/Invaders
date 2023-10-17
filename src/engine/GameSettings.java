@@ -17,10 +17,8 @@ public class GameSettings {
 	/** Frequency of enemy shootings, +/- 30%. */
 	private int shootingFrecuency;
 	/** Difficulty of Game */
-	private int difficulty;
-
+	private double difficulty;
 	/** Check if the stage is boss stage. */
-
 	private boolean isBossStage;
 
 	private int baseAreaDamage;
@@ -121,7 +119,7 @@ public class GameSettings {
 	/**
 	 * @return the difficulty
 	 */
-	public final int getDifficulty() { return this.difficulty; }
+	public final double getDifficulty() { return this.difficulty; }
 
 	/**
 	 * Check if the stage is boss stage
