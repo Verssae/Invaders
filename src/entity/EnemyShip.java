@@ -52,6 +52,7 @@ public class EnemyShip extends Entity {
 
 
 
+
 	/**
 	 * Constructor, establishes the ship's properties.
 	 * 
@@ -119,6 +120,7 @@ public class EnemyShip extends Entity {
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
 		spVariable = (int)(Math.random()*2);
+
 		switch (spVariable) {
 			case 0:
 				this.spriteType = SpriteType.EnemyShipSpecial1;
@@ -127,6 +129,7 @@ public class EnemyShip extends Entity {
 				this.spriteType = SpriteType.EnemyShipSpecial2;
 				break;
 		}
+
 
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
@@ -272,8 +275,8 @@ public class EnemyShip extends Entity {
 	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
-		if (Math.random() < DROP_ITEM_PROB
-				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial1 ? 1 : 0))) {
+		if ((Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial1 ? 1 : 0)))
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial2 ? 1 : 0)))) {
 			items.add(ItemPool.getItem(this.positionX, this.positionY));
 		}
 	}
