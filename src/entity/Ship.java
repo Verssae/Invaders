@@ -146,7 +146,12 @@ public class Ship extends Entity {
 
 	public Cooldown getShootingInterval(){return this.shootingCooldown;}
 	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
-
 	public boolean getShieldState() { return this.shipEffect.getShieldState(); }
 	public void setShieldState(boolean state) { this.shipEffect.setShieldState(state); }
+	public boolean getBomb(){
+		return shipEffect.bomb;
+	}
+	public void setBomb(boolean t){
+		this.shipEffect.bomb = t;
+	}
 }
