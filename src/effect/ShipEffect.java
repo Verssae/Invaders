@@ -100,4 +100,17 @@ public class ShipEffect extends Effect{
                     ship.getPositionY(), BULLETY_SPEED));
         }
     }
+
+    /**
+     *  스턴 디버프에 걸리면 0반환
+     *  평소에는 1을 반환
+     *
+     *  사용처 : Ship 클래스
+     */
+    public int shipSturnEffect() {
+        if (this.debuffSturnEffect.checkFinished())
+            return (1);
+        else
+            return (0);
+    }
 }

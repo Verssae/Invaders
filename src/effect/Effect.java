@@ -18,7 +18,8 @@ public class Effect {
      */
     protected Cooldown Buff2EffectCooldown;
     protected Cooldown DebuffEffectCooldown;
-    protected Cooldown Debuff2EffectCooldown;
+    /** 스턴 아이템 */
+    protected Cooldown debuffSturnEffect;
 
 
     /**
@@ -28,7 +29,7 @@ public class Effect {
         tripleshotEffectCooldown = Core.getCooldown(5000);
         Buff2EffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
-        Debuff2EffectCooldown = Core.getCooldown(5000);
+        debuffSturnEffect = Core.getCooldown(2000);
     }
     /**
      * Initialize effect cool time according to item Sprite
@@ -46,10 +47,7 @@ public class Effect {
                 Buff2EffectCooldown.reset();
                 break;
             case Debuff_Item:
-                DebuffEffectCooldown.reset();
-                break;
-            case Debuff_Item2:
-                Debuff2EffectCooldown.reset();
+                debuffSturnEffect.reset();
                 break;
             default:
                 break;
@@ -65,7 +63,7 @@ public class Effect {
             case Debuff_Item:
                 return (DebuffEffectCooldown);
             case Debuff_Item2:
-                return (Debuff2EffectCooldown);
+                return (debuffSturnEffect);
             default:
                 return (null);
         }
