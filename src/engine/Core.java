@@ -44,7 +44,6 @@ public final class Core {
      * Max fps of current screen.
      */
     private static final int FPS = 60;
-
 	/**
 	 * Max lives.
 	 */
