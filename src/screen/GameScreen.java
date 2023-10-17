@@ -8,7 +8,6 @@ import java.util.Set;
 import engine.*;
 import entity.*;
 
-
 import javax.swing.*;
 
 /**
@@ -70,7 +69,7 @@ public class GameScreen extends Screen {
 	/** Moment the game starts. */
 	private long gameStartTime;
 	/** Checks if the level is finished. */
-	private boolean levelFinished;
+	public boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
@@ -89,6 +88,9 @@ public class GameScreen extends Screen {
 
 	private int attackDamage;
 	private int areaDamage;
+
+	private CountUpTimer timer;
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -109,6 +111,7 @@ public class GameScreen extends Screen {
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
+
 		this.gameSettings = gameSettings;
 		//this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
@@ -122,11 +125,17 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+
+		timer = new CountUpTimer();
+
 	}
 
-	/**
-	 * Initializes basic screen properties, and adds necessary elements.
-	 */
+
+
+
+		/**
+         * Initializes basic screen properties, and adds necessary elements.
+         */
 	public final void initialize() {
 		super.initialize();
 
@@ -287,6 +296,8 @@ public class GameScreen extends Screen {
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -347,7 +358,10 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished);
+		drawManager.drawTimer(this, timer.getElapsedTime());
 
+
+		
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
@@ -372,7 +386,10 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
-	}
+
+
+		}
+
 
 	/**
 	 * Cleans bullets that go off screen.
