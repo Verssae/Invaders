@@ -17,6 +17,7 @@ public class Effect {
      * 만드는 버프에 따라 이름을 달리 할 것.
      */
     protected Cooldown Buff2EffectCooldown;
+    protected Cooldown attackSpeedEffectCooldown;
     protected Cooldown DebuffEffectCooldown;
     protected Cooldown Debuff2EffectCooldown;
 
@@ -29,6 +30,7 @@ public class Effect {
         Buff2EffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
         Debuff2EffectCooldown = Core.getCooldown(5000);
+        attackSpeedEffectCooldown = Core.getCooldown(5000);
     }
     /**
      * Initialize effect cool time according to item Sprite
@@ -41,6 +43,7 @@ public class Effect {
         switch (s) {
             case Buff_Item:
                 tripleshotEffectCooldown.reset();
+                attackSpeedEffectCooldown.reset();
                 break;
             case Buff_Item2:
                 Buff2EffectCooldown.reset();
