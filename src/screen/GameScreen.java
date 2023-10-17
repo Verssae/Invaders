@@ -70,7 +70,7 @@ public class GameScreen extends Screen {
 	/** Moment the game starts. */
 	private long gameStartTime;
 	/** Checks if the level is finished. */
-	private boolean levelFinished;
+	public boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
