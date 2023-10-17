@@ -478,21 +478,27 @@ public class GameScreen_2P extends Screen {
                 for (EnemyShip enemyShip : this.enemyShipFormation)
                     if (!enemyShip.isDestroyed()
                             && checkCollision(bullet, enemyShip)) {
+                        enemyShip.reduceEnemyLife(this.attackDamage);
                         soundEffect.playEnemyDestructionSound();
-                        this.score += enemyShip.getPointValue();
-                        this.shipsDestroyed++;
-                        this.enemyShipFormation.destroy(enemyShip, this.items);
+                        if(enemyShip.getEnemyLife() < 1) {
+                            this.score += enemyShip.getPointValue();
+                            this.shipsDestroyed++;
+                            this.enemyShipFormation.destroy(enemyShip, this.items);
+                        }
                         recyclableBullet.add(bullet);
                     }
                 if (this.enemyShipSpecial != null
                         && !this.enemyShipSpecial.isDestroyed()
                         && checkCollision(bullet, this.enemyShipSpecial)) {
-                    this.score += this.enemyShipSpecial.getPointValue();
-                    this.shipsDestroyed++;
-                    this.enemyShipSpecial.destroy(this.items);
-                    bgm.enemyShipSpecialbgm_stop();
-                    if (this.lives < 2.9) this.lives = this.lives + 0.1;
-                    this.enemyShipSpecialExplosionCooldown.reset();
+                    enemyShipSpecial.reduceEnemyLife(this.attackDamage);
+                    if (enemyShipSpecial.getEnemyLife() < 1) {
+                        this.score += this.enemyShipSpecial.getPointValue();
+                        this.shipsDestroyed++;
+                        this.enemyShipSpecial.destroy(this.items);
+                        bgm.enemyShipSpecialbgm_stop();
+                        if (this.lives < 2.9) this.lives = this.lives + 0.1;
+                        this.enemyShipSpecialExplosionCooldown.reset();
+                    }
                     recyclableBullet.add(bullet);
                 }
             }
@@ -546,20 +552,26 @@ public class GameScreen_2P extends Screen {
                 for (EnemyShip enemyShip : this.enemyShipFormation)
                     if (!enemyShip.isDestroyed()
                             && checkCollision(bulletY, enemyShip)) {
+                        enemyShip.reduceEnemyLife(bulletY.getDamage());
                         soundEffect.playEnemyDestructionSound();
-                        this.score += enemyShip.getPointValue();
-                        this.shipsDestroyed++;
-                        this.enemyShipFormation.destroy(enemyShip, this.items);
+                        if(enemyShip.getEnemyLife() < 1) {
+                            this.score += enemyShip.getPointValue();
+                            this.shipsDestroyed++;
+                            this.enemyShipFormation.destroy(enemyShip, this.items);
+                        }
                         recyclableBulletY.add(bulletY);
                     }
                 if (this.enemyShipSpecial != null
                         && !this.enemyShipSpecial.isDestroyed()
                         && checkCollision(bulletY, this.enemyShipSpecial)) {
-                    this.score += this.enemyShipSpecial.getPointValue();
-                    this.shipsDestroyed++;
-                    this.enemyShipSpecial.destroy(this.items);
-                    bgm.enemyShipSpecialbgm_stop();
-                    this.enemyShipSpecialExplosionCooldown.reset();
+                    enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
+                    if(enemyShipSpecial.getEnemyLife() < 1) {
+                        this.score += this.enemyShipSpecial.getPointValue();
+                        this.shipsDestroyed++;
+                        this.enemyShipSpecial.destroy(this.items);
+                        bgm.enemyShipSpecialbgm_stop();
+                        this.enemyShipSpecialExplosionCooldown.reset();
+                    }
                     recyclableBulletY.add(bulletY);
                 }
             }
