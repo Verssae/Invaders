@@ -135,7 +135,6 @@ public class BGM {
         try {
             if (OutGame_bgmCLip != null && OutGame_bgmCLip.isRunning()) {
                 OutGame_bgmCLip.stop();
-//                bgm_volumeup();
             }
         }catch(Exception e) {
             e.printStackTrace();
@@ -147,7 +146,6 @@ public class BGM {
         try {
             if (InGame_bgmCLip != null && InGame_bgmCLip.isRunning()) {
                 InGame_bgmCLip.stop();
-//                bgm_volumeup();
             }
         }catch(Exception e) {
             e.printStackTrace();
