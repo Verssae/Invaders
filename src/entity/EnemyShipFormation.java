@@ -109,7 +109,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Check if it is a boss */
 	private boolean isboss;
 	/** Difficulty of game. */
-	private double difficulty;
+	private int difficulty;
 	/** Current difficulty level number. */
 	private int level;
 	/** Check if it is a boss */
@@ -117,7 +117,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int extend_check;
 	/** how many moved enemy ship */
 	private int movementExtend;
-
 
 	/** Directions the formation can move. */
 	private enum Direction {
@@ -202,9 +201,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					+ this.shipWidth;
 			this.height = (this.nShipsHigh - 1) * SEPARATION_DISTANCE
 					+ this.shipHeight;
-
 			for (List<EnemyShip> column : this.enemyShips)
-				this.shooters.add(column.get(column.size() - 1));
+				this.shooters.add(column.get((int) (Math.random() * (column.size() - 1)))); //column.get(column.size() - 1)
+
 		}
 		//enemy is a boss
 		else {
@@ -564,6 +563,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 		}
 
+
 		this.shipCount--;
 	}
 
@@ -620,7 +620,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		Set<EnemyShip> shooterSet = new HashSet<EnemyShip>();
 		/** 난이도별 EnemyShipFormation의 default shooter 수 */
 		int defaultShooters = 0;
-		switch ((int) this.difficulty) {
+		switch (this.difficulty) {
 			case 0:
 			case 1:
 				defaultShooters = 1;
