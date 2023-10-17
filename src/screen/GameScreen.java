@@ -347,7 +347,6 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.gameOver(this, this.levelFinished);
-		drawManager.drawLevel(this, this.level);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
