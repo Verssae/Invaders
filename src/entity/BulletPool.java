@@ -3,6 +3,8 @@ package entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import engine.DrawManager.SpriteType;
+
 /**
  * Implements a pool of recyclable bullets.
  * 
@@ -25,7 +27,7 @@ public final class BulletPool {
 	/**
 	 * Returns a bullet from the pool if one is available, a new one if there
 	 * isn't.
-	 * 
+	 *
 	 * @param positionX
 	 *            Requested position of the bullet in the X axis.
 	 * @param positionY
@@ -36,7 +38,7 @@ public final class BulletPool {
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-			final int positionY, final int speed) {
+								   final int positionY, final int speed) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -47,6 +49,36 @@ public final class BulletPool {
 			bullet.setSprite();
 		} else {
 			bullet = new Bullet(positionX, positionY, speed);
+			bullet.setPositionX(positionX - bullet.getWidth() / 2);
+		}
+		return bullet;
+	}
+
+	/**
+	 * Returns a bullet from the pool if one is available, a new one if there
+	 * isn't.
+	 *
+	 * @param positionX
+	 *            Requested position of the bullet in the X axis.
+	 * @param positionY
+	 *            Requested position of the bullet in the Y axis.
+	 * @param speed
+	 *            Requested speed of the bullet, positive or negative depending
+	 *            on direction - positive is down.
+	 * @return Requested bullet.
+	 */
+	public static Bullet getBullet(final int positionX,
+								   final int positionY, final int speed, SpriteType bulletType) {
+		Bullet bullet;
+		if (!pool.isEmpty()) {
+			bullet = pool.iterator().next();
+			pool.remove(bullet);
+			bullet.setPositionX(positionX - bullet.getWidth() / 2);
+			bullet.setPositionY(positionY);
+			bullet.setSpeed(speed);
+			bullet.setSprite(bulletType);
+		} else {
+			bullet = new Bullet(positionX, positionY, speed, bulletType);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;
