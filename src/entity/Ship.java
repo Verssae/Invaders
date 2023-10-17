@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.util.Set;
 
+import effect.Effect;
 import effect.ShipEffect;
 import engine.Cooldown;
 import engine.Core;
@@ -145,4 +146,7 @@ public class Ship extends Entity {
 
 	public Cooldown getShootingInterval(){return this.shootingCooldown;}
 	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
+
+	public boolean getShieldState() { return this.shipEffect.getShieldState(); }
+	public void setShieldState(boolean state) { this.shipEffect.setShieldState(state); }
 }
