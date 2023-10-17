@@ -26,25 +26,6 @@ public final class Core {
      * Max fps of current screen.
      */
     private static final int FPS = 60;
-//
-//<<<<<<< HEAD
-//    /**
-//     * Max lives.
-//     */
-//    private static final int MAX_LIVES = 3;
-//    /**
-//     * Levels between extra life.
-//     */
-//    private static final int EXTRA_LIFE_FRECUENCY = 3;
-//    /**
-//     * Total number of levels.
-//     */
-//    private static final int NUM_LEVELS = 7;
-//    /**
-//     * difficulty of the game
-//     */
-//    private static int difficulty = 1;
-//=======
 	/**
 	 * Max lives.
 	 */
@@ -61,7 +42,6 @@ public final class Core {
 	 * difficulty of the game
 	 */
 	private static int difficulty = 1;
-//>>>>>>> 1d273b166703777df1e6cfe87f2add5620c73604
 
     /**
      * Difficulty settings for level 1.
@@ -414,6 +394,9 @@ public final class Core {
                             + gameState.getShipsDestroyed() + " ships destroyed.");
                     currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
+                    if(returnCode==2){
+                        returnCode=4;
+                    }
                     LOGGER.info("Closing score screen.");
                     break;
                 default:

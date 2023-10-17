@@ -574,6 +574,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
 						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
 				soundEffect.playEnemyShootingSound();
+				if(shooter.checkIsBoss()) {
+					bullets.add(BulletPool.getBullet(shooter.getPositionX()
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletLeft));
+					bullets.add(BulletPool.getBullet(shooter.getPositionX()
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletRight));
+
+				}
 			};
 		}
 	}
