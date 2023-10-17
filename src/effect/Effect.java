@@ -21,7 +21,6 @@ public class Effect {
     protected Cooldown debuffSturnEffect;
     /** Shield Item **/
     protected boolean shieldState = false;
-    protected boolean shield;
     public boolean bomb;
 
 
@@ -34,7 +33,6 @@ public class Effect {
         attackSpeedEffectCooldown = Core.getCooldown(5000);
         DebuffEffectCooldown = Core.getCooldown(5000);
         debuffSturnEffect = Core.getCooldown(2000);
-        shield = false;
         bomb = true;
     }
     /**
@@ -50,11 +48,13 @@ public class Effect {
             case Buff_Item:
                 if(prob < 0.2){
                     tripleshotEffectCooldown.reset();
-                }else if(prob < 0.5){
+                }else if(prob < 0.4){
                     attackSpeedEffectCooldown.reset();
-                } else if (prob < 0.7){
+                } else if (prob < 0.6){
+                    buffSplashEffectCooldown.reset();
+                } else if (prob < 0.85){
                     this.shieldState = true;
-                }else if (prob < 0.9){
+                }else {
                     bomb = true;
                 }
                 break;

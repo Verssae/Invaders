@@ -18,7 +18,7 @@ import engine.DrawManager.SpriteType;
 public class Ship extends Entity {
 
 	/** Time between shots. */
-	private static int SHOOTING_INTERVAL = 750;
+	private static int SHOOTING_INTERVAL = 7;//50;
 	/** Speed of the bullets shot by the ship. */
 	public static final int BULLET_SPEED = -6;
 	/** Speed of the bullets shot by the ship. */
