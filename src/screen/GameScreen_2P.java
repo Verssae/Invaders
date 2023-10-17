@@ -126,9 +126,9 @@ public class GameScreen_2P extends Screen {
 
         enemyShipFormation = new EnemyShipFormation(this.gameSettings, 1);
         enemyShipFormation.attach(this);
-        this.ship_1P = new Ship(this.width / 4, this.height - 30);
+        this.ship_1P = new Ship(this.width / 4, this.height - 30, "a", Color.WHITE);
         this.bulletLine_1P = new BulletLine(this.width / 4 , this.height + 120);
-        this.ship_2P = new Ship((3 * this.width / 4), this.height - 30);
+        this.ship_2P = new Ship((3 * this.width / 4), this.height - 30, "b", Color.RED);
         this.bulletLine_2P = new BulletLine(3 * this.width / 4 , this.height + 120);
         // Appears each 10-30 seconds.
         this.enemyShipSpecialCooldown = Core.getVariableCooldown(
