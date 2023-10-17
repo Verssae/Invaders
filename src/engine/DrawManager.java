@@ -139,8 +139,6 @@ public final class DrawManager {
 		EnemyShipD5,
 		/** Forth enemy ship (hit 2)- sixth form. */
 		EnemyShipD6,
-		/** Bonus ship. */
-		EnemyShipSpecial,
 		/** Bonus ship1. */
 		EnemyShipSpecial1,
 		/** Bonus ship2. */

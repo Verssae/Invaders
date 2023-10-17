@@ -189,6 +189,7 @@ public class GameScreen extends Screen {
 				this.returnCode = 1;
 				this.lives = 0;
 				this.isRunning = false;
+				bgm.InGame_bgm_stop();
 			}
 		}
 		else {
@@ -236,6 +237,7 @@ public class GameScreen extends Screen {
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {
+					bgm.enemyShipSpecialbgm_play();
 					colorVariable = (int)(Math.random()*4);
 					switch (colorVariable) {
 						case 0:
