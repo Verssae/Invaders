@@ -27,8 +27,16 @@ public class GameScreen extends Screen {
 	private static final int BONUS_SHIP_INTERVAL = 20000;
 	/** Maximum variance in the time between bonus ship's appearances. */
 	private static final int BONUS_SHIP_VARIANCE = 10000;
-	/** Time until bonus ship explosion disappears. */
-	private static final int BONUS_SHIP_EXPLOSION = 500;
+	/** Minimum time between bonus ship's appearances. */
+	private static final int BONUS_SHIP_EXPLOSION = 1500;
+	/** Maximum variance in the time between laser's appearances. */
+	private static int LASER_INTERVAL = 5000;
+	/** Maximum variance in the time between Laser's appearances. */
+	private static int LASER_VARIANCE = 1000;
+	/** Maximum variance in the time between Laser's appearances. */
+	private static int LASER_LOAD = 2000;
+	/** Time until laser disappears. */
+	private static final int LASER_ACTIVATE = 1000;
 	/** Time from finishing the level to screen change. */
 	private static final int SCREEN_CHANGE_INTERVAL = 1500;
 	/** Height of the interface separation line. */
@@ -51,8 +59,23 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+	/** Laser */
+	private Laser laser;
+	/** Laserline */
+	private LaserLine laserline;
+	/** Location of next Laser */
+	private int nextLaserX;
+	/** Minimum time between laser launch */
+	private Cooldown laserCooldown;
+	/** Load time of laser */
+	private Cooldown laserLoadCooldown;
+	/** Maintaining time of laser*/
+	private Cooldown laserLaunchCooldown;
+	/** Laser on/off (difficulty normal, upper than 4level or difficulty hard, hardcore */
+	private boolean laserActivate;
 	/** Set of "BulletY" fired by player ships. */
 	private Set<BulletY> bulletsY;
+
 	/** Sound Effects for player's ship and enemy. */
 	private SoundEffect soundEffect;
 	/** Add and Modify BGM */
@@ -122,6 +145,13 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
+		if (gameSettings.getDifficulty() > 1) {
+			LASER_INTERVAL = 3000;
+			LASER_VARIANCE = 500;
+			LASER_LOAD = 1500;
+		}
+
 	}
 
 	/**
@@ -140,10 +170,21 @@ public class GameScreen extends Screen {
 		this.enemyShipSpecialCooldown.reset();
 		this.enemyShipSpecialExplosionCooldown = Core
 				.getCooldown(BONUS_SHIP_EXPLOSION);
+		// Appears each 5-10 seconds.
+		this.nextLaserX = -1;
+		this.laser = null;
+		this.laserCooldown = Core.getVariableCooldown(
+				LASER_INTERVAL, LASER_VARIANCE);
+		this.laserCooldown.reset();
+		this.laserLoadCooldown = Core
+				.getCooldown(LASER_LOAD);
+		this.laserLoadCooldown.reset();
+		this.laserLaunchCooldown = Core
+				.getCooldown(LASER_ACTIVATE);
+		this.laserLaunchCooldown.reset();
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.bulletsY = new HashSet<BulletY>();
-
 		this.items = new HashSet<Item>();
 		this.isItemAllEat = false;
 		// Special input delay / countdown.
@@ -220,6 +261,32 @@ public class GameScreen extends Screen {
 						}
 					}
 				}
+				if (this.laserActivate) {
+					if (this.laser != null) {
+						if (this.laserLaunchCooldown.checkFinished()) {
+							this.laser = null;
+							this.laserCooldown.reset();
+							this.nextLaserX = -1;
+							this.logger.info("Laser has disappeared.");
+						}
+					}
+					if (this.laser == null) {
+						if (this.laserLoadCooldown.checkFinished() && this.nextLaserX != -1) {
+							this.laserLaunchCooldown.reset();
+							this.laserline = null;
+							this.laser = new Laser(this.nextLaserX, SEPARATION_LINE_HEIGHT, true);
+							this.logger.info("Laser has been launched.");
+						} else {
+							if (this.nextLaserX == -1 && laserCooldown.checkFinished()) {
+								this.logger.info("Laser will be launched.");
+								this.nextLaserX = (int) (Math.random() * 448);
+								this.laserline = new LaserLine(this.nextLaserX, SEPARATION_LINE_HEIGHT);
+								this.laserLoadCooldown.reset();
+							}
+						}
+					}
+				}
+
 
 				if (this.enemyShipSpecial != null) {
 					if (!this.enemyShipSpecial.isDestroyed())
@@ -326,6 +393,14 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
+		if (this.laser != null)
+			drawManager.drawEntity(this.laser,
+					this.laser.getPositionX(),
+					this.laser.getPositionY());
+		if (this.laserline != null)
+			drawManager.drawEntity(this.laserline,
+					this.laserline.getPositionX(),
+					this.laserline.getPositionY());
 		for (Item item : this.items)
 			drawManager.drawEntity(item, item.getPositionX(),
 					item.getPositionY());
@@ -461,6 +536,17 @@ public class GameScreen extends Screen {
 					recyclableBullet.add(bullet);
 				}
 			}
+		if (this.laser != null) {
+			if (checkCollision(this.laser, this.ship) && !this.levelFinished) {
+				if (!this.ship.isDestroyed()) {
+					this.ship.destroy();
+					if (this.lives != 1) soundEffect.playShipCollisionSound();
+					this.lives--;
+					this.logger.info("Hit on player ship, " + this.lives
+							+ " lives remaining.");
+				}
+			}
+		}
 		for (Item item : this.items){
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
@@ -468,6 +554,7 @@ public class GameScreen extends Screen {
 				this.ship.checkGetItem(item);
 			}
 		}
+
 		this.items.removeAll(recyclableItem);
 		this.bullets.removeAll(recyclableBullet);
 		ItemPool.recycle(recyclableItem);
@@ -545,6 +632,7 @@ public class GameScreen extends Screen {
 		// Calculates distance.
 		int distanceX = Math.abs(centerAX - centerBX);
 		int distanceY = Math.abs(centerAY - centerBY);
+
 
 		return distanceX < maxDistanceX && distanceY < maxDistanceY;
 	}

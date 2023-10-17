@@ -120,7 +120,12 @@ public final class DrawManager {
 		/** Destroyed enemy ship3. */
 		Explosion3,
 		/** Buff_item dummy sprite*/
-		Buff_Item;
+		Buff_Item,
+		/** Laser */
+		Laser,
+		/** Laserline */
+		LaserLine;
+
 	};
 
 	/**
@@ -155,6 +160,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
+			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
+			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
