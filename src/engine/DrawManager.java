@@ -1073,25 +1073,10 @@ public final class DrawManager {
 	 */
 	public void drawCountDown(final Screen screen, final int level,
 			final int number, final boolean bonusLife) {
-		int rectWidth = screen.getWidth();
-		int rectHeight = screen.getHeight() / 6;
-		/*
-		backBufferGraphics.setColor(new Color(0,0,0,64));
-		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
-				rectWidth, rectHeight);
-		 */
 		backBufferGraphics.setColor(Color.GREEN);
-
-
 
 		if (number >= 4)
 			if (!bonusLife) {
-				/*
-				drawCenteredBigString(screen, "Level " + level,
-						screen.getHeight() / 2
-								+ fontBigMetrics.getHeight() / 3);
-
-				 */
 				pumpingLevel(screen, "Level " + level,screen.getHeight() / 2
 						+ fontBigMetrics.getHeight() / 3);
 			} else {
@@ -1101,46 +1086,22 @@ public final class DrawManager {
 								+ fontBigMetrics.getHeight() / 3);
 			}
 		else if (number != 0) {
-			/* this if-else is modified with Clean Code (dodo_kdy) */
 			if (!isFirst)
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
 			else {
-				// + 파도타기 Loading String  random ->
-				/*drawLoadingNeon(screen, "Loading...",
+				drawLoadingNeon(screen, "Loading...",
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3, number);
-				 */
-				//waveLoading(screen,0,screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3 );
 				timercount++;
 			}
 		} else {
-			// 반질반질
-			//if (n == 1) drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
-			pingPongGO(screen);
-
+			drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
 			isFirst = false;
 			timercount = 0;
 		}
 	}
 
 
-
-	public void pingPongGO(Screen screen){
-		if(vector_x <=0 || vector_x >= screen.getWidth()) {
-			directionX *= -1;
-			backBufferGraphics.setColor(new Color(231, 206, 80));
-		}
-		if (vector_y<=0 || vector_y >= screen.getHeight())  {
-			directionY *= -1;
-			backBufferGraphics.setColor(new Color(255, 68, 0));
-		}
-
-		vector_x += 15 * directionX;
-		vector_y += 10 * directionY;
-
-		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.drawString("GO!",vector_x,vector_y);
-	}
 
 
 	public void pumpingLevel(Screen screen,String string,int height){
@@ -1158,19 +1119,19 @@ public final class DrawManager {
 		g2.setColor(pumpColor());
 		g2.setFont(font);
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.drawString(string,screen.getWidth() / 2 - g2.getFontMetrics().stringWidth(string) / 2 - 5, height);
+		g2.drawString(string,screen.getWidth() / 2 - g2.getFontMetrics().stringWidth(string) / 2, height);
 
 		bigger+=direction;
 	}
 
 	public Color pumpColor(){
-		//231~255 40~60 0~70
-		Random r = new Random();
-		int R,G,B;
-		R = r.nextInt(24) + 231;
-		G = r.nextInt(140);
-		B = r.nextInt(70);
-		return new Color(R,G,B);
+		int r = new Random().nextInt(5);
+		if(r == 1) return new Color(147, 227, 83, 234);
+		else if (r==2) return new Color(26, 255, 0, 255);
+		else if (r==3) return new Color(45, 255, 167, 245);
+		else if (r==4) return new Color(0, 255, 0, 77);
+		else return new Color(27, 215, 136, 245);
+
  	}
 
 
