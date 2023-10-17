@@ -379,7 +379,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawLivesbar(this, this.lives);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
-        drawManager.drawTimer(this);
+
 
 
         // Countdown to game start.

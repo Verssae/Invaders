@@ -9,16 +9,22 @@ public class CountUpTimer {
     private Timer timer;
     private int seconds;
     private GameScreen gameScreen;
+    private DrawManager drawManager;
 
-    public CountUpTimer(GameScreen gameScreen) {
+    public CountUpTimer(GameScreen gameScreen, DrawManager drawManager) {
         this.gameScreen = gameScreen;
+        this.drawManager = drawManager;
         timer = new Timer();
         seconds = 0;
+    }
+
+    public void start() {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 seconds++;
-                gameScreen.drawManager.gameOver(gameScreen, gameScreen.levelFinished);
+
+                drawManager.setTimerValue(seconds);
             }
         }, 1000, 1000);
     }
@@ -31,3 +37,4 @@ public class CountUpTimer {
         timer.cancel();
     }
 }
+
