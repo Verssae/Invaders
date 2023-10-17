@@ -394,6 +394,9 @@ public final class Core {
                             + gameState.getShipsDestroyed() + " ships destroyed.");
                     currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
+                    if(returnCode==2){
+                        returnCode=4;
+                    }
                     LOGGER.info("Closing score screen.");
                     break;
                 default:
