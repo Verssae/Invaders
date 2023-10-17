@@ -7,15 +7,7 @@ public class BGM {
 //    private static String BGM_FILE_PATH;
 
     static Clip OutGame_bgmCLip; // bgmClip 변수 추가
-    static File OutGame_bgm = new File("sound_BackGroundMusic/neon-gaming-128925.wav");
-
-
     static Clip InGame_bgmCLip;
-    static File InGame_bgm = new File("sound_BackGroundMusic/game-background-music-169723.wav");
-
-//    static AudioInputStream stream;
-//    static AudioFormat format;
-//    static DataLine.Info info;
 
     static Clip enemyShipSpecialbgmCLip;
 
@@ -23,24 +15,25 @@ public class BGM {
 
     File enemyShipSpecialappearbgm = new File("sound_BackGroundMusic/enemyshipspecial.wav");
 
-//    public BGM(){} //수한언니
-
-    // 디폴트 생성자 추가
     public BGM() {
 
         try {
+            String OutGame_bgm_FilePATH = "sound_BackGroundMusic/neon-gaming-128925.wav";
+            File OutGame_bgm = new File(OutGame_bgm_FilePATH).getAbsoluteFile();
             AudioInputStream OutGame_Stream = AudioSystem.getAudioInputStream(OutGame_bgm);
             AudioFormat OutGame_Format = OutGame_Stream.getFormat();
             DataLine.Info OutGame_Info = new DataLine.Info(Clip.class, OutGame_Format);
 
             OutGame_bgmCLip = (Clip) AudioSystem.getLine(OutGame_Info);
             OutGame_bgmCLip.open(OutGame_Stream);
-//            bgm_volumedowm();
+//           bgm_volumedowm(); // 삭제 검토중
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try{
+            String InGame_bgm_FilePATH = "sound_BackGroundMusic/game-background-music-169723.wav";
+            File InGame_bgm = new File(InGame_bgm_FilePATH).getAbsoluteFile();
             AudioInputStream InGame_Stream = AudioSystem.getAudioInputStream(InGame_bgm);
             AudioFormat InGame_Format = InGame_Stream.getFormat();
             DataLine.Info InGame_Info = new DataLine.Info(Clip.class, InGame_Format);
