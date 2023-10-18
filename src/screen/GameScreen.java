@@ -26,7 +26,7 @@ public class GameScreen extends Screen {
 	/** Time until bonus ship explosion disappears. */
 	private static final int BONUS_SHIP_EXPLOSION = 500;
 	/** Time from finishing the level to screen change. */
-	private static final int SCREEN_CHANGE_INTERVAL = 2000; //1500;
+	private static final int SCREEN_CHANGE_INTERVAL = 3000;
 	/** Height of the interface separation line. */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
 	/** Current game difficulty settings. */
@@ -303,6 +303,10 @@ public class GameScreen extends Screen {
 			this.ship.update();
 			bgm.enemyShipSpecialbgm_stop();
 			this.levelFinished = true;
+			drawManager.ghostPostionX = this.ship.getPositionX();
+			drawManager.ghostPostionY = this.ship.getPositionY() - 25;
+			drawManager.endTimer.reset();
+			drawManager.ghostTImer = System.currentTimeMillis();
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
 		}
@@ -371,8 +375,14 @@ public class GameScreen extends Screen {
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
-		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
 		drawManager.drawLevel(this, this.level);
+		drawManager.drawLevel(this, this.level);
+
+		//GameOver
+		drawManager.gameOver(this, this.levelFinished, this.lives);
+		drawManager.changeGhostColor(this.levelFinished, this.lives);
+		drawManager.drawGhost(this.ship, this.levelFinished, this.lives);//, System.currentTimeMillis());
+		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
@@ -391,6 +401,7 @@ public class GameScreen extends Screen {
 			//drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
 
 		}
+
 
 		// If Game has been paused
 		if (this.pause) {
