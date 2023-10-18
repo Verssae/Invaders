@@ -7,13 +7,10 @@ import java.util.Set;
 
 import engine.*;
 import entity.*;
-<<<<<<< HEAD
-
 import javax.swing.*;
 
 
-=======
->>>>>>> upstream/main
+
 /**
  * Implements the game screen, where the action happens.
  *
@@ -85,25 +82,14 @@ public class GameScreen extends Screen {
 	/** is none exist dropped item?*/
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
-<<<<<<< HEAD
-	private int color_variable;
-	/**  */
-	private int BulletsCount = 99;
-	/** Current Value of Enhancement  Area. */
-=======
 	private int colorVariable;
 	private int BulletsCount = 99;
->>>>>>> upstream/main
 	private int attackDamage;
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
 
-<<<<<<< HEAD
-
-=======
 	private boolean bomb; // testing
 	private Cooldown bombCool;
->>>>>>> upstream/main
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
