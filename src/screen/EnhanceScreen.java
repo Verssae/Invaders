@@ -194,6 +194,7 @@ public class EnhanceScreen extends Screen {
         drawManager.drawCircleFill(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
         drawManager.drawCircleLine(this, leftCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
         drawManager.drawCircleLine(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
+        drawManager.drawEnhanceSprite(this, this.enhanceManager, leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
 
         String AreaString = "Area";
 		String DamageString = "Damage";
