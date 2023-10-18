@@ -370,10 +370,11 @@ public final class DrawManager {
 	 * @param height
 	 */
 	public void drawEntity(final SpriteType SpriteType, final int positionX,
-			final int positionY, final double width, final double height) {
+			final int positionY, final double width, final double height,
+			final Color color) {
 		boolean[][] image = spriteMap.get(SpriteType);
 		Graphics2D g2 = (Graphics2D) backBufferGraphics;
-		g2.setColor(Color.white);
+		g2.setColor(color);
 
 		for (int i = 0; i < image.length; i++)
 			for (int j = 0; j < image[i].length; j++)
@@ -1502,11 +1503,9 @@ public final class DrawManager {
 		// PerpleEnhanceStoneAttack = spriteMap.get(SpriteType.PerpleEnhanceStone);
 		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
 		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
-		
-		// BlueEnhanceAreaStone.setColor(Color.magenta);
-		// BlueEnhanceAreaStone.setColor(Color.BLUE);
-		this.drawEntity(SpriteType.values()[41], 100, 100,10, 10);							
-		this.drawEntity(SpriteType.values()[42], 50, 50,10, 10);							
+					
+		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
+		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
 		// this.drawEntity(, 100, 100);
 		// this.drawEntity(, 50, 50);
 	}
@@ -1564,28 +1563,34 @@ public final class DrawManager {
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
 				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.GREEN, 1);
+			drawEnhanceStoneString(screen, lvEnhanceAreaString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 30,
+				Color.lightGray, 0);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
 				leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.WHITE, 1);
+			drawEnhanceStoneString(screen, lvEnhanceAreaString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 30,
+				Color.GRAY, 0);
 		}
-		drawEnhanceStoneString(screen, lvEnhanceAreaString,
-			centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 30,
-			Color.GRAY, 0);
 		if (option == 9){
 			drawEnhanceStoneString(screen, valEnhanceDamageString,
 				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.GREEN, 1);
+			drawEnhanceStoneString(screen, lvEnhanceDamageString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 10,
+				Color.lightGray, 0);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceDamageString,
 				rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 60,
 				Color.WHITE, 1);
+			drawEnhanceStoneString(screen, lvEnhanceDamageString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 10,
+				Color.GRAY, 0);
 		}
-		drawEnhanceStoneString(screen, lvEnhanceDamageString,
-			centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 10,
-			Color.GRAY, 0);
 		if (option == 5)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -1756,10 +1761,10 @@ public final class DrawManager {
 			if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y1 -=5;
 			else if (70<timercount && timercount <90) x1+=5;
 
-			this.drawEntity(SpriteType.values()[12],x1+15,y1+10,2.3,2.3);
-			this.drawEntity(SpriteType.values()[14],x1+60,y1+10,2.4,2.4);
-			this.drawEntity(SpriteType.values()[18],x1+100,y1+10,3,2.4);
-			this.drawEntity(SpriteType.values()[25],x1+145,y1+13,2,2);
+			this.drawEntity(SpriteType.values()[12],x1+15,y1+10,2.3,2.3, Color.white);
+			this.drawEntity(SpriteType.values()[14],x1+60,y1+10,2.4,2.4, Color.white);
+			this.drawEntity(SpriteType.values()[18],x1+100,y1+10,3,2.4, Color.white);
+			this.drawEntity(SpriteType.values()[25],x1+145,y1+13,2,2, Color.white);
 		}
 
 
