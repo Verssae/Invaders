@@ -554,6 +554,7 @@ public class GameScreen extends Screen {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
 						this.enemyShipSpecial.destroy(this.items);
+						soundEffect.enemyshipspecialDestructionSound();
 						bgm.enemyShipSpecialbgm_stop();
 						if (this.lives < 2.9) this.lives = this.lives + 0.1;
 						this.enemyShipSpecialExplosionCooldown.reset();
