@@ -176,10 +176,34 @@ public class Ship extends Entity {
 	 */
 	public final void checkGetItem(final Item item) {
 		item.setDestroy(true);
+		this.shipEffect.CooldownReset(item.getSpriteType());
+	}
+
+
+
+/* -- Item 6. some helpful code
+	public final void catchItem(Item item) {
+		if (item.spriteType == SpriteType.Item1) {
+			this.bulletEffectCooldown.reset();
+		} else if (item.spriteType == SpriteType.Item2) {
+			this.shipEffectCooldown.reset();
+=======
+>>>>>>> develop
 		if (item.spriteType == SpriteType.Buff_Item || item.spriteType == SpriteType.Debuff_Item) {
 			this.shipEffect.CooldownReset(item.getSpriteType());
 		}
 	}
+
+<<<<<<< HEAD
+ */
+public final void gameEndShipMotion(boolean levelFinished, double lives){
+	if(levelFinished){
+		if(lives == 0 ) {
+			this.setColor(Color.gray);
+			this.spriteType = SpriteType.gravestone;
+		}
+	}
+}
 
 	/** Return the ship's attack speed
 	 * @return shootingCooldown
