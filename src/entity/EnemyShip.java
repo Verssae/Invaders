@@ -17,13 +17,15 @@ import engine.DrawManager.SpriteType;
  * 
  */
 public class EnemyShip extends Entity {
-	
+	/** 적들 처치시 점수 설정 */
 	/** Point value of a type A enemy. */
 	private static final int A_TYPE_POINTS = 10;
 	/** Point value of a type B enemy. */
 	private static final int B_TYPE_POINTS = 20;
 	/** Point value of a type C enemy. */
 	private static final int C_TYPE_POINTS = 30;
+	/** Point value of a type C enemy. */
+	private static final int D_TYPE_POINTS = 40;
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
@@ -31,7 +33,7 @@ public class EnemyShip extends Entity {
 	/** Item drop percent*/
 	private final double DROP_ITEM_PROB = 0.05;
 
-	/** Cooldown between sprite changes. */
+	/** 스프라이트 변경 쿨다운. */
 	private Cooldown animationCooldown;
 	/** Checks if the ship has been hit by a bullet. */
 	private boolean isDestroyed;
@@ -39,8 +41,14 @@ public class EnemyShip extends Entity {
 	private int pointValue;
 	/** Lives of ship, ship will be destroyed when life becomes 0. */
 	private int EnemyLife;
+	/** check which special enemy to generate. */
+	private int spVariable;
+
+
+
 	/** Check the enemyship is boss */
 	private boolean isBoss;
+
 
 
 
@@ -86,6 +94,15 @@ public class EnemyShip extends Entity {
 			this.pointValue = C_TYPE_POINTS;
 			this.EnemyLife = 2;
 			break;
+		case EnemyShipD1:
+		case EnemyShipD2:
+		case EnemyShipD3:
+		case EnemyShipD4:
+		case EnemyShipD5:
+		case EnemyShipD6:
+			this.pointValue = D_TYPE_POINTS;
+			this.EnemyLife = 3;
+			break;
 		default:
 			this.pointValue = 0;
 			break;
@@ -101,12 +118,22 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
-		this.spriteType = SpriteType.EnemyShipSpecial;
+		spVariable = (int)(Math.random()*2);
+
+		switch (spVariable) {
+			case 0:
+				this.spriteType = SpriteType.EnemyShipSpecial1;
+				break;
+			case 1:
+				this.spriteType = SpriteType.EnemyShipSpecial2;
+				break;
+		}
+
+
 		this.isDestroyed = false;
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
 		this.isBoss = false;
-
 	}
 
 	/**
@@ -158,29 +185,51 @@ public class EnemyShip extends Entity {
 			this.animationCooldown.reset();
 
 			switch (this.spriteType) {
+
 			case EnemyShipA1:
 				this.spriteType = SpriteType.EnemyShipA2;
 				break;
+
 			case EnemyShipA2:
 				this.spriteType = SpriteType.EnemyShipA1;
 				break;
+
 			case EnemyShipB1:
 				this.spriteType = SpriteType.EnemyShipB2;
 				break;
+
 			case EnemyShipB2:
 				this.spriteType = SpriteType.EnemyShipB1;
 				break;
-			case EnemyShipC1:
-				this.spriteType = SpriteType.EnemyShipC2;
-				break;
-			case EnemyShipC2:
-				this.spriteType = SpriteType.EnemyShipC1;
-				break;
+
+			/** 2 forms of enemyC - change form whenever life is reduced */
 			case EnemyShipSC1:
-				this.spriteType = SpriteType.EnemyShipSC2;
+			case EnemyShipC1:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC2;
+				else this.spriteType = SpriteType.EnemyShipSC2;
 				break;
+
 			case EnemyShipSC2:
-				this.spriteType = SpriteType.EnemyShipSC1;
+			case EnemyShipC2:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC1;
+				else this.spriteType = SpriteType.EnemyShipSC1;
+				break;
+
+			/** 3 forms of enemyD - change form whenever life is reduced */
+			case EnemyShipD1:
+			case EnemyShipD3:
+			case EnemyShipD5:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD6;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD4;
+				else this.spriteType = SpriteType.EnemyShipD2;
+				break;
+
+			case EnemyShipD2:
+			case EnemyShipD4:
+			case EnemyShipD6:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD5;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD3;
+				else this.spriteType = SpriteType.EnemyShipD1;
 				break;
 			case BossA1:
 				this.spriteType = SpriteType.BossA2;
@@ -189,7 +238,8 @@ public class EnemyShip extends Entity {
 				this.spriteType = SpriteType.BossA1;
 				break;
 
-				default:
+
+			default:
 				break;
 			}
 		}
@@ -215,7 +265,9 @@ public class EnemyShip extends Entity {
 	 *
 	 * @return True if the enemyship is boss
 	 */
-	public final boolean checkIsBoss() {return this.isBoss; }
+	public final boolean checkIsBoss() {
+		return this.isBoss;
+	}
 
 	/**
 	 * Destroys the ship, causing an explosion.
@@ -223,8 +275,8 @@ public class EnemyShip extends Entity {
 	public final void destroy(Set<Item> items) {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
-		if (Math.random() < DROP_ITEM_PROB
-				+ (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial ? 1 : 0))) {
+		if ((Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial1 ? 1 : 0)))
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial2 ? 1 : 0)))) {
 			items.add(ItemPool.getItem(this.positionX, this.positionY));
 		}
 	}
@@ -239,11 +291,15 @@ public class EnemyShip extends Entity {
 	}
 
 	/**
-	 * @return
+	 * Get a random number and select death effect
+	 * 
+	 * [Clean Code Team] This method was created by NiceGuy1313
+	 * 
+	 * @return Random Death Effect
 	 */
 	public final SpriteType randomDestroy(){
 		Random random = new Random();
-		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3};
-		return destroys[random.nextInt(3)];
+		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3, SpriteType.Explosion4};
+		return destroys[random.nextInt(4)];
 	}
 }
