@@ -25,6 +25,7 @@ import entity.Ship;
 
 
 import entity.Coin;
+import entity.EnhanceStone;
 import entity.Entity;
 import entity.Ship;
 import screen.GameScreen;
@@ -1489,6 +1490,27 @@ public final class DrawManager {
 		backBufferGraphics.drawString(enhanceString, centerX, positionY);
 	}
 
+	public void drawEnhanceSprite(final Screen screen,
+								  final int leftCircleX, final int rightCircleX, final int sideCircleY, 
+								  final int sideCircleWidth, final int sideCircleHeight) {
+		// backBufferGraphics.setFont(fontRegular);
+		// backBufferGraphics.setColor(Color.WHITE);
+		// backBufferGraphics.drawString("Reinforced Stone: " + Integer.toString(enhanceStone), 20, 25);
+		// Ship dummyShip = new Ship(0, 0);
+		// drawEntity(dummyShip, 40 + 35, 10);
+		// BlueEnhanceStoneArea = new Entity.EnhanceStone()
+		// PerpleEnhanceStoneAttack = spriteMap.get(SpriteType.PerpleEnhanceStone);
+		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
+		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
+		
+		// BlueEnhanceAreaStone.setColor(Color.magenta);
+		// BlueEnhanceAreaStone.setColor(Color.BLUE);
+		this.drawEntity(SpriteType.values()[41], 100, 100,10, 10);							
+		this.drawEntity(SpriteType.values()[42], 50, 50,10, 10);							
+		// this.drawEntity(, 100, 100);
+		// this.drawEntity(, 50, 50);
+	}
+
 	/**
 	 * Draws String on Enhance Menu.
 	 *
@@ -1507,7 +1529,7 @@ public final class DrawManager {
 	 */
 
 	public void drawEnhanceMenu(final Screen screen, final int option, 
-								int valEnhanceArea, int valEnhanceDamage, 
+								int numEnhanceArea, int numEnhanceDamage, 
 								int lvEnhanceArea, int lvEnhanceDamage) {
 
 		String subMenuString = "S U B M E N U";
@@ -1517,8 +1539,8 @@ public final class DrawManager {
 				+ Integer.toString(lvEnhanceArea + 1);
 		String lvEnhanceDamageString = "Damage Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
-		String valEnhanceAreaString =  "1/" + Integer.toString(valEnhanceArea);
-		String valEnhanceDamageString = "1/" + Integer.toString(valEnhanceDamage);
+		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
+		String valEnhanceDamageString = "1/" + Integer.toString(numEnhanceDamage);
 
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
@@ -1533,7 +1555,10 @@ public final class DrawManager {
         int leftCircleX = (screenWidth - 220) / 2;
         int rightCircleX = screenWidth - (screenWidth - 220) / 2 - 70;
         int sideCircleY = SEPARATION_LINE_HEIGHT * 5;	
+
 		backBufferGraphics.setColor(Color.GREEN);
+
+
 
 		if (option == 8){
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
@@ -1671,16 +1696,6 @@ public final class DrawManager {
 		g2.draw(new Rectangle2D.Double(box2_x - 1, y - 1, box2_W + 1, box1_H + 1));
 
 		timercount++;
-	}
-
-
-	public void drawEnhanceElem(final Screen screen, int enhanceStone, int numEnhanceArea,
-			int numEnhanceDamage) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString("Reinforced Stone: " + Integer.toString(enhanceStone), 20, 25);
-		// Ship dummyShip = new Ship(0, 0);
-		// drawEntity(dummyShip, 40 + 35, 10);
 	}
 
 	public void gameOver(final Screen screen, boolean levelFinished, double lives, double time){

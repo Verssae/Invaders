@@ -1,8 +1,8 @@
 package entity;
 
 import engine.DrawManager;
-
 import java.awt.Color;
+import engine.DrawManager.SpriteType;
 
 public class EnhanceStone extends Item{
     /** Current Value of Enhancement Area. */
@@ -22,6 +22,7 @@ public class EnhanceStone extends Item{
         this.valEnhanceArea = 1;
         this.valEnhanceAttack = 1;
     }
+    
     public int getValEnhanceArea() {
         return this.valEnhanceArea;
     }
