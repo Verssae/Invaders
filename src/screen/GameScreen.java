@@ -7,6 +7,10 @@ import java.util.Set;
 
 import engine.*;
 import entity.*;
+import javax.swing.*;
+
+
+
 /**
  * Implements the game screen, where the action happens.
  *
@@ -80,6 +84,8 @@ public class GameScreen extends Screen {
 	private BulletLine bulletLine;
 	/** Current score. */
 	private int score;
+	/** Current coin. */
+	private Coin coin;
 	/** Player lives left. */
 	private double lives;
 	/** Total bullets shot by the player. */
@@ -89,7 +95,7 @@ public class GameScreen extends Screen {
 	/** Moment the game starts. */
 	private long gameStartTime;
 	/** Checks if the level is finished. */
-	private boolean levelFinished;
+	public boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
 	/** Checks if the game is hardcore. */
@@ -104,6 +110,7 @@ public class GameScreen extends Screen {
 	private int colorVariable;
 	private int BulletsCount = 99;
 	private int attackDamage;
+	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
 	/** Combo counting*/
 	private int combo=0;
@@ -130,10 +137,12 @@ public class GameScreen extends Screen {
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
+
 		this.gameSettings = gameSettings;
 		//this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
+		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
 		//if (this.bonusLife)
 		//this.lives++;
@@ -143,18 +152,21 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
 			LASER_INTERVAL = 3000;
 			LASER_VARIANCE = 500;
 			LASER_LOAD = 1500;
 		}
-
 	}
 
-	/**
-	 * Initializes basic screen properties, and adds necessary elements.
-	 */
+
+
+
+		/**
+         * Initializes basic screen properties, and adds necessary elements.
+         */
 	public final void initialize() {
 		super.initialize();
 
@@ -194,6 +206,7 @@ public class GameScreen extends Screen {
 
 //		bgm.InGame_bgm_stop();
 		bgm.InGame_bgm_play();
+
 
 		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
@@ -445,6 +458,7 @@ public class GameScreen extends Screen {
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
+		drawManager.drawCoin(this, this.coin, 0);
 		//drawManager.drawLives(this, this.lives);
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
@@ -460,6 +474,7 @@ public class GameScreen extends Screen {
 		drawManager.drawGhost(this.ship, this.levelFinished, this.lives);//, System.currentTimeMillis());
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
 
+		
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
@@ -485,7 +500,10 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
-	}
+
+
+		}
+
 
 	/**
 	 * Cleans bullets that go off screen.
@@ -725,7 +743,7 @@ public class GameScreen extends Screen {
 	 * @return Current game state.
 	 */
 	public final GameState getGameState() {
-		return new GameState(this.level, this.score, this.lives,
+		return new GameState(this.level, this.score, this.coin, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives);
 	}
 }

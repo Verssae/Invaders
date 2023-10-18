@@ -82,6 +82,8 @@ public class GameScreen_2P extends Screen {
     private BGM bgm;
     /** Current score. */
     private int score;
+    /** Current coin. */
+    private Coin coin;
     /** Player lives left. */
     private double lives_1p;
     private double lives_2p;
@@ -105,8 +107,10 @@ public class GameScreen_2P extends Screen {
     private boolean isItemAllEat;
     /** Check what color will be displayed*/
     private int colorVariable;
-    private int attackDamage;
-    private int areaDamage;
+	/** Current Value of Enhancement  Area. */
+	private int attackDamage;
+	/** Current Value of Enhancement  Attack. */
+	private int areaDamage;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -130,6 +134,7 @@ public class GameScreen_2P extends Screen {
         this.gameSettings = gameSettings;
         this.level = gameState.getLevel();
         this.score = gameState.getScore();
+        this.coin = gameState.getCoin();
         this.lives_1p = gameState.getLivesRemaining();
         this.lives_2p = gameState.getLivesRemaining();
         //if (this.bonusLife)
@@ -140,6 +145,7 @@ public class GameScreen_2P extends Screen {
         this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
             LASER_INTERVAL = 3000;
@@ -417,6 +423,7 @@ public class GameScreen_2P extends Screen {
         if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
             this.isRunning = false;
         }
+
     }
     /**
      * when the stage end, eat all dropped item.
@@ -769,7 +776,7 @@ public class GameScreen_2P extends Screen {
      * @return Current game state.
      */
     public final GameState getGameState() {
-        return new GameState(this.level, this.score, this.lives_1p,
+        return new GameState(this.level, this.score, this.coin, this.lives_1p,
                 this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives_2p);
     }
 }
