@@ -544,27 +544,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 
 		// Updates the list of ships that can shoot the player.
-		if (this.shooters.contains(destroyedShip)) {
-			int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
-			int destroyedShipColumnIndex = -1;
-
-			for (List<EnemyShip> column : this.enemyShips)
-				if (column.contains(destroyedShip)) {
-					destroyedShipColumnIndex = this.enemyShips.indexOf(column);
-					break;
-				}
-
-			EnemyShip nextShooter = getNextShooter(this.enemyShips
-					.get(destroyedShipColumnIndex));
-
-			if (nextShooter != null)
-				this.shooters.set(destroyedShipIndex, nextShooter);
-			else {
-				this.shooters.remove(destroyedShipIndex);
-				this.logger.info("Shooters list reduced to "
-						+ this.shooters.size() + " members.");
-			}
-		}
 		if(this.shooters.contains(destroyedShip)){
 			int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
 			int destroyedShipColumnIndex = -1;
@@ -576,7 +555,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 			}
 			List<EnemyShip> column = this.enemyShips.get(destroyedShipColumnIndex);
-			int destroyedShipRowIndex = -1;
+			int destroyedShipRowIndex = column.indexOf(destroyedShip);
+			EnemyShip nextShooter = getNextShooter(column, destroyedShipRowIndex);
+			if (nextShooter != null)
+				this.shooters.set(destroyedShipIndex, nextShooter);
+			else {
+				this.shooters.remove(destroyedShipIndex);
+				this.logger.info("Shooters list reduced to "
+						+ this.shooters.size() + " members.");
+			}
+
 
 		}
 		this.shipCount--;
@@ -584,7 +572,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	/**
 	 * Gets the ship on a given column that will be in charge of shooting.
-	 * 
+	 * overload
 	 * @param column
 	 *            Column to search.
 	 * @return New shooter ship.
@@ -600,6 +588,50 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		return nextShooter;
 	}
+	/**
+	 * Gets the ship on a given column that will be in charge of shooting.
+	 *
+	 * @param column
+	 *            Column to search.
+	 * @param row
+	 * 			  row of destroyed EnemyShip
+	 * @return New shooter ship.
+	 */
+	public final EnemyShip getNextShooter(final List<EnemyShip> column, final int row) {
+		EnemyShip nextShooter = null;
+		for(int i = row + 1; i < column.size(); i++){
+			EnemyShip checkShip = column.get(i);
+			if (checkShip != null && !checkShip.isDestroyed())
+				nextShooter = checkShip;
+		}
+		if(nextShooter != null)
+			return nextShooter;
+		for(int i = row -1; i >= 0; i--){
+			EnemyShip checkShip = column.get(i);
+			if (checkShip != null && !checkShip.isDestroyed())
+				nextShooter = checkShip;
+				break;
+		}
+		return nextShooter;
+
+
+	}
+	/**public final EnemyShip getNextShooterForTest(final List<EnemyShip> column, final int row) {
+		List<Integer> indexList = new ArrayList<Integer>();
+		for(int i = 0; i < column.size(); i++){
+			indexList.add(i);
+		}
+		Collections.shuffle(indexList);
+		EnemyShip nextShooter = null;
+		for(int i = 0; i < indexList.size(); i++){
+			EnemyShip checkShip = column.get(indexList.get(i));
+			if (checkShip != null && !checkShip.isDestroyed() && row != i)
+				nextShooter = checkShip;
+		}
+
+		return nextShooter;
+	}
+	 */
 
 	/**
 	 * Returns an iterator over the ships in the formation.
@@ -667,23 +699,17 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 			List<EnemyShip> column = this.enemyShips.get(shooterColumnIndex);
 			int randomRowIndex = -1;
-			while(true){
-				randomRowIndex = (int) (Math.random() * (column.size() -1));
-				EnemyShip enemy = this.enemyShips.get(shooterColumnIndex).get(randomRowIndex);
-				if(enemy != null && !enemy.isDestroyed()){
-					shooterSet.add(enemy);
-					break;
-				}
+
+			randomRowIndex = (int) (Math.random() * (column.size() -1));
+			EnemyShip enemy = this.enemyShips.get(shooterColumnIndex).get(randomRowIndex);
+			if(enemy != null && !enemy.isDestroyed()){
+				shooterSet.add(enemy);
+
 			}
+
 
 		}
 		return shooterSet;
-		/** indexList를 섞어 랜덤하게 배열 */
-		/**Collections.shuffle(indexList);
-		 for(int i = 0; i < shootersAvailable; i++){
-		 shooterSet.add(this.shooters.get(indexList.get(i)));
-		 }
-		 // return shooterSet; */
 	}
 	/**
 	 * add additional shooters as player Level Up
