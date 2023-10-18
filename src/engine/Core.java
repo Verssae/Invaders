@@ -60,6 +60,7 @@ public final class Core {
 	 * difficulty of the game
 	 */
 	private static int difficulty = 1;
+
     /**
      * Difficulty settings for level 1.
      */
@@ -301,6 +302,7 @@ public final class Core {
 							&& gameState.getLevel() <= NUM_LEVELS);
 
 
+
 					// Recovery : Default State / Exit
 
                     currentScreen = new RecoveryScreen(width, height, FPS);
@@ -538,7 +540,6 @@ public final class Core {
     public static FileManager getFileManager() {
         return FileManager.getInstance();
     }
-
     /**
      * Controls creation of new cooldowns.
      *
@@ -559,5 +560,5 @@ public final class Core {
     public static Cooldown getVariableCooldown(final int milliseconds,
                                                final int variance) {
         return new Cooldown(milliseconds, variance);
-    } // commit test
+    }
 }

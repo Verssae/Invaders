@@ -76,8 +76,5 @@ public class Cooldown {
 	public int timePassed(){
 		return (int)(System.currentTimeMillis() - this.time);
 	}
-
-	public static void main (String[] args){
-		System.out.println("test");
-	}
+	public final int getMilliseconds() { return this.milliseconds; }
 }
