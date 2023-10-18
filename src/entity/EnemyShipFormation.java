@@ -720,5 +720,48 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		}
 		return increasingShooters;
 	}
+
+	public final void bombDestroy(Set<Item> items) {
+		int t = Math.min((int)(Math.random() * 10), (this.enemyShips.size()) - 1);
+		this.logger.info("Bomb detected " + t + " : column has removed");
+		List<EnemyShip> temp = this.enemyShips.get(t);
+		for(EnemyShip destroyedShip : temp){
+			for(int i = 0 ; i < temp.size(); i++){
+				if (temp.get(i).checkIsBoss()){
+					return;
+				}
+				if (temp.get(i).equals(destroyedShip)) {
+					temp.get(i).destroy(items);
+					this.logger.info("Destroyed ship in ("
+							+ this.enemyShips.indexOf(temp) + "," + i + ")");
+				}
+			}
+
+			// Updates the list of ships that can shoot the player.
+			if (this.shooters.contains(destroyedShip)) {
+				int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
+				int destroyedShipColumnIndex = -1;
+
+				for (List<EnemyShip> column : this.enemyShips)
+					if (column.contains(destroyedShip)) {
+						destroyedShipColumnIndex = this.enemyShips.indexOf(column);
+						break;
+					}
+
+				EnemyShip nextShooter = getNextShooter(this.enemyShips
+						.get(destroyedShipColumnIndex));
+
+				if (nextShooter != null)
+					this.shooters.set(destroyedShipIndex, nextShooter);
+				else {
+					this.shooters.remove(destroyedShipIndex);
+					this.logger.info("Shooters list reduced to "
+							+ this.shooters.size() + " members.");
+				}
+			}
+			this.shipCount--;
+		}
+	}
+
 }
 

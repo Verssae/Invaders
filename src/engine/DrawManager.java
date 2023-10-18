@@ -165,8 +165,12 @@ public final class DrawManager {
 		Buff_Item,
 		/** Debuff_item dummy sprite */
 		Debuff_Item,
-		/** Buff_item dummy sprite */
-		EnhanceStone;
+		Coin,
+		BlueEnhanceStone,
+		PerpleEnhanceStone,
+		ShipAShileded,
+		ShipBShileded,
+		ShipCShileded;
 	};
 
 	/**
@@ -235,9 +239,14 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion3, new boolean[12][8]);
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.Debuff_Item, new boolean[9][9]);
-			spriteMap.put(SpriteType.EnhanceStone, new boolean[8][8]);
+			spriteMap.put(SpriteType.BlueEnhanceStone, new boolean[8][8]);
+			spriteMap.put(SpriteType.PerpleEnhanceStone, new boolean[8][8]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
+			spriteMap.put(SpriteType.Coin, new boolean[7][7]);
+			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");

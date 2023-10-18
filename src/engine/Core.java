@@ -452,7 +452,6 @@ public final class Core {
     public static FileManager getFileManager() {
         return FileManager.getInstance();
     }
-
     /**
      * Controls creation of new cooldowns.
      *
@@ -473,5 +472,5 @@ public final class Core {
     public static Cooldown getVariableCooldown(final int milliseconds,
                                                final int variance) {
         return new Cooldown(milliseconds, variance);
-    } // commit test
+    }
 }
