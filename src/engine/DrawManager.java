@@ -1,32 +1,20 @@
 package engine;
 
+import entity.Entity;
+import screen.Screen;
+
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.font.GlyphVector;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage; // monster animation on a loading box
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.LocalTime; // blinkingColor(String color)
+import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
-
-import entity.Entity;
-import entity.Ship;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.Screen;
 
 /**
  * Manages screen drawing.
@@ -1760,5 +1748,12 @@ public final class DrawManager {
 	public void initBackgroundTimer(final Screen screen, int separationLineHeight){
 		bgTimer_init.reset();
 		bgTimer_lines.reset();
+	}
+
+	public void ComboCount(final Screen screen, final int ComboCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = String.format("%d", ComboCount)+" Combo" ;
+		backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 	}
 }
