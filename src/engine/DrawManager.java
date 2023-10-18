@@ -251,7 +251,6 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 
-
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
