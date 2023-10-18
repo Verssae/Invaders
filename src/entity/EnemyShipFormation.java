@@ -515,7 +515,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shootingCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED)); // (int)(Math.random() * BULLET_SPEED) + 1)
 				soundEffect.playEnemyShootingSound();
 				if(shooter.checkIsBoss()) {
 					bullets.add(BulletPool.getBullet(shooter.getPositionX()
@@ -565,7 +565,20 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 						+ this.shooters.size() + " members.");
 			}
 		}
+		if(this.shooters.contains(destroyedShip)){
+			int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
+			int destroyedShipColumnIndex = -1;
 
+			for(List<EnemyShip> column : this.enemyShips){
+				if(column.contains(destroyedShip)){
+					destroyedShipColumnIndex = this.enemyShips.indexOf(column);
+					break;
+				}
+			}
+			List<EnemyShip> column = this.enemyShips.get(destroyedShipColumnIndex);
+			int destroyedShipRowIndex = -1;
+
+		}
 		this.shipCount--;
 	}
 
@@ -640,12 +653,37 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for(int i = 0; i < this.shooters.size(); i++){
 			indexList.add(i);
 		}
-		/** indexList를 섞어 랜덤하게 배열 */
+		/** indexList를 셔플하고 임의의 열을 뽑는다. 또한 그 열에 대해서 임의의 행을 정하고
+		 * 열과 행이 정해지면 그 위치의 적을 shooter로 선정*/
 		Collections.shuffle(indexList);
 		for(int i = 0; i < shootersAvailable; i++){
-			shooterSet.add(this.shooters.get(indexList.get(i)));
+			EnemyShip shooter = this.shooters.get(indexList.get(i));
+			int shooterColumnIndex = -1;
+			for(List<EnemyShip> column: this.enemyShips){
+				if(column.contains(shooter)){
+					shooterColumnIndex = this.enemyShips.indexOf(column);
+					break;
+				}
+			}
+			List<EnemyShip> column = this.enemyShips.get(shooterColumnIndex);
+			int randomRowIndex = -1;
+			while(true){
+				randomRowIndex = (int) (Math.random() * (column.size() -1));
+				EnemyShip enemy = this.enemyShips.get(shooterColumnIndex).get(randomRowIndex);
+				if(enemy != null && !enemy.isDestroyed()){
+					shooterSet.add(enemy);
+					break;
+				}
+			}
+
 		}
 		return shooterSet;
+		/** indexList를 섞어 랜덤하게 배열 */
+		/**Collections.shuffle(indexList);
+		 for(int i = 0; i < shootersAvailable; i++){
+		 shooterSet.add(this.shooters.get(indexList.get(i)));
+		 }
+		 // return shooterSet; */
 	}
 	/**
 	 * add additional shooters as player Level Up
