@@ -65,8 +65,10 @@ public final class DrawManager {
 
 	private  static Font fontVeryBig;
 	public Cooldown endTimer = new Cooldown(3000);
-	private int endBright = 150;
-
+	public long ghostTImer;
+	public int ghostPostionX;
+	public int ghostPostionY;
+	public Color ghostColor = new Color(1, 1, 1);
 	/** Cooldown timer for background animation. */
 	private Cooldown bgTimer = new Cooldown(100);  // Draw bg interval
 	private int brightness = 0;  // Used as RGB values for changing colors
@@ -167,7 +169,6 @@ public final class DrawManager {
 		Buff_Item,
 		/** Debuff_item dummy sprite */
 		Debuff_Item,
-
 		/** Buff_item dummy sprite */
 		Coin,
 		BlueEnhanceStone,
@@ -176,8 +177,10 @@ public final class DrawManager {
 		ShipBShileded,
 		ShipCShileded,
         EnhanceStone,
-        gravestone,
-        Ghost;
+		//ShipCShileded,
+		gravestone,
+		Ghost;
+
 	};
 
 	/**
@@ -256,9 +259,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 			spriteMap.put(SpriteType.gravestone, new boolean[13][9]);
-			spriteMap.put(SpriteType.Ghost, new boolean[12][10]);
-
-
+			spriteMap.put(SpriteType.Ghost, new boolean[9][11]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
@@ -1614,8 +1615,15 @@ public final class DrawManager {
 		// Ship dummyShip = new Ship(0, 0);
 		// drawEntity(dummyShip, 40 + 35, 10);
 	}
-
-	public void gameOver(final Screen screen, boolean levelFinished, double lives, double time){
+	/**
+	 * Design the scene after the game ends.
+	 * [Clean Code Team] This method was created by 258xsw.
+	 *
+	 * @param screen
+	 * @param levelFinished
+	 * @param lives
+	 */
+	public void gameOver(final Screen screen, boolean levelFinished, double lives){
 		if(levelFinished){
 			if(lives == 0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
@@ -1632,10 +1640,38 @@ public final class DrawManager {
 			}
 		}
 	}
+	public void changeGhostColor(boolean levelFinished, double lives){
+		if(levelFinished && lives == 0) {
+			int ghostColorValue;
+			if (225 < (255 - ((int)(System.currentTimeMillis() - ghostTImer) / 10)))
+				ghostColorValue = 225;
+			else if (0 < (255 - ((int)(System.currentTimeMillis() - ghostTImer) / 10)))
+				ghostColorValue = (255 - ((int)(System.currentTimeMillis() - ghostTImer) / 10));
+			else
+				ghostColorValue = 0;
+			ghostColor = new Color(ghostColorValue, ghostColorValue, ghostColorValue, 0);
+			//backBufferGraphics.setColor(ghostColor);
+		}
+	}
 	public void drawGhost(Ship ship, boolean levelFinished, double lives){
-		if(levelFinished) {
-			if (lives == 0) {
-				this.drawEntity(SpriteType.Ghost, ship.getPositionX(), ship.getPositionY() + 2, 3, 3);
+		if(levelFinished && lives == 0) {
+			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
+			backBufferGraphics.setColor(ghostColor);
+			if(timer){
+				if(System.currentTimeMillis() - ghostTImer < 1000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2);
+				else if (System.currentTimeMillis() - ghostTImer < 2000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX++, ghostPostionY--, 2, 2);
+				else
+					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2);
+			}
+			else {
+				if(System.currentTimeMillis() - ghostTImer < 1000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX, ghostPostionY, 2, 2);
+				else if (System.currentTimeMillis() - ghostTImer < 2000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX, ghostPostionY, 2, 2);
+				else
+					this.drawEntity(SpriteType.Ghost, ghostPostionX, ghostPostionY, 2, 2);
 			}
 		}
 	}

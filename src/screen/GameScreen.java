@@ -294,7 +294,10 @@ public class GameScreen extends Screen {
 		}
 		if (this.lives == 0 && !this.levelFinished) {
 			this.levelFinished = true;
+			drawManager.ghostPostionX = this.ship.getPositionX();
+			drawManager.ghostPostionY = this.ship.getPositionY() - 25;
 			drawManager.endTimer.reset();
+			drawManager.ghostTImer = System.currentTimeMillis();
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
 		}
@@ -363,12 +366,13 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
+		drawManager.drawLevel(this, this.level);
 
 		//GameOver
-		drawManager.gameOver(this, this.levelFinished, this.lives, System.currentTimeMillis());
+		drawManager.gameOver(this, this.levelFinished, this.lives);
+		drawManager.changeGhostColor(this.levelFinished, this.lives);
+		drawManager.drawGhost(this.ship, this.levelFinished, this.lives);//, System.currentTimeMillis());
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
-		//drawManager.drawGhost(this.ship, this.levelFinished, this.lives);
-
 
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {

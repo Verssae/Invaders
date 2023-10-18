@@ -187,18 +187,18 @@ public class Ship extends Entity {
 			this.bulletEffectCooldown.reset();
 		} else if (item.spriteType == SpriteType.Item2) {
 			this.shipEffectCooldown.reset();
+=======
+>>>>>>> develop
 		if (item.spriteType == SpriteType.Buff_Item || item.spriteType == SpriteType.Debuff_Item) {
 			this.shipEffect.CooldownReset(item.getSpriteType());
 		}
 	}
 
+<<<<<<< HEAD
  */
 public final void gameEndShipMotion(boolean levelFinished, double lives){
 	if(levelFinished){
-		if(lives == 0 && this.positionY >= 465) {
-			this.positionY -= 1;
-			System.out.println(this.positionY);
-
+		if(lives == 0 ) {
 			this.setColor(Color.gray);
 			this.spriteType = SpriteType.gravestone;
 		}
