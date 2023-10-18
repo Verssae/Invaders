@@ -18,6 +18,7 @@ public class GameSettings {
 	private int shootingFrecuency;
 	/** Difficulty of Game */
 	private double difficulty;
+	/** Check if the stage is boss stage. */
 	private boolean isBossStage;
 
 	private int baseAreaDamage;
