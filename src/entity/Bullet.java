@@ -57,9 +57,10 @@ public class Bullet extends Entity {
 	 */
 	public Bullet(final int positionX, final int positionY, final int speed, SpriteType bulletType) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
-
+		this.bulletEffect = new BulletEffect(this);
 		this.speed = speed;
 		this.spriteType = bulletType;
+		this.effectBullet = 0;
 	}
 
 	/**
