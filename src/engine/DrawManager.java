@@ -1,32 +1,20 @@
 package engine;
 
+import entity.Entity;
+import screen.Screen;
+
 import java.awt.*;
-import java.awt.geom.Point2D;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.font.GlyphVector;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage; // monster animation on a loading box
+import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.time.LocalTime; // blinkingColor(String color)
+import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
-
-import entity.Entity;
-import entity.Ship;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.Screen;
 
 /**
  * Manages screen drawing.
@@ -167,19 +155,35 @@ public final class DrawManager {
 		Buff_Item,
 		/** Debuff_item dummy sprite */
 		Debuff_Item,
+<<<<<<< HEAD
 		/** Buff_item dummy sprite */
 		EnhanceStone,
+=======
+
+		/** Buff_item dummy sprite */
+		EnhanceStone,
+		/** Laser */
+		Laser,
+		/** Laserline */
+		LaserLine,
+>>>>>>> origin/dev
 		Coin,
 		BlueEnhanceStone,
 		PerpleEnhanceStone,
 		ShipAShileded,
 		ShipBShileded,
+<<<<<<< HEAD
 		ShipCShileded,
 		/** Laser */
 		Laser,
 		/** Laserline */
 		LaserLine;
 	};
+=======
+		ShipCShileded
+
+	}
+>>>>>>> origin/dev
 
 	/**
 	 * Private constructor.
@@ -251,13 +255,21 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.PerpleEnhanceStone, new boolean[8][8]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
+<<<<<<< HEAD
+=======
+			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
+			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
+>>>>>>> origin/dev
 			spriteMap.put(SpriteType.Coin, new boolean[7][7]);
 			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
+<<<<<<< HEAD
 			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
 			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
+=======
+>>>>>>> origin/dev
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
@@ -1868,5 +1880,12 @@ public final class DrawManager {
 	public void initBackgroundTimer(final Screen screen, int separationLineHeight){
 		bgTimer_init.reset();
 		bgTimer_lines.reset();
+	}
+
+	public void ComboCount(final Screen screen, final int ComboCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = String.format("%d", ComboCount)+" Combo" ;
+		backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 	}
 }

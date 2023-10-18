@@ -292,7 +292,7 @@ public final class Core {
                     // }
 
 					if (returnCode == 1) { //Quit during the game
-						currentScreen = new TitleScreen(width, height, FPS);
+ 						currentScreen = new TitleScreen(width, height, FPS);
 						break;
 					}
 
