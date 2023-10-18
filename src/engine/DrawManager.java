@@ -249,7 +249,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
-			spriteMap.put(SpriteType.Explosion3, new boolean[10][10]);
+			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 
 
 			fileManager.loadSprite(spriteMap);
