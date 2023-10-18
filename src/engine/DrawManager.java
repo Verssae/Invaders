@@ -1106,6 +1106,39 @@ public final class DrawManager {
 		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
 	}
 
+
+	public void drawDiffScore(final Screen screen, final int difficulty) {
+		String EasyString = "EASY";
+		String NormalString = "NORMAL";
+		String HardString = "HARD";
+		String HardCoreString = "HARDCORE";
+
+		backBufferGraphics.setFont(fontRegular);
+		if (difficulty == 0)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("GRAY"));
+		backBufferGraphics.drawString(EasyString, screen.getWidth() / 8
+				- fontRegularMetrics.stringWidth(EasyString) / 2, screen.getHeight() * 2/7);
+		if (difficulty == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("GRAY"));
+		backBufferGraphics.drawString(NormalString, screen.getWidth() * 3 / 8
+				- fontRegularMetrics.stringWidth(NormalString) / 2, screen.getHeight() * 2/7);
+		if (difficulty == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("GRAY"));
+		backBufferGraphics.drawString(HardString, screen.getWidth() * 5 / 8
+				- fontRegularMetrics.stringWidth(HardString) / 2, screen.getHeight() * 2/7);
+		if (difficulty == 3)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("GRAY"));
+		backBufferGraphics.drawString(HardCoreString, screen.getWidth() * 7 / 8
+				- fontRegularMetrics.stringWidth(HardCoreString) / 2, screen.getHeight() * 2/7);
+	}
 	/**
 	 * Draws high score screen title and instructions.
 	 *
@@ -1137,13 +1170,16 @@ public final class DrawManager {
 		backBufferGraphics.setColor(blinkingColor("WHITE"));
 		int i = 0;
 		String scoreString = "";
+		String rank[] = {"1st", "2nd", "3th", "4th", "5th"};
 
 		for (Score score : highScores) {
-			scoreString = String.format("%s        %04d", score.getName(),
+			scoreString = String.format("%s        %s        %04d", rank[i], score.getName(),
 					score.getScore());
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
-					/ 4 + fontRegularMetrics.getHeight() * (i + 1) * 2);
+					/ 3 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
+			if (i > 5)
+				break;
 		}
 	}
 

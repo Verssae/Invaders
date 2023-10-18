@@ -165,7 +165,7 @@ public class GameScreen extends Screen {
 		this.enemyShipSpecialCooldown.reset();
 		this.enemyShipSpecialExplosionCooldown = Core
 				.getCooldown(BONUS_SHIP_EXPLOSION);
-		// Appears each 5-10 seconds.
+		// Laser appears each (4~6 or 2.5~3.5) seconds, be loaded for 2 or 1.5 seconds and takes a second for launch)
 		this.nextLaserX = -1;
 		this.laser = null;
 		this.laserCooldown = Core.getVariableCooldown(
