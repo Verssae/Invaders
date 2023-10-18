@@ -312,7 +312,7 @@ public final class Core {
 
 
 
-					if (returnCode == 30) {// Continuing game with default state
+					if (returnCode == 30) { // Continuing game in same state (Ship: default state)
 						gameState.setLivesRecovery();
 						do { currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel()-1),
