@@ -1741,7 +1741,7 @@ public final class DrawManager {
 		timercount++;
 	}
 
-	public void gameOver(final Screen screen, boolean levelFinished, double lives, double time){
+	public void gameOver(final Screen screen, boolean levelFinished, double lives){
 		if(levelFinished){
 			if(lives == 0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
