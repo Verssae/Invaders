@@ -136,14 +136,14 @@ public final class FileManager {
 	 * @throws IOException
 	 *                     In case of loading problems.
 	 */
-	private List<Score> loadDefaultHighScores() throws IOException {
+	private List<Score> loadDefaultHighScores(final int difficulty) throws IOException {
 		List<Score> highScores = new ArrayList<Score>();
 		InputStream inputStream = null;
 		BufferedReader reader = null;
 
 		try {
 			inputStream = FileManager.class.getClassLoader()
-					.getResourceAsStream("scores");
+					.getResourceAsStream("scores" + difficulty);
 			reader = new BufferedReader(new InputStreamReader(inputStream));
 
 			Score highScore = null;
@@ -172,7 +172,7 @@ public final class FileManager {
 	 * @throws IOException
 	 *                     In case of loading problems.
 	 */
-	public List<Score> loadHighScores() throws IOException {
+	public List<Score> loadHighScores(final int difficulty) throws IOException {
 
 		List<Score> highScores = new ArrayList<Score>();
 		InputStream inputStream = null;
@@ -186,7 +186,7 @@ public final class FileManager {
 			String scoresPath = new File(jarPath).getParent();
 			scoresPath += File.separator;
 			scoresPath += "scores";
-
+			scoresPath += difficulty;
 			File scoresFile = new File(scoresPath);
 			inputStream = new FileInputStream(scoresFile);
 			bufferedReader = new BufferedReader(new InputStreamReader(
@@ -208,7 +208,7 @@ public final class FileManager {
 		} catch (FileNotFoundException e) {
 			// loads default if there's no user scores.
 			logger.info("Loading default high scores.");
-			highScores = loadDefaultHighScores();
+			highScores = loadDefaultHighScores(difficulty);
 		} finally {
 			if (bufferedReader != null)
 				bufferedReader.close();
@@ -226,7 +226,7 @@ public final class FileManager {
 	 * @throws IOException
 	 *                     In case of loading problems.
 	 */
-	public void saveHighScores(final List<Score> highScores)
+	public void saveHighScores(final List<Score> highScores, final int difficulty)
 			throws IOException {
 		OutputStream outputStream = null;
 		BufferedWriter bufferedWriter = null;
@@ -240,7 +240,7 @@ public final class FileManager {
 			scoresPath += File.separator;
 			scoresPath += "scores";
 
-			File scoresFile = new File(scoresPath);
+			File scoresFile = new File(scoresPath + difficulty);
 
 			if (!scoresFile.exists())
 				scoresFile.createNewFile();

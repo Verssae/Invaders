@@ -463,16 +463,13 @@ public final class Core {
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
                                 gameState.getLivesRemaining_2p());
-
                     } while (gameState.getLivesRemaining() > 0
                             && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
-                        frame.setScreen(currentScreen);
                         break;
                     }
-
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
