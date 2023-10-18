@@ -161,6 +161,8 @@ public final class DrawManager {
 		Explosion2,
 		/** Destroyed enemy ship3. */
 		Explosion3,
+		/** Destroyed enemy ship4. */
+		Explosion4,
 		/** Buff_item dummy sprite*/
 		Buff_Item,
 		/** Debuff_item dummy sprite */
@@ -247,6 +249,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
+			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
