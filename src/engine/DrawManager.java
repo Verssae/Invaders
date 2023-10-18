@@ -1,6 +1,7 @@
 package engine;
 
 import entity.Entity;
+import entity.Ship;
 import screen.Screen;
 
 import java.awt.*;
@@ -157,32 +158,22 @@ public final class DrawManager {
 		Buff_Item,
 		/** Debuff_item dummy sprite */
 		Debuff_Item,
-		/** Buff_item dummy sprite */
-<<<<<<< HEAD
-		EnhanceStone,
 		/** Laser */
 		Laser,
 		/** Laserline */
 		LaserLine,
-=======
->>>>>>> upstream/main
 		Coin,
 		BlueEnhanceStone,
 		PerpleEnhanceStone,
 		ShipAShileded,
 		ShipBShileded,
-<<<<<<< HEAD
-		ShipCShileded;
-	}
-=======
 		ShipCShileded,
         EnhanceStone,
 		//ShipCShileded,
 		gravestone,
 		Ghost;
-
 	};
->>>>>>> upstream/main
+
 
 	/**
 	 * Private constructor.
@@ -261,12 +252,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
-<<<<<<< HEAD
-=======
 			spriteMap.put(SpriteType.gravestone, new boolean[13][9]);
 			spriteMap.put(SpriteType.Ghost, new boolean[9][11]);
-
->>>>>>> upstream/main
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 

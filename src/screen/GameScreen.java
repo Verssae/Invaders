@@ -360,11 +360,8 @@ public class GameScreen extends Screen {
 		}
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
 			endStageAllEat();
-//<<<<<<< HEAD
 			bgm.enemyShipSpecialbgm_stop();
-//=======
 			bgm.InGame_bgm_stop();
-//>>>>>>> f-bgm
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
 		}
@@ -454,20 +451,15 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
-<<<<<<< HEAD
 		if (combo !=0) {
 			drawManager.ComboCount(this, this.combo);
 		}
-=======
-		drawManager.drawLevel(this, this.level);
-
 		//GameOver
 		drawManager.gameOver(this, this.levelFinished, this.lives);
 		drawManager.changeGhostColor(this.levelFinished, this.lives);
 		drawManager.drawGhost(this.ship, this.levelFinished, this.lives);//, System.currentTimeMillis());
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
 
->>>>>>> upstream/main
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
