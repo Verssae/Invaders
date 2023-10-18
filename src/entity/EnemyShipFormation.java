@@ -171,7 +171,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					Random rnd = new Random();
 					int r, r2, g, b;
 					r = rnd.nextInt(200);
-					r2 = rnd.nextInt(80,180);
+					r2 = rnd.nextInt(100) + 80;
 					g = rnd.nextInt(200);
 					b = rnd.nextInt(200);
 					Color color = new Color(r, g, b);

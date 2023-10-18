@@ -523,6 +523,7 @@ public class GameScreen extends Screen {
 							this.ship.destroy();
 							if (this.lives != 1) soundEffect.playShipCollisionSound();
 							this.lives--;
+							if (gameSettings.getDifficulty() == 3) this.lives = 0;
 							this.logger.info("Hit on player ship, " + this.lives
 									+ " lives remaining.");
 						}
@@ -562,6 +563,7 @@ public class GameScreen extends Screen {
 					this.ship.destroy();
 					if (this.lives != 1) soundEffect.playShipCollisionSound();
 					this.lives--;
+					if (gameSettings.getDifficulty() == 3) this.lives = 0;
 					this.logger.info("Hit on player ship, " + this.lives
 							+ " lives remaining.");
 				}
@@ -580,15 +582,11 @@ public class GameScreen extends Screen {
 				this.ship.checkGetItem(item);
 			}
 		}
-<<<<<<< HEAD
-
-=======
 		for (Bullet bullet : recyclableBullet) {
 			if (bullet.getSpeed() < 0 && bullet.isEffectBullet() == 0) {
 				bullet.splash(this.bullets);
 			}
 		}
->>>>>>> upstream/main
 		this.items.removeAll(recyclableItem);
 		this.bullets.removeAll(recyclableBullet);
 		ItemPool.recycle(recyclableItem);
