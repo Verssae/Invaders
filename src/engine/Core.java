@@ -14,7 +14,6 @@ import java.util.logging.*;
  */
 public final class Core {
     private static BGM outgame_bgm;
-
     /**
      * Width of current screen.
      */
@@ -27,25 +26,6 @@ public final class Core {
      * Max fps of current screen.
      */
     private static final int FPS = 60;
-//
-//<<<<<<< HEAD
-//    /**
-//     * Max lives.
-//     */
-//    private static final int MAX_LIVES = 3;
-//    /**
-//     * Levels between extra life.
-//     */
-//    private static final int EXTRA_LIFE_FRECUENCY = 3;
-//    /**
-//     * Total number of levels.
-//     */
-//    private static final int NUM_LEVELS = 7;
-//    /**
-//     * difficulty of the game
-//     */
-//    private static int difficulty = 1;
-//=======
 	/**
 	 * Max lives.
 	 */
@@ -62,7 +42,6 @@ public final class Core {
 	 * difficulty of the game
 	 */
 	private static int difficulty = 1;
-//>>>>>>> 1d273b166703777df1e6cfe87f2add5620c73604
 
     /**
      * Difficulty settings for level 1.
@@ -168,45 +147,13 @@ public final class Core {
 
         int returnCode = 1;
         do {
-            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false);
+            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false,MAX_LIVES);
             enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
-//<<<<<<< HEAD
             switch (returnCode) {
                 case 1:
                     // Main menu.
                     currentScreen = new TitleScreen(width, height, FPS);
-//=======
-//				case 2:
-//					currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
-//					LOGGER.info("Select Difficulty");
-//					difficulty = frame.setScreen(currentScreen);
-//					if (difficulty == 4) {
-//						returnCode = 1;
-//						LOGGER.info("Go Main");
-//						break;
-//					} else {
-//						gameSettings = new ArrayList<GameSettings>();
-//						if (difficulty == 3)
-//							gameState.setHardCore();
-//						LOGGER.info("Difficulty : " + difficulty);
-//						SETTINGS_LEVEL_1.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_2.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_3.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_4.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_5.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_6.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_7.setDifficulty(difficulty);
-//						SETTINGS_LEVEL_8.setDifficulty(difficulty);
-//						gameSettings.add(SETTINGS_LEVEL_1);
-//						gameSettings.add(SETTINGS_LEVEL_2);
-//						gameSettings.add(SETTINGS_LEVEL_3);
-//						gameSettings.add(SETTINGS_LEVEL_4);
-//						gameSettings.add(SETTINGS_LEVEL_5);
-//						gameSettings.add(SETTINGS_LEVEL_6);
-//						gameSettings.add(SETTINGS_LEVEL_7);
-//						gameSettings.add(SETTINGS_LEVEL_8);
-//>>>>>>> 1d273b166703777df1e6cfe87f2add5620c73604
 
                     outgame_bgm.OutGame_bgm_play(); //대기화면 비지엠 (수정중)
 
@@ -243,6 +190,7 @@ public final class Core {
                         SETTINGS_LEVEL_5.setDifficulty(difficulty);
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_8.setDifficulty(difficulty);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -250,6 +198,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_5);
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
+                        gameSettings.add(SETTINGS_LEVEL_8);
 
                     }
 
@@ -283,48 +232,50 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                gameState.getLivesRemaining_2p());
 
 
-                        // SubMenu : Item Store / Enhancement / Continue
-                        do{
-                            if (gameState.getLivesRemaining() <= 0) { break; }
-                            if (!boxOpen){
-                                currentScreen = new RandomBoxScreen(width, height, FPS);
-                                returnCode = frame.setScreen(currentScreen);
-                                boxOpen = true;
-                                currentScreen = new RandomRewardScreen(width, height, FPS);
-                                returnCode = frame.setScreen(currentScreen);
-                            }
-                            if (isInitMenuScreen || currentScreen.returnCode == 5) {
-                                currentScreen = new SubMenuScreen(width, height, FPS);
-                                LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                                        + " subMenu screen at " + FPS + " fps.");
-                                returnCode = frame.setScreen(currentScreen);
-                                LOGGER.info("Closing subMenu screen.");
-                                isInitMenuScreen = false;
-                            }
-                            if (currentScreen.returnCode == 6) {
-                                currentScreen = new StoreScreen(width, height, FPS);
-                                LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                                        + " store screen at " + FPS + " fps.");
-                                returnCode = frame.setScreen(currentScreen);
-                                LOGGER.info("Closing subMenu screen.");
-                            }
-                            if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
-                                currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
-                                gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
-                                enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
-                                LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                                        + " enhance screen at " + FPS + " fps.");
-                                returnCode = frame.setScreen(currentScreen);
-                                LOGGER.info("Closing subMenu screen.");
-                            }
-                        } while (currentScreen.returnCode != 2);
-                        boxOpen = false;
-                        isInitMenuScreen = true;
-                    } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS);
+						// SubMenu : Item Store / Enhancement / Continue
+						do{
+							if (gameState.getLivesRemaining() <= 0) { break; }
+							if (!boxOpen){
+								currentScreen = new RandomBoxScreen(width, height, FPS);
+								returnCode = frame.setScreen(currentScreen);
+								boxOpen = true;
+								currentScreen = new RandomRewardScreen(width, height, FPS);
+								returnCode = frame.setScreen(currentScreen);
+							}
+							if (isInitMenuScreen || currentScreen.returnCode == 5) {
+								currentScreen = new SubMenuScreen(width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " subMenu screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+								isInitMenuScreen = false;
+							}
+							if (currentScreen.returnCode == 6) {
+								currentScreen = new StoreScreen(width, height, FPS);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " store screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							}
+							if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+								currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
+								gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
+								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ " enhance screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							}
+						} while (currentScreen.returnCode != 2);
+						boxOpen = false;
+						isInitMenuScreen = true;
+					} while (gameState.getLivesRemaining() > 0
+							&& gameState.getLevel() <= NUM_LEVELS);
+
 
                     // Recovery :
 
@@ -422,10 +373,11 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                gameState.getLivesRemaining_2p());
 
                     } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS);
+                            && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
@@ -442,6 +394,9 @@ public final class Core {
                             + gameState.getShipsDestroyed() + " ships destroyed.");
                     currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
+                    if(returnCode==2){
+                        returnCode=4;
+                    }
                     LOGGER.info("Closing score screen.");
                     break;
                 default:
@@ -497,7 +452,6 @@ public final class Core {
     public static FileManager getFileManager() {
         return FileManager.getInstance();
     }
-
     /**
      * Controls creation of new cooldowns.
      *
@@ -518,5 +472,5 @@ public final class Core {
     public static Cooldown getVariableCooldown(final int milliseconds,
                                                final int variance) {
         return new Cooldown(milliseconds, variance);
-    } // commit test
+    }
 }
