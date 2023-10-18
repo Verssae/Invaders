@@ -615,19 +615,11 @@ public class GameScreen extends Screen {
 				this.ship.checkGetItem(item);
 			}
 		}
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev
 		for (Bullet bullet : recyclableBullet) {
 			if (bullet.getSpeed() < 0 && bullet.isEffectBullet() == 0) {
 				bullet.splash(this.bullets);
 			}
 		}
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/dev
 		this.items.removeAll(recyclableItem);
 		this.bullets.removeAll(recyclableBullet);
 		ItemPool.recycle(recyclableItem);

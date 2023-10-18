@@ -155,35 +155,19 @@ public final class DrawManager {
 		Buff_Item,
 		/** Debuff_item dummy sprite */
 		Debuff_Item,
-<<<<<<< HEAD
-		/** Buff_item dummy sprite */
-		EnhanceStone,
-=======
-
 		/** Buff_item dummy sprite */
 		EnhanceStone,
 		/** Laser */
 		Laser,
 		/** Laserline */
 		LaserLine,
->>>>>>> origin/dev
 		Coin,
 		BlueEnhanceStone,
 		PerpleEnhanceStone,
 		ShipAShileded,
 		ShipBShileded,
-<<<<<<< HEAD
-		ShipCShileded,
-		/** Laser */
-		Laser,
-		/** Laserline */
-		LaserLine;
-	};
-=======
-		ShipCShileded
-
+		ShipCShileded;
 	}
->>>>>>> origin/dev
 
 	/**
 	 * Private constructor.
@@ -255,22 +239,13 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.PerpleEnhanceStone, new boolean[8][8]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
-<<<<<<< HEAD
-=======
 			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
 			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
->>>>>>> origin/dev
 			spriteMap.put(SpriteType.Coin, new boolean[7][7]);
 			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipCShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
-<<<<<<< HEAD
-			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
-			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
-=======
->>>>>>> origin/dev
-
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
