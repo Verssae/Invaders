@@ -30,6 +30,8 @@ import entity.Ship;
 import screen.GameScreen;
 import screen.GameScreen_2P;
 import screen.Screen;
+import java.awt.image.RescaleOp;
+
 /**
  * Manages screen drawing.
  *
@@ -82,13 +84,18 @@ public final class DrawManager {
 
 	public int timercount = 0;
 
+
+	//BufferedImage img1, img2, img3, img4;
+
+
 	public int vector_x= 200, vector_y= 200, directionX = new Random().nextBoolean() ? 1 : -1,
 			directionY = new Random().nextBoolean() ? 1 : -1;
 	public Cooldown pump = new Cooldown(1000);
+
 	boolean isFirst = true;
 
-	public String getRandomCoin;
 	int bigger = 36, direction = 1;
+	public String getRandomCoin;
 
 	/** Sprite types. */
 	public static enum SpriteType {
@@ -178,6 +185,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Buff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.Debuff_Item, new boolean[9][9]);
 			spriteMap.put(SpriteType.EnhanceStone, new boolean[8][8]);
+			spriteMap.put(SpriteType.EnhanceStone, new boolean[7][7]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
 
@@ -243,6 +251,8 @@ public final class DrawManager {
 		fontRegularMetrics = backBufferGraphics.getFontMetrics(fontRegular);
 		fontBigMetrics = backBufferGraphics.getFontMetrics(fontBig);
 
+		// drawBorders(screen);
+		// drawGrid(screen);
 	}
 
 	/**
@@ -442,25 +452,6 @@ public final class DrawManager {
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 65);
 	}
 
-
-	public void drawTimer(final Screen screen, final long elapsedTime) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
-		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
-	}
-
-	private String formatTime(long elapsedTime) {
-		// Convert milliseconds to a formatted time string (e.g., "00:00:00")
-		long totalSeconds = elapsedTime / 1000;
-		long minutes = totalSeconds / 60;
-		long seconds = totalSeconds % 60;
-
-		return String.format("%02d:%02d", minutes, seconds);
-	}
-
-
-
 	/**
 	 * Draws number of remaining lives on screen.
 	 *
@@ -469,16 +460,6 @@ public final class DrawManager {
 	 * @param lives
 	 *               Current lives.
 	 */
-	public void drawLives(final Screen screen, final int lives) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.drawString(Integer.toString(lives), 20, 25);
-		Ship dummyShip = new Ship(0, 0);
-		for (int i = 0; i < lives; i++)
-			drawEntity(dummyShip, 40 + 35 * i, 10);
-	}
-
-
 
 	public void drawLivesbar(final Screen screen, final double lives) {
 		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
@@ -795,7 +776,7 @@ public final class DrawManager {
 		
 		String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
-	
+
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() / 2);
@@ -1341,7 +1322,7 @@ public final class DrawManager {
 		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
 		backBufferGraphics.setColor(Color.YELLOW);
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) - 10, screen.getHeight()/8 - 8);
+		// backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) - 10, screen.getHeight()/8 - 8);
 		drawHorizontalLine(screen, screen.getHeight()/14);
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -1373,12 +1354,12 @@ public final class DrawManager {
 	 */
 
 	public void drawSkinStore(final Screen screen, final int option) {
-		Coin coinInstance = new Coin();
-		int coinValue = coinInstance.getCoin();
+		// Coin coinInstance = new Coin();
+		// int coinValue = coinInstance.getCoin();
 
 		String skinStoreTxt = " S K I N S T O R E";
 		String buyString = " B U Y";
-		String coinString = " C O I N : " + coinValue;
+		// String coinString = " C O I N : " + coinValue;
 		String gameAgain = " C O N T I N U E";
 
 		int rectWidth = screen.getWidth();
@@ -1389,7 +1370,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.GREEN);
 		drawCenteredRegularString(screen, skinStoreTxt,	screen.getHeight()/4 - 80);
 		backBufferGraphics.setColor(Color.YELLOW);
-		backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
+		// backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
 
 		if (option == 16)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -1484,7 +1465,6 @@ public final class DrawManager {
         int leftCircleX = (screenWidth - 220) / 2;
         int rightCircleX = screenWidth - (screenWidth - 220) / 2 - 70;
         int sideCircleY = SEPARATION_LINE_HEIGHT * 5;	
-
 		backBufferGraphics.setColor(Color.GREEN);
 
 		if (option == 8){

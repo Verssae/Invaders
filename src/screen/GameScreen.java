@@ -1,5 +1,8 @@
 package screen;
 
+import engine.*;
+import entity.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
@@ -9,6 +12,7 @@ import engine.*;
 import entity.*;
 
 import javax.swing.*;
+
 
 /**
  * Implements the game screen, where the action happens.
@@ -162,6 +166,9 @@ public class GameScreen extends Screen {
 		bgm = new BGM();
 
 		bgm.InGame_bgm_play();
+
+
+		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
 
 	/**

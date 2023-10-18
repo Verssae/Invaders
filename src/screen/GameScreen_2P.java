@@ -88,7 +88,6 @@ public class GameScreen_2P extends Screen {
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
 
-
     /**
      * Constructor, establishes the properties of the screen.
      *

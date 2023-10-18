@@ -119,7 +119,6 @@ public class GameState {
 	/**
 	 * Set LivesRecovery
 	 */
-
 	 public final void setLivesRecovery() {
 		this.score = getScore() + 100; // keeping score 
 		this.level = getLevel() -1; 

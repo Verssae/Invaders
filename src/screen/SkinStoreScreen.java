@@ -13,6 +13,7 @@ public class SkinStoreScreen extends Screen {
   
      /** Time between changes in user selection. */
      private Cooldown selectionCooldown;
+
      private int enhanceStone = 0;
      private int numEnhanceArea = 0;
      private int numEnhanceDamage = 0;
