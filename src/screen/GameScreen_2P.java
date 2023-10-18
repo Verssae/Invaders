@@ -82,6 +82,8 @@ public class GameScreen_2P extends Screen {
     private BGM bgm;
     /** Current score. */
     private int score;
+    /** Current coin. */
+    private Coin coin;
     /** Player lives left. */
     private double lives_1p;
     private double lives_2p;
@@ -132,6 +134,7 @@ public class GameScreen_2P extends Screen {
         this.gameSettings = gameSettings;
         this.level = gameState.getLevel();
         this.score = gameState.getScore();
+        this.coin = gameState.getCoin();
         this.lives_1p = gameState.getLivesRemaining();
         this.lives_2p = gameState.getLivesRemaining();
         //if (this.bonusLife)
@@ -773,7 +776,7 @@ public class GameScreen_2P extends Screen {
      * @return Current game state.
      */
     public final GameState getGameState() {
-        return new GameState(this.level, this.score, this.lives_1p,
+        return new GameState(this.level, this.score, this.coin, this.lives_1p,
                 this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives_2p);
     }
 }

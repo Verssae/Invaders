@@ -8,6 +8,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import entity.Coin;
 import screen.EnhanceScreen;
 import screen.GameScreen;
 import screen.GameScreen_2P;
@@ -165,7 +166,8 @@ public final class Core {
 
         int returnCode = 1;
         do {
-            gameState = new GameState(1, 0, MAX_LIVES, 0, 0, false,MAX_LIVES);
+            Coin coin = new Coin(0, 0);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES);
             enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
             switch (returnCode) {
@@ -247,6 +249,7 @@ public final class Core {
 
                         gameState = new GameState(gameState.getLevel() + 1,
                                 gameState.getScore(),
+                                gameState.getCoin(),
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
@@ -327,6 +330,7 @@ public final class Core {
 		
 							gameState = new GameState(gameState.getLevel()+1,
 									gameState.getScore(),
+                                    gameState.getCoin(),
 									gameState.getLivesRemaining(),
 									gameState.getBulletsShot(),
 									gameState.getShipsDestroyed(),
@@ -458,6 +462,7 @@ public final class Core {
 
                         gameState = new GameState(gameState.getLevel() + 1,
                                 gameState.getScore(),
+                                gameState.getCoin(),
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),

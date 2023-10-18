@@ -1,5 +1,6 @@
 package engine;
 
+import entity.Coin;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
@@ -515,6 +516,31 @@ public final class DrawManager {
 		backBufferGraphics.setColor(scoreColor(score));
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
+	}
+
+	/**
+	 * Draws current score on screen.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param coin
+	 *               Current score.
+	 */
+	public void drawCoin(final Screen screen, final Coin coin, final int drawCoinOption) {
+		if (drawCoinOption == 0) {
+			this.drawEntity(SpriteType.Coin, screen.getWidth() - 179, 13, 2, 2, Color.green);
+			backBufferGraphics.setFont(fontBig);
+			backBufferGraphics.setColor(Color.WHITE);
+			String coinString = String.format("%03d", coin.getCoin());
+			backBufferGraphics.drawString(coinString, screen.getWidth() - 160, 28);
+		}
+		else if (drawCoinOption == 1) {
+			this.drawEntity(SpriteType.Coin, 20, 13, 2, 2, Color.green);
+			backBufferGraphics.setFont(fontBig);
+			backBufferGraphics.setColor(Color.WHITE);
+			String coinString = String.format("%03d", coin.getCoin());
+			backBufferGraphics.drawString(coinString, 40, 28);
+		}
 	}
 
     public void BulletsCount(final Screen screen, final int BulletsCount) {

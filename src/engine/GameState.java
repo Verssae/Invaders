@@ -1,5 +1,7 @@
 package engine;
 
+import entity.Coin;
+
 /**
  * Implements an object that stores the state of the game between levels.
  * 
@@ -12,6 +14,8 @@ public class GameState {
 	private int level;
 	/** Current score. */
 	private int score;
+	/** Current coin. */
+	private Coin coin;
 	/** Lives currently remaining. */
 	private double livesRemaining;
 	private double livesRemaining_2p;
@@ -41,11 +45,12 @@ public class GameState {
 	 * @param hardcore
 	 *            Hardcore mode, Only one coin.
 	 */
-	public GameState(final int level, final int score,
+	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
 			final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p) {
 		this.level = level;
 		this.score = score;
+		this.coin = coin;
 		this.livesRemaining = livesRemaining;
 		this.livesRemaining_2p = livesRemaining_2p;
 		this.bulletsShot = bulletsShot;
@@ -66,6 +71,13 @@ public class GameState {
 	 */
 	public final int getScore() {
 		return score;
+	}
+
+	/**
+	 * @return the score
+	 */
+	public final Coin getCoin() {
+		return coin;
 	}
 
 	/**

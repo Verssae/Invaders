@@ -84,6 +84,8 @@ public class GameScreen extends Screen {
 	private BulletLine bulletLine;
 	/** Current score. */
 	private int score;
+	/** Current coin. */
+	private Coin coin;
 	/** Player lives left. */
 	private double lives;
 	/** Total bullets shot by the player. */
@@ -140,6 +142,7 @@ public class GameScreen extends Screen {
 		//this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
+		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
 		//if (this.bonusLife)
 		//this.lives++;
@@ -455,6 +458,7 @@ public class GameScreen extends Screen {
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
+		drawManager.drawCoin(this, this.coin, 0);
 		//drawManager.drawLives(this, this.lives);
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
@@ -739,7 +743,7 @@ public class GameScreen extends Screen {
 	 * @return Current game state.
 	 */
 	public final GameState getGameState() {
-		return new GameState(this.level, this.score, this.lives,
+		return new GameState(this.level, this.score, this.coin, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives);
 	}
 }
