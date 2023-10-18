@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
 
+import engine.Cooldown;
 import engine.Core;
 import engine.Score;
 
@@ -16,8 +17,12 @@ import engine.Score;
 public class HighScoreScreen extends Screen {
 
 	/** List of past high scores. */
-	private List<Score> highScores;
-
+	private List<Score> highScores_EASY;
+	private List<Score> highScores_NORMAL;
+	private List<Score> highScores_HARD;
+	private List<Score> highScores_HARDCORE;
+	private int difficulty;
+	private Cooldown SelectCooldown;
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 * 
@@ -29,12 +34,16 @@ public class HighScoreScreen extends Screen {
 	 *            Frames per second, frame rate at which the game is run.
 	 */
 	public HighScoreScreen(final int width, final int height, final int fps) {
-		super(width, height, fps);
-
+		super(width, height, 60);
+		this.SelectCooldown = Core.getCooldown(200);
+		this.SelectCooldown.reset();
 		this.returnCode = 1;
-
+		this.difficulty = 0;
 		try {
-			this.highScores = Core.getFileManager().loadHighScores();
+			this.highScores_EASY = Core.getFileManager().loadHighScores(0);
+			this.highScores_NORMAL = Core.getFileManager().loadHighScores(1);
+			this.highScores_HARD = Core.getFileManager().loadHighScores(2);
+			this.highScores_HARDCORE = Core.getFileManager().loadHighScores(3);
 		} catch (NumberFormatException | IOException e) {
 			logger.warning("Couldn't load high scores!");
 		}
@@ -56,9 +65,22 @@ public class HighScoreScreen extends Screen {
 	 */
 	protected final void update() {
 		super.update();
-
 		draw();
-		if (inputManager.isKeyDown(KeyEvent.VK_SPACE)
+		if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+				&& this.SelectCooldown.checkFinished()) {
+			this.difficulty += 1;
+			if (this.difficulty > 3)
+				this.difficulty = 0;
+			this.SelectCooldown.reset();
+		}
+		else if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+				&& this.SelectCooldown.checkFinished()) {
+			this.difficulty -= 1;
+			if (this.difficulty < 0)
+				this.difficulty = 3;
+			this.SelectCooldown.reset();
+		}
+		else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)
 				&& this.inputDelay.checkFinished())
 			this.isRunning = false;
 	}
@@ -68,9 +90,16 @@ public class HighScoreScreen extends Screen {
 	 */
 	private void draw() {
 		drawManager.initDrawing(this);
-
 		drawManager.drawHighScoreMenu(this);
-		drawManager.drawHighScores(this, this.highScores);
+		drawManager.drawDiffScore(this, this.difficulty);
+		if (this.difficulty == 0)
+			drawManager.drawHighScores(this, this.highScores_EASY);
+		else if (this.difficulty == 1)
+			drawManager.drawHighScores(this, this.highScores_NORMAL);
+		else if (this.difficulty == 2)
+			drawManager.drawHighScores(this, this.highScores_HARD);
+		else
+			drawManager.drawHighScores(this, this.highScores_HARDCORE);
 
 		drawManager.completeDrawing(this);
 	}

@@ -81,7 +81,7 @@ public class ScoreScreen extends Screen {
 		soundEffect = new SoundEffect();
 
 		try {
-			this.highScores = Core.getFileManager().loadHighScores();
+			this.highScores = Core.getFileManager().loadHighScores(this.difficulty);
 			if (highScores.size() < MAX_HIGH_SCORE_NUM
 					|| highScores.get(highScores.size() - 1).getScore()
 					< this.score)
@@ -171,7 +171,7 @@ public class ScoreScreen extends Screen {
 			highScores.remove(highScores.size() - 1);
 
 		try {
-			Core.getFileManager().saveHighScores(highScores);
+			Core.getFileManager().saveHighScores(highScores, difficulty);
 		} catch (IOException e) {
 			logger.warning("Couldn't load high scores!");
 		}
