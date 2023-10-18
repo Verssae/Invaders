@@ -10,6 +10,7 @@ import engine.EnhanceManager;
 import engine.GameSettings;
 import engine.GameState;
 import entity.Bullet;
+import entity.Coin;
 import engine.SoundEffect;
 
 /**
@@ -22,6 +23,8 @@ public class EnhanceScreen extends Screen {
     private static final int SEPARATION_LINE_HEIGHT = 40;
     /** Current score. */
     private int score;
+    /** Current coin. */
+    private Coin coin;
     /** Player lives left. */
 	private double lives;
     /** Time between changes in user selection. */
@@ -41,6 +44,7 @@ public class EnhanceScreen extends Screen {
     private List<GameSettings> gameSettings;
     /** For selection moving sound */
     private SoundEffect soundEffect;
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -62,6 +66,7 @@ public class EnhanceScreen extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.score = gameState.getScore();
+        this.coin = gameState.getCoin();
         this.lives = gameState.getLivesRemaining();
 
         soundEffect = new SoundEffect();
@@ -186,6 +191,7 @@ public class EnhanceScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawScore(this, this.score);
+        drawManager.drawCoin(this, this.coin, 1);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 
         drawManager.drawCircleLine(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 0);
