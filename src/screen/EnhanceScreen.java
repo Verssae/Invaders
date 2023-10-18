@@ -185,7 +185,6 @@ public class EnhanceScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawLivesbar(this, this.lives);
         drawManager.drawScore(this, this.score);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 
