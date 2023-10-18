@@ -46,7 +46,6 @@ public class EnemyShip extends Entity {
 
 
 
-
 	/** Check the enemyship is boss */
 	private boolean isBoss;
 
@@ -142,7 +141,6 @@ public class EnemyShip extends Entity {
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
 		this.isBoss = false;
-
 	}
 
 	/**
@@ -274,7 +272,9 @@ public class EnemyShip extends Entity {
 	 *
 	 * @return True if the enemyship is boss
 	 */
-	public final boolean checkIsBoss() {return this.isBoss; }
+	public final boolean checkIsBoss() {
+		return this.isBoss;
+	}
 
 	/**
 	 * Destroys the ship, causing an explosion.
@@ -301,11 +301,15 @@ public class EnemyShip extends Entity {
 	}
 
 	/**
-	 * @return
+	 * Get a random number and select death effect
+	 * 
+	 * [Clean Code Team] This method was created by NiceGuy1313
+	 * 
+	 * @return Random Death Effect
 	 */
 	public final SpriteType randomDestroy(){
 		Random random = new Random();
-		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3};
-		return destroys[random.nextInt(3)];
+		 SpriteType[] destroys = {SpriteType.Explosion, SpriteType.Explosion2, SpriteType.Explosion3, SpriteType.Explosion4};
+		return destroys[random.nextInt(4)];
 	}
 }
