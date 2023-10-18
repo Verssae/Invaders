@@ -831,7 +831,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() / 2);
+		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() * 3 / 4);
 		
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
