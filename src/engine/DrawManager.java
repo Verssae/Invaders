@@ -139,6 +139,10 @@ public final class DrawManager {
 		EnemyShipSpecial1,
 		/** Bonus ship2. */
 		EnemyShipSpecial2,
+		/** Bonus ship3. */
+		EnemyShipSpecial3,
+		/** Bonus ship4. */
+		EnemyShipSpecial4,
 		/** Boss ship - first form. */
 		BossA1,
 		/** Boss ship - second form. */
@@ -225,7 +229,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyShipD6, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial1, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial2, new boolean[16][7]);
-
+			spriteMap.put(SpriteType.EnemyShipSpecial3, new boolean[16][7]);
+			spriteMap.put(SpriteType.EnemyShipSpecial4, new boolean[16][7]);
 			spriteMap.put(SpriteType.Explosion, new boolean[13][7]);
 			spriteMap.put(SpriteType.BulletLine, new boolean[1][160]);
 			spriteMap.put(SpriteType.Explosion2, new boolean[13][7]);
