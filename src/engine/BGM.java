@@ -13,12 +13,12 @@ public class BGM {
 
     private float originalVolume;
 
-    File enemyShipSpecialappearbgm = new File("sound_BackGroundMusic/enemyshipspecial.wav");
+    File enemyShipSpecialappearbgm = new File("sound/BackGroundMusic/enemyshipspecial.wav");
 
     public BGM() {
 
         try {
-            String OutGame_bgm_FilePATH = "sound_BackGroundMusic/gamescreen_bgm.wav";
+            String OutGame_bgm_FilePATH = "sound/BackGroundMusic/gamescreen_bgm.wav";
             File OutGame_bgm = new File(OutGame_bgm_FilePATH).getAbsoluteFile();
             AudioInputStream OutGame_Stream = AudioSystem.getAudioInputStream(OutGame_bgm);
             AudioFormat OutGame_Format = OutGame_Stream.getFormat();
@@ -32,7 +32,7 @@ public class BGM {
         }
 
         try{
-            String InGame_bgm_FilePATH = "sound_BackGroundMusic/outside_screen_bgm.wav";
+            String InGame_bgm_FilePATH = "sound/BackGroundMusic/outside_screen_bgm.wav";
             File InGame_bgm = new File(InGame_bgm_FilePATH).getAbsoluteFile();
             AudioInputStream InGame_Stream = AudioSystem.getAudioInputStream(InGame_bgm);
             AudioFormat InGame_Format = InGame_Stream.getFormat();

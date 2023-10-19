@@ -22,7 +22,12 @@ Visual Effect System
 - Background becomes darker as player lives reaches 0 (from <=3)
 - Background becomes yellower when special ship appears <br></br>
 
-💡 Countdown Design -> [Doyoon Kim](https://github.com/doyoon323/doyoon323.git) <br></br>
+💡 Countdown Design -> [Doyoon Kim](https://github.com/doyoon323/doyoon323.git) 
+ - Animated Loading box when game is started
+ - Loading progress bar with gradient color (for 3 seconds)
+ - The Loading string with blink effect gets bigger and smaller 
+ - Change GO! string like neon sign
+ 
 
 💡 Game Item Design(Hats) -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
 
