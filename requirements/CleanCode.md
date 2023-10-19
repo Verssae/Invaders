@@ -6,7 +6,7 @@ Visual Effect System
 > ## Team Introduction
 |No.| Name     | Role |
 |---------|-------------------------|-----------|
-|1. |[Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo)|👑 LEADER|
+|1. |[Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo)|👑 Team Leader|
 |2. |[Doyoon Kim](https://github.com/doyoon323/doyoon323.git)|🗓️ Project Management| 
 |3. |[Hyeonjeong Kim](https://github.com/258xsw/258xsw)|🗣️ Meeting Management|
 |4. |[Jinho Shin](https://github.com/NiceGuy1313/shinjinho)|📋 Document Management|
@@ -22,13 +22,22 @@ Visual Effect System
 - Background becomes darker as player lives reaches 0 (from <=3)
 - Background becomes yellower when special ship appears <br></br>
 
-💡 Countdown Design -> [Doyoon Kim](https://github.com/doyoon323/doyoon323.git) <br></br>
+💡 Countdown Design -> [Doyoon Kim](https://github.com/doyoon323/doyoon323.git) 
+ - Animated Loading box when game is started
+ - Loading progress bar with gradient color (for 3 seconds)
+ - The Loading string with blink effect gets bigger and smaller 
+ - Change GO! string like neon sign
+ 
 
 💡 Ending Scene -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
 - Game Over & stage Clear pop-up
 - Add moving ghost
 
-💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)<br></br>
+💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)
+- Add enemy death effect such as skeletons, vortex etc.<br>
+
+💡 Item Design for Item Team -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)
+- Add item Design such as enhancestone, buff item, ddbuff item.
 
 💡 Score Effects -> [Chaeheon Lee](https://github.com/highlees/highlees)
 - Emoji generation based on game score changes
