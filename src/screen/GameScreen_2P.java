@@ -411,18 +411,19 @@ public class GameScreen_2P extends Screen {
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
-        if (this.lives_1p == 0 && !this.levelFinished) {
+        if(this.lives_2p==0){
+            ship_2P.destroy();
+        }
+        if(this.lives_1p==0){
+            ship_1P.destroy();
+        }
+        if (this.lives_1p == 0 && !this.levelFinished && this.lives_2p==0) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
-        if (this.lives_2p == 0 && !this.levelFinished) {
-            bgm.enemyShipSpecialbgm_stop();
-            this.levelFinished = true;
-            soundEffect.playShipDestructionSound();
-            this.screenFinishedCooldown.reset();
-        }
+
 
         if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
             bgm.InGame_bgm_stop();
