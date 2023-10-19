@@ -508,6 +508,7 @@ public class GameScreen_2P extends Screen {
         // Interface.
         drawManager.drawScore(this, this.score);
         drawManager.drawLivesbar(this, this.lives_1p);
+        drawManager.drawitemcircle(this,1,2);
         isboss = gameSettings.checkIsBoss();
         if (isboss) {
             for (EnemyShip enemyShip : this.enemyShipFormation)
