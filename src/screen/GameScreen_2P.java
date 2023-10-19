@@ -111,6 +111,9 @@ public class GameScreen_2P extends Screen {
 	private int attackDamage;
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
+    private boolean isboss;
+
+    private CountUpTimer timer;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -145,6 +148,7 @@ public class GameScreen_2P extends Screen {
         this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+        timer = new CountUpTimer();
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
@@ -411,23 +415,26 @@ public class GameScreen_2P extends Screen {
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
-        if (this.lives_1p == 0 && !this.levelFinished) {
-            bgm.enemyShipSpecialbgm_stop();
-            this.levelFinished = true;
-            soundEffect.playShipDestructionSound();
-            this.screenFinishedCooldown.reset();
+        if(this.lives_2p==0){
+            ship_2P.destroy();
         }
-        if (this.lives_2p == 0 && !this.levelFinished) {
+        if(this.lives_1p==0){
+            ship_1P.destroy();
+        }
+        if (this.lives_1p == 0 && !this.levelFinished && this.lives_2p==0) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
 
+
         if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
             bgm.InGame_bgm_stop();
             this.isRunning = false;
         }
+
+        timer.update();
 
     }
     /**
@@ -500,11 +507,19 @@ public class GameScreen_2P extends Screen {
 
         // Interface.
         drawManager.drawScore(this, this.score);
-        //drawManager.drawLives(this, this.lives);
         drawManager.drawLivesbar(this, this.lives_1p);
+        isboss = gameSettings.checkIsBoss();
+        if (isboss) {
+            for (EnemyShip enemyShip : this.enemyShipFormation)
+                drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
+        }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
         drawManager.drawLevel(this, this.level);
+        drawManager.drawSoundButton2(this);
+        if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus2(this, false);
+        else drawManager.drawSoundStatus2(this, true);
+        drawManager.drawTimer(this, timer.getElapsedTime());
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {
@@ -522,12 +537,15 @@ public class GameScreen_2P extends Screen {
             //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
         }
 
+
         // If Game has been paused
         if (this.pause) {
             drawManager.drawPaused(this);
         }
 
         drawManager.completeDrawing(this);
+
+
     }
 
     /**
