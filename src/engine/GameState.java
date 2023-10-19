@@ -81,6 +81,13 @@ public class GameState {
 	}
 
 	/**
+	 * @return the score
+	 */
+	public final Coin setCoin(final Coin coin) {
+		return this.coin = coin;
+	}
+
+	/**
 	 * @return the livesRemaining
 	 */
 	public final double getLivesRemaining() {

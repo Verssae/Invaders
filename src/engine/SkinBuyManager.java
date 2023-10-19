@@ -3,6 +3,8 @@ package engine;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.Coin;
+
 
 public class SkinBuyManager {
 
@@ -12,26 +14,48 @@ public class SkinBuyManager {
     private Map<String, Boolean> ownedSkins;
     /* map to store skin wearing status */
     private Map<String, Boolean> equippedSkins;
-    
+
     private SkinBuyManager() {
         ownedSkins = new HashMap<>();
         equippedSkins = new HashMap<>();
     }
     
-/**
- * Returns the singleton instance of the SkinBuyManager class
- * access the unique instance of the SkinBuyManager class
- *
- * @return The singleton instance of the SkinBuyManager class
- */
+    /**
+     * Returns the singleton instance of the SkinBuyManager class
+     * access the unique instance of the SkinBuyManager class
+     *
+     * @return The singleton instance of the SkinBuyManager class
+     */
     public static SkinBuyManager getInstance() {
         if (instance == null) {
             instance = new SkinBuyManager();
         }
         return instance;
     }
-    //화폐 단위 생성 후 코드 추가 예정
-    public void purchaseSkin(String skinName) {
+    /**
+     * Returns the boolean of skin price payment
+     *
+     * @return the boolean of skin price payment
+     */
+    public boolean isPossible(int skinPrice) {
+        Coin coinInstance = new Coin(0, 0);
+        int coinCurrent = coinInstance.getCoin();
+        return coinCurrent >= skinPrice;
+    }
+
+    /**
+     * Purchase a skin if it is possible based on the provided skin price.
+     *
+     * @param skinName   The name of the skin to purchase.
+     * @param skinPrice  The price of the skin.
+     */
+    public void purchaseSkin(String skinName, int skinPrice) {
+        Coin coinInstance = new Coin(0, 0);
+        if (isPossible(skinPrice)) {
+            if (!(isSkinOwned(skinName))){
+                coinInstance.minusCoin(skinPrice);
+            }
+        }
         ownedSkins.put(skinName, true);  
     }
 

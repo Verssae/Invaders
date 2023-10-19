@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.*;
 
-
 /**
  * Implements core game logic.
  *
@@ -150,7 +149,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES);
-            enhanceManager = new EnhanceManager(1, 1, 0, 0);
+            enhanceManager = new EnhanceManager(0, 0, 0, 0, 0);
 
             switch (returnCode) {
                 case 1:
@@ -164,7 +163,7 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing title screen.");
                     if (currentScreen.returnCode == 6) {
-                        currentScreen = new StoreScreen(width, height, FPS);
+                        currentScreen = new StoreScreen(width, height, FPS, gameState);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " subMenu screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -220,7 +219,8 @@ public final class Core {
                     // Game & score.
                     do {
                         currentScreen = new GameScreen(gameState,
-                                gameSettings.get(gameState.getLevel() - 1),
+                                gameSettings.get(gameState.getLevel() - 1), 
+                                enhanceManager,
                                 width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
@@ -228,7 +228,7 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState = ((GameScreen) currentScreen).getGameState();
-
+                        
                         gameState = new GameState(gameState.getLevel() + 1,
                                 gameState.getScore(),
                                 gameState.getCoin(),
@@ -243,10 +243,11 @@ public final class Core {
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
 							if (!boxOpen){
-								currentScreen = new RandomBoxScreen(width, height, FPS);
+								currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
 								returnCode = frame.setScreen(currentScreen);
 								boxOpen = true;
-								currentScreen = new RandomRewardScreen(width, height, FPS);
+                                
+								currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomCoin());
 								returnCode = frame.setScreen(currentScreen);
 							}
 							if (isInitMenuScreen || currentScreen.returnCode == 5) {
@@ -258,7 +259,7 @@ public final class Core {
 								isInitMenuScreen = false;
 							}
 							if (currentScreen.returnCode == 6) {
-								currentScreen = new StoreScreen(width, height, FPS);
+								currentScreen = new StoreScreen(width, height, FPS, gameState);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -302,6 +303,7 @@ public final class Core {
 						gameState.setLivesRecovery();
 						do { currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel()-1),
+                                enhanceManager,
 								width, height, FPS);
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 									+ " game screen at " + FPS + " fps.");
@@ -324,10 +326,10 @@ public final class Core {
 							do{
 								if (gameState.getLivesRemaining() <= 0) { break; }
 								if (!boxOpen){
-									currentScreen = new RandomBoxScreen(width, height, FPS);
+									currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
 									returnCode = frame.setScreen(currentScreen);
 									boxOpen = true;
-									currentScreen = new RandomRewardScreen(width, height, FPS);
+									currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomCoin());
 									returnCode = frame.setScreen(currentScreen);
 								}
 								if (isInitMenuScreen || currentScreen.returnCode == 5) {
@@ -339,7 +341,7 @@ public final class Core {
 								isInitMenuScreen = false;
 								}
 								if (currentScreen.returnCode == 6) {
-									currentScreen = new StoreScreen(width, height, FPS);
+									currentScreen = new StoreScreen(width, height, FPS, gameState);
 									LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " store screen at " + FPS + " fps.");
 									returnCode = frame.setScreen(currentScreen);
