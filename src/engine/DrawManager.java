@@ -881,16 +881,52 @@ public final class DrawManager {
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() * 3 / 4);
 	}
 	
+	private BufferedImage image1;
 	public void drawRandomReward(final Screen screen, final int option, final int randomcoin) {
-		
 		String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
+		// long currentTime = System.currentTimeMillis();
+
 		getRandomCoin = Integer.toString(randomcoin);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
-		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() / 2);
+		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() * 3 / 4 - 20);
 		backBufferGraphics.setColor(blinkingColor("GREEN"));
-		backBufferGraphics.drawString(nextString, (screen.getWidth() - fontRegularMetrics.stringWidth(nextString)) / 2, screen.getHeight() * 3 / 4);
+		backBufferGraphics.drawString(nextString, (screen.getWidth() - fontRegularMetrics.stringWidth(nextString)) / 2, screen.getHeight() * 7 /8 - 20);
+		try {
+			image1 = ImageIO.read(new File("res/giftbox3.png"));
+		} catch (IOException e) {
+				e.printStackTrace();
+			}
+		backBufferGraphics.drawImage(image1, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 - 20, 60, 60, null);
+		// backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
+
+		// if (image1 == null) {
+		// try {
+		// 	image1 = ImageIO.read(new File("res/giftbox2.png"));
+		// 	image2 = ImageIO.read(new File("res/giftbox3.png"));
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// }
+		// }
+		// if (image2 == null) {
+		// 	try {
+		// 		image2 = ImageIO.read(new File("res/giftbox3.png"));
+		// 		image1 = ImageIO.read(new File("res/giftbox2.png"));
+		// 	} catch (IOException e) {
+		// 		e.printStackTrace();
+		// 	}
+		// }
+		// if (currentTime - lastImageSwitchTime >= imageSwitchInterval) {
+		// 	lastImageSwitchTime = currentTime;
+		// 	if (showImage1) {
+		// 		backBufferGraphics.drawImage(image1, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
+		// 	} else {
+		// 		backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
+		// 	}
+		// 	showImage1 = !showImage1;
+		// }
+		
 	}
 
 	/**
