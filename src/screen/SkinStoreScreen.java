@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.GameState;
 import engine.SoundEffect;
 
 public class SkinStoreScreen extends Screen {
@@ -14,9 +13,6 @@ public class SkinStoreScreen extends Screen {
      /** Time between changes in user selection. */
      private Cooldown selectionCooldown;
 
-     private int enhanceStone = 0;
-     private int numEnhanceArea = 0;
-     private int numEnhanceDamage = 0;
     /** For selection moving sound */
     private SoundEffect soundEffect;
  
