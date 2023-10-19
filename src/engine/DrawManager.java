@@ -1607,7 +1607,7 @@ public final class DrawManager {
 		String playString = "C O N T I N U E";
 		String lvEnhanceAreaString = "Area Lv" + Integer.toString(lvEnhanceArea) + " > "
 				+ Integer.toString(lvEnhanceArea + 1);
-		String lvEnhanceDamageString = "Damage Lv" + Integer.toString(lvEnhanceDamage) + " > "
+		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
 		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
 		String valEnhanceDamageString = "1/" + Integer.toString(numEnhanceDamage);
