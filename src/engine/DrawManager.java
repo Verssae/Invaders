@@ -937,7 +937,7 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Draws Recovery menu.
+	 * Draws Recovery select menu.
 	 *
 	 * @param screen
 	 *               Screen to draw on.
@@ -971,6 +971,40 @@ public final class DrawManager {
 
 	}
 
+	/**
+	 * Draws Recovery Payment page.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+
+	public void drawRecoveryConfirmPage(final Screen screen, final int option) {
+		String paymentMessage = "Please pay 150 amount to recover:";
+		
+		backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
+
+		String dorecoveryString = " Y E S ";
+		String notrecoveryString = " N O ";
+
+		if (option == 51)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, dorecoveryString,
+				screen.getHeight() / 3 * 2);
+		if (option == 52)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, notrecoveryString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+
+
+	}
 	/**
 	 * @param screen
 	 *               Screen to draw on.
