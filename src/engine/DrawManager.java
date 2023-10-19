@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
+import engine.DrawManager.SpriteType;
+
 /**
  * Manages screen drawing.
  *
@@ -541,7 +543,7 @@ public final class DrawManager {
 			String coinString = String.format("%03d", coin.getCoin());
 			backBufferGraphics.drawString(coinString, 40, 28);
 		}
-				else if (drawCoinOption == 2) {
+		else if (drawCoinOption == 2) {
 			this.drawEntity(SpriteType.Coin, screen.getWidth()* 8/9 - 8, 43, 2, 2, Color.YELLOW);
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.WHITE);
@@ -1446,15 +1448,31 @@ public final class DrawManager {
 	}
 
 
+	public void drawItemthings(final int width, final int height, final int size, final Color color, final int option){
+		backBufferGraphics.drawRect(width, height, size, size);
+		if (option == 1){
+			drawEntity(SpriteType.ShipAShileded, width + 12, height +23, size/15, size/15, color);
+		}
+		else if (option == 2){
+			drawEntity(SpriteType.Explosion, width + 12, height + 25, size/15, size/15, color);
+		}
+		else if (option == 3){
+			drawEntity(SpriteType.BlueEnhanceStone, width + 25, height + 25, size/15, size/15, color);
+		}
+		else if (option == 4){
+			drawEntity(SpriteType.PerpleEnhanceStone, width + 25, height + 25, size/15, size/15, color);
+		}
 
+		
+		backBufferGraphics.setColor(Color.GREEN);
+	}
 	public void drawItemStore(final Screen screen, final int option) {
-		// Coin coinInstance = new Coin();
-		// int coinValue = coinInstance.getCoin(); 
 		String itemStoretxt = " * I T E M S T O R E * ";
-		String txt = " C O N T I N U E";
-		String buyString = " B U Y";
-		String addcoinString = " P L U S C O I N";
-		// String coinString = " C O I N : " + coinValue;
+		String continueString = " > C O N T I N U E";
+		String EnhanceString = " > E N H A N C E";
+		String skinStoreString = " > S K I N S T O R E";
+		Color newcolor = new Color(0, 0, 0, 0); // 알파 채널 값 0
+
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
@@ -1462,28 +1480,27 @@ public final class DrawManager {
 				rectWidth, rectHeight);
 		backBufferGraphics.setColor(Color.green);
 		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
-		backBufferGraphics.setColor(Color.YELLOW);
-		backBufferGraphics.setFont(fontRegular);
-		// backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) - 10, screen.getHeight()/8 - 8);
 		drawHorizontalLine(screen, screen.getHeight()/14);
+		drawItemthings(screen.getWidth()/7, screen.getHeight()/6, 100, Color.GRAY,1);
+		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2);
+		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3);
+		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4);
+		backBufferGraphics.setFont(fontRegular);
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, txt,
-				screen.getHeight() / 3 * 2);
+		backBufferGraphics.drawString(EnhanceString, screen.getWidth()/15 - 20, screen.getHeight() - 30);
 		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, buyString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		backBufferGraphics.drawString(continueString, screen.getWidth()/3, screen.getHeight() - 30);
 		if (option == 15)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, addcoinString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
+		backBufferGraphics.drawString(skinStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
 	}
 	
 	/**
