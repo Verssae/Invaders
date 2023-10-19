@@ -26,7 +26,11 @@ Visual Effect System
 
 💡 Game Item Design(Hats) -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
 
-💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)<br></br>
+💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)
+- Add enemy death effect such as skeletons, vortex etc.<br>
+
+💡 Item Design for Item Team -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)
+- Add item Design such as enhancestone, buff item, ddbuff item.
 
 💡 Score Effects -> [Chaeheon Lee](https://github.com/highlees/highlees)
 - Emoji generation based on game score changes
