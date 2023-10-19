@@ -1,29 +1,11 @@
 package engine;
 
+import entity.Coin;
+import screen.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import entity.Coin;
-import screen.EnhanceScreen;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.HighScoreScreen;
-import screen.RandomBoxScreen;
-import screen.RandomRewardScreen;
-import screen.RecoveryScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.SelectScreen;
-import screen.SkinStoreScreen;
-import screen.StageSelectScreen;
-import screen.StoreScreen;
-import screen.SubMenuScreen;
-import screen.TitleScreen;
+import java.util.logging.*;
 
 
 /**
@@ -440,6 +422,9 @@ public final class Core {
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
                     stage = frame.setScreen(currentScreen);
+
+                    outgame_bgm.OutGame_bgm_stop();//2p mode 시작하며 outgame bgm stop
+
                     if (stage == 0) {
                         returnCode = 4;
                         LOGGER.info("Go Difficulty Select");
@@ -459,7 +444,6 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState = ((GameScreen_2P) currentScreen).getGameState();
-
                         gameState = new GameState(gameState.getLevel() + 1,
                                 gameState.getScore(),
                                 gameState.getCoin(),
@@ -484,10 +468,13 @@ public final class Core {
                             + gameState.getShipsDestroyed() + " ships destroyed.");
                     currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
+
                     if(returnCode==2){
                         returnCode=4;
-                    }                    
+                    }
+
                     LOGGER.info("Closing score screen.");
+
                     break;
                 default:
                     break;
