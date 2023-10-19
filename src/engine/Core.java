@@ -299,7 +299,14 @@ public final class Core {
 
 
 
-					if (returnCode == 30) { // Continuing game in same state (Ship: default state)
+					if (returnCode == 30) { 
+                        currentScreen = new RecoveryPaymentScreen(width, height, FPS);
+                        LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                + " Recovery screen at " + FPS + " fps.");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing RecoveryPayment screen.");
+                        if (returnCode == 51){
+                             // Continuing game in same state (Ship: default state)
 						gameState.setLivesRecovery();
 						do { currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel()-1),
@@ -369,11 +376,18 @@ public final class Core {
 						}
 					}
 
+                    if (returnCode == 51) {
+                        currentScreen = new TitleScreen(width, height, FPS);
+                        frame.setScreen(currentScreen);
+                        break;
+                    }
+
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
                         frame.setScreen(currentScreen);
                         break;
                     }
+                }
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
