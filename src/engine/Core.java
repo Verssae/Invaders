@@ -168,7 +168,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES);
-            enhanceManager = new EnhanceManager(1, 1, 0, 0);
+            enhanceManager = new EnhanceManager(0, 0, 0, 0);
 
             switch (returnCode) {
                 case 1:
@@ -238,7 +238,8 @@ public final class Core {
                     // Game & score.
                     do {
                         currentScreen = new GameScreen(gameState,
-                                gameSettings.get(gameState.getLevel() - 1),
+                                gameSettings.get(gameState.getLevel() - 1), 
+                                enhanceManager,
                                 width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
@@ -320,6 +321,7 @@ public final class Core {
 						gameState.setLivesRecovery();
 						do { currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel()-1),
+                                enhanceManager,
 								width, height, FPS);
 							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 									+ " game screen at " + FPS + " fps.");
