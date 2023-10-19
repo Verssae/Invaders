@@ -41,6 +41,12 @@ other teams applied it to other screens as well.)
 - Write test code and complete unit tests for blinkingColor method and slowlyChangingColors method<br><br>
 
 💡 Bullet Effects -> [Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo) <br>
+- Change the graphic of a normal bullet
+- Add a ```BulletY``` that flies at a specific interval
+    - 1P - 2 normal bullets & 1 BulletY
+    - 2P - 5 normal bullets & 1 BulletY (*Based on two players combined)
+- Set BulletY's speed to be faster than regular bullets
+- Set BulletY's color to yellow
 
 > ## Dependencies on Other Teams
 No set requirements yet.<br></br>
