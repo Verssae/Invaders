@@ -118,7 +118,8 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
-		spVariable = (int)(Math.random()*2);
+		spVariable = (int)(Math.random()*4);
+
 
 		switch (spVariable) {
 			case 0:
@@ -126,6 +127,12 @@ public class EnemyShip extends Entity {
 				break;
 			case 1:
 				this.spriteType = SpriteType.EnemyShipSpecial2;
+				break;
+			case 2:
+				this.spriteType = SpriteType.EnemyShipSpecial3;
+				break;
+			case 3:
+				this.spriteType = SpriteType.EnemyShipSpecial4;
 				break;
 		}
 
@@ -276,7 +283,10 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
 		if ((Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial1 ? 1 : 0)))
-				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial2 ? 1 : 0)))) {
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial2 ? 1 : 0)))
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial3 ? 1 : 0)))
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial4 ? 1 : 0))))
+		{
 			items.add(ItemPool.getItem(this.positionX, this.positionY));
 		}
 	}
