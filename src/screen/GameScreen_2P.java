@@ -231,6 +231,7 @@ public class GameScreen_2P extends Screen {
                 this.lives_1p = 0;
                 this.lives_2p = 0;
                 this.isRunning = false;
+                bgm.InGame_bgm_stop();
             }
         }
         else {
