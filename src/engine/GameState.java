@@ -1,5 +1,7 @@
 package engine;
 
+import entity.Coin;
+
 /**
  * Implements an object that stores the state of the game between levels.
  * 
@@ -12,8 +14,11 @@ public class GameState {
 	private int level;
 	/** Current score. */
 	private int score;
+	/** Current coin. */
+	private Coin coin;
 	/** Lives currently remaining. */
 	private double livesRemaining;
+	private double livesRemaining_2p;
 	/** Bullets shot until now. */
 	private int bulletsShot;
 	/** Ships destroyed until now. */
@@ -40,12 +45,14 @@ public class GameState {
 	 * @param hardcore
 	 *            Hardcore mode, Only one coin.
 	 */
-	public GameState(final int level, final int score,
+	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore) {
+			final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p) {
 		this.level = level;
 		this.score = score;
+		this.coin = coin;
 		this.livesRemaining = livesRemaining;
+		this.livesRemaining_2p = livesRemaining_2p;
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
@@ -67,10 +74,20 @@ public class GameState {
 	}
 
 	/**
+	 * @return the score
+	 */
+	public final Coin getCoin() {
+		return coin;
+	}
+
+	/**
 	 * @return the livesRemaining
 	 */
 	public final double getLivesRemaining() {
 		return livesRemaining;
+	}
+	public final double getLivesRemaining_2p() {
+		return livesRemaining_2p;
 	}
 
 	/**
@@ -114,7 +131,6 @@ public class GameState {
 	/**
 	 * Set LivesRecovery
 	 */
-
 	 public final void setLivesRecovery() {
 		this.score = getScore() + 100; // keeping score 
 		this.level = getLevel() -1; 

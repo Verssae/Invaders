@@ -4,7 +4,8 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-
+import engine.GameState;
+import engine.SoundEffect;
 
 public class SkinStoreScreen extends Screen {
      /** Milliseconds between changes in user selection. */
@@ -12,6 +13,12 @@ public class SkinStoreScreen extends Screen {
   
      /** Time between changes in user selection. */
      private Cooldown selectionCooldown;
+
+     private int enhanceStone = 0;
+     private int numEnhanceArea = 0;
+     private int numEnhanceDamage = 0;
+    /** For selection moving sound */
+    private SoundEffect soundEffect;
  
      /**
       * Constructor, establishes the properties of the screen.
@@ -30,6 +37,9 @@ public class SkinStoreScreen extends Screen {
          this.returnCode = 86;
          this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
          this.selectionCooldown.reset();
+        //  this.score = gameState.getScore();
+
+         soundEffect = new SoundEffect();
      }
  
      /**
@@ -54,16 +64,20 @@ public class SkinStoreScreen extends Screen {
                  && this.inputDelay.checkFinished()) {
              if (inputManager.isKeyDown(KeyEvent.VK_UP)
                      || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                 soundEffect.playButtonClickSound();
                  previousMenuItem();
                  this.selectionCooldown.reset();
              }
              if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
                      || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                 soundEffect.playButtonClickSound();
                  nextMenuItem();
                  this.selectionCooldown.reset();
              }
-             if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
+             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+                 soundEffect.playSpaceButtonSound();
                  this.isRunning = false;
+             }
          }
      }
  
