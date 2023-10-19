@@ -4,12 +4,16 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.GameState;
+import entity.Coin;
 
 public class RandomRewardScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
+    private Coin coin;
+    private int randomcoin;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -23,13 +27,15 @@ public class RandomRewardScreen extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomRewardScreen(int width, int height, int fps) {
+    public RandomRewardScreen(final GameState gameState, int width, int height, int fps, int randomcoin) {
         super(width, height, fps);
 
         // Defaults to play.
+        this.coin = gameState.getCoin();
         this.returnCode = 13;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
+        this.randomcoin = randomcoin;
     }
  
     /**
@@ -98,7 +104,7 @@ public class RandomRewardScreen extends Screen {
         drawManager.initDrawing(this);
 
         // drawManager.drawTitle(this);
-        drawManager.drawRandomReward(this, this.returnCode);
+        drawManager.drawRandomReward(this, this.returnCode, this.randomcoin);
         drawManager.completeDrawing(this);
     }
 }

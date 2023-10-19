@@ -70,7 +70,7 @@ public final class DrawManager {
 	private Cooldown bgTimer_init = new Cooldown(3000);  // For white fade in at game start
 	private Cooldown bgTimer_lines = new Cooldown(100);  // For bg line animation
 	private int lineConstant = 0;  // For bg line animation
-
+	private Coin coin;
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
@@ -806,12 +806,12 @@ public final class DrawManager {
 		String threeString = "3";
 		try {
 			BufferedImage image1 = ImageIO.read(new File("res/giftbox1.png"));
-			BufferedImage greenImage1 = image1; // 먼저 초록색으로 처리할 이미지를 원래 이미지로 초기화
-			if (option == 10) { // 옵션에 따라 이미지를 초록색으로 변환
+			BufferedImage greenImage1 = image1;
+			if (option == 20) { 
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
-				int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -821,11 +821,11 @@ public final class DrawManager {
 		try {
 			BufferedImage image2 = ImageIO.read(new File("res/giftbox1.png"));
 			BufferedImage greenImage2 = image2;
-			if (option == 7) {
+			if (option == 21) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage2 = greenFilter.filter(image2, null);
-				int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -835,11 +835,12 @@ public final class DrawManager {
 		try {
 			BufferedImage image3 = ImageIO.read(new File("res/giftbox1.png"));
 			BufferedImage greenImage3 = image3;
-			if (option == 2) {
+			if (option == 22) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage3 = greenFilter.filter(image3, null);
-				int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
+				
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -851,30 +852,30 @@ public final class DrawManager {
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString1, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, introduceString2, screen.getHeight() / 6);
-		if (option == 10)
+		if (option == 20)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(oneString, screen.getWidth() / 4, screen.getHeight() * 3 / 4);
 
-		if (option == 7)
+		if (option == 21)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() * 3 / 4);
 		
-		if (option == 2)
+		if (option == 22)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() * 3 / 4);
 	}
 	
-	public void drawRandomReward(final Screen screen, final int option) {
+	public void drawRandomReward(final Screen screen, final int option, final int randomcoin) {
 		
 		String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
-	
+		getRandomCoin = Integer.toString(randomcoin);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() / 2);
