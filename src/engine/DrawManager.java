@@ -541,6 +541,13 @@ public final class DrawManager {
 			String coinString = String.format("%03d", coin.getCoin());
 			backBufferGraphics.drawString(coinString, 40, 28);
 		}
+				else if (drawCoinOption == 2) {
+			this.drawEntity(SpriteType.Coin, screen.getWidth()* 8/9 - 8, 43, 2, 2, Color.YELLOW);
+			backBufferGraphics.setFont(fontRegular);
+			backBufferGraphics.setColor(Color.WHITE);
+			String coinString = String.format("%03d", coin.getCoin());
+			backBufferGraphics.drawString(coinString, screen.getWidth() * 8/ 9 + 10, 55);
+		}
 	}
 
     public void BulletsCount(final Screen screen, final int BulletsCount) {
