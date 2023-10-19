@@ -1,12 +1,12 @@
 package screen;
 
+import engine.*;
+import entity.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-
-import engine.*;
-import entity.*;
 
 /**
  * Implements the game screen, where the action happens.
@@ -82,6 +82,8 @@ public class GameScreen_2P extends Screen {
     private BGM bgm;
     /** Current score. */
     private int score;
+    /** Current coin. */
+    private Coin coin;
     /** Player lives left. */
     private double lives_1p;
     private double lives_2p;
@@ -105,8 +107,13 @@ public class GameScreen_2P extends Screen {
     private boolean isItemAllEat;
     /** Check what color will be displayed*/
     private int colorVariable;
-    private int attackDamage;
-    private int areaDamage;
+	/** Current Value of Enhancement  Area. */
+	private int attackDamage;
+	/** Current Value of Enhancement  Attack. */
+	private int areaDamage;
+    private boolean isboss;
+
+    private CountUpTimer timer;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -130,6 +137,7 @@ public class GameScreen_2P extends Screen {
         this.gameSettings = gameSettings;
         this.level = gameState.getLevel();
         this.score = gameState.getScore();
+        this.coin = gameState.getCoin();
         this.lives_1p = gameState.getLivesRemaining();
         this.lives_2p = gameState.getLivesRemaining();
         //if (this.bonusLife)
@@ -140,6 +148,8 @@ public class GameScreen_2P extends Screen {
         this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+        timer = new CountUpTimer();
+
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
             LASER_INTERVAL = 3000;
@@ -225,6 +235,7 @@ public class GameScreen_2P extends Screen {
                 this.lives_1p = 0;
                 this.lives_2p = 0;
                 this.isRunning = false;
+                bgm.InGame_bgm_stop();
             }
         }
         else {
@@ -400,30 +411,38 @@ public class GameScreen_2P extends Screen {
         }
         if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
             endStageAllEat();
+            bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
         }
-        if (this.lives_1p == 0 && !this.levelFinished) {
-            this.levelFinished = true;
-            soundEffect.playShipDestructionSound();
-            this.screenFinishedCooldown.reset();
+        if(this.lives_2p==0){
+            ship_2P.destroy();
         }
-        if (this.lives_2p == 0 && !this.levelFinished) {
+        if(this.lives_1p==0){
+            ship_1P.destroy();
+        }
+        if (this.lives_1p == 0 && !this.levelFinished && this.lives_2p==0) {
+            bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
 
+
         if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+            bgm.InGame_bgm_stop();
             this.isRunning = false;
         }
+
+        timer.update();
+
     }
     /**
      * when the stage end, eat all dropped item.
      */
     private void endStageAllEat(){
         Cooldown a = Core.getCooldown(25);
-        bgm.InGame_bgm_stop();
+//        bgm.InGame_bgm_stop();
         a.reset();
         while(!this.items.isEmpty()){
             if(a.checkFinished()) {
@@ -488,11 +507,19 @@ public class GameScreen_2P extends Screen {
 
         // Interface.
         drawManager.drawScore(this, this.score);
-        //drawManager.drawLives(this, this.lives);
         drawManager.drawLivesbar(this, this.lives_1p);
+        isboss = gameSettings.checkIsBoss();
+        if (isboss) {
+            for (EnemyShip enemyShip : this.enemyShipFormation)
+                drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
+        }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
         drawManager.drawLevel(this, this.level);
+        drawManager.drawSoundButton2(this);
+        if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus2(this, false);
+        else drawManager.drawSoundStatus2(this, true);
+        drawManager.drawTimer(this, timer.getElapsedTime());
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {
@@ -510,12 +537,15 @@ public class GameScreen_2P extends Screen {
             //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
         }
 
+
         // If Game has been paused
         if (this.pause) {
             drawManager.drawPaused(this);
         }
 
         drawManager.completeDrawing(this);
+
+
     }
 
     /**
@@ -610,6 +640,7 @@ public class GameScreen_2P extends Screen {
                         this.score += this.enemyShipSpecial.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipSpecial.destroy(this.items);
+                        soundEffect.enemyshipspecialDestructionSound();
                         bgm.enemyShipSpecialbgm_stop();
                         if (this.lives_1p < 2.9) this.lives_1p = this.lives_1p + 0.1;
                         if (this.lives_2p < 2.9) this.lives_2p = this.lives_2p + 0.1;
@@ -724,6 +755,7 @@ public class GameScreen_2P extends Screen {
                         this.score += this.enemyShipSpecial.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipSpecial.destroy(this.items);
+                        soundEffect.enemyshipspecialDestructionSound();
                         bgm.enemyShipSpecialbgm_stop();
                         if (this.lives_1p < 2.9) this.lives_1p = this.lives_1p + 0.1;
                         if (this.lives_2p < 2.9) this.lives_2p = this.lives_2p + 0.1;
@@ -769,7 +801,7 @@ public class GameScreen_2P extends Screen {
      * @return Current game state.
      */
     public final GameState getGameState() {
-        return new GameState(this.level, this.score, this.lives_1p,
+        return new GameState(this.level, this.score, this.coin, this.lives_1p,
                 this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives_2p);
     }
 }

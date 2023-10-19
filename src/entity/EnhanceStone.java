@@ -1,12 +1,18 @@
 package entity;
 
 import engine.DrawManager;
-
 import java.awt.Color;
+import engine.DrawManager.SpriteType;
 
 public class EnhanceStone extends Item{
-    private int valEnhanceArea;
-    private int valEnhanceAttack;
+    /** Current Level of Enhancement Area. */
+    private int lvEnhanceArea;
+    /** Current Level of Enhancement Attack. */
+    private int lvEnhanceAttack;
+    /** Current Value of Enhanced Area. */
+    private int attackDamage;
+    /** Current Value of Enhanced Attack. */
+    private int areaDamage;
 
     /**
      * Constructor, establishes the Item's properties.
@@ -15,24 +21,60 @@ public class EnhanceStone extends Item{
      * @param positionX Initial position of the Item in the X axis.
      * @param positionY Initial position of the Item in the Y axis.
      */
-    public EnhanceStone(int positionX, int positionY) {
+    public EnhanceStone(final int positionX, final int positionY,
+                        final int lvEnhanceArea, final int lvEnhanceAttack,
+                        final int attackDamage) {
         super(positionX, positionY);
-        this.valEnhanceArea = 1;
-        this.valEnhanceAttack = 1;
+
+        this.lvEnhanceArea = lvEnhanceArea;
+        this.lvEnhanceAttack = lvEnhanceAttack;
+        this.attackDamage = attackDamage;
     }
-    public int getValEnhanceArea() {
-        return this.valEnhanceArea;
+    
+
+    /**
+     * Return level of enhancement of attack.
+     * 
+     * lvEnhanceAttack
+     */
+    public int getlvEnhanceAttack() {
+        return this.lvEnhanceAttack;
+    }
+    
+    /**
+     * Return level of enhancement of area.
+     * 
+     * lvEnhanceArea
+     */
+    public int getlvEnhanceArea() {
+        return this.lvEnhanceArea;
+    }
+    
+    /**
+     * Return damage of attack.
+     * 
+     * @return attackDamage
+     */
+    public int getAttackDamage() {
+        return this.attackDamage;
+    }
+    
+    /**
+     * Return damage of area.
+     * 
+     * @return areaDamage
+     */
+    public int getAreaDamage() {
+        return this.areaDamage;
+    }    
+
+    /**
+	 * Getter for the value of enhanced attack damage.
+	 * 
+	 * @return Attack Damage
+	 */
+    public void setValEnhanceAttack(final int valEnhanceAttack) {
+        this.attackDamage += valEnhanceAttack;
     }
 
-    public int getValEnhanceAttack() {
-        return this.valEnhanceAttack;
-    }
-
-    public void setValEnhanceArea() {
-        this.valEnhanceArea += 0;
-    }
-
-    public void setValEnhanceAttack() {
-        this.valEnhanceAttack += 0;
-    }
 }

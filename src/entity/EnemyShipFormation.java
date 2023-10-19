@@ -1,13 +1,14 @@
 package entity;
 
-import engine.*;
-import engine.DrawManager.SpriteType;
-import screen.Screen;
-
 import java.awt.*;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 import java.util.logging.Logger;
+// import java.util.random.RandomGenerator;
+
+import engine.*;
+import screen.Screen;
+import engine.DrawManager.SpriteType;
 
 import static java.awt.Color.BLUE;
 
