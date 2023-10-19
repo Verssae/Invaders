@@ -111,6 +111,7 @@ public class GameScreen_2P extends Screen {
 	private int attackDamage;
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
+    private boolean isboss;
 
     private CountUpTimer timer;
 
@@ -506,8 +507,12 @@ public class GameScreen_2P extends Screen {
 
         // Interface.
         drawManager.drawScore(this, this.score);
-        //drawManager.drawLives(this, this.lives);
         drawManager.drawLivesbar(this, this.lives_1p);
+        isboss = gameSettings.checkIsBoss();
+        if (isboss) {
+            for (EnemyShip enemyShip : this.enemyShipFormation)
+                drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
+        }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
         drawManager.drawLevel(this, this.level);
