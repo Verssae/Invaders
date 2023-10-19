@@ -474,6 +474,10 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
+		drawManager.drawSoundButton1(this);
+		if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus1(this, false);
+		else drawManager.drawSoundStatus1(this, true);
+
 		drawManager.drawTimer(this, timer.getElapsedTime());
 		if (combo !=0) {
 			drawManager.ComboCount(this, this.combo);

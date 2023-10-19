@@ -4,6 +4,8 @@ import entity.Coin;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
+import screen.GameScreen;
+import screen.GameScreen_2P;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
@@ -503,6 +505,28 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
+	public void drawSoundButton1(GameScreen gamescreen){
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
+	}
+
+	public void drawSoundButton2(GameScreen_2P gamescreen_2P){
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
+	}
+
+	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
+		String statusText = keyboard ? "ON" : "OFF";
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
+	}
+
+	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
+		String statusText = keyboard ? "ON" : "OFF";
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
+	}
+
 
 	/**
 	 * Draws current score on screen.
