@@ -395,6 +395,7 @@ public class GameScreen extends Screen {
 			drawManager.ghostTImer = System.currentTimeMillis();
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
+			timer.pause();
 		}
 
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
@@ -489,8 +490,7 @@ public class GameScreen extends Screen {
 					- (System.currentTimeMillis()
 					- this.gameStartTime)) / 1000);
 
-			drawManager.drawCountDown(this, this.level, countdown,
-					this.bonusLife);
+			drawManager.drawCountDown(this, this.level, countdown, this.bonusLife);
 
 			// Fade from white at game start.
 			drawManager.drawBackgroundStart(this, SEPARATION_LINE_HEIGHT);
