@@ -2,8 +2,8 @@ package screen;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.List;
 
 import engine.*;
 import engine.DrawManager.SpriteType;
@@ -635,8 +635,15 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
+
+				//* settings of coins randomly got when killing monsters
+				List<Integer> coinProbability = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 2, 3, 4);
+				Random random = new Random();
+				int randomIndex = random.nextInt(coinProbability.size());
+
 				if(item.getSpriteType() == SpriteType.Coin){
-					this.coin.addCoin(1);
+					this.coin.addCoin(coinProbability.get(randomIndex));
+
 				}
 				if(item.getSpriteType() == SpriteType.BlueEnhanceStone){
 					this.enhanceManager.setNumBlueEnhanceAreaStone(1);
