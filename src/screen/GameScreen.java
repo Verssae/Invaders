@@ -113,6 +113,7 @@ public class GameScreen extends Screen {
 	private int areaDamage;
 	/** Combo counting*/
 	private int combo=0;
+	private boolean isboss;
 
 	private boolean bomb; // testing
 	private Cooldown bombCool;
@@ -138,13 +139,10 @@ public class GameScreen extends Screen {
 
 
 		this.gameSettings = gameSettings;
-		//this.bonusLife = bonusLife;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
-		//if (this.bonusLife)
-		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
@@ -457,8 +455,12 @@ public class GameScreen extends Screen {
 		// Interface.
 		drawManager.drawScore(this, this.score);
 		drawManager.drawCoin(this, this.coin, 0);
-		//drawManager.drawLives(this, this.lives);
 		drawManager.drawLivesbar(this, this.lives);
+		isboss = gameSettings.checkIsBoss();
+		if (isboss) {
+			for (EnemyShip enemyShip : this.enemyShipFormation)
+				drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
+		}
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
