@@ -468,9 +468,11 @@ public final class Core {
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
                                 gameState.getLivesRemaining_2p());
-                    } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
-
+                    }
+                    //while (gameState.getLivesRemaining() > 0
+                           // && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
+                    while (!(gameState.getLivesRemaining()==0 && gameState.getLivesRemaining_2p()==0)
+                            && (gameState.getLevel() <= NUM_LEVELS) );
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
                         break;
