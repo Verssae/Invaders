@@ -149,7 +149,7 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES,50,50);
             enhanceManager = new EnhanceManager(1, 1, 0, 0);
 
             switch (returnCode) {
@@ -236,12 +236,14 @@ public final class Core {
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
-                                gameState.getLivesRemaining_2p());
+                                gameState.getLivesRemaining_2p(),
+                                gameState.getBulletsCount_1p(),
+                                gameState.getBulletsCount_2p());
 
 
                         // SubMenu | Item Store & Enhancement & Continue
                         do{
-                            if (gameState.getBulletsShot() >= 99) {
+                            if (gameState.getBulletsShot() > 99) {
                                 if (returnCode == 1) { //Quit during the game
                                     currentScreen = new TitleScreen(width, height, FPS);
                                     frame.setScreen(currentScreen);
@@ -304,7 +306,7 @@ public final class Core {
                     boxOpen = false;
                     isInitMenuScreen = true;
                     } while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot() < 3);
+                            && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot() < 99);
 
 
 
@@ -339,7 +341,9 @@ public final class Core {
                                     gameState.getBulletsShot(),
                                     gameState.getShipsDestroyed(),
                                     gameState.getHardCore(),
-                                    gameState.getLivesRemaining_2p());
+                                    gameState.getLivesRemaining_2p(),
+                                    gameState.getBulletsCount_1p(),
+                                    gameState.getBulletsCount_2p());
 
 
                             // SubMenu | Item Store & Enhancement & Continue
@@ -473,7 +477,9 @@ public final class Core {
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
-                                gameState.getLivesRemaining_2p());
+                                gameState.getLivesRemaining_2p(),
+                                gameState.getBulletsCount_1p(),
+                                gameState.getBulletsCount_2p());
                     } while (gameState.getLivesRemaining() > 0
                             && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
 

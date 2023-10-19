@@ -550,6 +550,19 @@ public final class DrawManager {
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 65);
 	}
 
+	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bullets_1p: " + String.format("%02d", BulletsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 65);
+	}
+	public void BulletsCount_2p(final Screen screen, final int BulletsCount_2p) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 90);
+	}
+
 	/**
 	 * Draws number of remaining lives on screen.
 	 *
@@ -1769,7 +1782,7 @@ public final class DrawManager {
 
 	public void gameOver(final Screen screen, boolean levelFinished, double lives, int bullets){
 		if(levelFinished){
-			if(lives == 0){
+			if(lives == 0 || bullets==0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
 				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 

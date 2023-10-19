@@ -27,7 +27,11 @@ public class GameState {
 	private int shipsDestroyed;
 	/** HardCore(Only One life) */
 	private boolean hardcore;
-	
+
+	private int BulletsCount_1p;
+	private int BulletsCount_2p;
+
+
 
 
 
@@ -49,7 +53,8 @@ public class GameState {
 	 */
 	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p) {
+			final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p,
+					 final int BulletsCount_1p, final int BulletsCount_2p) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
@@ -58,6 +63,8 @@ public class GameState {
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
+		this.BulletsCount_1p = BulletsCount_1p;
+		this.BulletsCount_2p = BulletsCount_2p;
 
 	}
 
@@ -138,4 +145,7 @@ public class GameState {
 		this.level = getLevel() -1; 
 		this.livesRemaining = 3;
 	 }
+
+	 public final int getBulletsCount_1p(){return BulletsCount_1p;}
+	 public final int getBulletsCount_2p(){return BulletsCount_2p;}
 }

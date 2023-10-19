@@ -108,7 +108,8 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
 	private int colorVariable;
-	private int BulletsCount = 3;
+	private int BulletsCount = 99;
+
 	private int attackDamage;
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
@@ -757,6 +758,6 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives,this.BulletsCount,this.BulletsCount);
 	}
 }

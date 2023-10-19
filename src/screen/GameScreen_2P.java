@@ -89,6 +89,7 @@ public class GameScreen_2P extends Screen {
     private double lives_2p;
     /** Total bullets shot by the player. */
     private int bulletsShot;
+
     /** Total ships destroyed by the player. */
     private int shipsDestroyed;
     /** Moment the game starts. */
@@ -111,6 +112,9 @@ public class GameScreen_2P extends Screen {
 	private int attackDamage;
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
+
+    private int BulletsCount_1p = 50;
+    private int BulletsCount_2p = 50;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -145,6 +149,8 @@ public class GameScreen_2P extends Screen {
         this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+        this.BulletsCount_1p = gameState.getBulletsCount_1p();
+        this.BulletsCount_2p = gameState.getBulletsCount_2p();
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
@@ -267,12 +273,14 @@ public class GameScreen_2P extends Screen {
                             if (this.ship_1P.shootBulletY(this.bulletsY)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
+                                this.BulletsCount_1p--;
                             }
                         }
                         else {
                             if (this.ship_1P.shoot(this.bullets)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
+                                this.BulletsCount_1p--;
                             }
                         }
                     }
@@ -313,12 +321,14 @@ public class GameScreen_2P extends Screen {
                             if (this.ship_2P.shootBulletY(this.bulletsY)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
+                                this.BulletsCount_2p--;
                             }
                         }
                         else {
                             if (this.ship_2P.shoot(this.bullets)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
+                                this.BulletsCount_2p--;
                             }
                         }
                     }
@@ -424,6 +434,17 @@ public class GameScreen_2P extends Screen {
             this.isRunning = false;
         }
 
+        if (this.BulletsCount_2p <= 0 && !this.levelFinished){
+            this.levelFinished = true;
+            soundEffect.playShipDestructionSound();
+            this.screenFinishedCooldown.reset();
+        }
+        if (this.BulletsCount_1p <= 0 && !this.levelFinished){
+            this.levelFinished = true;
+            soundEffect.playShipDestructionSound();
+            this.screenFinishedCooldown.reset();
+        }
+
     }
     /**
      * when the stage end, eat all dropped item.
@@ -500,6 +521,8 @@ public class GameScreen_2P extends Screen {
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
         drawManager.drawLevel(this, this.level);
+        drawManager.BulletsCount_1p(this,this.BulletsCount_1p);
+        drawManager.BulletsCount_2p(this,this.BulletsCount_2p);
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {
@@ -777,6 +800,7 @@ public class GameScreen_2P extends Screen {
      */
     public final GameState getGameState() {
         return new GameState(this.level, this.score, this.coin, this.lives_1p,
-                this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives_2p);
+                this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives_2p,
+                this.BulletsCount_1p, this.BulletsCount_2p);
     }
 }
