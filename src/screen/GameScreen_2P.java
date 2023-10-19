@@ -421,6 +421,7 @@ public class GameScreen_2P extends Screen {
         }
 
         if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
+            bgm.InGame_bgm_stop();
             this.isRunning = false;
         }
 
@@ -430,7 +431,7 @@ public class GameScreen_2P extends Screen {
      */
     private void endStageAllEat(){
         Cooldown a = Core.getCooldown(25);
-        bgm.InGame_bgm_stop();
+//        bgm.InGame_bgm_stop();
         a.reset();
         while(!this.items.isEmpty()){
             if(a.checkFinished()) {
