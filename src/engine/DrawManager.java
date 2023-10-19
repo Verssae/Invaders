@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage; // monster animation on a loading box
 import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
+import java.sql.PseudoColumnUsage;
 import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1449,17 +1450,33 @@ public final class DrawManager {
 
 
 	public void drawItemthings(final int width, final int height, final int size, final Color color, final int option){
+		String shield = "S H I E L D";
+		String bomb = "B O M B";
+		String BST = "B S T O N E";
+		String PST = "P S T O N E";
 		backBufferGraphics.drawRect(width, height, size, size);
 		if (option == 1){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(shield, width + 18, height + size - 10);
 			drawEntity(SpriteType.ShipAShileded, width + 12, height +23, size/15, size/15, color);
 		}
 		else if (option == 2){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(bomb, width + 25, height + size - 10);
 			drawEntity(SpriteType.Explosion, width + 12, height + 25, size/15, size/15, color);
 		}
 		else if (option == 3){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(BST, width + 18, height + size - 10);
 			drawEntity(SpriteType.BlueEnhanceStone, width + 25, height + 25, size/15, size/15, color);
 		}
 		else if (option == 4){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(PST, width + 18, height + size - 10);
 			drawEntity(SpriteType.PerpleEnhanceStone, width + 25, height + 25, size/15, size/15, color);
 		}
 
@@ -1471,7 +1488,6 @@ public final class DrawManager {
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
 		String skinStoreString = " > S K I N S T O R E";
-		Color newcolor = new Color(0, 0, 0, 0); // 알파 채널 값 0
 
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
