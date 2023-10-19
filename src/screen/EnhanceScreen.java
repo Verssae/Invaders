@@ -199,7 +199,8 @@ public class EnhanceScreen extends Screen {
         drawManager.drawCircleFill(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
         drawManager.drawCircleLine(this, leftCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
         drawManager.drawCircleLine(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
-        drawManager.drawEnhanceSprite(this, leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
+        drawManager.drawEnhanceSprite(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 
+                                            leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
 
         String AreaString = "Area";
 		String DamageString = "Damage";
@@ -222,7 +223,8 @@ public class EnhanceScreen extends Screen {
 
         drawManager.drawEnhanceMenu(this, this.returnCode, 
                                     this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
-                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack());
+                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack(),
+                                    this.enhanceManager.getAttackDamage(), this.enhanceManager.getValEnhanceAttack());
 
         drawManager.completeDrawing(this);
     }
