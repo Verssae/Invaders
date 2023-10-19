@@ -16,6 +16,8 @@ public class EnhanceManager {
     private EnhanceStone enhanceAreaStone;
     /** Singleton enhanceAttackStone instance of the class. */
     private EnhanceStone enhanceAttackStone;
+    /** Singleton enhanceStone instance of the class. */
+    private EnhanceStone enhanceStone;
     /** Current Number of Enhancement Area Stone. */
     private int numEnhanceStoneArea;
     /** Current Number of Enhancement Attack Stone. */
@@ -34,11 +36,11 @@ public class EnhanceManager {
 	 */
     public EnhanceManager(final int numEnhanceStoneArea, final int numEnhanceStoneAttack, 
                           final int lvEnhanceArea, final int lvEnhanceAttack) {    
-        this.enhanceAreaStone = new EnhanceStone(0, 0);
-        this.enhanceAttackStone = new EnhanceStone(0, 0);
+        this.enhanceStone = new EnhanceStone(0, 0);
+        // this.enhanceAttackStone = new EnhanceStone(0, 0);
         
-        this.enhanceAreaStone.setColor(Color.BLUE);
-        this.enhanceAttackStone.setColor(Color.magenta);
+        // this.enhanceAreaStone.setColor(Color.BLUE);
+        // this.enhanceAttackStone.setColor(Color.magenta);
 
         this.numEnhanceStoneArea = numEnhanceStoneArea;
         this.numEnhanceStoneAttack = numEnhanceStoneAttack;
@@ -55,7 +57,7 @@ public class EnhanceManager {
 	 */
     public void enhanceAttackDamage() {
         if (numEnhanceStoneAttack >= 1) {
-            this.attackDamage += enhanceAttackStone.getValEnhanceAttack();
+            this.attackDamage += enhanceStone.getValEnhanceAttack();
             this.numEnhanceStoneAttack -= 1;
             this.lvEnhanceAttack += 1;
         }
@@ -66,24 +68,10 @@ public class EnhanceManager {
      */
     public void enhanceAreaDamage() {
         if (numEnhanceStoneArea >= 1) {
-            this.areaDamage += enhanceAreaStone.getValEnhanceArea();
+            this.areaDamage += enhanceStone.getValEnhanceArea();
             this.numEnhanceStoneArea -= 1;
             this.lvEnhanceArea += 1;
         }
-    }
-
-    /**
-     * Return number of enhanced stone (attack).
-     */
-    public EnhanceStone getEnhanceAttackStone() {
-        return this.enhanceAttackStone;
-    }
-    
-    /**
-     * Return number of enhanced stone (area).
-     */
-    public EnhanceStone getEnhanceAreaStone() {
-        return this.enhanceAreaStone;
     }
 
     /**
@@ -127,4 +115,18 @@ public class EnhanceManager {
     public int getAreaDamage() {
         return this.areaDamage;
     }
+
+    /**
+     * Set number of Blue-Enhance-Area-Stone
+     */
+    public void setNumBlueEnhanceAreaStone(final int number) {
+        this.numEnhanceStoneArea += number;
+    }  
+     
+    /**
+     * Set number of Perple-Enhance-Area-Stone
+     */
+    public void setNumPerpleEnhanceAttackStone(final int number) {
+        this.numEnhanceStoneAttack += number;
+    }    
 }

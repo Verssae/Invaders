@@ -22,8 +22,11 @@ public class GameSettings {
 	/** Check if the stage is boss stage. */
 	private boolean isBossStage;
 
+	/** Damage of area. */
 	private int baseAreaDamage;
+	/** Damage of Attack. */
 	private int baseAttackDamage;
+
 	/**
 	 * Constructor.
 	 * 

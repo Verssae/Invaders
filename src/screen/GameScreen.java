@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import engine.*;
+import engine.DrawManager.SpriteType;
 import entity.*;
 import javax.swing.*;
 
@@ -117,6 +118,7 @@ public class GameScreen extends Screen {
 
 	private boolean bomb; // testing
 	private Cooldown bombCool;
+	private EnhanceManager enhanceManager;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -134,12 +136,14 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen(final GameState gameState,
 					  final GameSettings gameSettings,
+					  final EnhanceManager enhanceManager,
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 
 		this.gameSettings = gameSettings;
 		//this.bonusLife = bonusLife;
+		this.enhanceManager = enhanceManager;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.coin = gameState.getCoin();
@@ -631,12 +635,15 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
-//				if(item.spriteType == SpriteType.Coin){
-//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
-//				}
-//				if(item.spriteType == SpriteType.EnhanceStone){
-//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
-//				}
+				if(item.getSpriteType() == SpriteType.Coin){
+					this.coin.addCoin(1);
+				}
+				if(item.getSpriteType() == SpriteType.BlueEnhanceStone){
+					this.enhanceManager.setNumBlueEnhanceAreaStone(1);
+				}
+				if(item.getSpriteType() == SpriteType.PerpleEnhanceStone){
+					this.enhanceManager.setNumPerpleEnhanceAttackStone(1);
+				}
 				this.ship.checkGetItem(item);
 			}
 		}
