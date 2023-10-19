@@ -6,7 +6,7 @@ Visual Effect System
 > ## Team Introduction
 |No.| Name     | Role |
 |---------|-------------------------|-----------|
-|1. |[Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo)|👑 LEADER|
+|1. |[Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo)|👑 Team Leader|
 |2. |[Doyoon Kim](https://github.com/doyoon323/doyoon323.git)|🗓️ Project Management| 
 |3. |[Hyeonjeong Kim](https://github.com/258xsw/258xsw)|🗣️ Meeting Management|
 |4. |[Jinho Shin](https://github.com/NiceGuy1313/shinjinho)|📋 Document Management|
