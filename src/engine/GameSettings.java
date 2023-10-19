@@ -22,8 +22,11 @@ public class GameSettings {
 	/** Check if the stage is boss stage. */
 	private boolean isBossStage;
 
+	/** Damage of area. */
 	private int baseAreaDamage;
+	/** Damage of Attack. */
 	private int baseAttackDamage;
+
 	/**
 	 * Constructor.
 	 * 
@@ -128,18 +131,31 @@ public class GameSettings {
 	 */
 	public final boolean checkIsBoss() {return this.isBossStage; }
 
+
+	/**
+	 * @return the Enhanced Attack Damage
+	 */	
 	public final int getBaseAttackDamage(){
 		return this.baseAttackDamage;
 	}
 
+	/**
+	 * @return the Enhanced Area Damage
+	 */	
 	public final int getBaseAreaDamage(){
 		return this.baseAreaDamage;
 	}
 
+	/**
+	 * Set Attack Damage
+	 */	
 	public final void setAttackDamage(int attackDamage) {
 		this.baseAttackDamage = attackDamage;
 	}
 
+	/**
+	 * Set Area Damage
+	 */	
 	public final void setAreaDamage(int areaDamage) {
 		this.baseAreaDamage = areaDamage;
 	}
