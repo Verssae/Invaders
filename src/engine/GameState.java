@@ -21,6 +21,8 @@ public class GameState {
 	private double livesRemaining_2p;
 	/** Bullets shot until now. */
 	private int bulletsShot;
+
+	private int bulletsShot_2p;
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
 	/** HardCore(Only One life) */

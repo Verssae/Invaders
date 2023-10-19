@@ -27,22 +27,22 @@ public final class Core {
      * Max fps of current screen.
      */
     private static final int FPS = 60;
-	/**
-	 * Max lives.
-	 */
-	private static final int MAX_LIVES = 3;
-	/**
-	 * Levels between extra life.
-	 */
-	private static final int EXTRA_LIFE_FRECUENCY = 3;
-	/**
-	 * Total number of levels.
-	 */
-	private static final int NUM_LEVELS = 8;
-	/**
-	 * difficulty of the game
-	 */
-	private static int difficulty = 1;
+    /**
+     * Max lives.
+     */
+    private static final int MAX_LIVES = 3;
+    /**
+     * Levels between extra life.
+     */
+    private static final int EXTRA_LIFE_FRECUENCY = 3;
+    /**
+     * Total number of levels.
+     */
+    private static final int NUM_LEVELS = 8;
+    /**
+     * difficulty of the game
+     */
+    private static int difficulty = 1;
 
     /**
      * Difficulty settings for level 1.
@@ -239,133 +239,155 @@ public final class Core {
                                 gameState.getLivesRemaining_2p());
 
 
-						// SubMenu | Item Store & Enhancement & Continue
-						do{
-							if (gameState.getLivesRemaining() <= 0) { break; }
-							if (!boxOpen){
-								currentScreen = new RandomBoxScreen(width, height, FPS);
-								returnCode = frame.setScreen(currentScreen);
-								boxOpen = true;
-								currentScreen = new RandomRewardScreen(width, height, FPS);
-								returnCode = frame.setScreen(currentScreen);
-							}
-							if (isInitMenuScreen || currentScreen.returnCode == 5) {
-								currentScreen = new SubMenuScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-								isInitMenuScreen = false;
-							}
-							if (currentScreen.returnCode == 6) {
-								currentScreen = new StoreScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " store screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-							}
-							if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
-								currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
-								gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
-								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " enhance screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-							}
-							if (currentScreen.returnCode == 86) {
-								currentScreen = new SkinStoreScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ "skin store screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-							}
-						} while (currentScreen.returnCode != 2);
-						boxOpen = false;
-						isInitMenuScreen = true;
-					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS);
+                        // SubMenu | Item Store & Enhancement & Continue
+                        do{
+                            if (gameState.getBulletsShot() >= 99) {
+                                if (returnCode == 1) { //Quit during the game
+                                    currentScreen = new TitleScreen(width, height, FPS);
+                                    frame.setScreen(currentScreen);
+                                    break;
+                                }
+
+                                LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                        + " score screen at " + FPS + " fps, with a score of "
+                                        + gameState.getScore() + ", "
+                                        + gameState.getLivesRemaining() + " lives remaining, "
+                                        + gameState.getBulletsShot() + " bullets shot and "
+                                        + gameState.getShipsDestroyed() + " ships destroyed.");
+                                currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
+                                returnCode = frame.setScreen(currentScreen);
+                                LOGGER.info("Closing score screen.");
+                                break;
+                            } else {
+                                if (gameState.getLivesRemaining() <= 0) { break; }
+                                if (!boxOpen){
+                                    currentScreen = new RandomBoxScreen(width, height, FPS);
+                                    returnCode = frame.setScreen(currentScreen);
+                                    boxOpen = true;
+                                    currentScreen = new RandomRewardScreen(width, height, FPS);
+                                    returnCode = frame.setScreen(currentScreen);
+                                }
+                                if (isInitMenuScreen || currentScreen.returnCode == 5) {
+                                    currentScreen = new SubMenuScreen(width, height, FPS);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " subMenu screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                    isInitMenuScreen = false;
+                                }
+                                if (currentScreen.returnCode == 6) {
+                                    currentScreen = new StoreScreen(width, height, FPS);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " store screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                }
+                                if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+                                    currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
+                                    gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
+                                    enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " enhance screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                }
+                                if (currentScreen.returnCode == 86) {
+                                    currentScreen = new SkinStoreScreen(width, height, FPS);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + "skin store screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                }
+                            }
+
+                    } while (currentScreen.returnCode != 2);
+                    boxOpen = false;
+                    isInitMenuScreen = true;
+                    } while (gameState.getLivesRemaining() > 0
+                            && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot() < 3);
 
 
 
-					// Recovery : Default State / Exit
+                    // Recovery : Default State / Exit
+                    if (gameState.getBulletsShot() < 99){
+                        currentScreen = new RecoveryScreen (width, height, FPS);
+                        LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                + " Recovery screen at " + FPS + " fps.");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing Recovery screen.");
+                    }
 
-                    currentScreen = new RecoveryScreen(width, height, FPS);
-                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-                            + " Recovery screen at " + FPS + " fps.");
-                    returnCode = frame.setScreen(currentScreen);
-                    LOGGER.info("Closing Recovery screen.");
 
 
 
-					if (returnCode == 30) {// Continuing game with default state
-						gameState.setLivesRecovery();
-						do { currentScreen = new GameScreen(gameState,
-								gameSettings.get(gameState.getLevel()-1),
-								width, height, FPS);
-							LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-									+ " game screen at " + FPS + " fps.");
-							returnCode = frame.setScreen(currentScreen);
-							LOGGER.info("Closing game screen.");
-							gameState = ((GameScreen) currentScreen).getGameState();
+                    if (returnCode == 30) {// Continuing game with default state
+                        gameState.setLivesRecovery();
+                        do { currentScreen = new GameScreen(gameState,
+                                gameSettings.get(gameState.getLevel()-1),
+                                width, height, FPS);
+                            LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                    + " game screen at " + FPS + " fps.");
+                            returnCode = frame.setScreen(currentScreen);
+                            LOGGER.info("Closing game screen.");
+                            gameState = ((GameScreen) currentScreen).getGameState();
 
-		
-							gameState = new GameState(gameState.getLevel()+1,
-									gameState.getScore(),
+
+                            gameState = new GameState(gameState.getLevel()+1,
+                                    gameState.getScore(),
                                     gameState.getCoin(),
-									gameState.getLivesRemaining(),
-									gameState.getBulletsShot(),
-									gameState.getShipsDestroyed(),
-									gameState.getHardCore(),
+                                    gameState.getLivesRemaining(),
+                                    gameState.getBulletsShot(),
+                                    gameState.getShipsDestroyed(),
+                                    gameState.getHardCore(),
                                     gameState.getLivesRemaining_2p());
 
 
-							// SubMenu | Item Store & Enhancement & Continue
-							do{
-								if (gameState.getLivesRemaining() <= 0) { break; }
-								if (!boxOpen){
-									currentScreen = new RandomBoxScreen(width, height, FPS);
-									returnCode = frame.setScreen(currentScreen);
-									boxOpen = true;
-									currentScreen = new RandomRewardScreen(width, height, FPS);
-									returnCode = frame.setScreen(currentScreen);
-								}
-								if (isInitMenuScreen || currentScreen.returnCode == 5) {
-								currentScreen = new SubMenuScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " subMenu screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-								isInitMenuScreen = false;
-								}
-								if (currentScreen.returnCode == 6) {
-									currentScreen = new StoreScreen(width, height, FPS);
-									LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " store screen at " + FPS + " fps.");
-									returnCode = frame.setScreen(currentScreen);
-									LOGGER.info("Closing subMenu screen.");
-								}
-								if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
-									currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
-									gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
-									enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
-									LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " enhance screen at " + FPS + " fps.");
-									returnCode = frame.setScreen(currentScreen);
-									LOGGER.info("Closing subMenu screen.");
-								}
-							} while (currentScreen.returnCode != 2);
-								boxOpen = false;
-								isInitMenuScreen = true;
-						} while (gameState.getLivesRemaining() > 0
-									&& gameState.getLevel() <= NUM_LEVELS);
-					
+                            // SubMenu | Item Store & Enhancement & Continue
+                            do{
+                                if (gameState.getLivesRemaining() <= 0) { break; }
+                                if (!boxOpen){
+                                    currentScreen = new RandomBoxScreen(width, height, FPS);
+                                    returnCode = frame.setScreen(currentScreen);
+                                    boxOpen = true;
+                                    currentScreen = new RandomRewardScreen(width, height, FPS);
+                                    returnCode = frame.setScreen(currentScreen);
+                                }
+                                if (isInitMenuScreen || currentScreen.returnCode == 5) {
+                                    currentScreen = new SubMenuScreen(width, height, FPS);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " subMenu screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                    isInitMenuScreen = false;
+                                }
+                                if (currentScreen.returnCode == 6) {
+                                    currentScreen = new StoreScreen(width, height, FPS);
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " store screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                }
+                                if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+                                    currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
+                                    gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
+                                    enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
+                                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                            + " enhance screen at " + FPS + " fps.");
+                                    returnCode = frame.setScreen(currentScreen);
+                                    LOGGER.info("Closing subMenu screen.");
+                                }
+                            } while (currentScreen.returnCode != 2);
+                            boxOpen = false;
+                            isInitMenuScreen = true;
+                        } while (gameState.getLivesRemaining() > 0
+                                && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot() < 99);
 
 
-						if (returnCode == 1) { //Quit during the game
-							break;
-						}
-					}
+
+                        if (returnCode == 1) { //Quit during the game
+                            break;
+                        }
+                    }
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
