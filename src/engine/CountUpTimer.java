@@ -18,14 +18,6 @@ public class CountUpTimer {
         }
     }
 
-    public void start() {
-        running = true;
-        startTime = System.currentTimeMillis() - elapsedTime;
-    }
-
-    public void stop() {
-        running = false;
-    }
 
     public long getElapsedTime() {
         return elapsedTime;

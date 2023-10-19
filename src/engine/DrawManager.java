@@ -819,6 +819,7 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 8);
 	}
 
+
 	public void drawRandomBox(final Screen screen, final int option) {
 		String introduceString1 = "SELECT ONE OF THE THREE BOXES";
 		String introduceString2 = "FOR A RANDOM REWARD";

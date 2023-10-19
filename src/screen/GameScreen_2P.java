@@ -112,6 +112,8 @@ public class GameScreen_2P extends Screen {
 	/** Current Value of Enhancement  Attack. */
 	private int areaDamage;
 
+    private CountUpTimer timer;
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -145,6 +147,7 @@ public class GameScreen_2P extends Screen {
         this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+        timer = new CountUpTimer();
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
@@ -430,6 +433,8 @@ public class GameScreen_2P extends Screen {
             this.isRunning = false;
         }
 
+        timer.update();
+
     }
     /**
      * when the stage end, eat all dropped item.
@@ -506,6 +511,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         drawManager.scoreEmoji(this, this.score);
         drawManager.drawLevel(this, this.level);
+        drawManager.drawTimer(this, timer.getElapsedTime());
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {
@@ -523,12 +529,15 @@ public class GameScreen_2P extends Screen {
             //drawManager.drawHorizontalLine(this, this.height / 2 + this.height / 12);
         }
 
+
         // If Game has been paused
         if (this.pause) {
             drawManager.drawPaused(this);
         }
 
         drawManager.completeDrawing(this);
+
+
     }
 
     /**
