@@ -1,14 +1,14 @@
 package screen;
 
+import engine.*;
+import entity.*;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-import engine.*;
 import engine.DrawManager.SpriteType;
-import entity.*;
 import javax.swing.*;
-
 
 
 /**
@@ -405,7 +405,6 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
-//		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
