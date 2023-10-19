@@ -1,15 +1,11 @@
 package entity;
 
-import java.awt.*;
-import java.util.*;
-import java.util.List;
-import java.util.logging.Logger;
-
 import engine.*;
-import screen.Screen;
 import engine.DrawManager.SpriteType;
 import screen.Screen;
 
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -355,10 +351,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					movementX = -X_SPEED;
 				}
 				else {
-					if (isExtend)
-						movementExtend = 0;
-					else if (isNotExtend)
-						movementExtend = 0;
+					movementExtend = 0;
 					movementY = Y_SPEED;
 				}
 				positionX += movementX;
