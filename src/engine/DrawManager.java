@@ -70,7 +70,7 @@ public final class DrawManager {
 	private Cooldown bgTimer_init = new Cooldown(3000);  // For white fade in at game start
 	private Cooldown bgTimer_lines = new Cooldown(100);  // For bg line animation
 	private int lineConstant = 0;  // For bg line animation
-
+	private Coin coin;
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
@@ -500,7 +500,7 @@ public final class DrawManager {
 	public void drawLevel(final Screen screen, final int level){
 		backBufferGraphics.setFont(fontBig);
 		backBufferGraphics.setColor(levelColor(level));
-		backBufferGraphics.drawString(Integer.toString(level), 150, 25);
+		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
 
 	/**
@@ -528,18 +528,25 @@ public final class DrawManager {
 	 */
 	public void drawCoin(final Screen screen, final Coin coin, final int drawCoinOption) {
 		if (drawCoinOption == 0) {
-			this.drawEntity(SpriteType.Coin, screen.getWidth() - 179, 13, 2, 2, Color.green);
-			backBufferGraphics.setFont(fontBig);
+			this.drawEntity(SpriteType.Coin, 15, 55, 1.5, 1.5, Color.YELLOW);
+			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.WHITE);
 			String coinString = String.format("%03d", coin.getCoin());
-			backBufferGraphics.drawString(coinString, screen.getWidth() - 160, 28);
+			backBufferGraphics.drawString(coinString, 30, 65);
 		}
 		else if (drawCoinOption == 1) {
-			this.drawEntity(SpriteType.Coin, 20, 13, 2, 2, Color.green);
+			this.drawEntity(SpriteType.Coin, 20, 13, 2, 2, Color.YELLOW);
 			backBufferGraphics.setFont(fontBig);
 			backBufferGraphics.setColor(Color.WHITE);
 			String coinString = String.format("%03d", coin.getCoin());
 			backBufferGraphics.drawString(coinString, 40, 28);
+		}
+				else if (drawCoinOption == 2) {
+			this.drawEntity(SpriteType.Coin, screen.getWidth()* 8/9 - 8, 43, 2, 2, Color.YELLOW);
+			backBufferGraphics.setFont(fontRegular);
+			backBufferGraphics.setColor(Color.WHITE);
+			String coinString = String.format("%03d", coin.getCoin());
+			backBufferGraphics.drawString(coinString, screen.getWidth() * 8/ 9 + 10, 55);
 		}
 	}
 
@@ -806,12 +813,12 @@ public final class DrawManager {
 		String threeString = "3";
 		try {
 			BufferedImage image1 = ImageIO.read(new File("res/giftbox1.png"));
-			BufferedImage greenImage1 = image1; // 먼저 초록색으로 처리할 이미지를 원래 이미지로 초기화
-			if (option == 10) { // 옵션에 따라 이미지를 초록색으로 변환
+			BufferedImage greenImage1 = image1;
+			if (option == 20) { 
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
-				int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -821,11 +828,11 @@ public final class DrawManager {
 		try {
 			BufferedImage image2 = ImageIO.read(new File("res/giftbox1.png"));
 			BufferedImage greenImage2 = image2;
-			if (option == 7) {
+			if (option == 21) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage2 = greenFilter.filter(image2, null);
-				int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -835,11 +842,12 @@ public final class DrawManager {
 		try {
 			BufferedImage image3 = ImageIO.read(new File("res/giftbox1.png"));
 			BufferedImage greenImage3 = image3;
-			if (option == 2) {
+			if (option == 22) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage3 = greenFilter.filter(image3, null);
-				int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
+				
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -851,30 +859,30 @@ public final class DrawManager {
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString1, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, introduceString2, screen.getHeight() / 6);
-		if (option == 10)
+		if (option == 20)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(oneString, screen.getWidth() / 4, screen.getHeight() * 3 / 4);
 
-		if (option == 7)
+		if (option == 21)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(twoString, screen.getWidth() * 2 / 4, screen.getHeight() * 3 / 4);
 		
-		if (option == 2)
+		if (option == 22)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(threeString, screen.getWidth() * 3 / 4, screen.getHeight() * 3 / 4);
 	}
 	
-	public void drawRandomReward(final Screen screen, final int option) {
+	public void drawRandomReward(final Screen screen, final int option, final int randomcoin) {
 		
 		String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
-	
+		getRandomCoin = Integer.toString(randomcoin);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() / 2);
@@ -1538,7 +1546,6 @@ public final class DrawManager {
 	 * @param fontSizeOption
 	 *               Option of font size.
 	 */
-
 	public void drawEnhanceStoneString(final Screen screen, final String enhanceString, 
 										final int positionX, final int positionY, 
 										final Color color, int fontSizeOption) {
@@ -1555,23 +1562,31 @@ public final class DrawManager {
 		backBufferGraphics.drawString(enhanceString, centerX, positionY);
 	}
 
+	/**
+	 * Draws Sprites on Enhance screen.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param leftCircleX
+	 *               X coordinate of the left Circle.
+	 * @param rightCircleX
+	 *               X coordinate of the right Circle.
+	 * @param sideCircleY
+	 *               Y coordinate of the left and right Circle.
+	 * @param sideCircleWidth
+	 *               Width of the left and right Circle.
+	 * @param sideCircleHeight
+	 *               Height of the left and right Circle.
+	 */
 	public void drawEnhanceSprite(final Screen screen,
 								  final int leftCircleX, final int rightCircleX, final int sideCircleY, 
 								  final int sideCircleWidth, final int sideCircleHeight) {
-		// backBufferGraphics.setFont(fontRegular);
-		// backBufferGraphics.setColor(Color.WHITE);
-		// backBufferGraphics.drawString("Reinforced Stone: " + Integer.toString(enhanceStone), 20, 25);
-		// Ship dummyShip = new Ship(0, 0);
-		// drawEntity(dummyShip, 40 + 35, 10);
-		// BlueEnhanceStoneArea = new Entity.EnhanceStone()
-		// PerpleEnhanceStoneAttack = spriteMap.get(SpriteType.PerpleEnhanceStone);
+									
 		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
 		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
 					
-		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
-		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
-		// this.drawEntity(, 100, 100);
-		// this.drawEntity(, 50, 50);
+		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
+		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
 	}
 
 	/**
@@ -1590,7 +1605,6 @@ public final class DrawManager {
 	 * @param lvEnhanceDamage
 	 *               Current Level of Enhanced Damage.
 	 */
-
 	public void drawEnhanceMenu(final Screen screen, final int option, 
 								int numEnhanceArea, int numEnhanceDamage, 
 								int lvEnhanceArea, int lvEnhanceDamage) {
@@ -1600,7 +1614,7 @@ public final class DrawManager {
 		String playString = "C O N T I N U E";
 		String lvEnhanceAreaString = "Area Lv" + Integer.toString(lvEnhanceArea) + " > "
 				+ Integer.toString(lvEnhanceArea + 1);
-		String lvEnhanceDamageString = "Damage Lv" + Integer.toString(lvEnhanceDamage) + " > "
+		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
 		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
 		String valEnhanceDamageString = "1/" + Integer.toString(numEnhanceDamage);
