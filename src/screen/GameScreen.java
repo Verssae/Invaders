@@ -118,6 +118,8 @@ public class GameScreen extends Screen {
 	private Cooldown bombCool;
 	private EnhanceManager enhanceManager;
 
+	private CountUpTimer timer;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -154,6 +156,7 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+		timer = new CountUpTimer();
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
@@ -161,6 +164,7 @@ public class GameScreen extends Screen {
 			LASER_VARIANCE = 500;
 			LASER_LOAD = 1500;
 		}
+
 	}
 
 
@@ -397,6 +401,8 @@ public class GameScreen extends Screen {
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -466,6 +472,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
+		drawManager.drawTimer(this, timer.getElapsedTime());
 		if (combo !=0) {
 			drawManager.ComboCount(this, this.combo);
 		}
@@ -501,6 +508,7 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
+
 
 
 		}
