@@ -1063,7 +1063,7 @@ public final class DrawManager {
 		String recovdefaultString = "D E F A U L T   S T A T E";
 		String exitString = "E X I T";
 
-		backBufferGraphics.setColor(blinkingColor("YELLOW"));
+		backBufferGraphics.setColor(Color.green);
 		drawCenteredBigString(screen, recoveryString, screen.getHeight() / 5);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 3);
@@ -1094,15 +1094,41 @@ public final class DrawManager {
 
 	public void drawRecoveryConfirmPage(final Screen screen, final int option) {
 		String paymentMessage = "Please pay 150 amount to recover:";
-		
-		backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.setColor(Color.white);
 		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
 
+		Coin coinInstance = new Coin(option, option);
+		int coinValue = coinInstance.getCoin();
+		String coinString = " C O I N : " + coinValue;
+
+		if( coinValue >= 150){
+	
+			backBufferGraphics.setColor(Color.YELLOW);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "Your coin is enough";
+    				backBufferGraphics.setColor(Color.PINK);
+    				drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+		} else {
+			backBufferGraphics.setColor(Color.red);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "You need more coin to continue";
+    				backBufferGraphics.setColor(Color.orange);
+    				drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+			}
+		
+		
 		String dorecoveryString = " Y E S ";
 		String notrecoveryString = " N O ";
 
-		if (option == 51)
+		if (option == 51){
+
+			if(coinValue >= 150){
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
+			} else {backBufferGraphics.setColor(Color.red);}
+
+		}	
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, dorecoveryString,
@@ -1724,6 +1750,7 @@ public final class DrawManager {
 	public void drawSkinStore(final Screen screen, final int option) {
 		// Coin coinInstance = new Coin();
 		// int coinValue = coinInstance.getCoin();
+		
 
 		String skinStoreTxt = " S K I N S T O R E";
 		String buyString = " B U Y";

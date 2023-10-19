@@ -369,18 +369,13 @@ public final class Core {
 						} while (gameState.getLivesRemaining() > 0
 									&& gameState.getLevel() <= NUM_LEVELS);
 					
-
-
 						if (returnCode == 1) { //Quit during the game
+                            currentScreen = new TitleScreen(width, height, FPS);
+                            frame.setScreen(currentScreen);
 							break;
 						}
 					}
 
-                    if (returnCode == 51) {
-                        currentScreen = new TitleScreen(width, height, FPS);
-                        frame.setScreen(currentScreen);
-                        break;
-                    }
 
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
