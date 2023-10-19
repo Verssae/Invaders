@@ -32,7 +32,7 @@ public class EnhanceManager {
 	 */
     public EnhanceManager(final int numEnhanceStoneArea, final int numEnhanceStoneAttack, 
                           final int lvEnhanceArea, final int lvEnhanceAttack) {    
-        this.enhanceStone = new EnhanceStone(0, 0, 7, 7, Color.WHITE);
+        this.enhanceStone = new EnhanceStone(0, 0);
         this.numEnhanceStoneArea = numEnhanceStoneArea;
         this.numEnhanceStoneAttack = numEnhanceStoneAttack;
 

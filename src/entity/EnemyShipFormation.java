@@ -164,24 +164,83 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 			for (List<EnemyShip> column : this.enemyShips) {
 				for (int i = 0; i < this.nShipsHigh; i++) {
-					if (i / (float) this.nShipsHigh < PROPORTION_C) {
-						spriteType = SpriteType.EnemyShipC1;
-						enemyColor = Color.PINK;
+					Random rnd = new Random();
+					int r, r2, g, b;
+					r = rnd.nextInt(200);
+					r2 = rnd.nextInt(100) + 80;
+					g = rnd.nextInt(200);
+					b = rnd.nextInt(200);
+					Color color = new Color(r, g, b);
+					Color A_color = new Color(r, 255, 255);
+					Color B_color = new Color(255, g, 255);
+					Color C_color = new Color(r2, 125, 255);
+					Color D_color = new Color(255, 255, b);
+					switch (level) {
+						case 1:
+							spriteType = SpriteType.EnemyShipA1;
+							enemyColor = A_color;
+							break;
+						case 2:
+							spriteType = SpriteType.EnemyShipB1;
+							enemyColor = B_color;
+							break;
+						case 3:
+							spriteType = SpriteType.EnemyShipC1;
+							enemyColor = C_color;
+							break;
+						case 4:
+							spriteType = SpriteType.EnemyShipSC1;
+							enemyColor = C_color;
+							break;
+						case 5:
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.EnemyShipSC1;
+								enemyColor = C_color;
+							}
+							else {
+								spriteType = SpriteType.EnemyShipA1;
+								enemyColor = A_color;
+							}
+							break;
+						case 6:
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.EnemyShipSC1;
+								enemyColor = C_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B
+									+ PROPORTION_C) {
+								spriteType = SpriteType.EnemyShipB1;
+								enemyColor = B_color;
+							}
+							else {
+								spriteType = SpriteType.EnemyShipA1;
+								enemyColor = A_color;
+							}
+							break;
+						case 7:
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.EnemyShipSC1;
+								enemyColor = C_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B) {
+								spriteType = SpriteType.EnemyShipD1;
+								enemyColor = D_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B
+									+ PROPORTION_C) {
+								spriteType = SpriteType.EnemyShipB1;
+								enemyColor = B_color;
+							}
+							else {
+								spriteType = SpriteType.EnemyShipA1;
+								enemyColor = A_color;
+							}
+							break;
+						default:
+							spriteType = SpriteType.EnemyShipA1;
+							enemyColor = A_color;
+							break;
 					}
-					else if (i / (float) this.nShipsHigh < PROPORTION_B) {
-						spriteType = SpriteType.EnemyShipSC1;
-						enemyColor = Color.RED;
-					}
-					else if (i / (float) this.nShipsHigh < PROPORTION_B
-							+ PROPORTION_C) {
-						spriteType = SpriteType.EnemyShipB1;
-						enemyColor = Color.CYAN;
-					}
-					else {
-						spriteType = SpriteType.EnemyShipA1;
-						enemyColor = Color.YELLOW;
-					}
-
 
 					column.add(new EnemyShip((SEPARATION_DISTANCE
 							* this.enemyShips.indexOf(column))
@@ -200,7 +259,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					+ this.shipHeight;
 
 			for (List<EnemyShip> column : this.enemyShips)
-				this.shooters.add(column.get(column.size() - 1));
+				this.shooters.add(column.get((column.size() - 1))); // (int) (Math.random() * (column.size() - 1))
+
+
 		}
 		//enemy is a boss
 		else {
@@ -506,7 +567,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shootingCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED));
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED)); // (int)(Math.random() * BULLET_SPEED) + 1)
 				soundEffect.playEnemyShootingSound();
 				if(shooter.checkIsBoss()) {
 					bullets.add(BulletPool.getBullet(shooter.getPositionX()
@@ -535,19 +596,19 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 
 		// Updates the list of ships that can shoot the player.
-		if (this.shooters.contains(destroyedShip)) {
+		if(this.shooters.contains(destroyedShip)){
 			int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
 			int destroyedShipColumnIndex = -1;
 
-			for (List<EnemyShip> column : this.enemyShips)
-				if (column.contains(destroyedShip)) {
+			for(List<EnemyShip> column : this.enemyShips){
+				if(column.contains(destroyedShip)){
 					destroyedShipColumnIndex = this.enemyShips.indexOf(column);
 					break;
 				}
-
-			EnemyShip nextShooter = getNextShooter(this.enemyShips
-					.get(destroyedShipColumnIndex));
-
+			}
+			List<EnemyShip> column = this.enemyShips.get(destroyedShipColumnIndex);
+			int destroyedShipRowIndex = column.indexOf(destroyedShip);
+			EnemyShip nextShooter = getNextShooter(column, destroyedShipRowIndex);
 			if (nextShooter != null)
 				this.shooters.set(destroyedShipIndex, nextShooter);
 			else {
@@ -555,14 +616,15 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				this.logger.info("Shooters list reduced to "
 						+ this.shooters.size() + " members.");
 			}
-		}
 
+
+		}
 		this.shipCount--;
 	}
 
 	/**
 	 * Gets the ship on a given column that will be in charge of shooting.
-	 * 
+	 * overload
 	 * @param column
 	 *            Column to search.
 	 * @return New shooter ship.
@@ -578,6 +640,50 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		return nextShooter;
 	}
+	/**
+	 * Gets the ship on a given column that will be in charge of shooting.
+	 *
+	 * @param column
+	 *            Column to search.
+	 * @param row
+	 * 			  row of destroyed EnemyShip
+	 * @return New shooter ship.
+	 */
+	public final EnemyShip getNextShooter(final List<EnemyShip> column, final int row) {
+		EnemyShip nextShooter = null;
+		for(int i = row + 1; i < column.size(); i++){
+			EnemyShip checkShip = column.get(i);
+			if (checkShip != null && !checkShip.isDestroyed())
+				nextShooter = checkShip;
+		}
+		if(nextShooter != null)
+			return nextShooter;
+		for(int i = row -1; i >= 0; i--){
+			EnemyShip checkShip = column.get(i);
+			if (checkShip != null && !checkShip.isDestroyed())
+				nextShooter = checkShip;
+				break;
+		}
+		return nextShooter;
+
+
+	}
+	/**public final EnemyShip getNextShooterForTest(final List<EnemyShip> column, final int row) {
+		List<Integer> indexList = new ArrayList<Integer>();
+		for(int i = 0; i < column.size(); i++){
+			indexList.add(i);
+		}
+		Collections.shuffle(indexList);
+		EnemyShip nextShooter = null;
+		for(int i = 0; i < indexList.size(); i++){
+			EnemyShip checkShip = column.get(indexList.get(i));
+			if (checkShip != null && !checkShip.isDestroyed() && row != i)
+				nextShooter = checkShip;
+		}
+
+		return nextShooter;
+	}
+	 */
 
 	/**
 	 * Returns an iterator over the ships in the formation.
@@ -631,10 +737,29 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		for(int i = 0; i < this.shooters.size(); i++){
 			indexList.add(i);
 		}
-		/** indexList를 섞어 랜덤하게 배열 */
+		/** indexList를 셔플하고 임의의 열을 뽑는다. 또한 그 열에 대해서 임의의 행을 정하고
+		 * 열과 행이 정해지면 그 위치의 적을 shooter로 선정*/
 		Collections.shuffle(indexList);
 		for(int i = 0; i < shootersAvailable; i++){
-			shooterSet.add(this.shooters.get(indexList.get(i)));
+			EnemyShip shooter = this.shooters.get(indexList.get(i));
+			int shooterColumnIndex = -1;
+			for(List<EnemyShip> column: this.enemyShips){
+				if(column.contains(shooter)){
+					shooterColumnIndex = this.enemyShips.indexOf(column);
+					break;
+				}
+			}
+			List<EnemyShip> column = this.enemyShips.get(shooterColumnIndex);
+			int randomRowIndex = -1;
+
+			randomRowIndex = (int) (Math.random() * (column.size() -1));
+			EnemyShip enemy = this.enemyShips.get(shooterColumnIndex).get(randomRowIndex);
+			if(enemy != null && !enemy.isDestroyed()){
+				shooterSet.add(enemy);
+
+			}
+
+
 		}
 		return shooterSet;
 	}
@@ -654,5 +779,48 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		}
 		return increasingShooters;
 	}
+
+	public final void bombDestroy(Set<Item> items) {
+		int t = Math.min((int)(Math.random() * 10), (this.enemyShips.size()) - 1);
+		this.logger.info("Bomb detected " + t + " : column has removed");
+		List<EnemyShip> temp = this.enemyShips.get(t);
+		for(EnemyShip destroyedShip : temp){
+			for(int i = 0 ; i < temp.size(); i++){
+				if (temp.get(i).checkIsBoss()){
+					return;
+				}
+				if (temp.get(i).equals(destroyedShip)) {
+					temp.get(i).destroy(items);
+					this.logger.info("Destroyed ship in ("
+							+ this.enemyShips.indexOf(temp) + "," + i + ")");
+				}
+			}
+
+			// Updates the list of ships that can shoot the player.
+			if (this.shooters.contains(destroyedShip)) {
+				int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
+				int destroyedShipColumnIndex = -1;
+
+				for (List<EnemyShip> column : this.enemyShips)
+					if (column.contains(destroyedShip)) {
+						destroyedShipColumnIndex = this.enemyShips.indexOf(column);
+						break;
+					}
+
+				EnemyShip nextShooter = getNextShooter(this.enemyShips
+						.get(destroyedShipColumnIndex));
+
+				if (nextShooter != null)
+					this.shooters.set(destroyedShipIndex, nextShooter);
+				else {
+					this.shooters.remove(destroyedShipIndex);
+					this.logger.info("Shooters list reduced to "
+							+ this.shooters.size() + " members.");
+				}
+			}
+			this.shipCount--;
+		}
+	}
+
 }
 
