@@ -4,6 +4,8 @@ import entity.Coin;
 import entity.Entity;
 import entity.Ship;
 import screen.Screen;
+import screen.GameScreen;
+import screen.GameScreen_2P;
 
 import java.awt.*;
 import java.awt.font.GlyphVector;
@@ -19,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.awt.geom.RoundRectangle2D;
 
 import javax.imageio.ImageIO;
 
@@ -502,6 +505,28 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
+	public void drawSoundButton1(GameScreen gamescreen){
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
+	}
+
+	public void drawSoundButton2(GameScreen_2P gamescreen_2P){
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
+	}
+
+	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
+		String statusText = keyboard ? "ON" : "OFF";
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
+	}
+
+	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
+		String statusText = keyboard ? "ON" : "OFF";
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
+	}
+
 
 	/**
 	 * Draws current score on screen.
@@ -516,6 +541,20 @@ public final class DrawManager {
 		backBufferGraphics.setColor(scoreColor(score));
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
+	}
+	public void drawTimer(final Screen screen, final long elapsedTime) {
+		backBufferGraphics.setFont(fontSmall);
+		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
+		String timeString = formatTime(elapsedTime);
+		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
+	}
+
+	private String formatTime(long elapsedTime) {
+		long totalSeconds = elapsedTime / 1000;
+		long minutes = totalSeconds / 60;
+		long seconds = totalSeconds % 60;
+
+		return String.format("%02d:%02d", minutes, seconds);
 	}
 
 	/**
@@ -587,15 +626,51 @@ public final class DrawManager {
 		g2d.setPaint(gradient);
 		g2d.fillRect(8, 8, filledWidth, 20);
 
+		// Set the new font size and type
+		Font newFont = g2d.getFont().deriveFont(Font.BOLD, 19); // Adjust the font size as needed
+
+		// Set the new font in the Graphics2D context
+		g2d.setFont(newFont);
+
 		// Set color for the "lives" text.
 		g2d.setColor(Color.WHITE);
 
 		// Calculate the position to center the "lives" text.
-		int textX = (120 - fontRegularMetrics.stringWidth("Lives")) / 2;
-		int textY = 6 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2;
+		int textX = (120 - g2d.getFontMetrics().stringWidth("Lives")) / 2 + 8; // Center horizontally
+		int textY = 7 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2; // Center vertically
 
 		// Draw the "lives" text in the center of the rectangle.
 		g2d.drawString("Lives", textX, textY);
+	}
+
+	public void drawBossLivesbar(final Screen screen, int boss_lives) {
+		double fillRatio = boss_lives / 50.0;
+
+		int x = 15;
+		int y = 85;
+
+		// Determine the width of the filled portion of the rectangle.
+		int filledWidth = (int) (398 * fillRatio);
+
+		// Cast Graphics to Graphics2D for gradient painting.
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+
+		// Create a RoundRectangle2D for the filled portion with rounded edges.
+		RoundRectangle2D filledRect = new RoundRectangle2D.Double(x, y, filledWidth, 10, 10, 10);
+
+		// Create a RoundRectangle2D for the outline with rounded edges.
+		RoundRectangle2D outlineRect = new RoundRectangle2D.Double(x, y, 398, 10, 10, 10);
+
+		// Create a gradient paint that transitions from green to yellow.
+		GradientPaint gradient = new GradientPaint(x, y, Color.YELLOW, x + filledWidth, y, Color.RED);
+
+		// Draw the outline of the rounded rectangle.
+		g2d.setColor(Color.BLACK);
+		g2d.draw(outlineRect);
+
+		// Set the paint to the gradient and fill the left portion of the rounded rectangle.
+		g2d.setPaint(gradient);
+		g2d.fill(filledRect);
 	}
 
 	/**
@@ -804,6 +879,7 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, storeString1, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 8);
 	}
+
 
 	public void drawRandomBox(final Screen screen, final int option) {
 		String introduceString1 = "SELECT ONE OF THE THREE BOXES";

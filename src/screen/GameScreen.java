@@ -113,10 +113,13 @@ public class GameScreen extends Screen {
 	private int areaDamage;
 	/** Combo counting*/
 	private int combo=0;
+	private boolean isboss;
 
 	private boolean bomb; // testing
 	private Cooldown bombCool;
 	private EnhanceManager enhanceManager;
+
+	private CountUpTimer timer;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -140,20 +143,18 @@ public class GameScreen extends Screen {
 
 
 		this.gameSettings = gameSettings;
-		//this.bonusLife = bonusLife;
 		this.enhanceManager = enhanceManager;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
-		//if (this.bonusLife)
-		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+		timer = new CountUpTimer();
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
@@ -161,6 +162,7 @@ public class GameScreen extends Screen {
 			LASER_VARIANCE = 500;
 			LASER_LOAD = 1500;
 		}
+
 	}
 
 
@@ -397,6 +399,8 @@ public class GameScreen extends Screen {
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -460,12 +464,21 @@ public class GameScreen extends Screen {
 		// Interface.
 		drawManager.drawScore(this, this.score);
 		drawManager.drawCoin(this, this.coin, 0);
-		//drawManager.drawLives(this, this.lives);
 		drawManager.drawLivesbar(this, this.lives);
+		isboss = gameSettings.checkIsBoss();
+		if (isboss) {
+			for (EnemyShip enemyShip : this.enemyShipFormation)
+				drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
+		}
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
+		drawManager.drawSoundButton1(this);
+		if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus1(this, false);
+		else drawManager.drawSoundStatus1(this, true);
+
+		drawManager.drawTimer(this, timer.getElapsedTime());
 		if (combo !=0) {
 			drawManager.ComboCount(this, this.combo);
 		}
@@ -501,6 +514,7 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
+
 
 
 		}
