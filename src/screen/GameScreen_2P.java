@@ -85,7 +85,8 @@ public class GameScreen_2P extends Screen {
     /** Add and Modify BGM */
     private BGM bgm;
     /** Current score. */
-    private int score;
+    private int score_1P;
+    private int score_2P;
     /** Current coin. */
     private Coin coin;
     /** Player lives left. */
@@ -141,7 +142,8 @@ public class GameScreen_2P extends Screen {
 
         this.gameSettings = gameSettings;
         this.level = gameState.getLevel();
-        this.score = gameState.getScore();
+        this.score_1P = gameState.getScore_1P();
+        this.score_2P = gameState.getScore_2P();
         this.coin = gameState.getCoin();
         this.lives_1p = gameState.getLivesRemaining();
         this.lives_2p = gameState.getLivesRemaining();
@@ -225,9 +227,9 @@ public class GameScreen_2P extends Screen {
     public final int run() {
         super.run();
 
-        this.score += LIFE_SCORE * (this.lives_1p - 1);
-        this.score += LIFE_SCORE * (this.lives_2p - 1);
-        this.logger.info("Screen cleared with a score of " + this.score);
+        this.score_1P += LIFE_SCORE * (this.lives_1p - 1);
+        this.score_2P += LIFE_SCORE * (this.lives_2p - 1);
+        this.logger.info("Screen cleared with a score of " + this.score_1P);
 
         return this.returnCode;
     }
@@ -536,7 +538,7 @@ public class GameScreen_2P extends Screen {
 
 
         // Interface.
-        drawManager.drawScore(this, this.score);
+        drawManager.drawScore(this, this.score_1P);
         drawManager.drawLivesbar(this, this.lives_1p);
         isboss = gameSettings.checkIsBoss();
         if (isboss) {
@@ -544,7 +546,7 @@ public class GameScreen_2P extends Screen {
                 drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
         }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
-        drawManager.scoreEmoji(this, this.score);
+        drawManager.scoreEmoji(this, this.score_1P);
         drawManager.drawLevel(this, this.level);
         drawManager.drawSoundButton2(this);
         if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus2(this, false);
@@ -709,7 +711,7 @@ public class GameScreen_2P extends Screen {
                         enemyShip.reduceEnemyLife(this.attackDamage);
                         soundEffect.playEnemyDestructionSound();
                         if(enemyShip.getEnemyLife() < 1) {
-                            this.score += enemyShip.getPointValue();
+                            this.score_1P += enemyShip.getPointValue();
                             this.shipsDestroyed++;
                             this.enemyShipFormation.destroy(enemyShip, this.items);
                         }
@@ -720,7 +722,7 @@ public class GameScreen_2P extends Screen {
                         && checkCollision(bullet_1P, this.enemyShipSpecial)) {
                     enemyShipSpecial.reduceEnemyLife(this.attackDamage);
                     if (enemyShipSpecial.getEnemyLife() < 1) {
-                        this.score += this.enemyShipSpecial.getPointValue();
+                        this.score_1P += this.enemyShipSpecial.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipSpecial.destroy(this.items);
                         soundEffect.enemyshipspecialDestructionSound();
@@ -742,7 +744,7 @@ public class GameScreen_2P extends Screen {
                         enemyShip.reduceEnemyLife(this.attackDamage);
                         soundEffect.playEnemyDestructionSound();
                         if(enemyShip.getEnemyLife() < 1) {
-                            this.score += enemyShip.getPointValue();
+                            this.score_2P += enemyShip.getPointValue();
                             this.shipsDestroyed++;
                             this.enemyShipFormation.destroy(enemyShip, this.items);
                         }
@@ -753,7 +755,7 @@ public class GameScreen_2P extends Screen {
                         && checkCollision(bullet_2P, this.enemyShipSpecial)) {
                     enemyShipSpecial.reduceEnemyLife(this.attackDamage);
                     if (enemyShipSpecial.getEnemyLife() < 1) {
-                        this.score += this.enemyShipSpecial.getPointValue();
+                        this.score_2P += this.enemyShipSpecial.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipSpecial.destroy(this.items);
                         soundEffect.enemyshipspecialDestructionSound();
@@ -864,7 +866,7 @@ public class GameScreen_2P extends Screen {
                         enemyShip.reduceEnemyLife(bulletY_1P.getDamage());
                         soundEffect.playEnemyDestructionSound();
                         if(enemyShip.getEnemyLife() < 1) {
-                            this.score += enemyShip.getPointValue();
+                            this.score_1P += enemyShip.getPointValue();
                             this.shipsDestroyed++;
                             this.enemyShipFormation.destroy(enemyShip, this.items);
                         }
@@ -875,7 +877,7 @@ public class GameScreen_2P extends Screen {
                         && checkCollision(bulletY_1P, this.enemyShipSpecial)) {
                     enemyShipSpecial.reduceEnemyLife(bulletY_1P.getDamage());
                     if(enemyShipSpecial.getEnemyLife() < 1) {
-                        this.score += this.enemyShipSpecial.getPointValue();
+                        this.score_1P += this.enemyShipSpecial.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipSpecial.destroy(this.items);
                         soundEffect.enemyshipspecialDestructionSound();
@@ -896,7 +898,7 @@ public class GameScreen_2P extends Screen {
                         enemyShip.reduceEnemyLife(bulletY_2P.getDamage());
                         soundEffect.playEnemyDestructionSound();
                         if(enemyShip.getEnemyLife() < 1) {
-                            this.score += enemyShip.getPointValue();
+                            this.score_2P += enemyShip.getPointValue();
                             this.shipsDestroyed++;
                             this.enemyShipFormation.destroy(enemyShip, this.items);
                         }
@@ -907,7 +909,7 @@ public class GameScreen_2P extends Screen {
                         && checkCollision(bulletY_2P, this.enemyShipSpecial)) {
                     enemyShipSpecial.reduceEnemyLife(bulletY_2P.getDamage());
                     if(enemyShipSpecial.getEnemyLife() < 1) {
-                        this.score += this.enemyShipSpecial.getPointValue();
+                        this.score_2P += this.enemyShipSpecial.getPointValue();
                         this.shipsDestroyed++;
                         this.enemyShipSpecial.destroy(this.items);
                         soundEffect.enemyshipspecialDestructionSound();
@@ -958,7 +960,7 @@ public class GameScreen_2P extends Screen {
      * @return Current game state.
      */
     public final GameState_2P getGameState() {
-        return new GameState_2P(this.level, this.score, this.coin, this.lives_1p,
+        return new GameState_2P(this.level, this.score_1P, this.score_2P, this.coin, this.lives_1p,
                 this.bulletsShot_1P, this.bulletsShot_2P, this.shipsDestroyed, this.hardcore,this.lives_2p);
     }
 }

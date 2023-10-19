@@ -13,7 +13,8 @@ public class GameState_2P {
     /** Current game level. */
     private int level;
     /** Current score. */
-    private int score;
+    private int score_1P;
+    private int score_2P;
     /** Current coin. */
     private Coin coin;
     /** Lives currently remaining. */
@@ -46,11 +47,12 @@ public class GameState_2P {
      * @param hardcore
      *            Hardcore mode, Only one coin.
      */
-    public GameState_2P(final int level, final int score, final Coin coin,
+    public GameState_2P(final int level, final int score_1P, final int score_2P, final Coin coin,
                      final double livesRemaining, final int bulletsShot_1P, final int bulletShot_2P,
                      final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p) {
         this.level = level;
-        this.score = score;
+        this.score_1P = score_1P;
+        this.score_2P = score_2P;
         this.coin = coin;
         this.livesRemaining = livesRemaining;
         this.livesRemaining_2p = livesRemaining_2p;
@@ -71,8 +73,11 @@ public class GameState_2P {
     /**
      * @return the score
      */
-    public final int getScore() {
-        return score;
+    public final int getScore_1P() {
+        return score_1P;
+    }
+    public final int getScore_2P() {
+        return score_2P;
     }
 
     /**
@@ -143,7 +148,7 @@ public class GameState_2P {
      * Set LivesRecovery
      */
     public final void setLivesRecovery() {
-        this.score = getScore() + 100; // keeping score
+        this.score_1P = getScore_1P() + 100; // keeping score
         this.level = getLevel() -1;
         this.livesRemaining = 3;
     }

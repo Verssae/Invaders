@@ -150,7 +150,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false);
-            gameState_2P = new GameState_2P(1, 0, coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
+            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 0);
 
             switch (returnCode) {
@@ -447,7 +447,8 @@ public final class Core {
 
                         gameState_2P = ((GameScreen_2P) currentScreen).getGameState();
                         gameState_2P = new GameState_2P(gameState.getLevel() + 1,
-                                gameState_2P.getScore(),
+                                gameState_2P.getScore_1P(),
+                                gameState_2P.getScore_2P(),
                                 gameState_2P.getCoin(),
                                 gameState_2P.getLivesRemaining(),
                                 gameState_2P.getBulletsShot_1P(),
@@ -467,7 +468,8 @@ public final class Core {
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
-                            + gameState_2P.getScore() + ", "
+                            + gameState_2P.getScore_1P() + ", "
+                            + gameState_2P.getScore_2P() + ", "
                             + gameState_2P.getLivesRemaining() + " Ship_1P lives remaining, "
                             + gameState_2P.getLivesRemaining_2p() + " Ship_2P lives remaining, "
                             + gameState_2P.getBulletsShot_1P() + " Ship_1P bullets shot and "
