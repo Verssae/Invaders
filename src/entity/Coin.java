@@ -1,5 +1,6 @@
 package entity;
 
+
 import entity.Item;
 
 import java.awt.*;
@@ -20,14 +21,16 @@ public class Coin extends Item {
         super(positionX, positionY);
     }
 
-    public int addCoin(int addcoin) {
-        coin += addcoin;
-        return coin;
+    public void addCoin(int addCoin) {
+        this.coin += addCoin;
     }
 
-    public int minuscoin(int minuscoin) {
-        coin -= minuscoin;
-        return coin;
+    public void minusCoin(int cost) { // when buy an item
+        this.coin -= cost;
     }
 
+    public int getCoin() {
+        return this.coin;
+    }
 }
+
