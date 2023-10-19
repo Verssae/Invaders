@@ -1612,14 +1612,21 @@ public final class DrawManager {
 	 *               Height of the left and right Circle.
 	 */
 	public void drawEnhanceSprite(final Screen screen,
+								  final int centeredCircleX, final int centeredCircleY, 
+								  final int centeredCircleWidth, final int centeredCircleHeight,
 								  final int leftCircleX, final int rightCircleX, final int sideCircleY, 
 								  final int sideCircleWidth, final int sideCircleHeight) {
 									
+		SpriteType CurrentShip = SpriteType.ShipA;
 		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
 		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
 					
-		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
-		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
+		this.drawEntity(CurrentShip, centeredCircleX + centeredCircleWidth / 3 + 9, 
+						centeredCircleY + centeredCircleHeight / 4, 3, 3, Color.white);				
+		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, 
+						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
+		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, 
+						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
 	}
 
 	/**
@@ -1640,7 +1647,8 @@ public final class DrawManager {
 	 */
 	public void drawEnhanceMenu(final Screen screen, final int option, 
 								int numEnhanceArea, int numEnhanceDamage, 
-								int lvEnhanceArea, int lvEnhanceDamage) {
+								int lvEnhanceArea, int lvEnhanceDamage,
+								int attackDamage, int addedValAttackDamage) {
 
 		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
@@ -1651,6 +1659,7 @@ public final class DrawManager {
 				+ Integer.toString(lvEnhanceDamage + 1);
 		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
 		String valEnhanceDamageString = "1/" + Integer.toString(numEnhanceDamage);
+		String changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
 
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
@@ -1693,6 +1702,12 @@ public final class DrawManager {
 			drawEnhanceStoneString(screen, lvEnhanceDamageString,
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 10,
 				Color.lightGray, 0);
+			drawEnhanceStoneString(screen, "Damage",
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 60,
+				Color.magenta, 0);
+			drawEnhanceStoneString(screen, changedattackDamageString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 50,
+				Color.magenta, 0);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceDamageString,
