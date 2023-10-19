@@ -1,7 +1,9 @@
 package entity;
 
 import java.awt.Color;
+import java.util.Set;
 
+import effect.BulletEffect;
 import engine.DrawManager.SpriteType;
 
 /**
@@ -19,6 +21,8 @@ public class BulletY extends Entity {
     private int speed;
 
     private int damage;
+    private BulletEffect bulletEffect;
+    private int effectBullet;
 
     /**
      * Constructor, establishes the bullet's properties.
@@ -70,9 +74,15 @@ public class BulletY extends Entity {
      *
      * @return Speed of the bullet.
      */
+
+    public final void splash(Set<Bullet> bullets) {
+        bulletEffect.splashEffect(bullets);
+    }
     public final int getSpeed() {
         return this.speed;
     }
 
     public final int getDamage() { return this.damage; }
+    public final int isEffectBullet() {return this.effectBullet; }
+    public void setEffectBullet(int n) {this.effectBullet = n;}
 }

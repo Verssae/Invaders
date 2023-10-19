@@ -1,7 +1,9 @@
 package entity;
 
 import java.awt.Color;
+import java.util.Set;
 
+import effect.BulletEffect;
 import engine.DrawManager.SpriteType;
 
 /**
@@ -18,6 +20,8 @@ public class Bullet extends Entity {
 	 */
 	private int speed;
 
+	private BulletEffect bulletEffect;
+	private int effectBullet;
 	/**
 	 * Constructor, establishes the bullet's properties.
 	 *
@@ -31,8 +35,9 @@ public class Bullet extends Entity {
 	 */
 	public Bullet(final int positionX, final int positionY, final int speed) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
-
+		this.bulletEffect = new BulletEffect(this);
 		this.speed = speed;
+		this.effectBullet = 0;
 		setSprite();
 	}
 	/**
@@ -52,9 +57,10 @@ public class Bullet extends Entity {
 	 */
 	public Bullet(final int positionX, final int positionY, final int speed, SpriteType bulletType) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
-
+		this.bulletEffect = new BulletEffect(this);
 		this.speed = speed;
 		this.spriteType = bulletType;
+		this.effectBullet = 0;
 	}
 
 	/**
@@ -79,8 +85,19 @@ public class Bullet extends Entity {
 	 * Updates the bullet's position.
 	 */
 	public final void update() {
-		this.positionY += this.speed;
+		if(this.spriteType == SpriteType.Bullet || this.spriteType == SpriteType.EnemyBullet) {
+			this.positionY += this.speed;
+		}
+		else if(this.spriteType == SpriteType.EnemyBulletLeft) {
+			this.positionX -= (int)(this.speed*0.51449575542753);
+			this.positionY += this.speed;
+		}
+		else {
+			this.positionX += (int)(this.speed*0.51449575542753);
+			this.positionY += this.speed;
+		}
 	}
+
 
 	/**
 	 * Setter of the speed of the bullet.
@@ -100,4 +117,12 @@ public class Bullet extends Entity {
 	public final int getSpeed() {
 		return this.speed;
 	}
+
+	public final void splash(Set<Bullet> bullets) {
+		bulletEffect.splashEffect(bullets);
+	}
+
+	public final int isEffectBullet() {return this.effectBullet; }
+
+	public void setEffectBullet(int n) {this.effectBullet = n;}
 }
