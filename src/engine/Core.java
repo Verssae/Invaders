@@ -243,7 +243,7 @@ public final class Core {
 
                         // SubMenu | Item Store & Enhancement & Continue
                         do{
-                            if (gameState.getBulletsShot() > 99) {
+                            if (gameState.getBulletsShot() >= 99) {
                                 if (returnCode == 1) { //Quit during the game
                                     currentScreen = new TitleScreen(width, height, FPS);
                                     frame.setScreen(currentScreen);
