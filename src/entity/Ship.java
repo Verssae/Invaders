@@ -3,6 +3,7 @@ package entity;
 import java.awt.Color;
 import java.util.Set;
 
+import effect.Effect;
 import effect.ShipEffect;
 import engine.Cooldown;
 import engine.Core;
@@ -17,19 +18,19 @@ import engine.DrawManager.SpriteType;
 public class Ship extends Entity {
 
 	/** Time between shots. */
-	private static final int SHOOTING_INTERVAL = 750;
+	private static int SHOOTING_INTERVAL = 750;
 	/** Speed of the bullets shot by the ship. */
-	private static final int BULLET_SPEED = -6;
+	public static final int BULLET_SPEED = -6;
 	/** Speed of the bullets shot by the ship. */
-	private static final int BULLETY_SPEED = -9;
+	public static final int BULLETY_SPEED = -9;
 	/** Movement of the ship for each unit of time. */
 	private static final int SPEED = 2;
 
 	/** Minimum time between shots. */
-	private Cooldown shootingCooldown;
+	public Cooldown shootingCooldown;
 	/** Time spent inactive between hits. */
-	private Cooldown destructionCooldown;
-
+	public Cooldown destructionCooldown;
+	/** EveryThing of item effect. */
 	private ShipEffect shipEffect;
 
 	/**
@@ -61,17 +62,22 @@ public class Ship extends Entity {
 	/**
 	 * Moves the ship speed uni ts right, or until the right screen border is
 	 * reached.
+	 *
+	 * jtaejune : 스턴 아이템을 먹으면 속도가 0이 됨.
 	 */
 	public final void moveRight() {
-		this.positionX += SPEED;
+
+		this.positionX += SPEED * this.shipEffect.moveEffect();
 	}
 
 	/**
 	 * Moves the ship speed units left, or until the left screen border is
 	 * reached.
+	 *
+	 * jtaejune : 스턴 아이템을 먹으면 속도가 0이 됨.
 	 */
 	public final void moveLeft() {
-		this.positionX -= SPEED;
+		this.positionX -= SPEED * this.shipEffect.moveEffect();
 	}
 
 	/**
@@ -82,6 +88,7 @@ public class Ship extends Entity {
 	 * @return Checks if the bullet was shot correctly.
 	 */
 	public final boolean shoot(final Set<Bullet> bullets) {
+		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shoot(bullets, BULLET_SPEED);
@@ -91,6 +98,7 @@ public class Ship extends Entity {
 	}
 
 	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
@@ -103,23 +111,36 @@ public class Ship extends Entity {
 	 * Updates status of the ship.
 	 */
 	public final void update() {
-		if(this.spriteType == spriteType.ShipA || this.spriteType == spriteType.ShipADestroyed) {
-			if (!this.destructionCooldown.checkFinished())
-				this.spriteType = SpriteType.ShipADestroyed;
-			else
-				this.spriteType = SpriteType.ShipA;
-		}
-		else if(this.spriteType == spriteType.ShipB || this.spriteType == spriteType.ShipBDestroyed) {
-			if (!this.destructionCooldown.checkFinished())
-				this.spriteType = SpriteType.ShipBDestroyed;
-			else
-				this.spriteType = SpriteType.ShipB;
-		}
-		else if(this.spriteType == spriteType.ShipC || this.spriteType == spriteType.ShipCDestroyed) {
-			if (!this.destructionCooldown.checkFinished())
-				this.spriteType = SpriteType.ShipCDestroyed;
-			else
-				this.spriteType = SpriteType.ShipC;
+		if(this.spriteType == spriteType.ShipA || this.spriteType == spriteType.ShipADestroyed || this.spriteType == spriteType.ShipAShileded) {
+			if(this.shipEffect.getShieldState()){
+				this.spriteType = spriteType.ShipAShileded;
+			}else{
+				if (!this.destructionCooldown.checkFinished()) {
+					this.spriteType = SpriteType.ShipADestroyed;
+				} else {
+					this.spriteType = SpriteType.ShipA;
+				}
+			}
+		}else if(this.spriteType == spriteType.ShipB || this.spriteType == spriteType.ShipBDestroyed || this.spriteType == spriteType.ShipBShileded) {
+			if(this.shipEffect.getShieldState()){
+				this.spriteType = spriteType.ShipBShileded;
+			}else{
+				if (!this.destructionCooldown.checkFinished()) {
+					this.spriteType = SpriteType.ShipBDestroyed;
+				} else {
+					this.spriteType = SpriteType.ShipB;
+				}
+			}
+		}else if(this.spriteType == spriteType.ShipC || this.spriteType == spriteType.ShipCDestroyed || this.spriteType == spriteType.ShipCShileded) {
+			if(this.shipEffect.getShieldState()){
+				this.spriteType = spriteType.ShipCShileded;
+			}else{
+				if (!this.destructionCooldown.checkFinished()) {
+					this.spriteType = SpriteType.ShipCDestroyed;
+				} else {
+					this.spriteType = SpriteType.ShipC;
+				}
+			}
 		}
 	}
 
@@ -145,7 +166,7 @@ public class Ship extends Entity {
 	 * @return Speed of the ship.
 	 */
 	public final int getSpeed() {
-		return SPEED;
+		return SPEED * this.shipEffect.moveEffect();
 	}
 
 	/**
@@ -158,13 +179,55 @@ public class Ship extends Entity {
 		this.shipEffect.CooldownReset(item.getSpriteType());
 	}
 
+
+
 /* -- Item 6. some helpful code
 	public final void catchItem(Item item) {
 		if (item.spriteType == SpriteType.Item1) {
 			this.bulletEffectCooldown.reset();
 		} else if (item.spriteType == SpriteType.Item2) {
 			this.shipEffectCooldown.reset();
+=======
+>>>>>>> develop
+		if (item.spriteType == SpriteType.Buff_Item || item.spriteType == SpriteType.Debuff_Item) {
+			this.shipEffect.CooldownReset(item.getSpriteType());
 		}
 	}
+
+<<<<<<< HEAD
  */
+public final void gameEndShipMotion(boolean levelFinished, double lives){
+	if(levelFinished){
+		if(lives == 0 ) {
+			this.setColor(Color.gray);
+			this.spriteType = SpriteType.gravestone;
+		}
+	}
+}
+
+	/** Return the ship's attack speed
+	 * @return shootingCooldown
+	 */
+	public Cooldown getShootingInterval(){return this.shootingCooldown;}
+	/** Set the ship's attack speed
+	 */
+	public void setShootingInterval(Cooldown cool){this.shootingCooldown = cool;}
+	/** Return the ship's shiled state.
+	 * @return ShiledState
+	 */
+	public boolean getShieldState() { return this.shipEffect.getShieldState(); }
+	/** set the ship's shiled state.
+	 */
+	public void setShieldState(boolean state) { this.shipEffect.setShieldState(state); }
+	/** Return the ship has bomb?.
+	 * @return bomb
+	 */
+	public boolean getBomb(){
+		return shipEffect.bomb;
+	}
+	/** set the ship has bomb?.
+	 */
+	public void setBomb(boolean t){
+		this.shipEffect.bomb = t;
+	}
 }
