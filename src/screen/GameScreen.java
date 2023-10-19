@@ -636,7 +636,7 @@ public class GameScreen extends Screen {
 				this.logger.info("Get Item ");
 
 				//* settings of coins randomly got when killing monsters
-				List<Integer> coinProbability = Arrays.asList(0, 0, 0, 0, 1, 1, 1, 2, 3, 4);
+				ArrayList<Integer> coinProbability = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 1, 1, 2, 3, 4));
 				Random random = new Random();
 				int randomIndex = random.nextInt(coinProbability.size());
 

@@ -167,7 +167,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES);
-            enhanceManager = new EnhanceManager(0, 0, 0, 0);
+            enhanceManager = new EnhanceManager(0, 0, 0, 0, 0);
 
             switch (returnCode) {
                 case 1:
