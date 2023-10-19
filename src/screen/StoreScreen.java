@@ -31,7 +31,7 @@ public class StoreScreen extends Screen {
     public StoreScreen(final int width, final int height, final int fps, final GameState gameState) {
         super(width, height, fps);
         // Defaults to play.
-        this.returnCode = 13;
+        this.returnCode = 14;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.coin = gameState.getCoin();
@@ -78,9 +78,9 @@ public class StoreScreen extends Screen {
         }
     }
     private void nextMenuItem() {
-        if (this.returnCode == 2)
-            this.returnCode = 14;
-        else 
+        if (this.returnCode == 14)
+            this.returnCode = 2;
+        else if (this.returnCode == 2)
             this.returnCode = 15;
     }
 
@@ -89,9 +89,9 @@ public class StoreScreen extends Screen {
      */
     private void previousMenuItem() {
         if (this.returnCode == 15)
-            this.returnCode = 14;
-        else 
             this.returnCode = 2;
+        else if(this.returnCode == 2)
+            this.returnCode = 14;
     }
     /**
      * Draws the elements associated with the screen.123

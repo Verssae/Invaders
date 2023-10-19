@@ -1502,12 +1502,12 @@ public final class DrawManager {
 		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3);
 		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4);
 		backBufferGraphics.setFont(fontRegular);
-		if (option == 2)
+		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(EnhanceString, screen.getWidth()/15 - 20, screen.getHeight() - 30);
-		if (option == 14)
+		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
