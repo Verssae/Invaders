@@ -13,6 +13,7 @@ import java.awt.image.BufferedImage; // monster animation on a loading box
 import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
+import java.sql.PseudoColumnUsage;
 import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -1483,17 +1484,33 @@ public final class DrawManager {
 
 
 	public void drawItemthings(final int width, final int height, final int size, final Color color, final int option){
+		String shield = "S H I E L D";
+		String bomb = "B O M B";
+		String BST = "B S T O N E";
+		String PST = "P S T O N E";
 		backBufferGraphics.drawRect(width, height, size, size);
 		if (option == 1){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(shield, width + 18, height + size - 10);
 			drawEntity(SpriteType.ShipAShileded, width + 12, height +23, size/15, size/15, color);
 		}
 		else if (option == 2){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(bomb, width + 25, height + size - 10);
 			drawEntity(SpriteType.Explosion, width + 12, height + 25, size/15, size/15, color);
 		}
 		else if (option == 3){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(BST, width + 18, height + size - 10);
 			drawEntity(SpriteType.BlueEnhanceStone, width + 25, height + 25, size/15, size/15, color);
 		}
 		else if (option == 4){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(PST, width + 18, height + size - 10);
 			drawEntity(SpriteType.PerpleEnhanceStone, width + 25, height + 25, size/15, size/15, color);
 		}
 
@@ -1505,7 +1522,6 @@ public final class DrawManager {
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
 		String skinStoreString = " > S K I N S T O R E";
-		Color newcolor = new Color(0, 0, 0, 0); // 알파 채널 값 0
 
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
@@ -1520,12 +1536,12 @@ public final class DrawManager {
 		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3);
 		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4);
 		backBufferGraphics.setFont(fontRegular);
-		if (option == 2)
+		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(EnhanceString, screen.getWidth()/15 - 20, screen.getHeight() - 30);
-		if (option == 14)
+		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -1630,14 +1646,21 @@ public final class DrawManager {
 	 *               Height of the left and right Circle.
 	 */
 	public void drawEnhanceSprite(final Screen screen,
+								  final int centeredCircleX, final int centeredCircleY, 
+								  final int centeredCircleWidth, final int centeredCircleHeight,
 								  final int leftCircleX, final int rightCircleX, final int sideCircleY, 
 								  final int sideCircleWidth, final int sideCircleHeight) {
 									
+		SpriteType CurrentShip = SpriteType.ShipA;
 		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
 		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
 					
-		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
-		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
+		this.drawEntity(CurrentShip, centeredCircleX + centeredCircleWidth / 3 + 9, 
+						centeredCircleY + centeredCircleHeight / 4, 3, 3, Color.white);				
+		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, 
+						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
+		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, 
+						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
 	}
 
 	/**
@@ -1658,7 +1681,8 @@ public final class DrawManager {
 	 */
 	public void drawEnhanceMenu(final Screen screen, final int option, 
 								int numEnhanceArea, int numEnhanceDamage, 
-								int lvEnhanceArea, int lvEnhanceDamage) {
+								int lvEnhanceArea, int lvEnhanceDamage,
+								int attackDamage, int addedValAttackDamage) {
 
 		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
@@ -1669,6 +1693,7 @@ public final class DrawManager {
 				+ Integer.toString(lvEnhanceDamage + 1);
 		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
 		String valEnhanceDamageString = "1/" + Integer.toString(numEnhanceDamage);
+		String changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
 
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
@@ -1711,6 +1736,12 @@ public final class DrawManager {
 			drawEnhanceStoneString(screen, lvEnhanceDamageString,
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 10,
 				Color.lightGray, 0);
+			drawEnhanceStoneString(screen, "Damage",
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 60,
+				Color.magenta, 0);
+			drawEnhanceStoneString(screen, changedattackDamageString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 50,
+				Color.magenta, 0);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceDamageString,

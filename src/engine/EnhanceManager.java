@@ -48,9 +48,9 @@ public class EnhanceManager {
 	 * Enhance attack damage using Enhance stone.
 	 */
     public void enhanceAttackDamage() {
-        int numrequiredEnhanceStone = numRequiredEnhanceAttackStoneList.get(this.lvEnhanceAttack);
+        int numrequiredEnhanceStone = this.getRequiredNumEnhanceStoneAttack();
         if (numEnhanceStoneAttack >= numrequiredEnhanceStone) {
-            this.attackDamage += valEnhanceAttackList.get(this.lvEnhanceAttack);
+            this.attackDamage += this.getValEnhanceAttack();
             this.numEnhanceStoneAttack -= numrequiredEnhanceStone;
             this.lvEnhanceAttack += 1;
         }
@@ -60,7 +60,7 @@ public class EnhanceManager {
      * Enhance area damage using Enhance stone.
      */
     public void enhanceAreaDamage() {
-        int numRequiredEnhanceStone = numRequiredEnhanceAreaStoneList.get(this.lvEnhanceArea);
+        int numRequiredEnhanceStone = this.getRequiredNumEnhanceStoneArea();
         if (numEnhanceStoneArea >= numRequiredEnhanceStone) {
             this.numEnhanceStoneArea -= numRequiredEnhanceStone;
             this.lvEnhanceArea += 1;
@@ -108,6 +108,27 @@ public class EnhanceManager {
     public int getNumEnhanceStoneArea() {
         return this.numEnhanceStoneArea;
     }
+
+    /**
+     * Return Value of enhanced damage according to level
+     */
+    public int getValEnhanceAttack() {
+        return valEnhanceAttackList.get(this.lvEnhanceAttack);
+    }    
+
+    /**
+     * Return number of required Enhance-Stone-Attack
+     */
+    public int getRequiredNumEnhanceStoneAttack() {
+        return numRequiredEnhanceAttackStoneList.get(this.lvEnhanceAttack);
+    }  
+
+    /**
+     * Return number of required Enhance-Stone-Attack
+     */
+    public int getRequiredNumEnhanceStoneArea() {
+        return numRequiredEnhanceAreaStoneList.get(this.lvEnhanceArea);
+    }    
 
     /**
      * Set number of Blue-Enhance-Area-Stone
