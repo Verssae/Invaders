@@ -3,7 +3,9 @@ package screen;
 import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
+import engine.GameState;
 import engine.SoundEffect;
+import entity.Coin;
 
 public class StoreScreen extends Screen {
     /** Milliseconds between changes in user selection. */
@@ -13,6 +15,8 @@ public class StoreScreen extends Screen {
     private Cooldown selectionCooldown;
     /** For selection moving sound */
     private SoundEffect soundEffect;
+
+    private Coin coin;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -24,12 +28,13 @@ public class StoreScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public StoreScreen(final int width, final int height, final int fps) {
+    public StoreScreen(final int width, final int height, final int fps, final GameState gameState) {
         super(width, height, fps);
         // Defaults to play.
         this.returnCode = 13;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
+        this.coin = gameState.getCoin();
 
         soundEffect = new SoundEffect();
     }
@@ -93,6 +98,7 @@ public class StoreScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
+        drawManager.drawCoin(this, this.coin, 2);
         drawManager.drawItemStore(this, this.returnCode);
         drawManager.completeDrawing(this);
     }

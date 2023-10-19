@@ -163,7 +163,7 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing title screen.");
                     if (currentScreen.returnCode == 6) {
-                        currentScreen = new StoreScreen(width, height, FPS);
+                        currentScreen = new StoreScreen(width, height, FPS, gameState);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " subMenu screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -259,7 +259,7 @@ public final class Core {
 								isInitMenuScreen = false;
 							}
 							if (currentScreen.returnCode == 6) {
-								currentScreen = new StoreScreen(width, height, FPS);
+								currentScreen = new StoreScreen(width, height, FPS, gameState);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -341,7 +341,7 @@ public final class Core {
 								isInitMenuScreen = false;
 								}
 								if (currentScreen.returnCode == 6) {
-									currentScreen = new StoreScreen(width, height, FPS);
+									currentScreen = new StoreScreen(width, height, FPS, gameState);
 									LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " store screen at " + FPS + " fps.");
 									returnCode = frame.setScreen(currentScreen);
