@@ -259,7 +259,7 @@ public final class Core {
 							if (gameState.getLivesRemaining() <= 0) { break; }
                             if (gameState.getBulletsShot() > 99) {break;}
 							if (!boxOpen){
-								currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
+								currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
 								returnCode = frame.setScreen(currentScreen);
 								boxOpen = true;
                                 String getRewardTypeString = ((RandomBoxScreen) currentScreen).getRewardTypeString();
@@ -348,7 +348,7 @@ public final class Core {
 								if (gameState.getLivesRemaining() <= 0) { break; }
                                 if (gameState.getBulletsShot() > 99) {break;}
 								if (!boxOpen){
-									currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
+									currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
 									returnCode = frame.setScreen(currentScreen);
 									boxOpen = true;
                                     String getRewardTypeString = ((RandomBoxScreen) currentScreen).getRewardTypeString();
