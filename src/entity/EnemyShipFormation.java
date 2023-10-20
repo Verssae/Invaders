@@ -79,6 +79,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int shootingVariance;
 	/** Initial ship speed. */
 	private int baseSpeed;
+	/** Initial ship speed. */
+	private int baseAttackDamage;
+	/** Initial ship speed. */
+	private int baseAreaDamage;
 	/** Speed of the ships. */
 	private int movementSpeed;
 	/** Current direction the formation is moving on. */
@@ -147,6 +151,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
 					* SHOOTING_VARIANCE);
 			this.baseSpeed = gameSettings.getBaseSpeed();
+			this.baseAttackDamage = gameSettings.getBaseAttackDamage();
 			this.movementSpeed = this.baseSpeed;
 			this.positionX = INIT_POS_X;
 			this.positionY = INIT_POS_Y;
@@ -571,13 +576,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shootingCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED)); // (int)(Math.random() * BULLET_SPEED) + 1)
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, 
+						this.baseAttackDamage)); // (int)(Math.random() * BULLET_SPEED) + 1)
 				soundEffect.playEnemyShootingSound();
 				if(shooter.checkIsBoss()) {
 					bullets.add(BulletPool.getBullet(shooter.getPositionX()
-							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletLeft));
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, 
+							SpriteType.EnemyBulletLeft, this.baseAttackDamage));
 					bullets.add(BulletPool.getBullet(shooter.getPositionX()
-							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletRight));
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, 
+							SpriteType.EnemyBulletRight, this.baseAttackDamage));
 
 				}
 			};

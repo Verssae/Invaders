@@ -269,13 +269,13 @@ public class GameScreen_2P extends Screen {
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SHIFT)) {
                         if(bulletsShot % 6 == 0 && !(bulletsShot == 0)) {
-                            if (this.ship_1P.shootBulletY(this.bulletsY)) {
+                            if (this.ship_1P.shootBulletY(this.bulletsY, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
                             }
                         }
                         else {
-                            if (this.ship_1P.shoot(this.bullets)) {
+                            if (this.ship_1P.shoot(this.bullets, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
                             }
@@ -315,13 +315,13 @@ public class GameScreen_2P extends Screen {
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                         if(bulletsShot % 6 == 0 && !(bulletsShot == 0)) {
-                            if (this.ship_2P.shootBulletY(this.bulletsY)) {
+                            if (this.ship_2P.shootBulletY(this.bulletsY, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
                             }
                         }
                         else {
-                            if (this.ship_2P.shoot(this.bullets)) {
+                            if (this.ship_2P.shoot(this.bullets, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot++;
                             }

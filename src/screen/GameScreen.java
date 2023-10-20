@@ -274,14 +274,14 @@ public class GameScreen extends Screen {
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 						if(bulletsShot % 3 == 0 && !(bulletsShot == 0)) {
-							if (this.ship.shootBulletY(this.bulletsY)) {
+							if (this.ship.shootBulletY(this.bulletsY, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
 							}
 						}
 						else {
-							if (this.ship.shoot(this.bullets)) {
+							if (this.ship.shoot(this.bullets, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
@@ -595,7 +595,9 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
-						enemyShip.reduceEnemyLife(this.attackDamage);
+						enemyShip.reduceEnemyLife(bullet.getDamage());
+						this.logger.info("Attack the enemy with " + bullet.getDamage() 
+							+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo++;
 						this.score += combo;
@@ -612,7 +614,9 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					enemyShipSpecial.reduceEnemyLife(this.attackDamage);
+					enemyShipSpecial.reduceEnemyLife(bullet.getDamage()); 
+					this.logger.info("Attack the enemy with " + bullet.getDamage() 
+						+ " of damage.");					
 					this.combo ++;
 					this.score += combo;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
@@ -699,6 +703,8 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
 						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						this.logger.info("Attack the enemy with " + bulletY.getDamage() 
+							+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo ++;
 						this.score += combo;
@@ -713,6 +719,8 @@ public class GameScreen extends Screen {
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bulletY, this.enemyShipSpecial)) {
 					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
+					this.logger.info("Attack the enemy with " + bulletY.getDamage() 
+						+ " of damage.");
 					this.combo ++;
 					this.score += combo;
 					if(enemyShipSpecial.getEnemyLife() < 1) {

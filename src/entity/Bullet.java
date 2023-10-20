@@ -19,9 +19,10 @@ public class Bullet extends Entity {
 	 * positive is down.
 	 */
 	private int speed;
-
 	private BulletEffect bulletEffect;
 	private int effectBullet;
+	private int damage;
+
 	/**
 	 * Constructor, establishes the bullet's properties.
 	 *
@@ -33,11 +34,12 @@ public class Bullet extends Entity {
 	 *            Speed of the bullet, positive or negative depending on
 	 *            direction - positive is down.
 	 */
-	public Bullet(final int positionX, final int positionY, final int speed) {
+	public Bullet(final int positionX, final int positionY, final int speed, final int attackDamage) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 		this.bulletEffect = new BulletEffect(this);
 		this.speed = speed;
 		this.effectBullet = 0;
+		this.damage = attackDamage;
 		setSprite();
 	}
 	/**
@@ -55,12 +57,13 @@ public class Bullet extends Entity {
 	 *            Left or Right
 	 *
 	 */
-	public Bullet(final int positionX, final int positionY, final int speed, SpriteType bulletType) {
+	public Bullet(final int positionX, final int positionY, final int speed, SpriteType bulletType, final int attackDamage) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
 		this.bulletEffect = new BulletEffect(this);
 		this.speed = speed;
 		this.spriteType = bulletType;
 		this.effectBullet = 0;
+		this.damage = attackDamage;
 	}
 
 	/**
@@ -122,7 +125,7 @@ public class Bullet extends Entity {
 		bulletEffect.splashEffect(bullets);
 	}
 
+	public final int getDamage() { return this.damage; }
 	public final int isEffectBullet() {return this.effectBullet; }
-
 	public void setEffectBullet(int n) {this.effectBullet = n;}
 }
