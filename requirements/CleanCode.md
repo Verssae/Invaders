@@ -29,7 +29,9 @@ Visual Effect System
  - Change GO! string like neon sign
  
 
-💡 Game Item Design(Hats) -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
+💡 Ending Scene -> [Hyeonjeong Kim](https://github.com/258xsw/258xsw)<br></br>
+- Game Over & stage Clear pop-up
+- Add moving ghost
 
 💡 Player & Enemy New Death FX -> [Jinho Shin](https://github.com/NiceGuy1313/shinjinho)
 - Add enemy death effect such as skeletons, vortex etc.<br>
