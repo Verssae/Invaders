@@ -87,6 +87,13 @@ public class Bullet extends Entity {
 		this.spriteType = bulletType;
 	}
 
+	/**
+	 * Sets damage of attack.
+	 */
+	public final void setDamage(final int attackDamage) {
+		this.damage = attackDamage;
+	}
+
 
 	/**
 	 * Updates the bullet's position.

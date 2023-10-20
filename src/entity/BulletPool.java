@@ -51,6 +51,7 @@ public final class BulletPool {
 			bullet.setSpeed(speed);
 			bullet.setSprite();
 			bullet.setEffectBullet(0);
+			bullet.setDamage(damage);
 			
 		} else {
 			bullet = new Bullet(positionX, positionY, speed, damage);
@@ -85,6 +86,7 @@ public final class BulletPool {
 			bullet.setPositionY(positionY);
 			bullet.setSpeed(speed);
 			bullet.setSprite(bulletType);
+			bullet.setDamage(damage);
 		} else {
 			bullet = new Bullet(positionX, positionY, speed, bulletType, damage);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
@@ -118,6 +120,7 @@ public final class BulletPool {
 			bulletY.setPositionY(positionY);
 			bulletY.setSpeed(speed);
 			bulletY.setSprite();
+			bulletY.setDamage(damage);
 		} else {
 			bulletY = new BulletY(positionX, positionY, speed, damage);
 			bulletY.setPositionX(positionX - bulletY.getWidth() / 2);

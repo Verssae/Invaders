@@ -557,6 +557,7 @@ public class GameScreen extends Screen {
 					|| bullet.getPositionY() > this.height) {
 				recyclable.add(bullet);
 			}
+			// bullet.setDamage(this.attackDamage); //수정
 		}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);

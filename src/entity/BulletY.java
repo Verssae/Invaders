@@ -69,6 +69,14 @@ public class BulletY extends Entity {
         this.speed = speed;
     }
 
+	/**
+	 * Sets damage of attack.
+	 */
+	public final void setDamage(final int attackDamage) {
+		this.damage = 3 + attackDamage;
+	}
+
+
     /**
      * Getter for the speed of the bullet.
      *
