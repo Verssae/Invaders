@@ -420,12 +420,12 @@ public class GameScreen_2P extends Screen {
         if (this.lives_2p == 0 && !this.levelFinished) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
-            drawManager.ghost1PostionX = this.ship_1P.getPositionX();
-            drawManager.ghost1PostionY = this.ship_1P.getPositionY() - 25;
-            drawManager.ghost2PostionX = this.ship_2P.getPositionX();
-            drawManager.ghost2PostionY = this.ship_2P.getPositionY() - 25;
-            drawManager.endTimer.reset();
-            drawManager.ghostTImer = System.currentTimeMillis();
+            //drawManager.ghost1PostionX = this.ship_1P.getPositionX();
+            //drawManager.ghost1PostionY = this.ship_1P.getPositionY() - 25;
+            //drawManager.ghost2PostionX = this.ship_2P.getPositionX();
+            //drawManager.ghost2PostionY = this.ship_2P.getPositionY() - 25;
+            //drawManager.endTimer.reset();
+            //drawManager.ghostTImer = System.currentTimeMillis();
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
