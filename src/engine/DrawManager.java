@@ -1,32 +1,41 @@
 package engine;
 
-import entity.Coin;
-import entity.Entity;
-import entity.Ship;
-import screen.Screen;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.FontMetrics;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage; // monster animation on a loading box
 import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
-import java.sql.PseudoColumnUsage;
 import java.time.LocalTime;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.awt.geom.RoundRectangle2D;
 
 import javax.imageio.ImageIO;
 
-import engine.DrawManager.SpriteType;
+import entity.Coin;
+import entity.Entity;
+import entity.Ship;
+import screen.GameScreen;
+import screen.GameScreen_2P;
+import screen.Screen;
 
 /**
  * Manages screen drawing.
@@ -508,7 +517,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
-	public void drawSoundButton1(GameScreen gamescreen){
+public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.fillOval(375,425,55,45);
 	}
@@ -545,7 +554,7 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
-	public void drawTimer(final Screen screen, final long elapsedTime) {
+public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
 		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
 		String timeString = formatTime(elapsedTime);
@@ -896,6 +905,8 @@ public final class DrawManager {
 			if (option == 20) { 
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -908,6 +919,8 @@ public final class DrawManager {
 			if (option == 21) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage2 = greenFilter.filter(image2, null);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -919,7 +932,10 @@ public final class DrawManager {
 			BufferedImage greenImage3 = image3;
 			if (option == 22) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
-				greenImage3 = greenFilter.filter(image3, null);				
+				greenImage3 = greenFilter.filter(image3, null);
+				/*int randomCoin = (int) (Math.random() * 11) * 5;
+    			getRandomCoin = Integer.toString(randomCoin);*/
+				
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -952,7 +968,7 @@ public final class DrawManager {
 	
 	private BufferedImage image1;
 	public void drawRandomReward(final Screen screen, final int option, final String randomTypeString, final int randomRes) {
-		String introduceString = "RANDOM REWARD";
+				String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
 		// long currentTime = System.currentTimeMillis();
 
@@ -968,7 +984,7 @@ public final class DrawManager {
 				e.printStackTrace();
 			}
 		backBufferGraphics.drawImage(image1, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 - 20, 60, 60, null);
-		// backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
+	// backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
 
 		// if (image1 == null) {
 		// try {
@@ -1076,7 +1092,7 @@ public final class DrawManager {
 
 	}
 
-	/**
+/**
 	 * Draws Recovery Payment page.
 	 *
 	 * @param screen
@@ -1625,7 +1641,7 @@ public final class DrawManager {
 			backBufferGraphics.setFont(fontSmall);
 			backBufferGraphics.drawString(shield, width + 18, height + size - 10);
 			drawEntity(SpriteType.ShipAShileded, width + 12, height +23, size/15, size/15, color);
-			backBufferGraphics.setColor(Color.white);
+backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setFont(fontBig);
 			backBufferGraphics.drawString(string, width+ 90, height+ 105);
 		}
@@ -1634,17 +1650,17 @@ public final class DrawManager {
 			backBufferGraphics.setFont(fontSmall);
 			backBufferGraphics.drawString(bomb, width + 25, height + size - 10);
 			drawEntity(SpriteType.Explosion, width + 12, height + 25, size/15, size/15, color);
-			backBufferGraphics.setColor(Color.white);
+backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setFont(fontBig);
 			backBufferGraphics.drawString(string, width + 90, height + 105);
 		}
 		else if (option == 3){
-			
+
 			backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setFont(fontSmall);
 			backBufferGraphics.drawString(BST, width + 18, height + size - 10);
 			drawEntity(SpriteType.BlueEnhanceStone, width + 25, height + 25, size/15, size/15, color);
-			backBufferGraphics.setColor(Color.white);
+backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setFont(fontBig);
 			backBufferGraphics.drawString(string, width + 90, height + 105);
@@ -1654,7 +1670,7 @@ public final class DrawManager {
 			backBufferGraphics.setFont(fontSmall);
 			backBufferGraphics.drawString(PST, width + 18, height + size - 10);
 			drawEntity(SpriteType.PerpleEnhanceStone, width + 25, height + 25, size/15, size/15, color);
-			backBufferGraphics.setColor(Color.white);
+backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setFont(fontBig);
 			backBufferGraphics.drawString(string, width+ 90 , height+105);
 		}
@@ -1667,7 +1683,7 @@ public final class DrawManager {
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
 		String skinStoreString = " > S K I N S T O R E";
-		String BuyString = "B U Y";
+String BuyString = "B U Y";
 		String PrizeString = "1 0 0";
 		String PrizeString1 = "2 0 0";
 		String PrizeString2 = "3 0 0";
@@ -1687,9 +1703,9 @@ public final class DrawManager {
 		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2, BSTString);
 		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3, BSTString);
 		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4, PSTStiring);
-		
+
 		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.yellow);
+backBufferGraphics.setColor(Color.yellow);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 35);
 		backBufferGraphics.drawString(PrizeString1, screen.getWidth()*5/8 + 33, screen.getHeight()/2 - 35);
 		backBufferGraphics.drawString(PrizeString2, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
@@ -1709,7 +1725,7 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(skinStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
-		if (option == 35)
+if (option == 35)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -1741,11 +1757,11 @@ public final class DrawManager {
 	 */
 
 	public void drawSkinStore(final Screen screen, final int option) {
-		// Coin coinInstance = new Coin();
+// Coin coinInstance = new Coin();
 		// int coinValue = coinInstance.getCoin();
-		
 
-		String skinStoreTxt = " S K I N S T O R E";
+				
+String skinStoreTxt = " S K I N S T O R E";
 		String buyString = " B U Y";
 		// String coinString = " C O I N : " + coinValue;
 		String gameAgain = " C O N T I N U E";
@@ -1759,14 +1775,14 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, skinStoreTxt,	screen.getHeight()/4 - 80);
 		backBufferGraphics.setColor(Color.YELLOW);
 		// backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
-
+		
 		if (option == 16)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, buyString,
 				screen.getHeight() / 3* 2 + fontRegularMetrics.getHeight() * 2);
-		
+
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
