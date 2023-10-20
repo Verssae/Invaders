@@ -145,6 +145,7 @@ public final class Core {
         GameState gameState;
         GameState_2P gameState_2P;
         EnhanceManager enhanceManager;
+        ItemManager itemManager;
 
         int returnCode = 1;
         do {
@@ -152,7 +153,7 @@ public final class Core {
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
-
+            itemManager = new ItemManager(0, 0);
             switch (returnCode) {
                 case 1:
                     // Main menu.
@@ -215,7 +216,7 @@ public final class Core {
                     do {
                         currentScreen = new GameScreen(gameState,
                                 gameSettings.get(gameState.getLevel() - 1),
-                                enhanceManager,
+                                enhanceManager, itemManager,
                                 width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
@@ -254,7 +255,7 @@ public final class Core {
 								isInitMenuScreen = false;
 							}
 							if (currentScreen.returnCode == 6 || currentScreen.returnCode == 35 || currentScreen.returnCode == 36 || currentScreen.returnCode == 37 || currentScreen.returnCode == 38) {
-								currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager);
+								currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager, itemManager);
                                 enhanceManager = ((StoreScreen) currentScreen).getEnhanceManager();
                                 gameState = ((StoreScreen)currentScreen).getGameState();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -305,7 +306,7 @@ public final class Core {
 						gameState.setLivesRecovery();
 						do { currentScreen = new GameScreen(gameState,
 								gameSettings.get(gameState.getLevel()-1),
-                                enhanceManager,
+                                enhanceManager, itemManager,
                                 width, height, FPS);
                             LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                     + " game screen at " + FPS + " fps.");
@@ -342,7 +343,7 @@ public final class Core {
                                     isInitMenuScreen = false;
 								}
 								if (currentScreen.returnCode == 6 || currentScreen.returnCode == 35 || currentScreen.returnCode == 36 || currentScreen.returnCode == 37 || currentScreen.returnCode == 38) {
-									currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager);
+									currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager, itemManager);
                                     enhanceManager = ((StoreScreen) currentScreen).getEnhanceManager();
                                     gameState = ((StoreScreen)currentScreen).getGameState();
                                     
@@ -430,7 +431,7 @@ public final class Core {
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
                     stage = frame.setScreen(currentScreen);
-
+                    
                     outgame_bgm.OutGame_bgm_stop();//2p mode 시작하며 outgame bgm stop
 
                     if (stage == 0) {

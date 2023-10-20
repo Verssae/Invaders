@@ -124,6 +124,7 @@ public class GameScreen extends Screen {
 	private Cooldown bombCool;
 	/**  */
 	private CountUpTimer timer;
+	private ItemManager itemManager;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -143,13 +144,14 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen(final GameState gameState,
 					  final GameSettings gameSettings,
-					  final EnhanceManager enhanceManager,
+					  final EnhanceManager enhanceManager, final ItemManager itemManager,
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 
 		this.gameSettings = gameSettings;
 		this.enhanceManager = enhanceManager;
+		this.itemManager = itemManager;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		timer = new CountUpTimer();
@@ -488,7 +490,7 @@ public class GameScreen extends Screen {
 		drawManager.drawScore(this, this.score);
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawCoin(this, this.coin, 0);
-		drawManager.drawitemcircle(this,1,2);
+		drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
 		isboss = gameSettings.checkIsBoss();
 		if (isboss) {
 			for (EnemyShip enemyShip : this.enemyShipFormation)
@@ -703,6 +705,17 @@ public class GameScreen extends Screen {
 		ItemPool.recycle(recyclableItem);
 		BulletPool.recycle(recyclableBullet);
 	}
+	public void useItem() {
+        if (inputManager.isKeyDown(KeyEvent.VK_1)) {
+            if (itemManager.getShieldCount() > 0) {
+                
+            }
+        } else if (inputManager.isKeyDown(KeyEvent.VK_1)) {
+            if (itemManager.getBombCount() > 0) {
+
+            }
+        }
+    }
 
 
 	/**
@@ -803,4 +816,5 @@ public class GameScreen extends Screen {
 		return new GameState(this.level, this.score, this.coin, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.hardcore);
 	}
+	
 }
