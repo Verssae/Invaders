@@ -469,7 +469,6 @@ public final class Core {
                                 gameState_2P.getHardCore(),
                                 gameState_2P.getLivesRemaining_2p());
 
-
                         // SubMenu | Item Store & Enhancement & Continue
                         do{
                             if (gameState_2P.getLivesRemaining() <= 0 && gameState_2P.getLivesRemaining_2p() <= 0) { break; }
@@ -621,7 +620,9 @@ public final class Core {
                             frame.setScreen(currentScreen);
                             break;
                         }
+
                     }
+
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
