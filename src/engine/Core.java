@@ -1,11 +1,30 @@
 package engine;
 
-import entity.Coin;
-import screen.*;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import entity.Coin;
+import screen.EnhanceScreen;
+import screen.GameScreen;
+import screen.GameScreen_2P;
+import screen.HighScoreScreen;
+import screen.RandomBoxScreen;
+import screen.RandomRewardScreen;
+import screen.RecoveryPaymentScreen;
+import screen.RecoveryScreen;
+import screen.ScoreScreen;
+import screen.Screen;
+import screen.SelectScreen;
+import screen.SkinStoreScreen;
+import screen.StageSelectScreen;
+import screen.StoreScreen;
+import screen.SubMenuScreen;
+import screen.TitleScreen;
 
 /**
  * Implements core game logic.
@@ -234,7 +253,7 @@ public final class Core {
                                 gameState.getHardCore());
 
 
-						// SubMenu | Item Store & Enhancement & Continue
+						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
                             if (gameState.getBulletsShot() > 99) {break;}
@@ -273,7 +292,7 @@ public final class Core {
 								LOGGER.info("Closing subMenu screen.");
 							}
 							if (currentScreen.returnCode == 86) {
-								currentScreen = new SkinStoreScreen(width, height, FPS);
+								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ "skin store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -323,7 +342,7 @@ public final class Core {
                                     gameState.getShipsDestroyed(),
                                     gameState.getHardCore());
 
-							// SubMenu | Item Store & Enhancement & Continue
+							// SubMenu | Item Store & Enhancement & Continue & Skin Store
 							do{
 								if (gameState.getLivesRemaining() <= 0) { break; }
                                 if (gameState.getBulletsShot() > 99) {break;}
@@ -361,6 +380,17 @@ public final class Core {
 									returnCode = frame.setScreen(currentScreen);
 									LOGGER.info("Closing subMenu screen.");
 								}
+                                if (currentScreen.returnCode == 86) {
+								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
+								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+										+ "skin store screen at " + FPS + " fps.");
+								returnCode = frame.setScreen(currentScreen);
+								LOGGER.info("Closing subMenu screen.");
+							}
+							} while (currentScreen.returnCode != 2); {
+									returnCode = frame.setScreen(currentScreen);
+									LOGGER.info("Closing subMenu screen.");
+								
 							    } while (currentScreen.returnCode != 2);
 								boxOpen = false;
 								isInitMenuScreen = true;
