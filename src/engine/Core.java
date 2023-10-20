@@ -323,9 +323,11 @@ public final class Core {
                         if (returnCode == 51){
                             int coinnum = gameState.getCoin().getCoin();
                             
-                            if (coinnum >= 150 ){
-                                int cost = coinnum -150;
-                                gameState.setCoin(cost);
+                            if (coinnum >= 30 ){
+                                Coin recoveryCoin = new Coin(0, 0);
+                                recoveryCoin.addCoin(coinnum);
+                                recoveryCoin.minusCoin(30);
+                                gameState.setCoin(recoveryCoin);
                                 // Continuing game in same state (Ship: default state)
 						        gameState.setLivesRecovery();
 						        do { 
@@ -408,15 +410,8 @@ public final class Core {
                                     frame.setScreen(currentScreen);
                                     break;
                                 }
-                            } else { break; }
+                            } else { returnCode = 1; }
 					    }
-
-
-                        if (returnCode == 1) { //Quit during the game
-                            currentScreen = new TitleScreen(width, height, FPS);
-                            frame.setScreen(currentScreen);
-                            break;
-                        }
                     }
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
