@@ -315,12 +315,13 @@ public final class Core {
 
 
 					if (returnCode == 30) { 
-                        currentScreen = new RecoveryPaymentScreen(width, height, FPS);
+                        currentScreen = new RecoveryPaymentScreen(gameState, width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " Recovery screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
                         LOGGER.info("Closing RecoveryPayment screen.");
                         if (returnCode == 51){
+                            
                              // Continuing game in same state (Ship: default state)
 						gameState.setLivesRecovery();
 						do { currentScreen = new GameScreen(gameState,

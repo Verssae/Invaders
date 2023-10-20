@@ -4,9 +4,13 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 import engine.SoundEffect;
+import engine.GameState;
+import entity.Coin;
 
 public class RecoveryPaymentScreen extends Screen {
 
+    private GameState gameState;
+    private Coin coin;
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
 
@@ -26,13 +30,15 @@ public class RecoveryPaymentScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public RecoveryPaymentScreen(int width, int height, int fps ) {
+    public RecoveryPaymentScreen(GameState gameState, int width, int height, int fps ) {
         super(width, height, fps);
 
         // Defaults to play.
         this.returnCode = 51;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
+        this.gameState = gameState;
+        this.coin = gameState.getCoin();
         
         soundEffect = new SoundEffect();
     }
