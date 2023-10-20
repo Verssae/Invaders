@@ -9,8 +9,7 @@ import entity.Coin;
 
 public class RecoveryPaymentScreen extends Screen {
 
-    private GameState gameState;
-    private Coin coin;
+   
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
 
@@ -19,6 +18,8 @@ public class RecoveryPaymentScreen extends Screen {
 
     /** For selection moving sound */
     private SoundEffect soundEffect;
+
+    private GameState gameState;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -38,7 +39,6 @@ public class RecoveryPaymentScreen extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.gameState = gameState;
-        this.coin = gameState.getCoin();
         
         soundEffect = new SoundEffect();
     }
@@ -115,7 +115,7 @@ public class RecoveryPaymentScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawRecoveryConfirmPage(this,this.returnCode);
+        drawManager.drawRecoveryConfirmPage(this.gameState, this,this.returnCode);
 
         drawManager.completeDrawing(this);
     }
