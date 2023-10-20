@@ -1754,7 +1754,7 @@ backBufferGraphics.setColor(Color.white);
 		
 		backBufferGraphics.setColor(Color.GREEN);
 	}
-	public void drawItemStore(final Screen screen, final int option, final int PST, final int BST) {
+	public void drawItemStore(final Screen screen, final int option, final int PST, final int BST, final ItemManager itemManager) {
 		String itemStoretxt = " * I T E M S T O R E * ";
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
@@ -1764,6 +1764,8 @@ backBufferGraphics.setColor(Color.white);
 		String PrizeString1 = "2 0 0";
 		String PrizeString2 = "3 0 0";
 		String PrizeString3 = "4 0 0";
+		String ShieldString = "" + itemManager.getShieldCount();
+		String BombString = "" + itemManager.getBombCount();
 		String BSTString = "" + BST;
 		String PSTStiring = "" + PST;
 
@@ -1775,8 +1777,8 @@ backBufferGraphics.setColor(Color.white);
 		backBufferGraphics.setColor(Color.green);
 		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
 		drawHorizontalLine(screen, screen.getHeight()/14);
-		drawItemthings(screen.getWidth()/7, screen.getHeight()/6, 100, Color.GRAY,1, BSTString);
-		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2, BSTString);
+		drawItemthings(screen.getWidth()/7, screen.getHeight()/6, 100, Color.GRAY,1, ShieldString);
+		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2, BombString);
 		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3, BSTString);
 		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4, PSTStiring);
 
