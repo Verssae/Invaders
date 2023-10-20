@@ -1,13 +1,7 @@
 package screen;
 
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
-
 import engine.*;
 import entity.*;
-import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -154,8 +148,6 @@ public class GameScreen extends Screen {
 		this.score = gameState.getScore();
 		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
-		//if (this.bonusLife)
-		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
@@ -429,7 +421,6 @@ public class GameScreen extends Screen {
 	 */
 	private void endStageAllEat(){
 		Cooldown a = Core.getCooldown(25);
-//		bgm.InGame_bgm_stop();
 		a.reset();
 		while(!this.items.isEmpty()){
 			if(a.checkFinished()) {
@@ -536,6 +527,7 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
+
 
 
 		}
@@ -790,6 +782,6 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives,this.BulletsCount,this.BulletsCount);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore);
 	}
 }

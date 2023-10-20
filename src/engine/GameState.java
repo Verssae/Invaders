@@ -33,8 +33,6 @@ public class GameState {
 
 
 
-
-
 	/**
 	 * Constructor.
 	 * 
@@ -53,18 +51,14 @@ public class GameState {
 	 */
 	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p,
-					 final int BulletsCount_1p, final int BulletsCount_2p) {
+			final int shipsDestroyed, final boolean hardcore) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
 		this.livesRemaining = livesRemaining;
-		this.livesRemaining_2p = livesRemaining_2p;
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
-		this.BulletsCount_1p = BulletsCount_1p;
-		this.BulletsCount_2p = BulletsCount_2p;
 
 	}
 
@@ -102,16 +96,11 @@ public class GameState {
 	public final double getLivesRemaining() {
 		return livesRemaining;
 	}
-	public final double getLivesRemaining_2p() {
-		return livesRemaining_2p;
-	}
 
 	/**
 	 * @return the bulletsShot
 	 */
-	public final int getBulletsShot() {
-		return bulletsShot;
-	}
+	public final int getBulletsShot() {return bulletsShot;}
 
 	/**
 	 * @return the shipsDestroyed
@@ -127,7 +116,7 @@ public class GameState {
 		return this.hardcore;
 	}
 
-
+	//public final int getBulletsCount() { return this.BulletsCount;}
 
 	/**
 	 * Set HardCore
@@ -152,7 +141,4 @@ public class GameState {
 		this.level = getLevel() -1; 
 		this.livesRemaining = 3;
 	 }
-
-	 public final int getBulletsCount_1p(){return BulletsCount_1p;}
-	 public final int getBulletsCount_2p(){return BulletsCount_2p;}
 }
