@@ -36,6 +36,8 @@ public class GameState {
 	 *            Current game level.
 	 * @param score
 	 *            Current score.
+	 * @param coin
+	 *            Current coin.
 	 * @param livesRemaining
 	 *            Lives currently remaining.
 	 * @param bulletsShot

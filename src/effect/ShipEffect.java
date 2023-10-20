@@ -39,6 +39,8 @@ public class ShipEffect extends Effect{
      *              The factor of the ship's shoot method.
      * @param BULLET_SPEED
      *              the speed of a ship's bullet
+     * @param ENHANCED_DAMAGE
+     *              the enhanced damage of a ship's bullet
      */
     public void shoot(final Set<Bullet> bullets, final int BULLET_SPEED, final int ENHANCED_DAMAGE) {
         if (this.tripleshotEffectCooldown.checkFinished())
@@ -62,6 +64,8 @@ public class ShipEffect extends Effect{
      *              The factor of the ship's shoot method.
      * @param BULLETY_SPEED
      *              the speed of a ship's bulletY
+     * @param ENHANCED_DAMAGE
+     *              the enhanced damage of a ship's bullet
      */
     public void shootBulletY(final Set<BulletY> bulletsY, final int BULLETY_SPEED, final int ENHANCED_DAMAGE) {
         if (this.tripleshotEffectCooldown.checkFinished())

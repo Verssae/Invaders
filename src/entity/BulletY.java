@@ -19,11 +19,10 @@ public class BulletY extends Entity {
      * positive is down.
      */
     private int speed;
-
+    /** Damage of the bullet of ship. */	
     private int damage;
     private BulletEffect bulletEffect;
     private int effectBullet;
-	private int attackDamage;
 
     /**
      * Constructor, establishes the bullet's properties.

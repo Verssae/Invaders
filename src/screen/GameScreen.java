@@ -108,17 +108,21 @@ public class GameScreen extends Screen {
 	/** Check what color will be displayed*/
 	private int colorVariable;
 	private int BulletsCount = 99;
+	/** Current Value of Enhancement Attack. */
 	private int attackDamage;
-	/** Current Value of Enhancement  Attack. */
+	/** Current Value of Enhancement Area. */
 	private int areaDamage;
+	/**  */
+	private EnhanceManager enhanceManager;
 	/** Combo counting*/
 	private int combo=0;
+	/**  */
 	private boolean isboss;
-
+	/**  */
 	private boolean bomb; // testing
+	/**  */
 	private Cooldown bombCool;
-	private EnhanceManager enhanceManager;
-
+	/**  */
 	private CountUpTimer timer;
 
 	/**
@@ -128,6 +132,8 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
+	 * @param enhanceManager
+	 *            Current EnhanceManager.
 	 * @param width
 	 *            Screen width.
 	 * @param height
@@ -166,11 +172,9 @@ public class GameScreen extends Screen {
 	}
 
 
-
-
-		/**
-         * Initializes basic screen properties, and adds necessary elements.
-         */
+	/**
+	 * Initializes basic screen properties, and adds necessary elements.
+	 */
 	public final void initialize() {
 		super.initialize();
 
@@ -463,8 +467,8 @@ public class GameScreen extends Screen {
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
-		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawLivesbar(this, this.lives);
+		drawManager.drawCoin(this, this.coin, 0);
 		isboss = gameSettings.checkIsBoss();
 		if (isboss) {
 			for (EnemyShip enemyShip : this.enemyShipFormation)
@@ -661,10 +665,10 @@ public class GameScreen extends Screen {
 
 				}
 				if(item.getSpriteType() == SpriteType.BlueEnhanceStone){
-					this.enhanceManager.setNumBlueEnhanceAreaStone(1);
+					this.enhanceManager.PlusNumEnhanceStoneArea(1);
 				}
 				if(item.getSpriteType() == SpriteType.PerpleEnhanceStone){
-					this.enhanceManager.setNumPerpleEnhanceAttackStone(1);
+					this.enhanceManager.PlusNumEnhanceStoneAttack(1);
 				}
 				this.ship.checkGetItem(item);
 			}

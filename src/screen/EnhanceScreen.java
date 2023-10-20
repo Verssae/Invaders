@@ -40,7 +40,9 @@ public class EnhanceScreen extends Screen {
     private int leftCircleX = (this.width - 220) / 2;
     private int rightCircleX = this.width - (this.width - 220) / 2 - 70;
     private int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
+    /** EnhanceManager taken from the Core.java */
     private EnhanceManager enhanceManager;
+    /** Game settings taken from the Core.java */
     private List<GameSettings> gameSettings;
     /** For selection moving sound */
     private SoundEffect soundEffect;
@@ -48,6 +50,12 @@ public class EnhanceScreen extends Screen {
     /**
      * Constructor, establishes the properties of the screen.
      *
+     * @param enhanceManager
+     *               Screen width.
+     * @param gameSettings
+     *               Screen width.
+     * @param gameState
+     *               Screen width.
      * @param width
      *               Screen width.
      * @param height

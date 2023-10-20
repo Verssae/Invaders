@@ -85,6 +85,8 @@ public class Ship extends Entity {
 	 * 
 	 * @param bullets
 	 *            List of bullets on screen, to add the new bullet.
+	 * @param ENHANCED_DAMAGE
+	 *            Enhanced Attack Damage. (on EnhanceScreen)
 	 * @return Checks if the bullet was shot correctly.
 	 */
 	public final boolean shoot(final Set<Bullet> bullets, final int ENHANCED_DAMAGE) {

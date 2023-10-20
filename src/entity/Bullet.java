@@ -21,6 +21,7 @@ public class Bullet extends Entity {
 	private int speed;
 	private BulletEffect bulletEffect;
 	private int effectBullet;
+	/** Damage of the bullet of ship. */	
 	private int damage;
 
 	/**
@@ -33,6 +34,8 @@ public class Bullet extends Entity {
 	 * @param speed
 	 *            Speed of the bullet, positive or negative depending on
 	 *            direction - positive is down.
+	 * @param attackDamage
+	 *            Enhanced Damage of Attack. (on EnhanceScreen)
 	 */
 	public Bullet(final int positionX, final int positionY, final int speed, final int attackDamage) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
@@ -55,7 +58,8 @@ public class Bullet extends Entity {
 	 * @param bulletType
 	 *            Type of bullet.
 	 *            Left or Right
-	 *
+	 * @param attackDamage
+	 *            Enhanced Damage of Attack. (on EnhanceScreen)
 	 */
 	public Bullet(final int positionX, final int positionY, final int speed, SpriteType bulletType, final int attackDamage) {
 		super(positionX, positionY, 3 * 2, 5 * 2, Color.WHITE);
