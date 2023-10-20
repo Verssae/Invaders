@@ -147,14 +147,14 @@ public class SkinStoreScreen extends Screen {
       */
       private void UpMenuSkin() {
         if (this.returnCode == 86)
-            this.returnCode = 14;
-        else if (this.returnCode == 14)
+            this.returnCode = 8;
+        else if (this.returnCode == 8)
             this.returnCode = 87;
         else if (this.returnCode == 87)
             this.returnCode = 86;
         else if (this.returnCode == 88)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
             this.returnCode = 89;
         else if (this.returnCode == 89)
             this.returnCode = 88;
@@ -164,14 +164,14 @@ public class SkinStoreScreen extends Screen {
         if (this.returnCode == 86)
             this.returnCode = 87;
         else if (this.returnCode == 87)
-            this.returnCode = 14;
-        else if (this.returnCode == 14)
+            this.returnCode = 8;
+        else if (this.returnCode == 8)
             this.returnCode = 86;
         else if (this.returnCode == 88)
             this.returnCode = 89;
         else if (this.returnCode == 89)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
             this.returnCode = 88;
     }
     private void rightMenuSkin() {
@@ -183,12 +183,12 @@ public class SkinStoreScreen extends Screen {
             this.returnCode = 89;   
         else if (this.returnCode == 89)
             this.returnCode = 87;
-        else if (this.returnCode == 14)
+        else if (this.returnCode == 8)
             this.returnCode = 2;
         else if (this.returnCode == 2)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
-            this.returnCode = 14;                                                     
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
+            this.returnCode = 8;                                                     
     }
 
     private void leftMenuSkin() {
@@ -200,12 +200,12 @@ public class SkinStoreScreen extends Screen {
             this.returnCode = 89;   
         else if (this.returnCode == 89)
             this.returnCode = 87;
-        else if (this.returnCode == 14)
-            this.returnCode = 15;  
-        else if (this.returnCode == 15)
+        else if (this.returnCode == 8)
+            this.returnCode = 35;  
+        else if (this.returnCode == 35)
             this.returnCode = 2;
         else if (this.returnCode == 2)
-            this.returnCode = 14;            
+            this.returnCode = 8;            
     }
  
      /**
