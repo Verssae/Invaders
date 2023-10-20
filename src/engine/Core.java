@@ -261,7 +261,7 @@ public final class Core {
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
-							if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+							if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9 || currentScreen.returnCode == 14) {
 								currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
 								gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
 								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
@@ -277,24 +277,6 @@ public final class Core {
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
-                            if (currentScreen.returnCode == 15)
-                            {
-								currentScreen = new SkinStoreScreen(width, height, FPS);
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ "skin store screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-                            }
-                            if (currentScreen.returnCode == 14)
-                            {
-                                currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
-								gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
-								enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
-								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
-										+ " enhance screen at " + FPS + " fps.");
-								returnCode = frame.setScreen(currentScreen);
-								LOGGER.info("Closing subMenu screen.");
-                            }
 						} while (currentScreen.returnCode != 2);
 						boxOpen = false;
 						isInitMenuScreen = true;
