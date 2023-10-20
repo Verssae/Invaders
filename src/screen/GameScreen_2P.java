@@ -140,6 +140,7 @@ public class GameScreen_2P extends Screen {
      */
     public GameScreen_2P(final GameState_2P gameState,
                          final GameSettings gameSettings,
+                         final EnhanceManager enhanceManager,
                          final int width, final int height, final int fps) {
         super(width, height, fps);
 
