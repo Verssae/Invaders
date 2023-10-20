@@ -7,6 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.*;
 
+import entity.Coin;
+import screen.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.*;
+
 /**
  * Implements core game logic.
  *
