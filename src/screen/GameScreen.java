@@ -480,6 +480,8 @@ public class GameScreen extends Screen {
 		if (inputManager.isKeyDown(KeyEvent.VK_C)) {
 			isSoundOn = !isSoundOn;
 			if (isSoundOn) {
+				bgm.InGame_bgm_play();
+			} else {
 				bgm.InGame_bgm_stop();
 				soundEffect.SoundEffect_stop();
 			}
