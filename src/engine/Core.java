@@ -236,6 +236,7 @@ public final class Core {
 						// SubMenu | Item Store & Enhancement & Continue
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
+                            if (gameState.getBulletsShot() > 99) {break;}
 							if (!boxOpen){
 								currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
 								returnCode = frame.setScreen(currentScreen);
@@ -281,7 +282,7 @@ public final class Core {
 						boxOpen = false;
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS);
+							&& gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot()<=99);
 
 
                     // Recovery : Default State / Exit
