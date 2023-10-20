@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
+import engine.GameSettings;
 import engine.GameState;
 import engine.SoundEffect;
 import entity.Coin;
@@ -22,7 +23,8 @@ public class StoreScreen extends Screen {
     private int PST;
 
     private int BST;
-
+    private EnhanceManager enhanceManager;
+    private GameState gameState;
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -42,7 +44,8 @@ public class StoreScreen extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.coin = gameState.getCoin();
-
+        this.gameState = gameState;
+        this.enhanceManager = enhanceManager;
         soundEffect = new SoundEffect();
     }
 
@@ -92,6 +95,50 @@ public class StoreScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 soundEffect.playSpaceButtonSound();
+                if (returnCode == 35){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+                        
+                    }
+                }
+                if (returnCode == 36 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+
+                    }
+                }
+                if (returnCode == 37 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+                        
+                    }
+                }
+                if (returnCode == 38 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+                        
+                    }
+                }
                 this.isRunning = false;
             }
         }
@@ -165,5 +212,18 @@ public class StoreScreen extends Screen {
         drawManager.drawCoin(this, this.coin, 2);
         drawManager.drawItemStore(this, this.returnCode, PST, BST);
         drawManager.completeDrawing(this);
+    }
+    
+    /**
+	 * Returns a DrawManager object representing the status of the game.
+	 *
+	 * @return Current game state.
+	 */
+    public EnhanceManager getEnhanceManager() {
+		return this.enhanceManager;
+	}
+
+    public GameState getGameState() {
+        return this.gameState;
     }
 }
