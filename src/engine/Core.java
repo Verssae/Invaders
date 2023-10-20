@@ -247,7 +247,7 @@ public final class Core {
 								returnCode = frame.setScreen(currentScreen);
 								boxOpen = true;
                                 
-								currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomCoin());
+								currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes());
 								returnCode = frame.setScreen(currentScreen);
 							}
 							if (isInitMenuScreen || currentScreen.returnCode == 5) {
@@ -336,7 +336,7 @@ public final class Core {
 									currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
 									returnCode = frame.setScreen(currentScreen);
 									boxOpen = true;
-									currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomCoin());
+									currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes());
 									returnCode = frame.setScreen(currentScreen);
 								}
 								if (isInitMenuScreen || currentScreen.returnCode == 5) {

@@ -13,8 +13,8 @@ public class RandomRewardScreen extends Screen {
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
     private Coin coin;
-    private int randomcoin;
-
+    private int randomRes;
+    private String rewardTypeString;
     /**
      * Constructor, establishes the properties of the screen.
      * 
@@ -27,7 +27,7 @@ public class RandomRewardScreen extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomRewardScreen(final GameState gameState, int width, int height, int fps, int randomcoin) {
+    public RandomRewardScreen(final GameState gameState, int width, int height, int fps, int randomRes) {
         super(width, height, fps);
 
         // Defaults to play.
@@ -35,7 +35,7 @@ public class RandomRewardScreen extends Screen {
         this.returnCode = 13;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-        this.randomcoin = randomcoin;
+        this.randomRes = randomRes;
     }
  
     /**
@@ -104,7 +104,7 @@ public class RandomRewardScreen extends Screen {
         drawManager.initDrawing(this);
 
         // drawManager.drawTitle(this);
-        drawManager.drawRandomReward(this, this.returnCode, this.randomcoin);
+        drawManager.drawRandomReward(this, this.returnCode, this.rewardTypeString, this.randomRes);
         drawManager.completeDrawing(this);
     }
 }
