@@ -9,9 +9,8 @@ import engine.Core;
 import engine.EnhanceManager;
 import engine.GameSettings;
 import engine.GameState;
-import entity.Bullet;
-import entity.Coin;
 import engine.SoundEffect;
+import entity.Coin;
 
 /**
  * Implements the Enhance screen, where clicking 'Enhancement' on SubMenu Screen.
