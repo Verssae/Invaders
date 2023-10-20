@@ -280,6 +280,10 @@ public final class DrawManager {
 		}
 	}
 
+	public void stopTimer(CountUpTimer timer) {
+		timer.stop();
+	}
+
 
 
 		/**

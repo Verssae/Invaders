@@ -413,6 +413,7 @@ public class GameScreen_2P extends Screen {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             this.screenFinishedCooldown.reset();
+            timer.stop();
         }
         if(this.lives_2p==0){
             ship_2P.destroy();
@@ -425,12 +426,14 @@ public class GameScreen_2P extends Screen {
             this.levelFinished = true;
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
+            timer.stop();
         }
 
 
         if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
             bgm.InGame_bgm_stop();
             this.isRunning = false;
+            timer.stop();
         }
 
         timer.update();

@@ -8,7 +8,7 @@ public class CountUpTimer {
     private boolean pause;
 
     public CountUpTimer() {
-        startTime = System.currentTimeMillis();
+        startTime = System.currentTimeMillis() + 6000;
         elapsedTime = 0;
         running = true;
         GameplayTime = 0;
@@ -31,20 +31,18 @@ public class CountUpTimer {
         running = false;
     }
 
-    public void pause() {
-        pause = true;
-    }
-
-    public void resume() {
-        pause = false;
-    }
 
     public long getElapsedTime() {
-        return elapsedTime;
+        long currentTime = System.currentTimeMillis();
+        if (running && !pause) {
+            elapsedTime = currentTime - startTime;
+        }
+
+        return Math.max(0, elapsedTime);
     }
 
     public long getClearTime() {
-        return GameplayTime;
+        return Math.max(0, GameplayTime);
     }
 
     public void recordClearTime() {
