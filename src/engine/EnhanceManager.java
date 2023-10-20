@@ -108,6 +108,14 @@ public class EnhanceManager {
     public int getNumEnhanceStoneArea() {
         return this.numEnhanceStoneArea;
     }
+        public int PlusEnhanceStoneAttack(final int num) {
+        this.numEnhanceStoneAttack += num;
+        return this.numEnhanceStoneAttack;
+    }
+    public int PlusEnhanceStoneArea(final int num) {
+        this.numEnhanceStoneArea += num;
+        return this.numEnhanceStoneArea;
+    }
 
     /**
      * Return Value of enhanced damage according to level

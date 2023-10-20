@@ -151,6 +151,7 @@ public final class Core {
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,MAX_LIVES);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
 
+
             switch (returnCode) {
                 case 1:
                     // Main menu.
@@ -162,8 +163,11 @@ public final class Core {
                             + " title screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing title screen.");
-                    if (currentScreen.returnCode == 6) {
+                    if (currentScreen.returnCode == 6 || currentScreen.returnCode == 35 || currentScreen.returnCode == 36 || 
+                    currentScreen.returnCode == 37 || currentScreen.returnCode == 38) {
                         currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager);
+                        enhanceManager = ((StoreScreen) currentScreen).getEnhanceManager();
+                        gameState = ((StoreScreen)currentScreen).getGameState();
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " subMenu screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -258,8 +262,10 @@ public final class Core {
 								LOGGER.info("Closing subMenu screen.");
 								isInitMenuScreen = false;
 							}
-							if (currentScreen.returnCode == 6) {
+							if (currentScreen.returnCode == 6 || currentScreen.returnCode == 37) {
 								currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager);
+                                enhanceManager = ((StoreScreen) currentScreen).getEnhanceManager();
+                                gameState = ((StoreScreen)currentScreen).getGameState();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -347,8 +353,11 @@ public final class Core {
 								LOGGER.info("Closing subMenu screen.");
 								isInitMenuScreen = false;
 								}
-								if (currentScreen.returnCode == 6) {
+								if (currentScreen.returnCode == 6 || currentScreen.returnCode == 37) {
 									currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager);
+                                    enhanceManager = ((StoreScreen) currentScreen).getEnhanceManager();
+                                    gameState = ((StoreScreen)currentScreen).getGameState();
+                                    
 									LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ " store screen at " + FPS + " fps.");
 									returnCode = frame.setScreen(currentScreen);
