@@ -32,7 +32,6 @@ import javax.imageio.ImageIO;
 
 import entity.Coin;
 import entity.Entity;
-import entity.Ship;
 import screen.GameScreen;
 import screen.GameScreen_2P;
 import screen.Screen;
@@ -1754,7 +1753,7 @@ backBufferGraphics.setColor(Color.white);
 		
 		backBufferGraphics.setColor(Color.GREEN);
 	}
-	public void drawItemStore(final Screen screen, final int option, final int PST, final int BST) {
+	public void drawItemStore(final Screen screen, final int option, final int PST, final int BST, final ItemManager itemManager) {
 		String itemStoretxt = " * I T E M S T O R E * ";
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
@@ -1764,6 +1763,8 @@ backBufferGraphics.setColor(Color.white);
 		String PrizeString1 = "2 0 0";
 		String PrizeString2 = "3 0 0";
 		String PrizeString3 = "4 0 0";
+		String ShieldString = "" + itemManager.getShieldCount();
+		String BombString = "" + itemManager.getBombCount();
 		String BSTString = "" + BST;
 		String PSTStiring = "" + PST;
 
@@ -1775,8 +1776,8 @@ backBufferGraphics.setColor(Color.white);
 		backBufferGraphics.setColor(Color.green);
 		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
 		drawHorizontalLine(screen, screen.getHeight()/14);
-		drawItemthings(screen.getWidth()/7, screen.getHeight()/6, 100, Color.GRAY,1, BSTString);
-		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2, BSTString);
+		drawItemthings(screen.getWidth()/7, screen.getHeight()/6, 100, Color.GRAY,1, ShieldString);
+		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2, BombString);
 		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3, BSTString);
 		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4, PSTStiring);
 
@@ -1840,8 +1841,8 @@ if (option == 35)
 		String itemStoreString = " > I T E M S T O R E";
 	String BuyString = "B U Y";
 		String PrizeString = "1 0 0";
-		int x1 = screen.getWidth()/7;
-		int x2 = screen.getWidth() *5/8;
+		int x1 = screen.getWidth()/7+10;
+		int x2 = screen.getWidth() *5/8+10;
 		int y1 = screen.getHeight()/6;
 		int y2 = screen.getHeight()*4/7 - 30;
 
@@ -1854,10 +1855,10 @@ if (option == 35)
 		backBufferGraphics.setColor(Color.green);
 		drawCenteredBigString(screen, skinStoretxt,	screen.getHeight()/4 - 97);
 		drawHorizontalLine(screen, screen.getHeight()/14);
-		drawEntity(SpriteType.ShipA, x1, y1, 30, 25, Color.YELLOW);
-		drawEntity(SpriteType.ShipA, x2, y1, 30, 25, Color.BLUE);
-		drawEntity(SpriteType.ShipA, x1, y2, 30, 25, Color.PINK);
-		drawEntity(SpriteType.ShipA, x1, y2, 30, 25, Color.CYAN);
+		drawEntity(SpriteType.ShipA, x1, y1, 5, 5, Color.YELLOW);
+		drawEntity(SpriteType.ShipA, x2, y1, 5, 5, Color.BLUE);
+		drawEntity(SpriteType.ShipA, x1, y2, 5, 5, Color.RED);
+		drawEntity(SpriteType.ShipA, x1, y2, 5, 5, Color.CYAN);
 
 		backBufferGraphics.setFont(fontRegular);
 	backBufferGraphics.setColor(Color.yellow);
