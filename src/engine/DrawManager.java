@@ -1680,7 +1680,7 @@ backBufferGraphics.setColor(Color.white);
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
 		String skinStoreString = " > S K I N S T O R E";
-String BuyString = "B U Y";
+		String BuyString = "B U Y";
 		String PrizeString = "1 0 0";
 		String PrizeString1 = "2 0 0";
 		String PrizeString2 = "3 0 0";
