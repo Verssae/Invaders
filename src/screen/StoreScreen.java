@@ -1,10 +1,10 @@
 package screen;
 
 import java.awt.event.KeyEvent;
+
 import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
-import engine.GameSettings;
 import engine.GameState;
 import engine.SoundEffect;
 import entity.Coin;
