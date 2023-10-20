@@ -65,6 +65,10 @@ public final class DrawManager {
 	public long ghostTImer;
 	public int ghostPostionX;
 	public int ghostPostionY;
+	public int ghost1PostionX;
+	public int ghost1PostionY;
+	public int ghost2PostionX;
+	public int ghost2PostionY;
 	public Color ghostColor = new Color(1, 1, 1);
 	/** Cooldown timer for background animation. */
 	private Cooldown bgTimer = new Cooldown(100);  // Draw bg interval
@@ -1888,10 +1892,10 @@ public final class DrawManager {
 			//backBufferGraphics.setColor(ghostColor);
 		}
 	}
-	public void drawGhost(Ship ship, boolean levelFinished, double lives){
+	public void drawGhost(boolean levelFinished, double lives){
 		if(levelFinished && lives == 0) {
 			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
-			backBufferGraphics.setColor(ghostColor);
+			System.out.println(ghostColor);
 			if(timer){
 				if(System.currentTimeMillis() - ghostTImer < 1000)
 					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
