@@ -980,8 +980,6 @@ public void drawSoundButton1(GameScreen gamescreen){
 			if (option == 20) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
-				/*int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -994,8 +992,6 @@ public void drawSoundButton1(GameScreen gamescreen){
 			if (option == 21) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage2 = greenFilter.filter(image2, null);
-				/*int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -1008,9 +1004,6 @@ public void drawSoundButton1(GameScreen gamescreen){
 			if (option == 22) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage3 = greenFilter.filter(image3, null);
-				/*int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);*/
-
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -1050,7 +1043,8 @@ public void drawSoundButton1(GameScreen gamescreen){
 		getRandomCoin = Integer.toString(randomRes);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
-		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() * 3 / 4 - 20);
+		drawCenteredRegularString(screen, randomTypeString, screen.getHeight() * 3 / 4 - 20);
+		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() * 3 / 4);
 		backBufferGraphics.setColor(blinkingColor("GREEN"));
 		backBufferGraphics.drawString(nextString, (screen.getWidth() - fontRegularMetrics.stringWidth(nextString)) / 2, screen.getHeight() * 7 /8 - 20);
 		try {
@@ -1842,8 +1836,8 @@ if (option == 35)
 		String itemStoreString = " > I T E M S T O R E";
 	String BuyString = "B U Y";
 		String PrizeString = "1 0 0";
-		int x1 = screen.getWidth()/7+10;
-		int x2 = screen.getWidth() *5/8+10;
+		int x1 = screen.getWidth()/7+20;
+		int x2 = screen.getWidth() *5/8+20;
 		int y1 = screen.getHeight()/6;
 		int y2 = screen.getHeight()*4/7 - 30;
 
@@ -1859,7 +1853,7 @@ if (option == 35)
 		drawEntity(SpriteType.ShipA, x1, y1, 5, 5, Color.YELLOW);
 		drawEntity(SpriteType.ShipA, x2, y1, 5, 5, Color.BLUE);
 		drawEntity(SpriteType.ShipA, x1, y2, 5, 5, Color.RED);
-		drawEntity(SpriteType.ShipA, x1, y2, 5, 5, Color.CYAN);
+		drawEntity(SpriteType.ShipA, x2, y2, 5, 5, Color.CYAN);
 
 		backBufferGraphics.setFont(fontRegular);
 	backBufferGraphics.setColor(Color.yellow);
@@ -1868,7 +1862,7 @@ if (option == 35)
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()*5/8 + 33 , screen.getHeight() - 115);
 		
-		if (option == 86)
+		if (option == 8)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -1883,7 +1877,7 @@ if (option == 35)
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(itemStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
-	if (option == 87)
+	if (option == 86)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -1893,12 +1887,12 @@ if (option == 35)
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(BuyString, screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
-		if (option == 89)
+		if (option == 87)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(BuyString, screen.getWidth()/7+33, screen.getHeight() - 95);
-		if (option == 90)
+		if (option == 89)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -2013,10 +2007,33 @@ if (option == 35)
 				+ Integer.toString(lvEnhanceArea + 1);
 		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
-		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
-		String valEnhanceDamageString = Integer.toString(requiredNumEnhanceAttackStone) + "/" + Integer.toString(numEnhanceDamage);
-		String changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
+		String valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/1";
+		String valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/" + Integer.toString(requiredNumEnhanceAttackStone);
+		String changedAttackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
+		String changedAreaString = "";
 
+		if (lvEnhanceArea == 0) {
+			changedAreaString = "|>\\ |";
+		}
+		if (lvEnhanceArea == 1) {
+			changedAreaString = "\\ |>\\ | /";
+		}
+		if (lvEnhanceArea >= 2) {
+			changedAreaString = "\\ | />\\ | /";
+		}
+
+		if (lvEnhanceArea >= 2) {
+			lvEnhanceAreaString = "Area Lv" + Integer.toString(lvEnhanceArea) + " > "
+				+ Integer.toString(lvEnhanceArea);
+			valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/0";
+		}
+		if (lvEnhanceDamage >= 6) {
+			lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
+				+ Integer.toString(lvEnhanceDamage);
+			valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/0";
+			changedAttackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage);
+		}
+									
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
 
@@ -2042,6 +2059,12 @@ if (option == 35)
 			drawEnhanceStoneString(screen, lvEnhanceAreaString,
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 30,
 				Color.lightGray, 0);
+			drawEnhanceStoneString(screen, "Direction",
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 60,
+				Color.cyan, 0);
+			drawEnhanceStoneString(screen, changedAreaString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 50,
+				Color.cyan, 0);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
@@ -2061,7 +2084,7 @@ if (option == 35)
 			drawEnhanceStoneString(screen, "Damage",
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 60,
 				Color.magenta, 0);
-			drawEnhanceStoneString(screen, changedattackDamageString,
+			drawEnhanceStoneString(screen, changedAttackDamageString,
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 50,
 				Color.magenta, 0);
 		}

@@ -173,6 +173,7 @@ public final class Core {
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
+
             switch (returnCode) {
                 case 1:
                     // Main menu.
@@ -258,11 +259,11 @@ public final class Core {
 							if (gameState.getLivesRemaining() <= 0) { break; }
                             if (gameState.getBulletsShot() > 99) {break;}
 							if (!boxOpen){
-								currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
+								currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
 								returnCode = frame.setScreen(currentScreen);
 								boxOpen = true;
-                                
-								currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes());
+                                String getRewardTypeString = ((RandomBoxScreen) currentScreen).getRewardTypeString();
+								currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes(), getRewardTypeString);
 								returnCode = frame.setScreen(currentScreen);
 							}
 							if (isInitMenuScreen || currentScreen.returnCode == 5) {
@@ -321,6 +322,7 @@ public final class Core {
                         returnCode = frame.setScreen(currentScreen);
                         LOGGER.info("Closing RecoveryPayment screen.");
                         if (returnCode == 51){
+
                             int coinnum = gameState.getCoin().getCoin();
                             
                             if (coinnum >= 30 ){
@@ -335,6 +337,8 @@ public final class Core {
 								    gameSettings.get(gameState.getLevel()-1),
                                     enhanceManager, itemManager,
                                     width, height, FPS);
+
+                             
                                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                                     + " game screen at " + FPS + " fps.");
                                     returnCode = frame.setScreen(currentScreen);
@@ -355,11 +359,12 @@ public final class Core {
                                         if (gameState.getLivesRemaining() <= 0) { break; }
                                         if (gameState.getBulletsShot() > 99) {break;}
                                         if (!boxOpen){
-                                            currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
-                                            returnCode = frame.setScreen(currentScreen);
-                                            boxOpen = true;
-                                            currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes());
-                                            returnCode = frame.setScreen(currentScreen);
+                                            currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
+								            returnCode = frame.setScreen(currentScreen);
+								            boxOpen = true;
+                                            String getRewardTypeString = ((RandomBoxScreen) currentScreen).getRewardTypeString();
+								            currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes(), getRewardTypeString);
+								            returnCode = frame.setScreen(currentScreen);
                                         }
                                         if (isInitMenuScreen || currentScreen.returnCode == 5) {
                                             currentScreen = new SubMenuScreen(width, height, FPS);
