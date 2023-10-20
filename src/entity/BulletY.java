@@ -23,6 +23,7 @@ public class BulletY extends Entity {
     private int damage;
     private BulletEffect bulletEffect;
     private int effectBullet;
+	private int attackDamage;
 
     /**
      * Constructor, establishes the bullet's properties.
@@ -35,10 +36,10 @@ public class BulletY extends Entity {
      *            Speed of the bullet, positive or negative depending on
      *            direction - positive is down.
      */
-    public BulletY(final int positionX, final int positionY, final int speed) {
+    public BulletY(final int positionX, final int positionY, final int speed, final int attackDamage) {
         super(positionX, positionY, 5*2 , 7*2 , Color.YELLOW);
         this.speed = speed;
-        this.damage = 3;
+        this.damage = 3 + attackDamage;
         setSprite();
     }
 

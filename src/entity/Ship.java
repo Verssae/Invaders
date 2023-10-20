@@ -87,21 +87,21 @@ public class Ship extends Entity {
 	 *            List of bullets on screen, to add the new bullet.
 	 * @return Checks if the bullet was shot correctly.
 	 */
-	public final boolean shoot(final Set<Bullet> bullets) {
+	public final boolean shoot(final Set<Bullet> bullets, final int ENHANCED_DAMAGE) {
 		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			this.shipEffect.shoot(bullets, BULLET_SPEED, ENHANCED_DAMAGE);
 			return true;
 		}
 		return false;
 	}
 
-	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+	public final boolean shootBulletY(final Set<BulletY> bulletsY, final int ENHANCED_DAMAGE) {
 		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
+			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED, ENHANCED_DAMAGE);
 			return true;
 		}
 		return false;

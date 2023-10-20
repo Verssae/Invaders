@@ -38,7 +38,8 @@ public final class BulletPool {
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-								   final int positionY, final int speed) {
+								   final int positionY, final int speed,
+								   final int damage) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -48,8 +49,9 @@ public final class BulletPool {
 			bullet.setSpeed(speed);
 			bullet.setSprite();
 			bullet.setEffectBullet(0);
+			
 		} else {
-			bullet = new Bullet(positionX, positionY, speed);
+			bullet = new Bullet(positionX, positionY, speed, damage);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;
@@ -69,7 +71,9 @@ public final class BulletPool {
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-								   final int positionY, final int speed, SpriteType bulletType) {
+								   final int positionY, final int speed, 
+								   SpriteType bulletType,
+								   final int damage) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -79,7 +83,7 @@ public final class BulletPool {
 			bullet.setSpeed(speed);
 			bullet.setSprite(bulletType);
 		} else {
-			bullet = new Bullet(positionX, positionY, speed, bulletType);
+			bullet = new Bullet(positionX, positionY, speed, bulletType, damage);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;
@@ -99,7 +103,8 @@ public final class BulletPool {
 	 * @return Requested bulletY.
 	 */
 	public static BulletY getBulletY(final int positionX,
-									 final int positionY, int speed) {
+									 final int positionY, int speed,
+									 final int damage) {
 		BulletY bulletY;
 		if (!poolY.isEmpty()) {
 			bulletY = poolY.iterator().next();
@@ -109,7 +114,7 @@ public final class BulletPool {
 			bulletY.setSpeed(speed);
 			bulletY.setSprite();
 		} else {
-			bulletY = new BulletY(positionX, positionY, speed);
+			bulletY = new BulletY(positionX, positionY, speed, damage);
 			bulletY.setPositionX(positionX - bulletY.getWidth() / 2);
 		}
 		return bulletY;

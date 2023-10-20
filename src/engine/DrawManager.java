@@ -1859,9 +1859,10 @@ public final class DrawManager {
 	 *               Current Level of Enhanced Damage.
 	 */
 	public void drawEnhanceMenu(final Screen screen, final int option, 
-								int numEnhanceArea, int numEnhanceDamage, 
-								int lvEnhanceArea, int lvEnhanceDamage,
-								int attackDamage, int addedValAttackDamage) {
+								final int numEnhanceArea, final int numEnhanceDamage, 
+								final int lvEnhanceArea, final int lvEnhanceDamage,
+								final int attackDamage, final int addedValAttackDamage,
+								final int requiredNumEnhanceAttackStone) {
 
 		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
@@ -1871,7 +1872,7 @@ public final class DrawManager {
 		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
 		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
-		String valEnhanceDamageString = "1/" + Integer.toString(numEnhanceDamage);
+		String valEnhanceDamageString = Integer.toString(requiredNumEnhanceAttackStone) + "/" + Integer.toString(numEnhanceDamage);
 		String changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
 
     	/** Height of the interface separation line. */
