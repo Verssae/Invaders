@@ -399,6 +399,19 @@ public class GameScreen extends Screen {
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 		}
+		if ((this.BulletsCount < 0) && !this.levelFinished){
+			this.BulletsCount = 0;
+			bgm.InGame_bgm_stop();
+			this.ship.update();
+			bgm.enemyShipSpecialbgm_stop();
+			this.levelFinished = true;
+			drawManager.ghostPostionX = this.ship.getPositionX();
+			drawManager.ghostPostionY = this.ship.getPositionY() - 25;
+			drawManager.endTimer.reset();
+			drawManager.ghostTImer = System.currentTimeMillis();
+			soundEffect.playShipDestructionSound();
+			this.screenFinishedCooldown.reset();
+		}
 
 		timer.update();
 	}
@@ -483,7 +496,7 @@ public class GameScreen extends Screen {
 			drawManager.ComboCount(this, this.combo);
 		}
 		//GameOver
-		drawManager.gameOver(this, this.levelFinished, this.lives);
+		drawManager.gameOver(this, this.levelFinished, this.lives,this.BulletsCount);
 		drawManager.changeGhostColor(this.levelFinished, this.lives);
 		drawManager.drawGhost(this.levelFinished, this.lives);
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
