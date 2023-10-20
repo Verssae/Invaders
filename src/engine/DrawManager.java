@@ -862,7 +862,6 @@ public void drawTimer(final Screen screen, final long elapsedTime) {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
-		String storeString1 = "S T O R E"; 
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -888,12 +887,6 @@ public void drawTimer(final Screen screen, final long elapsedTime) {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 6);
-		if (option == 6)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, storeString1, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 8);
 	}
 
 
