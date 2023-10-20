@@ -29,11 +29,11 @@ public class EnhanceManager {
     private int attackDamage;
     
     /** The number List of Ehanced Stones required according to level. (about attackdamage) */
-    ArrayList<Integer> numRequiredEnhanceAttackStoneList = new ArrayList<>(Arrays.asList(1, 2, 4, 7, 10, 15));
+    ArrayList<Integer> numRequiredEnhanceAttackStoneList = new ArrayList<>(Arrays.asList(1, 2, 4, 7, 10, 15, 0));
     /** The number List of Ehanced Stones required according to level. (about area damage) */
-    ArrayList<Integer> numRequiredEnhanceAreaStoneList = new ArrayList<>(Arrays.asList(1, 3, 7));
+    ArrayList<Integer> numRequiredEnhanceAreaStoneList = new ArrayList<>(Arrays.asList(1, 3, 0));
     /** The value List of Attack Damage to be enhanced according to level. */
-    ArrayList<Integer> valEnhanceAttackList = new ArrayList<>(Arrays.asList(1, 1, 3, 5, 8, 12));
+    ArrayList<Integer> valEnhanceAttackList = new ArrayList<>(Arrays.asList(1, 1, 3, 5, 8, 12, 0));
 
     /**
 	 * Constructor.
@@ -55,7 +55,7 @@ public class EnhanceManager {
 	 */
     public void enhanceAttackDamage() {
         int numrequiredEnhanceStone = this.getRequiredNumEnhanceStoneAttack();
-        if (lvEnhanceAttack != 5 && numEnhanceStoneAttack >= numrequiredEnhanceStone) {
+        if (numEnhanceStoneAttack >= numrequiredEnhanceStone) {
             this.attackDamage += this.getValEnhanceAttack();
             this.numEnhanceStoneAttack -= numrequiredEnhanceStone;
             this.lvEnhanceAttack += 1;
@@ -65,9 +65,9 @@ public class EnhanceManager {
     /**
      * Enhance area damage using Enhance stone.
      */
-    public void enhanceAreaDamage() {
+    public void enhanceAreaDamage() {       
         int numRequiredEnhanceStone = this.getRequiredNumEnhanceStoneArea();
-        if (lvEnhanceArea != 2 && numEnhanceStoneArea >= numRequiredEnhanceStone) {
+        if (numEnhanceStoneArea >= numRequiredEnhanceStone) {
             this.numEnhanceStoneArea -= numRequiredEnhanceStone;
             this.lvEnhanceArea += 1;
         }

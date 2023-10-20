@@ -173,6 +173,7 @@ public final class Core {
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
+
             switch (returnCode) {
                 case 1:
                     // Main menu.
