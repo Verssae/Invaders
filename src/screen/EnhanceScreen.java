@@ -126,13 +126,15 @@ public class EnhanceScreen extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
                 soundEffect.playSpaceButtonSound();
                 if (this.returnCode == 8) {
-                    this.enhanceManager.enhanceAreaDamage();
+                    if (this.enhanceManager.getlvEnhanceArea() <= 1)
+                        this.enhanceManager.enhanceAreaDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
-                        // gameSetting.setAreaDamage(this.enhanceManager.getAreaDamage());
+                        gameSetting.setAreaDamage(this.enhanceManager.getlvEnhanceArea());
                     }
                 }
                 if (this.returnCode == 9) {
-                    this.enhanceManager.enhanceAttackDamage();
+                    if (this.enhanceManager.getlvEnhanceAttack() <= 5)
+                        this.enhanceManager.enhanceAttackDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
                         gameSetting.setAttackDamage(this.enhanceManager.getAttackDamage());
                     }

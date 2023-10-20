@@ -2006,10 +2006,33 @@ if (option == 35)
 				+ Integer.toString(lvEnhanceArea + 1);
 		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
-		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
-		String valEnhanceDamageString = Integer.toString(requiredNumEnhanceAttackStone) + "/" + Integer.toString(numEnhanceDamage);
-		String changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
+		String valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/1";
+		String valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/" + Integer.toString(requiredNumEnhanceAttackStone);
+		String changedAttackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
+		String changedAreaString = "";
 
+		if (lvEnhanceArea == 0) {
+			changedAreaString = "|>\\ |";
+		}
+		if (lvEnhanceArea == 1) {
+			changedAreaString = "\\ |>\\ | /";
+		}
+		if (lvEnhanceArea >= 2) {
+			changedAreaString = "\\ | />\\ | /";
+		}
+
+		if (lvEnhanceArea >= 2) {
+			lvEnhanceAreaString = "Area Lv" + Integer.toString(lvEnhanceArea) + " > "
+				+ Integer.toString(lvEnhanceArea);
+			valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/0";
+		}
+		if (lvEnhanceDamage >= 6) {
+			lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
+				+ Integer.toString(lvEnhanceDamage);
+			valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/0";
+			changedAttackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage);
+		}
+									
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
 
@@ -2035,6 +2058,12 @@ if (option == 35)
 			drawEnhanceStoneString(screen, lvEnhanceAreaString,
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 30,
 				Color.lightGray, 0);
+			drawEnhanceStoneString(screen, "Direction",
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 60,
+				Color.cyan, 0);
+			drawEnhanceStoneString(screen, changedAreaString,
+				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 50,
+				Color.cyan, 0);
 		}
 		else{
 			drawEnhanceStoneString(screen, valEnhanceAreaString,
@@ -2054,7 +2083,7 @@ if (option == 35)
 			drawEnhanceStoneString(screen, "Damage",
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 60,
 				Color.magenta, 0);
-			drawEnhanceStoneString(screen, changedattackDamageString,
+			drawEnhanceStoneString(screen, changedAttackDamageString,
 				centeredCircleX + centeredCircleWidth / 2, centeredCircleY + centeredCircleHeight * 4 / 5 - 50,
 				Color.magenta, 0);
 		}
