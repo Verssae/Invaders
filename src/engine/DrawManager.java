@@ -1757,38 +1757,74 @@ if (option == 35)
 	 */
 
 	public void drawSkinStore(final Screen screen, final int option) {
-// Coin coinInstance = new Coin();
-		// int coinValue = coinInstance.getCoin();
 
-				
-String skinStoreTxt = " S K I N S T O R E";
-		String buyString = " B U Y";
-		// String coinString = " C O I N : " + coinValue;
-		String gameAgain = " C O N T I N U E";
+		String skinStoretxt = " * S K I N S T O R E * ";
+		String continueString = " > C O N T I N U E";
+		String EnhanceString = " > E N H A N C E";
+		String itemStoreString = " > I T E M S T O R E";
+	String BuyString = "B U Y";
+		String PrizeString = "1 0 0";
+		int x1 = screen.getWidth()/7;
+		int x2 = screen.getWidth() *5/8;
+		int y1 = screen.getHeight()/6;
+		int y2 = screen.getHeight()*4/7 - 30;
+
 
 		int rectWidth = screen.getWidth();
 		int rectHeight = screen.getHeight() / 6;
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
 				rectWidth, rectHeight);
-		backBufferGraphics.setColor(Color.GREEN);
-		drawCenteredRegularString(screen, skinStoreTxt,	screen.getHeight()/4 - 80);
-		backBufferGraphics.setColor(Color.YELLOW);
-		// backBufferGraphics.drawString(coinString, (screen.getWidth() - fontRegularMetrics.stringWidth(coinString)) / 2, screen.getHeight()/8+10);
+		backBufferGraphics.setColor(Color.green);
+		drawCenteredBigString(screen, skinStoretxt,	screen.getHeight()/4 - 97);
+		drawHorizontalLine(screen, screen.getHeight()/14);
+		drawEntity(SpriteType.ShipA, x1, y1, 30, 25, Color.YELLOW);
+		drawEntity(SpriteType.ShipA, x2, y1, 30, 25, Color.BLUE);
+		drawEntity(SpriteType.ShipA, x1, y2, 30, 25, Color.PINK);
+		drawEntity(SpriteType.ShipA, x1, y2, 30, 25, Color.CYAN);
+
+		backBufferGraphics.setFont(fontRegular);
+	backBufferGraphics.setColor(Color.yellow);
+		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 35);
+		backBufferGraphics.drawString(PrizeString, screen.getWidth()*5/8 + 33, screen.getHeight()/2 - 35);
+		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
+		backBufferGraphics.drawString(PrizeString, screen.getWidth()*5/8 + 33 , screen.getHeight() - 115);
 		
-		if (option == 16)
+		if (option == 86)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, buyString,
-				screen.getHeight() / 3* 2 + fontRegularMetrics.getHeight() * 2);
-
+		backBufferGraphics.drawString(EnhanceString, screen.getWidth()/15 - 20, screen.getHeight() - 30);
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, gameAgain,
-				screen.getHeight() / 3* 2 + fontRegularMetrics.getHeight() * 4);
+		backBufferGraphics.drawString(continueString, screen.getWidth()/3, screen.getHeight() - 30);
+		if (option == 35)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(itemStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
+	if (option == 87)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 15);
+		if (option == 88)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
+		if (option == 89)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth()/7+33, screen.getHeight() - 95);
+		if (option == 90)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth()*5/8 + 33, screen.getHeight() - 95);
 		
 	}
 
