@@ -18,13 +18,10 @@ public class RandomBoxScreen extends Screen {
     public String getRandomCoin;
     private GameState gameState;
     private int randomRes;
-    private int rewardType;
-    private int randomEnhance;
-    private int randomEnhanceType;
+    private String rewardTypeString;
+    private EnhanceManager enhanceManager;
     private int BST;
     private int PST;
-    private String rewardTypeString;
-
     /**
      * Constructor, establishes the properties of the screen.
      * 
@@ -37,7 +34,7 @@ public class RandomBoxScreen extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomBoxScreen(final GameState gameState, int width, int height, int fps) {
+    public RandomBoxScreen(final GameState gameState, int width, int height, int fps, final EnhanceManager enhanceManager) {
         super(width, height, fps);
 
         // Defaults to play.
@@ -47,6 +44,9 @@ public class RandomBoxScreen extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.randomRes = 0;
+        this.BST = enhanceManager.getNumEnhanceStoneArea();
+        this.PST = enhanceManager.getNumEnhanceStoneAttack();
+        this.enhanceManager = enhanceManager;
     }
  
     /**
@@ -101,71 +101,74 @@ public class RandomBoxScreen extends Screen {
                         int randomEnhanceType = (int) (Math.random() * 2); // 0: bst, 1: pst
                         if (randomEnhanceType == 0){
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.BST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneArea(randomEnhance);
                             this.randomRes = randomEnhance;
                             this.rewardTypeString = "BLUE ENHANCE STONE";
-
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.PST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneAttack(randomEnhance);
                             this.randomRes = randomEnhance;
                             this.rewardTypeString = "PURPLE ENHANCE STONE";
-
                         }
                     }
                 }
                 if (this.returnCode == 21) {
-                    int rewardType =  (int) (Math.random() * 2);
+                    int rewardType =  (int) (Math.random() * 2); //0 : coin, 1: 강화석
                     if (rewardType == 0){
                         int randomCoin = (int) (Math.random() * 11) * 5;
                         getRandomCoin = Integer.toString(randomCoin);
                         this.coin.addCoin(randomCoin);
                         this.gameState.setCoin(this.coin);
                         this.randomRes = randomCoin;
+                        this.rewardTypeString = "C O I N ";
                     }
                     else{
-                        int randomEnhanceType = (int) (Math.random() * 2);
+                        int randomEnhanceType = (int) (Math.random() * 2); // 0: bst, 1: pst
                         if (randomEnhanceType == 0){
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.BST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneArea(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "BLUE ENHANCE STONE";
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.PST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneAttack(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "PURPLE ENHANCE STONE";
                         }
-
                     }
                 }
                 if (this.returnCode == 22) {
-                    int rewardType =  (int) (Math.random() * 2);
+                    int rewardType =  (int) (Math.random() * 2); //0 : coin, 1: 강화석
                     if (rewardType == 0){
                         int randomCoin = (int) (Math.random() * 11) * 5;
                         getRandomCoin = Integer.toString(randomCoin);
                         this.coin.addCoin(randomCoin);
                         this.gameState.setCoin(this.coin);
                         this.randomRes = randomCoin;
+                        this.rewardTypeString = "C O I N ";
                     }
                     else{
-                        int randomEnhanceType = (int) (Math.random() * 2);
+                        int randomEnhanceType = (int) (Math.random() * 2); // 0: bst, 1: pst
                         if (randomEnhanceType == 0){
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.BST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneArea(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "BLUE ENHANCE STONE";
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.PST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneAttack(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "PURPLE ENHANCE STONE";
                         }
-
                     }
                 }
                 this.isRunning = false;
             }
         }
+    
     }
 
     /**
