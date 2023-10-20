@@ -456,6 +456,21 @@ public class GameScreen_2P extends Screen {
             bgm.InGame_bgm_stop();
             this.isRunning = false;
         }
+        if (this.BulletsCount_1p <= 0){
+            this.ship_1P.destroy();
+            this.BulletsCount_1p = 0;
+        }
+        if (this.BulletsCount_2p <= 0){
+            this.ship_2P.destroy();
+            this.BulletsCount_2p = 0;
+
+        }
+        if (this.BulletsCount_1p == 0 && this.BulletsCount_2p == 0 && !this.levelFinished){
+            bgm.enemyShipSpecialbgm_stop();
+            this.levelFinished = true;
+            soundEffect.playShipDestructionSound();
+            this.screenFinishedCooldown.reset();
+        }
 
         timer.update();
 
