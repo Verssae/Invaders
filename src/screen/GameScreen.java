@@ -484,6 +484,7 @@ public class GameScreen extends Screen {
 		drawManager.drawScore(this, this.score);
 		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawLivesbar(this, this.lives);
+		drawManager.drawitemcircle(this,1,2);
 		isboss = gameSettings.checkIsBoss();
 		if (isboss) {
 			for (EnemyShip enemyShip : this.enemyShipFormation)

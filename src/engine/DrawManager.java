@@ -665,6 +665,19 @@ public final class DrawManager {
 		// Draw the "lives" text in the center of the rectangle.
 		g2d.drawString("Lives", textX, textY);
 	}
+	public void drawitemcircle(final Screen screen, final int itemcount1, final int itemcount2) {
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+		// this.drawEntity(SpriteType.Bullet,350,450,5,5); <<-- 이런식으로 아이콘 추가
+		float strokeWidth = 3.0f; // 원의 선굵기
+		BasicStroke stroke = new BasicStroke(strokeWidth); // 원의 선굵기
+		g2d.setStroke(stroke); // 원의 선굵기
+		g2d.setColor(Color.white); // 원의 선색깔
+		g2d.fillOval(375, 310, 55, 45); // 원 위치
+		g2d.fillOval(375, 365, 55, 45); // 원 위치
+		g2d.setColor(Color.black); // 원의 선색깔
+		g2d.drawString(Integer.toString(itemcount1), 395, 340); // 글자 추가
+		g2d.drawString(Integer.toString(itemcount2), 395, 395); // 글자 추가
+	}
 
 	public void drawBossLivesbar(final Screen screen, int boss_lives) {
 		double fillRatio = boss_lives / 50.0;
