@@ -118,6 +118,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int extend_check;
 	/** how many moved enemy ship */
 	private int movementExtend;
+	private boolean isExtend = true;
 
 
 	/** Directions the formation can move. */
@@ -362,8 +363,12 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			movementInterval++;
 			if (movementInterval >= this.movementSpeed) {
 				movementInterval = 0;
-				boolean isExtend = IsSExtend_location <= this.extend_check;
-				boolean isNotExtend = NotExtend_location >= this.extend_check;
+				if(extend_check== NotExtend_location){
+					isExtend = true;
+				}
+				if(extend_check== IsSExtend_location){
+					isExtend = false;
+				}
 
 				boolean isAtBottom = positionY
 						+ this.height > screen.getHeight() - BOTTOM_MARGIN;
@@ -402,26 +407,22 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 							this.logger.info("Formation now moving left 6");
 						}
 				}
-
 				if (currentDirection == Direction.RIGHT) {
 					if (isExtend)
-						movementExtend = -Extend_x;
-					else if (isNotExtend)
 						movementExtend = Extend_x;
+					else
+						movementExtend = -Extend_x;
 					movementX = X_SPEED;
 				}
 				else if (currentDirection == Direction.LEFT) {
 					if (isExtend)
-						movementExtend = -Extend_x;
-					else if (isNotExtend)
 						movementExtend = Extend_x;
+					else
+						movementExtend = -Extend_x;
 					movementX = -X_SPEED;
 				}
 				else {
-					if (isExtend)
-						movementExtend = 0;
-					else if (isNotExtend)
-						movementExtend = 0;
+					movementExtend = 0;
 					movementY = Y_SPEED;
 				}
 				positionX += movementX;
