@@ -95,7 +95,7 @@ public class RandomBoxScreen extends Screen {
                         this.coin.addCoin(randomCoin);
                         this.gameState.setCoin(this.coin);
                         this.randomRes = randomCoin;
-                        this.rewardTypeString = "C O I N : ";
+                        this.rewardTypeString = "C O I N ";
                     }
                     else{
                         int randomEnhanceType = (int) (Math.random() * 2); // 0: bst, 1: pst
@@ -103,13 +103,16 @@ public class RandomBoxScreen extends Screen {
                             int randomEnhance = (int) (Math.random() * 4);
                             this.BST += randomEnhance;
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "BLUE ENHANCE STONE";
+
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
                             this.PST += randomEnhance;
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "PURPLE ENHANCE STONE";
+
                         }
-                        this.rewardTypeString = "ENHANCE STONE : ";
                     }
                 }
                 if (this.returnCode == 21) {
@@ -202,5 +205,9 @@ public class RandomBoxScreen extends Screen {
 
     public int getRandomRes(){
         return this.randomRes;
+    }
+
+    public String getRewardTypeString(){
+        return this.rewardTypeString;
     }
 }
