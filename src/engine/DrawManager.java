@@ -81,6 +81,8 @@ public final class DrawManager {
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
+	private CountUpTimer timer;
+
 	public int timercount = 0;
 
 
@@ -182,7 +184,7 @@ public final class DrawManager {
 		ShipAShileded,
 		ShipBShileded,
 		ShipCShileded,
-        EnhanceStone,
+		EnhanceStone,
 		//ShipCShileded,
 		gravestone,
 		Ghost;
@@ -283,6 +285,10 @@ public final class DrawManager {
 		} catch (FontFormatException e) {
 			logger.warning("Font formating failed.");
 		}
+	}
+
+	public void stopTimer(CountUpTimer timer) {
+		timer.stop();
 	}
 
 
@@ -548,9 +554,9 @@ public final class DrawManager {
 	}
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
-		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
+		backBufferGraphics.setColor(Color.WHITE);
 		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
+		backBufferGraphics.drawString(timeString, 30, 450);
 	}
 
 	private String formatTime(long elapsedTime) {
@@ -593,11 +599,24 @@ public final class DrawManager {
 		}
 	}
 
-    public void BulletsCount(final Screen screen, final int BulletsCount) {
+	public void BulletsCount(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, screen.getWidth() - 180, 65);
+		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
+	}
+
+	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bullets_1p: " + String.format("%02d", BulletsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 60);
+	}
+	public void BulletsCount_2p(final Screen screen, final int BulletsCount_2p) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 88);
 	}
 
 	/**
@@ -645,6 +664,19 @@ public final class DrawManager {
 
 		// Draw the "lives" text in the center of the rectangle.
 		g2d.drawString("Lives", textX, textY);
+	}
+	public void drawitemcircle(final Screen screen, final int itemcount1, final int itemcount2) {
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+		// this.drawEntity(SpriteType.Bullet,350,450,5,5); <<-- 이런식으로 아이콘 추가
+		float strokeWidth = 3.0f; // 원의 선굵기
+		BasicStroke stroke = new BasicStroke(strokeWidth); // 원의 선굵기
+		g2d.setStroke(stroke); // 원의 선굵기
+		g2d.setColor(Color.white); // 원의 선색깔
+		g2d.fillOval(375, 310, 55, 45); // 원 위치
+		g2d.fillOval(375, 365, 55, 45); // 원 위치
+		g2d.setColor(Color.black); // 원의 선색깔
+		g2d.drawString(Integer.toString(itemcount1), 395, 340); // 글자 추가
+		g2d.drawString(Integer.toString(itemcount2), 395, 395); // 글자 추가
 	}
 
 	public void drawBossLivesbar(final Screen screen, int boss_lives) {
@@ -894,7 +926,7 @@ public final class DrawManager {
 		try {
 			BufferedImage image1 = ImageIO.read(new File("res/giftbox1.png"));
 			BufferedImage greenImage1 = image1;
-			if (option == 20) { 
+			if (option == 20) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
 				/*int randomCoin = (int) (Math.random() * 11) * 5;
@@ -927,7 +959,7 @@ public final class DrawManager {
 				greenImage3 = greenFilter.filter(image3, null);
 				/*int randomCoin = (int) (Math.random() * 11) * 5;
     			getRandomCoin = Integer.toString(randomCoin);*/
-				
+
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -1626,7 +1658,7 @@ public final class DrawManager {
 	 * @param fontSizeOption
 	 *               Option of font size.
 	 */
-	public void drawEnhanceStoneString(final Screen screen, final String enhanceString, 
+	public void drawEnhanceStoneString(final Screen screen, final String enhanceString,
 										final int positionX, final int positionY, 
 										final Color color, int fontSizeOption) {
 		
@@ -1661,12 +1693,12 @@ public final class DrawManager {
 	public void drawEnhanceSprite(final Screen screen,
 								  final int leftCircleX, final int rightCircleX, final int sideCircleY, 
 								  final int sideCircleWidth, final int sideCircleHeight) {
-									
+
 		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
 		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
 					
-		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
-		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
+		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);
+		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);
 	}
 
 	/**
@@ -1685,7 +1717,7 @@ public final class DrawManager {
 	 * @param lvEnhanceDamage
 	 *               Current Level of Enhanced Damage.
 	 */
-	public void drawEnhanceMenu(final Screen screen, final int option, 
+	public void drawEnhanceMenu(final Screen screen, final int option,
 								int numEnhanceArea, int numEnhanceDamage, 
 								int lvEnhanceArea, int lvEnhanceDamage) {
 
@@ -1861,9 +1893,9 @@ public final class DrawManager {
 		timercount++;
 	}
 
-	public void gameOver(final Screen screen, boolean levelFinished, double lives){
+	public void gameOver(final Screen screen, boolean levelFinished, double lives,int bullets){
 		if(levelFinished){
-			if(lives == 0){
+			if(lives == 0 || bullets==0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
 				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
