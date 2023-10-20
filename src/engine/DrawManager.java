@@ -2011,10 +2011,13 @@ if (option == 35)
 				+ Integer.toString(lvEnhanceArea + 1);
 		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
-		String valEnhanceAreaString =  "1/" + Integer.toString(numEnhanceArea);
-		String valEnhanceDamageString = Integer.toString(requiredNumEnhanceAttackStone) + "/" + Integer.toString(numEnhanceDamage);
+		String valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/1";
+		String valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/" + Integer.toString(requiredNumEnhanceAttackStone);
 		String changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
-
+		if (lvEnhanceDamage == 5) {
+			changedattackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage);
+		}
+									
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
 

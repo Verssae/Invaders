@@ -55,7 +55,7 @@ public class EnhanceManager {
 	 */
     public void enhanceAttackDamage() {
         int numrequiredEnhanceStone = this.getRequiredNumEnhanceStoneAttack();
-        if (numEnhanceStoneAttack >= numrequiredEnhanceStone) {
+        if (lvEnhanceAttack != 5 && numEnhanceStoneAttack >= numrequiredEnhanceStone) {
             this.attackDamage += this.getValEnhanceAttack();
             this.numEnhanceStoneAttack -= numrequiredEnhanceStone;
             this.lvEnhanceAttack += 1;
@@ -67,7 +67,7 @@ public class EnhanceManager {
      */
     public void enhanceAreaDamage() {
         int numRequiredEnhanceStone = this.getRequiredNumEnhanceStoneArea();
-        if (numEnhanceStoneArea >= numRequiredEnhanceStone) {
+        if (lvEnhanceArea != 2 && numEnhanceStoneArea >= numRequiredEnhanceStone) {
             this.numEnhanceStoneArea -= numRequiredEnhanceStone;
             this.lvEnhanceArea += 1;
         }
