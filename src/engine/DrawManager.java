@@ -81,7 +81,7 @@ public final class DrawManager {
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	public int timercount = 0;
-
+	public String rewardTypeString;
 
 	//BufferedImage img1, img2, img3, img4;
 
@@ -896,8 +896,6 @@ public final class DrawManager {
 			if (option == 20) { 
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage1 = greenFilter.filter(image1, null);
-				/*int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage1, screen.getWidth() / 4 - 27, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -910,8 +908,6 @@ public final class DrawManager {
 			if (option == 21) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
 				greenImage2 = greenFilter.filter(image2, null);
-				/*int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);*/
 			}
 			backBufferGraphics.drawImage(greenImage2, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -923,10 +919,7 @@ public final class DrawManager {
 			BufferedImage greenImage3 = image3;
 			if (option == 22) {
 				RescaleOp greenFilter = new RescaleOp(new float[]{0f, 1f, 0f, 1f}, new float[]{0f, 0f, 0f, 0f}, null);
-				greenImage3 = greenFilter.filter(image3, null);
-				/*int randomCoin = (int) (Math.random() * 11) * 5;
-    			getRandomCoin = Integer.toString(randomCoin);*/
-				
+				greenImage3 = greenFilter.filter(image3, null);				
 			}
 			backBufferGraphics.drawImage(greenImage3, screen.getWidth() * 3 / 4 - 25, screen.getHeight() / 2 + 20, 60, 60, null);
 		} catch (IOException e) {
@@ -958,12 +951,12 @@ public final class DrawManager {
 	}
 	
 	private BufferedImage image1;
-	public void drawRandomReward(final Screen screen, final int option, final int randomcoin) {
+	public void drawRandomReward(final Screen screen, final int option, final String randomTypeString, final int randomRes) {
 		String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
 		// long currentTime = System.currentTimeMillis();
 
-		getRandomCoin = Integer.toString(randomcoin);
+		getRandomCoin = Integer.toString(randomRes);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
 		drawCenteredRegularString(screen, introduceString, screen.getHeight() / 8);
 		drawCenteredRegularString(screen, getRandomCoin, screen.getHeight() * 3 / 4 - 20);
