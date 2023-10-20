@@ -5,9 +5,9 @@ import entity.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
+import engine.DrawManager.SpriteType;
 
 
 /**
@@ -113,9 +113,13 @@ public class GameScreen extends Screen {
 	private int areaDamage;
 	/** Combo counting*/
 	private int combo=0;
+	private boolean isboss;
 
 	private boolean bomb; // testing
 	private Cooldown bombCool;
+	private EnhanceManager enhanceManager;
+
+	private CountUpTimer timer;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -133,24 +137,24 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen(final GameState gameState,
 					  final GameSettings gameSettings,
+					  final EnhanceManager enhanceManager,
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
 
 		this.gameSettings = gameSettings;
-		//this.bonusLife = bonusLife;
+		this.enhanceManager = enhanceManager;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
 		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
-		//if (this.bonusLife)
-		//this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.hardcore = gameState.getHardCore();
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+		timer = new CountUpTimer();
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
@@ -158,6 +162,7 @@ public class GameScreen extends Screen {
 			LASER_VARIANCE = 500;
 			LASER_LOAD = 1500;
 		}
+
 	}
 
 
@@ -394,6 +399,8 @@ public class GameScreen extends Screen {
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 		}
+
+		timer.update();
 	}
 
 	/**
@@ -457,12 +464,21 @@ public class GameScreen extends Screen {
 		// Interface.
 		drawManager.drawScore(this, this.score);
 		drawManager.drawCoin(this, this.coin, 0);
-		//drawManager.drawLives(this, this.lives);
 		drawManager.drawLivesbar(this, this.lives);
+		isboss = gameSettings.checkIsBoss();
+		if (isboss) {
+			for (EnemyShip enemyShip : this.enemyShipFormation)
+				drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
+		}
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
+		drawManager.drawSoundButton1(this);
+		if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus1(this, false);
+		else drawManager.drawSoundStatus1(this, true);
+
+		drawManager.drawTimer(this, timer.getElapsedTime());
 		if (combo !=0) {
 			drawManager.ComboCount(this, this.combo);
 		}
@@ -498,6 +514,7 @@ public class GameScreen extends Screen {
 		}
 
 		drawManager.completeDrawing(this);
+
 
 
 		}
@@ -629,12 +646,22 @@ public class GameScreen extends Screen {
 			if(checkCollision(item, this.ship) && !this.levelFinished){
 				recyclableItem.add(item);
 				this.logger.info("Get Item ");
-//				if(item.spriteType == SpriteType.Coin){
-//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
-//				}
-//				if(item.spriteType == SpriteType.EnhanceStone){
-//					Wallet 클래스를 게임스크린에 변수로 넣어서 += 1 하시면 될듯.
-//				}
+
+				//* settings of coins randomly got when killing monsters
+				ArrayList<Integer> coinProbability = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 1, 1, 2, 3, 4));
+				Random random = new Random();
+				int randomIndex = random.nextInt(coinProbability.size());
+
+				if(item.getSpriteType() == SpriteType.Coin){
+					this.coin.addCoin(coinProbability.get(randomIndex));
+
+				}
+				if(item.getSpriteType() == SpriteType.BlueEnhanceStone){
+					this.enhanceManager.setNumBlueEnhanceAreaStone(1);
+				}
+				if(item.getSpriteType() == SpriteType.PerpleEnhanceStone){
+					this.enhanceManager.setNumPerpleEnhanceAttackStone(1);
+				}
 				this.ship.checkGetItem(item);
 			}
 		}
@@ -742,6 +769,6 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore,this.lives);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore);
 	}
 }

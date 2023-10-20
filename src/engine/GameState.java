@@ -47,12 +47,11 @@ public class GameState {
 	 */
 	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p) {
+			final int shipsDestroyed, final boolean hardcore) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
 		this.livesRemaining = livesRemaining;
-		this.livesRemaining_2p = livesRemaining_2p;
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
@@ -81,21 +80,23 @@ public class GameState {
 	}
 
 	/**
+	 * @return the score
+	 */
+	public final Coin setCoin(final Coin coin) {
+		return this.coin = coin;
+	}
+
+	/**
 	 * @return the livesRemaining
 	 */
 	public final double getLivesRemaining() {
 		return livesRemaining;
 	}
-	public final double getLivesRemaining_2p() {
-		return livesRemaining_2p;
-	}
 
 	/**
 	 * @return the bulletsShot
 	 */
-	public final int getBulletsShot() {
-		return bulletsShot;
-	}
+	public final int getBulletsShot() {return bulletsShot;}
 
 	/**
 	 * @return the shipsDestroyed

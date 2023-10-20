@@ -121,7 +121,7 @@ public class EnhanceScreen extends Screen {
                 if (this.returnCode == 8) {
                     this.enhanceManager.enhanceAreaDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
-                        gameSetting.setAreaDamage(this.enhanceManager.getAreaDamage());
+                        // gameSetting.setAreaDamage(this.enhanceManager.getAreaDamage());
                     }
                 }
                 if (this.returnCode == 9) {
