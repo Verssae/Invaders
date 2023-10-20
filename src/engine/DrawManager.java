@@ -1839,8 +1839,8 @@ if (option == 35)
 		String itemStoreString = " > I T E M S T O R E";
 	String BuyString = "B U Y";
 		String PrizeString = "1 0 0";
-		int x1 = screen.getWidth()/7+10;
-		int x2 = screen.getWidth() *5/8+10;
+		int x1 = screen.getWidth()/7+20;
+		int x2 = screen.getWidth() *5/8+20;
 		int y1 = screen.getHeight()/6;
 		int y2 = screen.getHeight()*4/7 - 30;
 
@@ -1856,7 +1856,7 @@ if (option == 35)
 		drawEntity(SpriteType.ShipA, x1, y1, 5, 5, Color.YELLOW);
 		drawEntity(SpriteType.ShipA, x2, y1, 5, 5, Color.BLUE);
 		drawEntity(SpriteType.ShipA, x1, y2, 5, 5, Color.RED);
-		drawEntity(SpriteType.ShipA, x1, y2, 5, 5, Color.CYAN);
+		drawEntity(SpriteType.ShipA, x2, y2, 5, 5, Color.CYAN);
 
 		backBufferGraphics.setFont(fontRegular);
 	backBufferGraphics.setColor(Color.yellow);
@@ -1865,7 +1865,7 @@ if (option == 35)
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()*5/8 + 33 , screen.getHeight() - 115);
 		
-		if (option == 86)
+		if (option == 8)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -1880,7 +1880,7 @@ if (option == 35)
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(itemStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
-	if (option == 87)
+	if (option == 86)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -1890,12 +1890,12 @@ if (option == 35)
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(BuyString, screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
-		if (option == 89)
+		if (option == 87)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(BuyString, screen.getWidth()/7+33, screen.getHeight() - 95);
-		if (option == 90)
+		if (option == 89)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
