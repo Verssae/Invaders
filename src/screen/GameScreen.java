@@ -146,6 +146,7 @@ public class GameScreen extends Screen {
 		this.enhanceManager = enhanceManager;
 		this.level = gameState.getLevel();
 		this.score = gameState.getScore();
+		timer = new CountUpTimer();
 		this.coin = gameState.getCoin();
 		this.lives = gameState.getLivesRemaining();
 		this.bulletsShot = gameState.getBulletsShot();
@@ -154,7 +155,7 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
-		timer = new CountUpTimer();
+
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
@@ -232,6 +233,8 @@ public class GameScreen extends Screen {
 	 * Updates the elements on screen and checks for events.
 	 */
 	protected final void update() {
+		timer.update();
+
 		if (pause) { // Game Pause, press ENTER to continue or BackSpace to quit
 			pause = !inputManager.isKeyDown(KeyEvent.VK_ENTER);
 			boolean exit = inputManager.isKeyDown(KeyEvent.VK_BACK_SPACE);
@@ -381,6 +384,7 @@ public class GameScreen extends Screen {
 			bgm.InGame_bgm_stop();
 			this.levelFinished = true;
 			this.screenFinishedCooldown.reset();
+			timer.stop();
 		}
 		if (this.lives == 0 && !this.levelFinished) {
 			bgm.InGame_bgm_stop();
@@ -393,11 +397,13 @@ public class GameScreen extends Screen {
 			drawManager.ghostTImer = System.currentTimeMillis();
 			soundEffect.playShipDestructionSound();
 			this.screenFinishedCooldown.reset();
+			timer.stop();
 		}
 
 		if ((isItemAllEat || this.levelFinished) && this.screenFinishedCooldown.checkFinished()){
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
+			timer.stop();
 		}
 		if ((this.BulletsCount < 0) && !this.levelFinished){
 			this.BulletsCount = 0;
@@ -508,8 +514,7 @@ public class GameScreen extends Screen {
 					- (System.currentTimeMillis()
 					- this.gameStartTime)) / 1000);
 
-			drawManager.drawCountDown(this, this.level, countdown,
-					this.bonusLife);
+			drawManager.drawCountDown(this, this.level, countdown, this.bonusLife);
 
 			// Fade from white at game start.
 			drawManager.drawBackgroundStart(this, SEPARATION_LINE_HEIGHT);

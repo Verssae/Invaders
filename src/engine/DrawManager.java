@@ -81,6 +81,8 @@ public final class DrawManager {
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
+	private CountUpTimer timer;
+
 	public int timercount = 0;
 
 
@@ -283,6 +285,10 @@ public final class DrawManager {
 		} catch (FontFormatException e) {
 			logger.warning("Font formating failed.");
 		}
+	}
+
+	public void stopTimer(CountUpTimer timer) {
+		timer.stop();
 	}
 
 
@@ -548,9 +554,9 @@ public final class DrawManager {
 	}
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
-		backBufferGraphics.setColor(Color.WHITE); // Set your preferred color
+		backBufferGraphics.setColor(Color.WHITE);
 		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, 30, 450); // Adjust position as needed
+		backBufferGraphics.drawString(timeString, 30, 450);
 	}
 
 	private String formatTime(long elapsedTime) {
