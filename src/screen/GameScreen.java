@@ -498,7 +498,7 @@ public class GameScreen extends Screen {
 		//GameOver
 		drawManager.gameOver(this, this.levelFinished, this.lives,this.BulletsCount);
 		drawManager.changeGhostColor(this.levelFinished, this.lives);
-		drawManager.drawGhost(this.ship, this.levelFinished, this.lives);//, System.currentTimeMillis());
+		drawManager.drawGhost(this.levelFinished, this.lives);
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
 
 		

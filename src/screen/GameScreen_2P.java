@@ -35,7 +35,7 @@ public class GameScreen_2P extends Screen {
     /** Time until laser disappears. */
     private static final int LASER_ACTIVATE = 1000;
     /** Time from finishing the level to screen change. */
-    private static final int SCREEN_CHANGE_INTERVAL = 1500;
+    private static final int SCREEN_CHANGE_INTERVAL = 3000;
     /** Height of the interface separation line. */
     private static final int SEPARATION_LINE_HEIGHT = 40;
 
@@ -447,6 +447,12 @@ public class GameScreen_2P extends Screen {
         if (this.lives_1p == 0 && !this.levelFinished && this.lives_2p==0) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
+            //drawManager.ghost1PostionX = this.ship_1P.getPositionX();
+            //drawManager.ghost1PostionY = this.ship_1P.getPositionY() - 25;
+            //drawManager.ghost2PostionX = this.ship_2P.getPositionX();
+            //drawManager.ghost2PostionY = this.ship_2P.getPositionY() - 25;
+            //drawManager.endTimer.reset();
+            //drawManager.ghostTImer = System.currentTimeMillis();
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
@@ -576,6 +582,17 @@ public class GameScreen_2P extends Screen {
         if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus2(this, false);
         else drawManager.drawSoundStatus2(this, true);
         drawManager.drawTimer(this, timer.getElapsedTime());
+
+        //GameOver
+        drawManager.gameOver(this, this.levelFinished, this.lives_1p);
+        drawManager.changeGhostColor(this.levelFinished, this.lives_1p);
+        drawManager.drawGhost(this.levelFinished, this.lives_1p);
+        this.ship_1P.gameEndShipMotion(this.levelFinished, this.lives_1p);
+
+        drawManager.changeGhostColor(this.levelFinished, this.lives_2p);
+        drawManager.drawGhost(this.levelFinished, this.lives_2p);
+        this.ship_2P.gameEndShipMotion(this.levelFinished, this.lives_2p);
+
 
         // Countdown to game start.
         if (!this.inputDelay.checkFinished()) {
