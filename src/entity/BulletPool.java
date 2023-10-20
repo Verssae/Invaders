@@ -35,6 +35,8 @@ public final class BulletPool {
 	 * @param speed
 	 *            Requested speed of the bullet, positive or negative depending
 	 *            on direction - positive is down.
+	 * @param damage
+	 *            Requested enhanced damage of the bullet.
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
@@ -68,11 +70,12 @@ public final class BulletPool {
 	 * @param speed
 	 *            Requested speed of the bullet, positive or negative depending
 	 *            on direction - positive is down.
+	 * @param damage
+	 *            Requested enhanced damage of the bullet.
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-								   final int positionY, final int speed, 
-								   SpriteType bulletType,
+								   final int positionY, final int speed, SpriteType bulletType,
 								   final int damage) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
@@ -100,6 +103,8 @@ public final class BulletPool {
 	 * @param speed
 	 *            Requested speed of the bullet, positive or negative depending
 	 *            on direction - positive is down.
+	 * @param damage
+	 *            Requested enhanced damage of the bullet.
 	 * @return Requested bulletY.
 	 */
 	public static BulletY getBulletY(final int positionX,

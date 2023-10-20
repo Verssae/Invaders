@@ -98,7 +98,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 35){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }
@@ -109,7 +109,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 36 && gameState != null){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }
@@ -120,7 +120,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 37 && gameState != null){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }
@@ -131,7 +131,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 38 && gameState != null){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusEnhanceStoneArea(1);
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }

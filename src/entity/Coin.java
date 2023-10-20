@@ -1,14 +1,10 @@
 package entity;
 
 
-import entity.Item;
-
-import java.awt.*;
-
 public class Coin extends Item {
 
-    public int coin = 100;
-    public int value = 10;
+    /** Number of coin */	
+    public int coin = 0;
 
     /**
      * Constructor, establishes the Item's properties.

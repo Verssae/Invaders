@@ -1829,6 +1829,14 @@ String skinStoreTxt = " S K I N S T O R E";
 	 *
 	 * @param screen
 	 *               Screen to draw on.
+	 * @param centeredCircleX
+	 *               X coordinate of the centered Circle.
+	 * @param centeredCircleY
+	 *               Y coordinate of the centered Circle.
+	 * @param centeredCircleWidth
+	 *               Width of the centered Circle.
+	 * @param centeredCircleHeight
+	 *               Height of the centered Circle.
 	 * @param leftCircleX
 	 *               X coordinate of the left Circle.
 	 * @param rightCircleX
@@ -1873,6 +1881,12 @@ String skinStoreTxt = " S K I N S T O R E";
 	 *               Current Level of Enhanced Area Range.
 	 * @param lvEnhanceDamage
 	 *               Current Level of Enhanced Damage.
+	 * @param attackDamage
+	 *               Current Damage about attackDamage.
+	 * @param addedValAttackDamage
+	 *               Value to be added of Attack Damage.
+	 * @param requiredNumEnhanceAttackStone
+	 *               Required Number of Enhance Attack Stone.
 	 */
 	public void drawEnhanceMenu(final Screen screen, final int option, 
 								final int numEnhanceArea, final int numEnhanceDamage, 
