@@ -552,6 +552,14 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
+
+	public void drawScore_2p(final Screen screen, final int score) {
+		backBufferGraphics.setFont(fontBig);
+		backBufferGraphics.setColor(scoreColor(score));
+		String scoreString = String.format("%04d", score);
+		backBufferGraphics.drawString(scoreString, screen.getWidth() - 228, 28);
+	}
+
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
 		backBufferGraphics.setColor(Color.WHITE);
@@ -665,6 +673,45 @@ public final class DrawManager {
 		// Draw the "lives" text in the center of the rectangle.
 		g2d.drawString("Lives", textX, textY);
 	}
+
+	public void drawLivesbar_2p(final Screen screen, final double lives, final int x, final String live) {
+		// Calculate the fill ratio based on the number of lives (assuming a maximum of 3 lives).
+		double fillRatio = lives / 3.0;
+
+		// Determine the width of the filled portion of the rectangle.
+		int filledWidth = (int) (120 * fillRatio);
+
+		// Create a gradient paint that transitions from green to yellow.
+		GradientPaint gradient = new GradientPaint(x, 8, Color.GREEN, x + filledWidth, 8, Color.YELLOW);
+
+		// Cast Graphics to Graphics2D for gradient painting.
+		Graphics2D g2d = (Graphics2D) backBufferGraphics;
+
+		// Draw the outline of the rectangle.
+		g2d.setColor(Color.WHITE);
+		g2d.drawRect(x, 8, 120, 20);
+
+		// Set the paint to the gradient and fill the left portion of the rectangle.
+		g2d.setPaint(gradient);
+		g2d.fillRect(x, 8, filledWidth, 20);
+
+		// Set the new font size and type
+		Font newFont = g2d.getFont().deriveFont(Font.BOLD, 19); // Adjust the font size as needed
+
+		// Set the new font in the Graphics2D context
+		g2d.setFont(newFont);
+
+		// Set color for the "lives" text.
+		g2d.setColor(Color.WHITE);
+
+		// Calculate the position to center the "lives" text.
+		int textX = x + (120 - g2d.getFontMetrics().stringWidth(live)) / 2; // Center horizontally
+		int textY = 7 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2; // Center vertically
+
+		// Draw the "lives" text in the center of the rectangle.
+		g2d.drawString(live, textX, textY);
+	}
+
 	public void drawitemcircle(final Screen screen, final int itemcount1, final int itemcount2) {
 		Graphics2D g2d = (Graphics2D) backBufferGraphics;
 		// this.drawEntity(SpriteType.Bullet,350,450,5,5); <<-- 이런식으로 아이콘 추가
