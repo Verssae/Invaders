@@ -477,6 +477,13 @@ public class GameScreen_2P extends Screen {
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
+        if((this.BulletsCount_1p==0 && this.lives_2p ==0 && !this.levelFinished)
+        || (this.BulletsCount_2p==0 && this.lives_1p ==0 && !this.levelFinished)) {
+            bgm.enemyShipSpecialbgm_stop();
+            this.levelFinished = true;
+            soundEffect.playShipDestructionSound();
+            this.screenFinishedCooldown.reset();
+        }
 
         timer.update();
 
@@ -584,7 +591,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawTimer(this, timer.getElapsedTime());
 
         //GameOver
-        drawManager.gameOver(this, this.levelFinished, this.lives_1p);
+        drawManager.gameOver(this, this.levelFinished, this.lives_1p, this.BulletsCount_1p);
         drawManager.changeGhostColor(this.levelFinished, this.lives_1p);
         drawManager.drawGhost(this.levelFinished, this.lives_1p);
         this.ship_1P.gameEndShipMotion(this.levelFinished, this.lives_1p);
