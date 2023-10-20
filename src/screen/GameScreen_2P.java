@@ -113,16 +113,16 @@ public class GameScreen_2P extends Screen {
     private boolean isItemAllEat;
     /** Check what color will be displayed*/
     private int colorVariable;
-	/** Current Value of Enhancement  Area. */
-	private int attackDamage;
-	/** Current Value of Enhancement  Attack. */
-	private int areaDamage;
+    /** Current Value of Enhancement  Area. */
+    private int attackDamage;
+    /** Current Value of Enhancement  Attack. */
+    private int areaDamage;
     private boolean isboss;
 
     private CountUpTimer timer;
 
-    private int BulletsCount_1p = 50;
-    private int BulletsCount_2p = 50;
+    private int BulletsCount_1p=50;
+    private int BulletsCount_2p=50;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -151,17 +151,15 @@ public class GameScreen_2P extends Screen {
         this.lives_1p = gameState.getLivesRemaining();
         this.lives_2p = gameState.getLivesRemaining();
         //if (this.bonusLife)
-            //this.lives++;
+        //this.lives++;
         this.bulletsShot_1P = gameState.getBulletsShot_1P();
         this.bulletsShot_2P = gameState.getBulletsShot_2P();
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.hardcore = gameState.getHardCore();
         this.pause = false;
-		this.attackDamage = gameSettings.getBaseAttackDamage();
-		this.areaDamage = gameSettings.getBaseAreaDamage();
+        this.attackDamage = gameSettings.getBaseAttackDamage();
+        this.areaDamage = gameSettings.getBaseAreaDamage();
         timer = new CountUpTimer();
-        this.BulletsCount_1p = gameState.getBulletsCount_1p();
-        this.BulletsCount_2p = gameState.getBulletsCount_2p();
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
@@ -549,6 +547,8 @@ public class GameScreen_2P extends Screen {
         // Interface.
         drawManager.drawScore(this, this.score_1P);
         drawManager.drawLivesbar(this, this.lives_1p);
+        drawManager.BulletsCount_1p(this,this.BulletsCount_1p);
+        drawManager.BulletsCount_2p(this, this.BulletsCount_2p);
         isboss = gameSettings.checkIsBoss();
         if (isboss) {
             for (EnemyShip enemyShip : this.enemyShipFormation)

@@ -28,8 +28,6 @@ public class GameState {
 	/** HardCore(Only One life) */
 	private boolean hardcore;
 
-	private int BulletsCount_1p;
-	private int BulletsCount_2p;
 
 
 
@@ -116,7 +114,6 @@ public class GameState {
 		return this.hardcore;
 	}
 
-	//public final int getBulletsCount() { return this.BulletsCount;}
 
 	/**
 	 * Set HardCore

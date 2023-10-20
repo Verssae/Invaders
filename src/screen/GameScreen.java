@@ -399,7 +399,7 @@ public class GameScreen extends Screen {
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 		}
-		if ((this.BulletsCount <= 0) && !this.levelFinished){
+		if ((this.BulletsCount < 0) && !this.levelFinished){
 			this.BulletsCount = 0;
 			bgm.InGame_bgm_stop();
 			this.ship.update();
@@ -496,7 +496,7 @@ public class GameScreen extends Screen {
 			drawManager.ComboCount(this, this.combo);
 		}
 		//GameOver
-		drawManager.gameOver(this, this.levelFinished, this.lives);
+		drawManager.gameOver(this, this.levelFinished, this.lives,this.BulletsCount);
 		drawManager.changeGhostColor(this.levelFinished, this.lives);
 		drawManager.drawGhost(this.ship, this.levelFinished, this.lives);//, System.currentTimeMillis());
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
