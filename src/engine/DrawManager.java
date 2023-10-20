@@ -1176,16 +1176,17 @@ public void drawSoundButton1(GameScreen gamescreen){
 	 *               Option selected.
 	 */
 
-	public void drawRecoveryConfirmPage(final Screen screen, final int option) {
+	public void drawRecoveryConfirmPage(GameState gameState,final Screen screen, final int option) {
 		String paymentMessage = "Please pay 150 amount to recover:";
 		backBufferGraphics.setColor(Color.white);
 		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
 
-		Coin coinInstance = new Coin(option, option);
-		int coinValue = coinInstance.getCoin();
-		String coinString = " C O I N : " + coinValue;
+		GameState recoveryGameState = gameState;
+		Coin recoveryCoin = recoveryGameState.getCoin();
 
-		if( coinValue >= 150){
+		String coinString = " C O I N : " + recoveryCoin.getCoin();
+
+		if(recoveryCoin.getCoin() >= 30){
 	
 			backBufferGraphics.setColor(Color.YELLOW);
 			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
@@ -1208,7 +1209,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 
 		if (option == 51){
 
-			if(coinValue >= 150){
+			if(recoveryCoin.getCoin() >= 30){
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 			} else {backBufferGraphics.setColor(Color.red);}
 
