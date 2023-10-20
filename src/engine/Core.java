@@ -419,6 +419,7 @@ public final class Core {
                         SETTINGS_LEVEL_5.setDifficulty(difficulty);
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_8.setDifficulty(difficulty);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -426,6 +427,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_5);
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
+                        gameSettings.add(SETTINGS_LEVEL_8);
                     }
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
@@ -452,7 +454,7 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState_2P = ((GameScreen_2P) currentScreen).getGameState();
-                        gameState_2P = new GameState_2P(gameState.getLevel() + 1,
+                        gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
                                 gameState_2P.getScore_1P(),
                                 gameState_2P.getScore_2P(),
                                 gameState_2P.getCoin(),
@@ -462,15 +464,21 @@ public final class Core {
                                 gameState_2P.getShipsDestroyed(),
                                 gameState_2P.getHardCore(),
                                 gameState_2P.getLivesRemaining_2p());
-                    }
+
+                        //must be create current screen
+
+                    }while((gameState_2P.getLivesRemaining() > 0 || gameState_2P.getLivesRemaining_2p() > 0)
+                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P() <= 50
+                            || gameState_2P.getBulletsShot_2P() <= 50));
                     //while (gameState.getLivesRemaining() > 0
-                    // && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
-                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
-                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));
+                    // && gameState.getLevel() <= NUM_LEVELS &&gameState.getLivesRemaining_2p() >0);
+
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
+                        frame.setScreen(currentScreen);
                         break;
                     }
+
 
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " score screen at " + FPS + " fps, with a score of "
