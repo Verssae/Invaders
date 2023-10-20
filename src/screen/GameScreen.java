@@ -108,17 +108,21 @@ public class GameScreen extends Screen {
 	/** Check what color will be displayed*/
 	private int colorVariable;
 	private int BulletsCount = 99;
+	/** Current Value of Enhancement Attack. */
 	private int attackDamage;
-	/** Current Value of Enhancement  Attack. */
+	/** Current Value of Enhancement Area. */
 	private int areaDamage;
+	/**  */
+	private EnhanceManager enhanceManager;
 	/** Combo counting*/
 	private int combo=0;
+	/**  */
 	private boolean isboss;
-
+	/**  */
 	private boolean bomb; // testing
+	/**  */
 	private Cooldown bombCool;
-	private EnhanceManager enhanceManager;
-
+	/**  */
 	private CountUpTimer timer;
 
 	/**
@@ -128,6 +132,8 @@ public class GameScreen extends Screen {
 	 *            Current game state.
 	 * @param gameSettings
 	 *            Current game settings.
+	 * @param enhanceManager
+	 *            Current EnhanceManager.
 	 * @param width
 	 *            Screen width.
 	 * @param height
@@ -167,11 +173,9 @@ public class GameScreen extends Screen {
 	}
 
 
-
-
-		/**
-         * Initializes basic screen properties, and adds necessary elements.
-         */
+	/**
+	 * Initializes basic screen properties, and adds necessary elements.
+	 */
 	public final void initialize() {
 		super.initialize();
 
@@ -277,14 +281,14 @@ public class GameScreen extends Screen {
 					}
 					if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
 						if(bulletsShot % 3 == 0 && !(bulletsShot == 0)) {
-							if (this.ship.shootBulletY(this.bulletsY)) {
+							if (this.ship.shootBulletY(this.bulletsY, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
 							}
 						}
 						else {
-							if (this.ship.shoot(this.bullets)) {
+							if (this.ship.shoot(this.bullets, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
@@ -482,8 +486,8 @@ public class GameScreen extends Screen {
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
-		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawLivesbar(this, this.lives);
+		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawitemcircle(this,1,2);
 		isboss = gameSettings.checkIsBoss();
 		if (isboss) {
@@ -553,6 +557,7 @@ public class GameScreen extends Screen {
 					|| bullet.getPositionY() > this.height) {
 				recyclable.add(bullet);
 			}
+			// bullet.setDamage(this.attackDamage); //수정
 		}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
@@ -614,7 +619,9 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
-						enemyShip.reduceEnemyLife(this.attackDamage);
+						enemyShip.reduceEnemyLife(bullet.getDamage());
+						this.logger.info("Attack the enemy with " + bullet.getDamage() 
+							+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo++;
 						this.score += combo;
@@ -631,7 +638,9 @@ public class GameScreen extends Screen {
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
-					enemyShipSpecial.reduceEnemyLife(this.attackDamage);
+					enemyShipSpecial.reduceEnemyLife(bullet.getDamage()); 
+					this.logger.info("Attack the enemy with " + bullet.getDamage() 
+						+ " of damage.");					
 					this.combo ++;
 					this.score += combo;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
@@ -676,10 +685,10 @@ public class GameScreen extends Screen {
 
 				}
 				if(item.getSpriteType() == SpriteType.BlueEnhanceStone){
-					this.enhanceManager.setNumBlueEnhanceAreaStone(1);
+					this.enhanceManager.PlusNumEnhanceStoneArea(1);
 				}
 				if(item.getSpriteType() == SpriteType.PerpleEnhanceStone){
-					this.enhanceManager.setNumPerpleEnhanceAttackStone(1);
+					this.enhanceManager.PlusNumEnhanceStoneAttack(1);
 				}
 				this.ship.checkGetItem(item);
 			}
@@ -718,6 +727,8 @@ public class GameScreen extends Screen {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
 						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						this.logger.info("Attack the enemy with " + bulletY.getDamage() 
+							+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo ++;
 						this.score += combo;
@@ -732,6 +743,8 @@ public class GameScreen extends Screen {
 						&& !this.enemyShipSpecial.isDestroyed()
 						&& checkCollision(bulletY, this.enemyShipSpecial)) {
 					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
+					this.logger.info("Attack the enemy with " + bulletY.getDamage() 
+						+ " of damage.");
 					this.combo ++;
 					this.score += combo;
 					if(enemyShipSpecial.getEnemyLife() < 1) {

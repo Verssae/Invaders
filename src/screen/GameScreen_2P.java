@@ -284,14 +284,14 @@ public class GameScreen_2P extends Screen {
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SHIFT)) {
                         if(bulletsShot_1P % 6 == 0 && !(bulletsShot_1P == 0)) {
-                            if (this.ship_1P.shootBulletY(this.bulletsY_1P)) {
+                            if (this.ship_1P.shootBulletY(this.bulletsY_1P, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_1P++;
                                 this.BulletsCount_1p--;
                             }
                         }
                         else {
-                            if (this.ship_1P.shoot(this.bullets_1P)) {
+                            if (this.ship_1P.shoot(this.bullets_1P, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_1P++;
                                 this.BulletsCount_1p--;
@@ -332,14 +332,14 @@ public class GameScreen_2P extends Screen {
                     }
                     if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                         if(bulletsShot_2P % 6 == 0 && !(bulletsShot_2P == 0)) {
-                            if (this.ship_2P.shootBulletY(this.bulletsY_2P)) {
+                            if (this.ship_2P.shootBulletY(this.bulletsY_2P, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_2P++;
                                 this.BulletsCount_2p--;
                             }
                         }
                         else {
-                            if (this.ship_2P.shoot(this.bullets_2P)) {
+                            if (this.ship_2P.shoot(this.bullets_2P, this.attackDamage)) {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_2P++;
                                 this.BulletsCount_2p--;
