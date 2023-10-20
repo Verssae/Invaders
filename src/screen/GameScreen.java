@@ -599,6 +599,7 @@ public class GameScreen extends Screen {
 						soundEffect.playEnemyDestructionSound();
 						this.combo++;
 						this.score += combo;
+						this.Miss =1;
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
@@ -616,6 +617,7 @@ public class GameScreen extends Screen {
 					enemyShipSpecial.reduceEnemyLife(this.attackDamage);
 					this.combo ++;
 					this.score += combo;
+					this.Miss =1;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
@@ -717,6 +719,7 @@ public class GameScreen extends Screen {
 					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
 					this.combo ++;
 					this.score += combo;
+					this.Miss =1;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
