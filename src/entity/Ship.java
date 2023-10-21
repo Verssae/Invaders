@@ -114,7 +114,7 @@ public class Ship extends Entity {
 	 */
 	public final void update() {
 		if(this.spriteType == spriteType.ShipA || this.spriteType == spriteType.ShipADestroyed || this.spriteType == spriteType.ShipAShileded) {
-			if(this.shipEffect.getShieldState()){
+			if(this.shipEffect.getShieldState() == true){
 				this.spriteType = spriteType.ShipAShileded;
 			}else{
 				if (!this.destructionCooldown.checkFinished()) {
