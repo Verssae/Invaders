@@ -5,7 +5,6 @@ import engine.Cooldown;
 import engine.Core;
 import engine.SoundEffect;
 import engine.GameState;
-import engine.GameState_2P;
 
 
 public class RecoveryPaymentScreen extends Screen {
@@ -22,8 +21,6 @@ public class RecoveryPaymentScreen extends Screen {
 
     /** To retrieve the number of coins obtained during the game. */
     private GameState gameState;
-
-    private GameState_2P gameState_2P;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -43,18 +40,6 @@ public class RecoveryPaymentScreen extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.gameState = gameState;
-        
-        soundEffect = new SoundEffect();
-    }
-
-    public RecoveryPaymentScreen(GameState_2P gameState_2P, int width, int height, int fps ) {
-        super(width, height, fps);
-
-        // Defaults to play.
-        this.returnCode = 51;
-        this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
-        this.selectionCooldown.reset();
-        this.gameState_2P = gameState_2P;
         
         soundEffect = new SoundEffect();
     }
