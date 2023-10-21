@@ -26,6 +26,14 @@ public class SkinBuyManager {
         this.gameState = gameState;
         this.coin = gameState.getCoin();
     }
+
+    public SkinBuyManager(GameState_2P gameState_2P) {
+        ownedSkins = new HashMap<>();
+        equippedSkins = new HashMap<>();
+        this.gameState_2P = gameState_2P;
+        this.coin = gameState.getCoin();
+    }
+    
     /**
      * Returns the boolean of skin price payment
      *

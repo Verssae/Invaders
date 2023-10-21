@@ -9,7 +9,6 @@ import engine.EnhanceManager;
 import engine.GameState;
 import engine.GameState_2P;
 import engine.SkinBuyManager;
-import engine.SkinBuyManager_2P;
 import engine.SoundEffect;
 import entity.Coin;
 
@@ -27,7 +26,7 @@ public class SkinStoreScreen_2P extends Screen {
 
     private EnhanceManager enhanceManager;
     private GameState_2P gameState_2P;
-    private SkinBuyManager_2P skinBuyManager;
+    private SkinBuyManager skinBuyManager;
 
     private int skinPrice = 1;
 
@@ -57,7 +56,7 @@ public class SkinStoreScreen_2P extends Screen {
          this.gameState_2P = gameState_2P;
          this.enhanceManager = enhanceManager;
          soundEffect = new SoundEffect();
-         this.skinBuyManager = new SkinBuyManager_2P(gameState_2P);
+         this.skinBuyManager = new SkinBuyManager(gameState_2P);
      }
  
      /**

@@ -1,7 +1,5 @@
 package engine;
 
-import java.awt.Color;
-
 import entity.Coin;
 
 /**
@@ -29,7 +27,6 @@ public class GameState_2P {
     private int shipsDestroyed;
     /** HardCore(Only One life) */
     private boolean hardcore;
-    private Color shipColor;
 
 
 
@@ -55,7 +52,7 @@ public class GameState_2P {
      */
     public GameState_2P(final int level, final int score_1P, final int score_2P, final Coin coin,
                      final double livesRemaining, final int bulletsShot_1P, final int bulletShot_2P,
-                     final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p, final Color shipColor) {
+                     final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p) {
         this.level = level;
         this.score_1P = score_1P;
         this.score_2P = score_2P;
@@ -66,17 +63,8 @@ public class GameState_2P {
         this.bulletsShot_2P = bulletsShot_2P;
         this.shipsDestroyed = shipsDestroyed;
         this.hardcore = hardcore;
-        this.shipColor = shipColor;
 
     }
-
-	public final Color getShipColor(){
-		return shipColor;
-	}
-
-	public final void setShipColor(Color color){
-		this.shipColor = color;
-	}
 
     /**
      * @return the level
