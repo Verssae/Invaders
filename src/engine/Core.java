@@ -292,7 +292,7 @@ public final class Core {
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
-							if (currentScreen.returnCode == 86) {
+							if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15) {
 								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ "skin store screen at " + FPS + " fps.");
@@ -384,7 +384,7 @@ public final class Core {
                                             returnCode = frame.setScreen(currentScreen);
                                             LOGGER.info("Closing subMenu screen.");
                                         }
-                                        if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9) {
+                                        if (currentScreen.returnCode == 7 || currentScreen.returnCode == 8 || currentScreen.returnCode == 9 || currentScreen.returnCode == 14) {
                                             currentScreen = new EnhanceScreen(enhanceManager, gameSettings, gameState, width, height, FPS);
                                             gameSettings = ((EnhanceScreen) currentScreen).getGameSettings();
                                             enhanceManager = ((EnhanceScreen) currentScreen).getEnhanceManager();
@@ -393,7 +393,7 @@ public final class Core {
                                             returnCode = frame.setScreen(currentScreen);
                                             LOGGER.info("Closing subMenu screen.");
                                         }
-                                        if (currentScreen.returnCode == 86) {
+                                        if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15) {
                                             currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
                                             LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                                      + "skin store screen at " + FPS + " fps.");
