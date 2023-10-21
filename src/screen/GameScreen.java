@@ -10,7 +10,7 @@ import java.util.*;
 import effect.Effect;
 import effect.ShipEffect;
 import engine.DrawManager.SpriteType;
-
+import screen.GameScreen;
 
 /**
  * Implements the game screen, where the action happens.
@@ -127,6 +127,9 @@ public class GameScreen extends Screen {
 	/**  */
 	private CountUpTimer timer;
 	private ItemManager itemManager;
+	private String clearCoin;
+	private GameScreen gamescreen;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -164,6 +167,8 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
+		this.clearCoin = getClearCoin();
+		
 
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
@@ -411,6 +416,18 @@ public class GameScreen extends Screen {
 			soundEffect.playStageChangeSound();
 			this.isRunning = false;
 			timer.stop();
+			if ((int)(timer.getElapsedTime() / 1000) > 0 && (int)(timer.getElapsedTime() / 1000) < 30) {
+				this.coin.addCoin(20);
+			}
+			else if ((int)(timer.getElapsedTime() / 1000) >= 30 && (int)(timer.getElapsedTime() / 1000) < 40) {
+				this.coin.addCoin(15);
+			}
+			else if ((int)(timer.getElapsedTime() / 1000) >= 40 && (int)(timer.getElapsedTime() / 1000) < 50) {
+				this.coin.addCoin(10);
+			}
+			else{
+				this.coin.addCoin(5);
+			}
 		}
 		if ((this.BulletsCount < 0) && !this.levelFinished){
 			this.BulletsCount = 0;
@@ -535,7 +552,7 @@ public class GameScreen extends Screen {
 			drawManager.ComboCount(this, this.combo);
 		}
 		//GameOver
-		drawManager.gameOver(this, this.levelFinished, this.lives,this.BulletsCount);
+		drawManager.gameOver(this, this.levelFinished, this.lives,this.BulletsCount, this.timer, this.coin, this.clearCoin);
 		drawManager.changeGhostColor(this.levelFinished, this.lives);
 		drawManager.drawGhost(this.levelFinished, this.lives);
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
@@ -833,6 +850,10 @@ public class GameScreen extends Screen {
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.hardcore);
+	}
+	
+	public String getClearCoin() {
+		return this.clearCoin;
 	}
 	
 }
