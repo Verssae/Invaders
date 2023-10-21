@@ -125,6 +125,8 @@ public class GameScreen_2P extends Screen {
     private int BulletsCount_2p=50;
     private GameScreen gamescreen;
     private String clearCoin;
+    private EnhanceManager enhanceManager;
+    private ItemManager itemManager;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -142,10 +144,13 @@ public class GameScreen_2P extends Screen {
      */
     public GameScreen_2P(final GameState_2P gameState,
                          final GameSettings gameSettings,
+                         final EnhanceManager enhanceManager, final ItemManager itemManager,
                          final int width, final int height, final int fps) {
         super(width, height, fps);
 
         this.gameSettings = gameSettings;
+		this.enhanceManager = enhanceManager;
+		this.itemManager = itemManager;
         this.level = gameState.getLevel();
         this.score_1P = gameState.getScore_1P();
         this.score_2P = gameState.getScore_2P();
@@ -581,6 +586,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawScore_2p(this, this.score_1P);
         drawManager.drawLivesbar_2p(this, this.lives_1p, 8, "1P lives");
         drawManager.drawLivesbar_2p(this, this.lives_2p, 294, "2P lives");
+        drawManager.drawCoin(this, this.coin, 0);
         drawManager.drawitemcircle(this,1,2);
         drawManager.BulletsCount_1p(this,this.BulletsCount_1p);
         drawManager.BulletsCount_2p(this, this.BulletsCount_2p);
