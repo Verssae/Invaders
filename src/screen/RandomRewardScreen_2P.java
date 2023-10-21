@@ -15,6 +15,7 @@ public class RandomRewardScreen_2P extends Screen {
     private Coin coin;
     private int randomRes;
     private String rewardTypeString;
+    private String getRewardTypeString;
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -27,7 +28,7 @@ public class RandomRewardScreen_2P extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomRewardScreen_2P(final GameState_2P gameState, int width, int height, int fps, int randomRes) {
+    public RandomRewardScreen_2P(final GameState_2P gameState, int width, int height, int fps, int randomRes, String getRewardTypeString) {
         super(width, height, fps);
 
         // Defaults to play.
@@ -36,6 +37,7 @@ public class RandomRewardScreen_2P extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.randomRes = randomRes;
+        this.getRewardTypeString = getRewardTypeString;
     }
 
     /**
@@ -104,7 +106,7 @@ public class RandomRewardScreen_2P extends Screen {
         drawManager.initDrawing(this);
 
         // drawManager.drawTitle(this);
-        drawManager.drawRandomReward(this, this.returnCode, this.rewardTypeString, this.randomRes);
+        drawManager.drawRandomReward(this, this.returnCode, this.getRewardTypeString, this.randomRes);
         drawManager.completeDrawing(this);
     }
 }

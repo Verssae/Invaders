@@ -135,7 +135,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 38 && gameState != null){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.enhanceManager.PlusNumEnhanceStoneAttack(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }
