@@ -67,6 +67,6 @@ and ```slowlyChangingColors``` method<br>
 
 > ## Dependencies on Other Teams
 
-- In 2P mode, we discussed with the [2Player Mode team]((https://github.com/Verssae/Invaders/blob/main/requirements/Joyroom.md)) <br> to disable the feature that displays emojis based on scores. <br>
+- In 2P mode, we discussed with the [2Player Mode Team](https://github.com/Verssae/Invaders/blob/main/requirements/Joyroom.md) <br> to disable the feature that displays emojis based on scores. <br>
 (Removed emoji effect to indicate remaining lives for 2 game players.)
 <br></br>
