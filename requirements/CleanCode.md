@@ -45,16 +45,16 @@ Visual Effect System
 💡 Score Effects -> [Chaeheon Lee](https://github.com/highlees/highlees)
 - Emoji generation based on game score changes
 - Score color change effect according to game score change
-- Write [test code](https://github.com/Clean-Code-Team/Invaders/blob/develop/test/scoreColorTest.java) and complete unit tests for ```scoreColor``` method<br><br>
+- Write [test code](https://github.com/Clean-Code-Team/Invaders/blob/main/test/scoreColorTest.java) and complete unit tests for ```scoreColor``` method<br><br>
 
 💡 Flicker Effect -> [Chaeheon Lee](https://github.com/highlees/highlees)
 - Create a flickering effect like a classic arcade screen<br>
 (Applies to the Start screen and High Scores screen,<br>
 other teams applied it to other screens as well.)
 - Add an effect so that the Game Over screen gradually appears
-- Write [test code](https://github.com/Clean-Code-Team/Invaders/blob/develop/test/slowlyChangingColorsTest.java) and complete unit tests for ```blinkingColor``` method <br>
+- Write [test code](https://github.com/Clean-Code-Team/Invaders/blob/main/test/slowlyChangingColorsTest.java) and complete unit tests for ```blinkingColor``` method <br>
 and ```slowlyChangingColors``` method<br>
-(The test code for the ```blinkingColor``` method can be found [here](https://github.com/Clean-Code-Team/Invaders/blob/develop/test/scoreColorTest.java).)
+(The test code for the ```blinkingColor``` method can be found [here](https://github.com/Clean-Code-Team/Invaders/blob/main/test/scoreColorTest.java).)
 <br><br>
 
 💡 Bullet Effects -> [Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo)
