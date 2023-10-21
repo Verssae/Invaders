@@ -1134,7 +1134,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 
 	}
 
-/**
+	/**
 	 * Draws Recovery Payment page.
 	 *
 	 * @param screen
@@ -1191,10 +1191,59 @@ public void drawSoundButton1(GameScreen gamescreen){
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, notrecoveryString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-
-
-
 	}
+
+	public void drawRecoveryConfirmPage(GameState_2P gameState,final Screen screen, final int option) {
+		String paymentMessage = "Please pay 150 amount to recover:";
+		backBufferGraphics.setColor(Color.white);
+		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
+
+		GameState_2P recoveryGameState = gameState;
+		Coin recoveryCoin = recoveryGameState.getCoin();
+
+		String coinString = " C O I N : " + recoveryCoin.getCoin();
+
+		if(recoveryCoin.getCoin() >= 30){
+	
+			backBufferGraphics.setColor(Color.YELLOW);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "Your coin is enough";
+    				backBufferGraphics.setColor(Color.PINK);
+    				drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+		} else {
+			backBufferGraphics.setColor(Color.red);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "You need more coin to continue";
+    				backBufferGraphics.setColor(Color.orange);
+    				drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+			}
+		
+		
+		String dorecoveryString = " Y E S ";
+		String notrecoveryString = " N O ";
+
+		if (option == 51){
+
+			if(recoveryCoin.getCoin() >= 30){
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+			} else {backBufferGraphics.setColor(Color.red);}
+
+		}	
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, dorecoveryString,
+				screen.getHeight() / 3 * 2);
+		if (option == 52)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, notrecoveryString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+	}
+
+
 	/**
 	 * @param screen
 	 *               Screen to draw on.

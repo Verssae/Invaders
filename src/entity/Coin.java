@@ -4,7 +4,7 @@ package entity;
 public class Coin extends Item {
 
     /** Number of coin */	
-    public int coin = 0;
+    public int coin = 900;
 
     /**
      * Constructor, establishes the Item's properties.

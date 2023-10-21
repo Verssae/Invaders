@@ -8,7 +8,7 @@ import engine.GameState;
 import engine.GameState_2P;
 
 
-public class RecoveryPaymentScreen extends Screen {
+public class RecoveryPaymentScreen_2P extends Screen {
 
    
     /** Milliseconds between changes in user selection. */
@@ -21,7 +21,7 @@ public class RecoveryPaymentScreen extends Screen {
     private SoundEffect soundEffect;
 
     /** To retrieve the number of coins obtained during the game. */
-    private GameState gameState;
+    private GameState_2P gameState;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -33,7 +33,7 @@ public class RecoveryPaymentScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public RecoveryPaymentScreen(GameState gameState, int width, int height, int fps ) {
+    public RecoveryPaymentScreen_2P(GameState_2P gameState, int width, int height, int fps ) {
         super(width, height, fps);
 
         // Defaults to play.

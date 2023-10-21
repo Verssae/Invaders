@@ -4,13 +4,9 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 import engine.SoundEffect;
-import engine.GameState;
-import engine.GameState_2P;
 
+public class RecoveryScreen_2P extends Screen {
 
-public class RecoveryPaymentScreen extends Screen {
-
-   
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
 
@@ -19,9 +15,6 @@ public class RecoveryPaymentScreen extends Screen {
 
     /** For selection moving sound */
     private SoundEffect soundEffect;
-
-    /** To retrieve the number of coins obtained during the game. */
-    private GameState gameState;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -33,14 +26,13 @@ public class RecoveryPaymentScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public RecoveryPaymentScreen(GameState gameState, int width, int height, int fps ) {
+    public RecoveryScreen_2P(int width, int height, int fps ) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 51;
+        this.returnCode = 30;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-        this.gameState = gameState;
         
         soundEffect = new SoundEffect();
     }
@@ -90,10 +82,10 @@ public class RecoveryPaymentScreen extends Screen {
      */
     private void nextMenuItem() {
 
-        if (this.returnCode == 51)
-        this.returnCode = 52;
+        if (this.returnCode == 30)
+        this.returnCode = 31;
     else
-        this.returnCode = 51;
+        this.returnCode = 30;
 
 
     }
@@ -104,10 +96,10 @@ public class RecoveryPaymentScreen extends Screen {
 
     private void previousMenuItem() {
 
-        if (this.returnCode == 52)
-            this.returnCode = 51;
+        if (this.returnCode == 31)
+            this.returnCode = 30;
         else
-            this.returnCode = 52;
+            this.returnCode = 31;
 
     }
 
@@ -117,7 +109,7 @@ public class RecoveryPaymentScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawRecoveryConfirmPage(this.gameState, this,this.returnCode);
+        drawManager.drawRecoveryMenu(this,this.returnCode);
 
         drawManager.completeDrawing(this);
     }

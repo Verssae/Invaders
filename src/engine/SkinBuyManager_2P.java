@@ -7,25 +7,24 @@ import java.util.Map;
 import entity.Coin;
 import entity.Ship;
 
-public class SkinBuyManager {
+public class SkinBuyManager_2P {
 
 
     /* map to store skin ownership*/
     private Map<Color, Boolean> ownedSkins;
     /* map to store skin wearing status */
     private Map<Color, Boolean> equippedSkins;
-    private GameState gameState;
-    private GameState_2P gameState_2P;
+    private GameState_2P gameState;
     private Coin coin;
     private Ship ship;
 
-
-    public SkinBuyManager(GameState gameState) {
+    public SkinBuyManager_2P(GameState_2P gameState_2P) {
         ownedSkins = new HashMap<>();
         equippedSkins = new HashMap<>();
-        this.gameState = gameState;
+        this.gameState = gameState_2P;
         this.coin = gameState.getCoin();
     }
+    
     /**
      * Returns the boolean of skin price payment
      *

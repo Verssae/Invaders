@@ -20,6 +20,7 @@ public class RandomBoxScreen_2P extends Screen {
     private int BST;
     private int PST;
     private String rewardTypeString;
+    private EnhanceManager enhanceManager;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -33,7 +34,7 @@ public class RandomBoxScreen_2P extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomBoxScreen_2P(final GameState_2P gameState, int width, int height, int fps) {
+    public RandomBoxScreen_2P(final GameState_2P gameState, int width, int height, int fps, final EnhanceManager enhanceManager) {
         super(width, height, fps);
 
         // Defaults to play.
@@ -43,6 +44,9 @@ public class RandomBoxScreen_2P extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.randomRes = 0;
+        this.BST = enhanceManager.getNumEnhanceStoneArea();
+        this.PST = enhanceManager.getNumEnhanceStoneAttack();
+        this.enhanceManager = enhanceManager;
     }
 
     /**
@@ -97,15 +101,14 @@ public class RandomBoxScreen_2P extends Screen {
                         int randomEnhanceType = (int) (Math.random() * 2); // 0: bst, 1: pst
                         if (randomEnhanceType == 0){
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.BST += randomEnhance;
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "BLUE ENHANCE STONE";
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.PST += randomEnhance;
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "PURPLE ENHANCE STONE";
                         }
-                        this.rewardTypeString = "ENHANCE STONE : ";
                     }
                 }
                 if (this.returnCode == 21) {
@@ -116,18 +119,21 @@ public class RandomBoxScreen_2P extends Screen {
                         this.coin.addCoin(randomCoin);
                         this.gameState.setCoin(this.coin);
                         this.randomRes = randomCoin;
+                        this.rewardTypeString = "C O I N ";
                     }
                     else{
                         int randomEnhanceType = (int) (Math.random() * 2);
                         if (randomEnhanceType == 0){
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.BST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneArea(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "BLUE ENHANCE STONE";
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.PST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneAttack(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "PURPLE ENHANCE STONE";
                         }
 
                     }
@@ -140,18 +146,21 @@ public class RandomBoxScreen_2P extends Screen {
                         this.coin.addCoin(randomCoin);
                         this.gameState.setCoin(this.coin);
                         this.randomRes = randomCoin;
+                        this.rewardTypeString = "C O I N ";
                     }
                     else{
                         int randomEnhanceType = (int) (Math.random() * 2);
                         if (randomEnhanceType == 0){
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.BST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneArea(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "BLUE ENHANCE STONE";
                         }
                         else{
                             int randomEnhance = (int) (Math.random() * 4);
-                            this.PST += randomEnhance;
+                            this.enhanceManager.PlusNumEnhanceStoneAttack(randomEnhance);
                             this.randomRes = randomEnhance;
+                            this.rewardTypeString = "PURPLE ENHANCE STONE";
                         }
 
                     }
@@ -198,5 +207,9 @@ public class RandomBoxScreen_2P extends Screen {
 
     public int getRandomRes(){
         return this.randomRes;
+    }
+
+    public String getRewardTypeString(){
+        return this.rewardTypeString;
     }
 }

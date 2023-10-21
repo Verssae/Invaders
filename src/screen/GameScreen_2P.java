@@ -127,6 +127,7 @@ public class GameScreen_2P extends Screen {
     private String clearCoin;
     private EnhanceManager enhanceManager;
     private ItemManager itemManager;
+    private Color shipColor;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -167,6 +168,9 @@ public class GameScreen_2P extends Screen {
         this.attackDamage = gameSettings.getBaseAttackDamage();
         this.areaDamage = gameSettings.getBaseAreaDamage();
         timer = new CountUpTimer();
+        this.clearCoin = getClearCoin();
+		this.shipColor = gameState.getShipColor();       
+
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
@@ -184,7 +188,7 @@ public class GameScreen_2P extends Screen {
 
         enemyShipFormation = new EnemyShipFormation(this.gameSettings, 1);
         enemyShipFormation.attach(this);
-        this.ship_1P = new Ship(this.width / 4, this.height - 30, "a", Color.WHITE);
+        this.ship_1P = new Ship(this.width / 4, this.height - 30, "a", this.shipColor);
         this.bulletLine_1P = new BulletLine(this.width / 4 , this.height + 120);
         this.ship_2P = new Ship((3 * this.width / 4), this.height - 30, "b", Color.RED);
         this.bulletLine_2P = new BulletLine(3 * this.width / 4 , this.height + 120);
@@ -1022,6 +1026,13 @@ public class GameScreen_2P extends Screen {
      */
     public final GameState_2P getGameState() {
         return new GameState_2P(this.level, this.score_1P, this.score_2P, this.coin, this.lives_1p,
-                this.bulletsShot_1P, this.bulletsShot_2P, this.shipsDestroyed, this.hardcore,this.lives_2p);
+                this.bulletsShot_1P, this.bulletsShot_2P, this.shipsDestroyed, this.hardcore,this.lives_2p, this.shipColor);
     }
+
+	public Ship getShip(){
+		return ship_1P;
+	}
+	public String getClearCoin() {
+		return this.clearCoin;
+	}
 }
