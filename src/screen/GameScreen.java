@@ -1,16 +1,37 @@
 package screen;
 
-import engine.*;
-import entity.*;
-
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
-import effect.Effect;
-import effect.ShipEffect;
+import engine.BGM;
+import engine.Cooldown;
+import engine.Core;
+import engine.CountUpTimer;
 import engine.DrawManager.SpriteType;
-import screen.GameScreen;
+import engine.EnhanceManager;
+import engine.GameSettings;
+import engine.GameState;
+import engine.ItemManager;
+import engine.SoundEffect;
+import entity.Bullet;
+import entity.BulletLine;
+import entity.BulletPool;
+import entity.BulletY;
+import entity.Coin;
+import entity.EnemyShip;
+import entity.EnemyShipFormation;
+import entity.Entity;
+import entity.Item;
+import entity.ItemPool;
+import entity.Laser;
+import entity.LaserLine;
+import entity.Ship;
+
 
 /**
  * Implements the game screen, where the action happens.
@@ -129,6 +150,7 @@ public class GameScreen extends Screen {
 	private ItemManager itemManager;
 	private String clearCoin;
 	private GameScreen gamescreen;
+	private Color shipColor;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -168,6 +190,7 @@ public class GameScreen extends Screen {
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
 		this.clearCoin = getClearCoin();
+		this.shipColor = gameState.getShipColor();
 		
 
 
@@ -189,7 +212,7 @@ public class GameScreen extends Screen {
 
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings, this.level);
 		enemyShipFormation.attach(this);
-		this.ship = new Ship(this.width / 2, this.height - 30, "a", Color.WHITE);
+		this.ship = new Ship(this.width / 2, this.height - 30, "a", this.shipColor);
 		this.bulletLine = new BulletLine(this.width / 2 , this.height + 120);
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
@@ -849,9 +872,11 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.shipColor);
 	}
-	
+	public Ship getShip(){
+		return ship;
+	}
 	public String getClearCoin() {
 		return this.clearCoin;
 	}
