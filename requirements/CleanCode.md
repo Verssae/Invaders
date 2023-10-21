@@ -1,4 +1,4 @@
-# [Clean Code Team](https://github.com/Clean-Code-Team/Invaders/tree/main) (Team 1)
+# [Clean Code Team](https://github.com/Clean-Code-Team/Invaders) (Team 1)
 
 > ## Team Requirements
 Visual Effect System
