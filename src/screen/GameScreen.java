@@ -523,7 +523,7 @@ public class GameScreen extends Screen {
 
 		
 		}
-		else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) & timer.getElapsedTime() != 0 && !levelFinished)
+		else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) & timer.getElapsedTime() != 0 && enemyShipFormation.isEmpty() == false)
 		{
 			if (itemManager.getBombCount() > 0)
 			{
