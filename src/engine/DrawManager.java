@@ -636,7 +636,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
-		backBufferGraphics.drawString(text, screen.getWidth() - 200, 88);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 80);
 	}
 
 	/**
