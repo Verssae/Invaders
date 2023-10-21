@@ -25,8 +25,7 @@ public class SkinStoreScreen extends Screen {
 
     private EnhanceManager enhanceManager;
     private GameState gameState;
-    private GameScreen gameScreen;
-    SkinBuyManager skinBuyManager = SkinBuyManager.getInstance();
+    private SkinBuyManager skinBuyManager;
 
     private int skinPrice = 1;
 
@@ -56,6 +55,7 @@ public class SkinStoreScreen extends Screen {
          this.gameState = gameState;
          this.enhanceManager = enhanceManager;
          soundEffect = new SoundEffect();
+         this.skinBuyManager = new SkinBuyManager(gameState);
      }
  
      /**
@@ -236,8 +236,5 @@ public class SkinStoreScreen extends Screen {
 
     public GameState getGameState() {
         return this.gameState;
-    }
-    public GameScreen getGameScreen(){
-        return this.gameScreen;
     }
 }
