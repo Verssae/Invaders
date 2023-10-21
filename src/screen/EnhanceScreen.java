@@ -40,7 +40,9 @@ public class EnhanceScreen extends Screen {
     private int leftCircleX = (this.width - 220) / 2;
     private int rightCircleX = this.width - (this.width - 220) / 2 - 70;
     private int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
+    /** EnhanceManager taken from the Core.java */
     private EnhanceManager enhanceManager;
+    /** Game settings taken from the Core.java */
     private List<GameSettings> gameSettings;
     /** For selection moving sound */
     private SoundEffect soundEffect;
@@ -48,6 +50,12 @@ public class EnhanceScreen extends Screen {
     /**
      * Constructor, establishes the properties of the screen.
      *
+     * @param enhanceManager
+     *               Screen width.
+     * @param gameSettings
+     *               Screen width.
+     * @param gameState
+     *               Screen width.
      * @param width
      *               Screen width.
      * @param height
@@ -199,7 +207,8 @@ public class EnhanceScreen extends Screen {
         drawManager.drawCircleFill(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
         drawManager.drawCircleLine(this, leftCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
         drawManager.drawCircleLine(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
-        drawManager.drawEnhanceSprite(this, leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
+        drawManager.drawEnhanceSprite(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 
+                                            leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
 
         String AreaString = "Area";
 		String DamageString = "Damage";
@@ -222,7 +231,9 @@ public class EnhanceScreen extends Screen {
 
         drawManager.drawEnhanceMenu(this, this.returnCode, 
                                     this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
-                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack());
+                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack(),
+                                    this.enhanceManager.getAttackDamage(), this.enhanceManager.getValEnhanceAttack(),
+                                    this.enhanceManager.getRequiredNumEnhanceStoneAttack());
 
         drawManager.completeDrawing(this);
     }

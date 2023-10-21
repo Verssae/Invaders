@@ -21,11 +21,13 @@ public class GameState {
 	private double livesRemaining_2p;
 	/** Bullets shot until now. */
 	private int bulletsShot;
+
+	private int bulletsShot_2p;
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
 	/** HardCore(Only One life) */
 	private boolean hardcore;
-	
+
 
 
 
@@ -36,6 +38,8 @@ public class GameState {
 	 *            Current game level.
 	 * @param score
 	 *            Current score.
+	 * @param coin
+	 *            Current coin.
 	 * @param livesRemaining
 	 *            Lives currently remaining.
 	 * @param bulletsShot
@@ -112,7 +116,6 @@ public class GameState {
 		return this.hardcore;
 	}
 
-	//public final int getBulletsCount() { return this.BulletsCount;}
 
 	/**
 	 * Set HardCore
