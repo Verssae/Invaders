@@ -1,4 +1,4 @@
-# Clean Code Team (Team 1)
+# [Clean Code Team](https://github.com/Clean-Code-Team/Invaders/tree/main) (Team 1)
 
 > ## Team Requirements
 Visual Effect System
@@ -14,7 +14,7 @@ Visual Effect System
 |5. |[Chaeheon Lee](https://github.com/highlees/highlees)|🧑🏻‍💻 Code Management|
 |6. |[Minkyeong Kang](https://github.com/alicek0/alicek0)|💬 Communication Management|
 
-<br><br>
+<br>
 
 > ## 💻 Development Contents
 
