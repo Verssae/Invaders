@@ -2013,16 +2013,16 @@ if (option == 35)
 		String changedAreaString = "";
 
 		if (lvEnhanceArea == 0) {
-			changedAreaString = "|>\\ |";
-		}
-		if (lvEnhanceArea == 1) {
-			changedAreaString = "\\ |>\\ | /";
-		}
-		if (lvEnhanceArea >= 2) {
-			changedAreaString = "\\ | />\\ | /";
+			changedAreaString = ">|";
+		} else if (lvEnhanceArea == 1) {
+			changedAreaString = "|>|x2";
+		} else if (lvEnhanceArea == 2) {
+			changedAreaString = "|x2>|x3";
+		} else {
+			changedAreaString = "|x3>|x3";
 		}
 
-		if (lvEnhanceArea >= 2) {
+		if (lvEnhanceArea >= 3) {
 			lvEnhanceAreaString = "Area Lv" + Integer.toString(lvEnhanceArea) + " > "
 				+ Integer.toString(lvEnhanceArea);
 			valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/0";

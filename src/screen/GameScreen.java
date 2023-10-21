@@ -114,7 +114,7 @@ public class GameScreen extends Screen {
 	private int attackDamage;
 	/** Current Value of Enhancement Area. */
 	private int areaDamage;
-	/**  */
+	/** EnhanceManager to manage enhancement (received from Core.java) */
 	private EnhanceManager enhanceManager;
 	/** Combo counting*/
 	private int combo=0;
@@ -585,7 +585,6 @@ public class GameScreen extends Screen {
 					|| bullet.getPositionY() > this.height) {
 				recyclable.add(bullet);
 			}
-			// bullet.setDamage(this.attackDamage); //수정
 		}
 		this.bullets.removeAll(recyclable);
 		BulletPool.recycle(recyclable);
@@ -644,22 +643,26 @@ public class GameScreen extends Screen {
 					}
 				}
 			} else {
-				for (EnemyShip enemyShip : this.enemyShipFormation)
+				for (EnemyShip enemyShip : this.enemyShipFormation) {
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bullet, enemyShip)) {
-						enemyShip.reduceEnemyLife(bullet.getDamage());
-						this.logger.info("Attack the enemy with " + bullet.getDamage() 
+						enemyShip.reduceEnemyLife(bullet.getDamage()); // 수정
+						this.logger.info("Attack the enemy with " + bullet.getDamage()
 							+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo++;
 						this.score += combo;
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
+							this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
 							this.shipsDestroyed++;
-							this.enemyShipFormation.destroy(enemyShip, this.items);
+							this.shipsDestroyed += this.enemyShipFormation.getShipsDestroyed();
+							this.logger.info("Current Number of Ships Destroyed : " + this.shipsDestroyed);		
+							// if(){ this.levelFinished = True; }				
 						}
 						recyclableBullet.add(bullet);
 					}
+				}
 				if (bullet.getPositionY()<50){
 						combo =0;
 				}
@@ -732,7 +735,6 @@ public class GameScreen extends Screen {
 		BulletPool.recycle(recyclableBullet);
 	}
 
-
 	/**
 	 * Manages collisions between bulletsY and ships.
 	 */
@@ -754,7 +756,7 @@ public class GameScreen extends Screen {
 				for (EnemyShip enemyShip : this.enemyShipFormation)
 					if (!enemyShip.isDestroyed()
 							&& checkCollision(bulletY, enemyShip)) {
-						enemyShip.reduceEnemyLife(bulletY.getDamage());
+						enemyShip.reduceEnemyLife(bulletY.getDamage()); // 수정
 						this.logger.info("Attack the enemy with " + bulletY.getDamage() 
 							+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
@@ -763,7 +765,8 @@ public class GameScreen extends Screen {
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
-							this.enemyShipFormation.destroy(enemyShip, this.items);
+							this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
+							// this.enemyShipFormation.areaDestory(enhanceManager.getlvEnhanceArea(), 3, this.items);
 						}
 						recyclableBulletY.add(bulletY);
 					}

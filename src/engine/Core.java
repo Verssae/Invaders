@@ -171,7 +171,7 @@ public final class Core {
             Coin coin = new Coin(0, 0);
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
-            enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
+            enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
 
             switch (returnCode) {
@@ -257,7 +257,7 @@ public final class Core {
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
-                            if (gameState.getBulletsShot() > 99) {break;}
+                            if (gameState.getBulletsShot() > 99) { break; }
 							if (!boxOpen){
 								currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
 								returnCode = frame.setScreen(currentScreen);
@@ -303,7 +303,7 @@ public final class Core {
 						boxOpen = false;
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot()<=99);
+							&& gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot() <= 99);
 
 
                     // Recovery | Default State & Exit
