@@ -126,7 +126,7 @@ public class EnhanceScreen extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
                 soundEffect.playSpaceButtonSound();
                 if (this.returnCode == 8) {
-                    if (this.enhanceManager.getlvEnhanceArea() <= 1)
+                    if (this.enhanceManager.getlvEnhanceArea() <= 2)
                         this.enhanceManager.enhanceAreaDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
                         gameSetting.setAreaDamage(this.enhanceManager.getlvEnhanceArea());
