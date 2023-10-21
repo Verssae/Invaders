@@ -306,7 +306,7 @@ public final class Core {
 							&& gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot()<=99);
 
 
-                    // Recovery : Default State / Exit
+                    // Recovery | Default State & Exit
 
                     currentScreen = new RecoveryScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -321,6 +321,8 @@ public final class Core {
                                 + " Recovery screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
                         LOGGER.info("Closing RecoveryPayment screen.");
+                        
+                        // Checking for Recovery Feasibility and Deducting Recovery Coins.
                         if (returnCode == 51){
 
                             int coinnum = gameState.getCoin().getCoin();
@@ -330,6 +332,7 @@ public final class Core {
                                 recoveryCoin.addCoin(coinnum);
                                 recoveryCoin.minusCoin(30);
                                 gameState.setCoin(recoveryCoin);
+                                
                                 // Continuing game in same state (Ship: default state)
 						        gameState.setLivesRecovery();
 						        do { 
@@ -410,12 +413,14 @@ public final class Core {
                                 } while (gameState.getLivesRemaining() > 0
                                             && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot()<=99);
                         
-                                if (returnCode == 1) { //Quit during the game
+                                if (returnCode == 1) { // Quit during the game
                                     currentScreen = new TitleScreen(width, height, FPS);
                                     frame.setScreen(currentScreen);
                                     break;
                                 }
-                            } else { returnCode = 1; }
+                            } else { 
+                                // If there is an insufficient number of coins required for recovery 
+                                returnCode = 1; }
 					    }
                     }
 

@@ -5,7 +5,7 @@ import engine.Cooldown;
 import engine.Core;
 import engine.SoundEffect;
 import engine.GameState;
-import entity.Coin;
+
 
 public class RecoveryPaymentScreen extends Screen {
 
@@ -19,6 +19,7 @@ public class RecoveryPaymentScreen extends Screen {
     /** For selection moving sound */
     private SoundEffect soundEffect;
 
+    /** To retrieve the number of coins obtained during the game. */
     private GameState gameState;
 
     /**
