@@ -36,6 +36,7 @@ import screen.GameScreen;
 import screen.GameScreen_2P;
 import screen.Screen;
 
+
 /**
  * Manages screen drawing.
  *
@@ -93,10 +94,10 @@ public final class DrawManager {
 	private static Map<SpriteType, boolean[][]> spriteMap;
 
 	private CountUpTimer timer;
-
 	public int timercount = 0;
 	public String rewardTypeString;
-
+	public GameScreen gamescreen;
+	
 	//BufferedImage img1, img2, img3, img4;
 
 
@@ -209,6 +210,7 @@ public final class DrawManager {
 		fileManager = Core.getFileManager();
 		logger = Core.getLogger();
 		logger.info("Started loading resources.");
+		
 		try {
 			Random random = new Random();
 			int Trash_enemyA = random.nextInt(3);
@@ -1038,7 +1040,6 @@ public void drawSoundButton1(GameScreen gamescreen){
 	public void drawRandomReward(final Screen screen, final int option, final String randomTypeString, final int randomRes) {
 				String introduceString = "RANDOM REWARD";
 		String nextString = "N E X T";
-		// long currentTime = System.currentTimeMillis();
 
 		getRandomCoin = Integer.toString(randomRes);
 		backBufferGraphics.setColor(blinkingColor("GRAY"));
@@ -1053,34 +1054,6 @@ public void drawSoundButton1(GameScreen gamescreen){
 				e.printStackTrace();
 			}
 		backBufferGraphics.drawImage(image1, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 - 20, 60, 60, null);
-	// backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
-
-		// if (image1 == null) {
-		// try {
-		// 	image1 = ImageIO.read(new File("res/giftbox2.png"));
-		// 	image2 = ImageIO.read(new File("res/giftbox3.png"));
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-		// }
-		// }
-		// if (image2 == null) {
-		// 	try {
-		// 		image2 = ImageIO.read(new File("res/giftbox3.png"));
-		// 		image1 = ImageIO.read(new File("res/giftbox2.png"));
-		// 	} catch (IOException e) {
-		// 		e.printStackTrace();
-		// 	}
-		// }
-		// if (currentTime - lastImageSwitchTime >= imageSwitchInterval) {
-		// 	lastImageSwitchTime = currentTime;
-		// 	if (showImage1) {
-		// 		backBufferGraphics.drawImage(image1, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
-		// 	} else {
-		// 		backBufferGraphics.drawImage(image2, screen.getWidth() * 2 / 4 - 30, screen.getHeight() / 2 - 20, 60, 60, null);
-		// 	}
-		// 	showImage1 = !showImage1;
-		// }
-		
 	}
 
 	/**
@@ -2208,7 +2181,7 @@ if (option == 35)
 		timercount++;
 	}
 
-	public void gameOver(final Screen screen, boolean levelFinished, double lives,int bullets){
+	public void gameOver(final Screen screen, boolean levelFinished, double lives,int bullets, CountUpTimer timer, Coin coin, String clearcoin){
 		if(levelFinished){
 			if(lives == 0 || bullets==0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
@@ -2219,9 +2192,24 @@ if (option == 35)
 				backBufferGraphics.drawString("Game Over", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Game Over") / 2, screen.getHeight() / 2);
 			}
 			else {
+				String getClearTime = "" + (int)(timer.getElapsedTime() / 1000) + "." +  (timer.getElapsedTime() % 1000);
 				backBufferGraphics.setFont(fontBig);
 				backBufferGraphics.setColor(Color.white);
 				backBufferGraphics.drawString("Stage Clear", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Stage Clear") / 2, screen.getHeight() / 2);
+				backBufferGraphics.drawString(getClearTime, screen.getWidth() / 2 - fontBigMetrics.stringWidth(getClearTime) / 2, screen.getHeight() / 2 + 20);
+				if ((int)(timer.getElapsedTime() / 1000) > 0 && (int)(timer.getElapsedTime() / 1000) < 30) {
+					backBufferGraphics.drawString("COIN : 20", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 20") / 2, screen.getHeight() / 2 + 40);
+
+				}
+				else if ((int)(timer.getElapsedTime() / 1000) >= 30 && (int)(timer.getElapsedTime() / 1000) < 40) {
+					backBufferGraphics.drawString("COIN : 15", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 15") / 2, screen.getHeight() / 2 + 40);
+				}
+				else if ((int)(timer.getElapsedTime() / 1000) >= 40 && (int)(timer.getElapsedTime() / 1000) < 50) {
+					backBufferGraphics.drawString("COIN : 10", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 10") / 2, screen.getHeight() / 2 + 40);
+				}
+				else{
+					backBufferGraphics.drawString("COIN : 5", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 5") / 2, screen.getHeight() / 2 + 40);
+				}
 			}
 		}
 	}

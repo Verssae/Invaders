@@ -22,6 +22,7 @@ public class RandomBoxScreen extends Screen {
     private EnhanceManager enhanceManager;
     private int BST;
     private int PST;
+    
     /**
      * Constructor, establishes the properties of the screen.
      * 
@@ -213,4 +214,5 @@ public class RandomBoxScreen extends Screen {
     public String getRewardTypeString(){
         return this.rewardTypeString;
     }
+
 }

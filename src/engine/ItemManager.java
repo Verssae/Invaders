@@ -11,6 +11,7 @@ public class ItemManager {
     public ItemManager(final int shield, final int bomb) {
         this.bombCount = 10;
         this.shieldCount = 10;
+
     }
 
 
