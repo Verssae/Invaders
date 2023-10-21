@@ -125,7 +125,6 @@ public class GameScreen extends Screen {
 	/**  */
 	private CountUpTimer timer;
 	private ItemManager itemManager;
-
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -492,7 +491,30 @@ public class GameScreen extends Screen {
 		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
 		isboss = gameSettings.checkIsBoss();
-		if (isboss) {
+		
+		// Check if the 1 key is pressed
+		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
+			if (itemManager.getShieldCount() > 0)
+			{
+				logger.info("Key number 1 press");
+				itemManager.PlusShieldCount(-1);
+			}
+
+		
+		}
+		else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2))
+		{
+			if (itemManager.getBombCount() > 0)
+			{
+				logger.info("Key number 2 press");
+				itemManager.PlusBombCount(-1);
+				this.enemyShipFormation.bombDestroy(items);
+			}
+
+		}
+		
+		
+		if (isboss) {	
 			for (EnemyShip enemyShip : this.enemyShipFormation)
 				drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
 		}
@@ -705,17 +727,6 @@ public class GameScreen extends Screen {
 		ItemPool.recycle(recyclableItem);
 		BulletPool.recycle(recyclableBullet);
 	}
-	public void useItem() {
-        if (inputManager.isKeyDown(KeyEvent.VK_1)) {
-            if (itemManager.getShieldCount() > 0) {
-                
-            }
-        } else if (inputManager.isKeyDown(KeyEvent.VK_1)) {
-            if (itemManager.getBombCount() > 0) {
-
-            }
-        }
-    }
 
 
 	/**
