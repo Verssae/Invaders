@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
+import effect.Effect;
+import effect.ShipEffect;
 import engine.DrawManager.SpriteType;
 
 
@@ -498,6 +500,8 @@ public class GameScreen extends Screen {
 			{
 				logger.info("Key number 1 press");
 				itemManager.PlusShieldCount(-1);
+				ship.setShieldState(true);
+				ship.update();
 			}
 
 		
