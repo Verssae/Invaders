@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
-
+import screen.GameScreen;
 /**
  * Implements the game screen, where the action happens.
  *
@@ -123,6 +123,8 @@ public class GameScreen_2P extends Screen {
 
     private int BulletsCount_1p=50;
     private int BulletsCount_2p=50;
+    private GameScreen gamescreen;
+    private String clearCoin;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -596,7 +598,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawTimer(this, timer.getElapsedTime());
 
         //GameOver
-        drawManager.gameOver(this, this.levelFinished, this.lives_1p, this.BulletsCount_1p);
+        drawManager.gameOver(this, this.levelFinished, this.lives_1p, this.BulletsCount_1p, this.timer, this.coin, this.clearCoin);
         drawManager.changeGhostColor(this.levelFinished, this.lives_1p);
         drawManager.drawGhost(this.levelFinished, this.lives_1p);
         this.ship_1P.gameEndShipMotion(this.levelFinished, this.lives_1p);

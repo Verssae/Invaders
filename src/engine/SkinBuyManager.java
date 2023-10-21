@@ -101,7 +101,7 @@ public class SkinBuyManager {
      */
     public void unequipSkin(Color skinColor, Entity entity) {
         equippedSkins.put(skinColor, false);
-        entity.setColor(Color.GREEN);
+        entity.setColor(Color.WHITE);
     }
 
 }
