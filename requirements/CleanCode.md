@@ -14,7 +14,7 @@ Visual Effect System
 |5. |[Chaeheon Lee](https://github.com/highlees/highlees)|🧑🏻‍💻 Code Management|
 |6. |[Minkyeong Kang](https://github.com/alicek0/alicek0)|💬 Communication Management|
 
-<br>
+<br><br>
 
 > ## 💻 Development Contents
 
@@ -66,4 +66,7 @@ and ```slowlyChangingColors``` method<br>
 - Set BulletY's color to yellow <br><br>
 
 > ## Dependencies on Other Teams
-No set requirements yet.<br></br>
+
+- In 2P mode, we discussed with the [2Player Mode team]((https://github.com/Verssae/Invaders/blob/main/requirements/Joyroom.md)) <br> to disable the feature that displays emojis based on scores. <br>
+(Removed emoji effect to indicate remaining lives for 2 game players.)
+<br></br>
