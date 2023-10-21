@@ -872,6 +872,12 @@ public class GameScreen extends Screen {
 		return new GameState(this.level, this.score, this.coin, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.hardcore);
 	}
+	public Ship getShip(){
+		return ship;
+	}
+	public void setShipColor(Color color){
+		this.ship.setColor(color);
+	}
 	
 	public String getClearCoin() {
 		return this.clearCoin;
