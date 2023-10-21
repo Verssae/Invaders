@@ -49,7 +49,11 @@ Visual Effect System
 (Applies to the Start screen and High Scores screen,<br>
 other teams applied it to other screens as well.)
 - Add an effect so that the Game Over screen gradually appears
-- Write [test code](https://github.com/Clean-Code-Team/Invaders/blob/develop/test/slowlyChangingColorsTest.java) and complete unit tests for ```blinkingColor``` method and ```slowlyChangingColors``` method<br><br>
+- Write [test code](https://github.com/Clean-Code-Team/Invaders/blob/develop/test/slowlyChangingColorsTest.java) and complete unit tests for ```blinkingColor``` method <br>
+and ```slowlyChangingColors``` method<br>
+(The test code for the ```blinkingColor``` method can be found [here](https://github.com/Clean-Code-Team/Invaders/blob/develop/test/scoreColorTest.java).)
+
+<br><br>
 
 💡 Bullet Effects -> [Jeongwoo Jang](https://github.com/jeongwoo903/jang_jeongwoo)
 - Change the graphic of a normal bullet
