@@ -496,7 +496,7 @@ public class GameScreen extends Screen {
 		
 		// Check if the 1 key is pressed
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
-			if (itemManager.getShieldCount() > 0)
+			if (itemManager.getShieldCount() > 0 && timer.getElapsedTime() != 0 && ship.getShieldState() != true && !levelFinished)
 			{
 				logger.info("Key number 1 press");
 				itemManager.PlusShieldCount(-1);
@@ -506,7 +506,7 @@ public class GameScreen extends Screen {
 
 		
 		}
-		else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2))
+		else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) & timer.getElapsedTime() != 0 && !levelFinished)
 		{
 			if (itemManager.getBombCount() > 0)
 			{

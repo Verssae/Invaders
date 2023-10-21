@@ -9,8 +9,8 @@ public class ItemManager {
         private Effect effect;
         private InputManager inputManager;
     public ItemManager(final int shield, final int bomb) {
-        this.bombCount = 1;
-        this.shieldCount = 1;
+        this.bombCount = 10;
+        this.shieldCount = 10;
     }
 
 
