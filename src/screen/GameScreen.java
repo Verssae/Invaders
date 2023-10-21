@@ -107,7 +107,7 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
 	private int colorVariable;
-	private int BulletsCount = 10;
+	private int BulletsCount = 50;
 	/** Current Value of Enhancement Attack. */
 	private int attackDamage;
 	/** Current Value of Enhancement Area. */
@@ -124,6 +124,8 @@ public class GameScreen extends Screen {
 	private Cooldown bombCool;
 	/**  */
 	private CountUpTimer timer;
+
+	private int BulletsRemaining=99;
 
 //	public int getBulletsCount() {
 //		return this.BulletsCount;
@@ -165,7 +167,8 @@ public class GameScreen extends Screen {
 		this.pause = false;
 		this.attackDamage = gameSettings.getBaseAttackDamage();
 		this.areaDamage = gameSettings.getBaseAreaDamage();
-		this.BulletsCount = getBulletsCount();
+		this.BulletsRemaining = getGameState().getBulletsRemaining();
+		//this.BulletsCount = getBulletsCount();
 
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
@@ -290,6 +293,7 @@ public class GameScreen extends Screen {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
+								this.BulletsRemaining--;
 							}
 						}
 						else {
@@ -297,6 +301,7 @@ public class GameScreen extends Screen {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
+								this.BulletsRemaining--;
 							}
 						}
 					}
@@ -414,7 +419,7 @@ public class GameScreen extends Screen {
 			this.isRunning = false;
 			timer.stop();
 		}
-		if ((this.BulletsCount <= 0) && !this.levelFinished){
+		if ((this.BulletsCount < 0) && !this.levelFinished){
 			this.BulletsCount = 0;
 			bgm.InGame_bgm_stop();
 			this.ship.update();
@@ -805,10 +810,10 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.BulletsRemaining);
 	}
 
-	public int getBulletsCount() {
-		return this.BulletsCount;
-	}
+//	public int getBulletsCount() {
+//		return this.BulletsCount;
+//	}
 }

@@ -109,9 +109,11 @@ public final class Core {
     private static Boolean boxOpen = false;
     private static Boolean isInitMenuScreen = true;
 
-    private static GameScreen gameScreen;
+    private static int BulletsRemaining;
 
-    private static int BulletsCount;
+    //private static GameScreen gameScreen;
+
+    //private static int BulletsCount;
 
 
     /**
@@ -154,7 +156,7 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,50);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
 
@@ -216,8 +218,7 @@ public final class Core {
 
                     outgame_bgm.OutGame_bgm_stop(); //게임 대기 -> 시작으로 넘어가면서 outgame bgm 종료
 
-                    gameScreen = new GameScreen(gameState,gameSettings.get(gameState.getLevel() -1),enhanceManager,width,height,FPS);
-                    BulletsCount = gameScreen.getBulletsCount();
+
                     // Game & score.
                     do {
 
@@ -231,6 +232,7 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState = ((GameScreen) currentScreen).getGameState();
+                        BulletsRemaining = gameState.getBulletsRemaining();
 
                         gameState = new GameState(gameState.getLevel() + 1,
                                 gameState.getScore(),
@@ -238,13 +240,14 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(),
+                                99);
 
 
                         // SubMenu | Item Store & Enhancement & Continue
                         do{
                             if (gameState.getLivesRemaining() <= 0) { break; }
-                            if (BulletsCount <= 0) {break;}
+                            if (BulletsRemaining <= 0 ) {break;}
                             if (!boxOpen){
                                 currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
                                 returnCode = frame.setScreen(currentScreen);
@@ -291,7 +294,7 @@ public final class Core {
                         isInitMenuScreen = true;
                     }
                     while (gameState.getLivesRemaining() > 0
-                            && gameState.getLevel() <= NUM_LEVELS && BulletsCount > 0);
+                            && gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
 
 
                     // Recovery : Default State / Exit
@@ -329,18 +332,20 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
-                                        gameState.getHardCore());
+                                        gameState.getHardCore(),
+                                        99);
 
                                 // SubMenu | Item Store & Enhancement & Continue
                                 do{
                                     if (gameState.getLivesRemaining() <= 0) { break; }
-                                    if (BulletsCount <= 0 ) {break;}
+                                    if (BulletsRemaining <= 0 ) {break;}
                                     if (!boxOpen){
                                         currentScreen = new RandomBoxScreen(gameState, width, height, FPS);
                                         returnCode = frame.setScreen(currentScreen);
                                         boxOpen = true;
                                         currentScreen = new RandomRewardScreen(gameState, width, height, FPS, ((RandomBoxScreen) currentScreen).getRandomRes());
                                         returnCode = frame.setScreen(currentScreen);
+
                                     }
                                     if (isInitMenuScreen || currentScreen.returnCode == 5) {
                                         currentScreen = new SubMenuScreen(width, height, FPS);
@@ -373,7 +378,7 @@ public final class Core {
                                 boxOpen = false;
                                 isInitMenuScreen = true;
                             } while (gameState.getLivesRemaining() > 0
-                                    && gameState.getLevel() <= NUM_LEVELS && BulletsCount > 0);
+                                    && gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
 
                             if (returnCode == 1) { //Quit during the game
                                 currentScreen = new TitleScreen(width, height, FPS);
@@ -396,7 +401,7 @@ public final class Core {
                             + gameState.getLivesRemaining() + " lives remaining, "
                             + gameState.getBulletsShot() + " ship bullets shot and "
                             + gameState.getShipsDestroyed() + " ships destroyed."
-                            + BulletsCount + "남음");
+                    + BulletsRemaining + "남았음");
                     currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
