@@ -11,19 +11,24 @@ import java.util.logging.Logger;
 
 import entity.Coin;
 import screen.EnhanceScreen;
+import screen.EnhanceScreen_2P;
 import screen.GameScreen;
 import screen.GameScreen_2P;
 import screen.HighScoreScreen;
 import screen.RandomBoxScreen;
+import screen.RandomBoxScreen_2P;
 import screen.RandomRewardScreen;
+import screen.RandomRewardScreen_2P;
 import screen.RecoveryPaymentScreen;
 import screen.RecoveryScreen;
 import screen.ScoreScreen;
 import screen.Screen;
 import screen.SelectScreen;
 import screen.SkinStoreScreen;
+import screen.SkinStoreScreen_2P;
 import screen.StageSelectScreen;
 import screen.StoreScreen;
+import screen.StoreScreen_2P;
 import screen.SubMenuScreen;
 import screen.TitleScreen;
 
@@ -479,7 +484,7 @@ public final class Core {
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
-                    stage = frame.setScreen(currentScreen
+                    stage = frame.setScreen(currentScreen);
                     outgame_bgm.OutGame_bgm_stop(); //2p 모드 시작하며 outgame bgm stop
 
                     if (stage == 0) {
@@ -494,7 +499,7 @@ public final class Core {
                     do {
                         currentScreen = new GameScreen_2P(gameState_2P,
                                 gameSettings.get(gameState_2P.getLevel() - 1),
-                                enhanceManager,
+                                enhanceManager, itemManager,
                                 width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
@@ -535,7 +540,7 @@ public final class Core {
                                 isInitMenuScreen = false;
                             }
                             if (currentScreen.returnCode == 6 || currentScreen.returnCode == 35 || currentScreen.returnCode == 36 || currentScreen.returnCode == 37 || currentScreen.returnCode == 38) {
-                                currentScreen = new StoreScreen_2P(width, height, FPS, gameState_2P, enhanceManager);
+                                currentScreen = new StoreScreen_2P(width, height, FPS, gameState_2P, enhanceManager, itemManager);
                                 enhanceManager = ((StoreScreen_2P) currentScreen).getEnhanceManager();
                                 gameState_2P = ((StoreScreen_2P) currentScreen).getGameState();
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -553,7 +558,7 @@ public final class Core {
                                 LOGGER.info("Closing subMenu screen.");
                             }
                             if (currentScreen.returnCode == 86) {
-                                currentScreen = new SkinStoreScreen(width, height, FPS);
+                                currentScreen = new SkinStoreScreen_2P(width, height, FPS, gameState_2P, enhanceManager);
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                         + "skin store screen at " + FPS + " fps.");
                                 returnCode = frame.setScreen(currentScreen);
@@ -577,7 +582,7 @@ public final class Core {
 
 
                     if (returnCode == 30) {
-                        currentScreen = new RecoveryPaymentScreen(width, height, FPS);
+                        currentScreen = new RecoveryPaymentScreen(gameState_2P, width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " Recovery screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -587,7 +592,7 @@ public final class Core {
                             gameState_2P.setLivesRecovery();
                             do { currentScreen = new GameScreen_2P(gameState_2P,
                                     gameSettings.get(gameState_2P.getLevel()-1),
-                                    enhanceManager,
+                                    enhanceManager, itemManager,
                                     width, height, FPS);
                                 LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                         + " game screen at " + FPS + " fps.");
@@ -627,7 +632,7 @@ public final class Core {
                                         isInitMenuScreen = false;
                                     }
                                     if (currentScreen.returnCode == 6 || currentScreen.returnCode == 35 || currentScreen.returnCode == 36 || currentScreen.returnCode == 37 || currentScreen.returnCode == 38) {
-                                        currentScreen = new StoreScreen_2P(width, height, FPS, gameState_2P, enhanceManager);
+                                        currentScreen = new StoreScreen_2P(width, height, FPS, gameState_2P, enhanceManager, itemManager);
                                         enhanceManager = ((StoreScreen_2P) currentScreen).getEnhanceManager();
                                         gameState_2P = ((StoreScreen_2P)currentScreen).getGameState();
 

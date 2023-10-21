@@ -15,6 +15,7 @@ public class SkinBuyManager {
     /* map to store skin wearing status */
     private Map<Color, Boolean> equippedSkins;
     private GameState gameState;
+    private GameState_2P gameState_2P;
     private Coin coin;
     private Ship ship;
 
@@ -23,6 +24,13 @@ public class SkinBuyManager {
         ownedSkins = new HashMap<>();
         equippedSkins = new HashMap<>();
         this.gameState = gameState;
+        this.coin = gameState.getCoin();
+    }
+
+    public SkinBuyManager(GameState_2P gameState_2P) {
+        ownedSkins = new HashMap<>();
+        equippedSkins = new HashMap<>();
+        this.gameState_2P = gameState_2P;
         this.coin = gameState.getCoin();
     }
     

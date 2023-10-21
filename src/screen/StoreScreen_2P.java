@@ -6,6 +6,7 @@ import engine.Core;
 import engine.EnhanceManager;
 import engine.GameSettings;
 import engine.GameState_2P;
+import engine.ItemManager;
 import engine.SoundEffect;
 import entity.Coin;
 
@@ -25,6 +26,8 @@ public class StoreScreen_2P extends Screen {
     private int BST;
     private EnhanceManager enhanceManager;
     private GameState_2P gameState;
+
+    private ItemManager itemManager;
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -35,7 +38,7 @@ public class StoreScreen_2P extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public StoreScreen_2P(final int width, final int height, final int fps, final GameState_2P gameState, final EnhanceManager enhanceManager) {
+    public StoreScreen_2P(final int width, final int height, final int fps, final GameState_2P gameState, final EnhanceManager enhanceManager, final ItemManager itemManager) {
         super(width, height, fps);
         // Defaults to play.
         this.returnCode = 35;
@@ -46,6 +49,7 @@ public class StoreScreen_2P extends Screen {
         this.coin = gameState.getCoin();
         this.gameState = gameState;
         this.enhanceManager = enhanceManager;
+        this.itemManager = itemManager;
         soundEffect = new SoundEffect();
     }
 
@@ -210,7 +214,7 @@ public class StoreScreen_2P extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawCoin(this, this.coin, 2);
-        drawManager.drawItemStore(this, this.returnCode, PST, BST);
+        drawManager.drawItemStore(this, this.returnCode, PST, BST, this.itemManager);
         drawManager.completeDrawing(this);
     }
 
