@@ -6,41 +6,26 @@ import java.util.Map;
 
 import entity.Coin;
 import entity.Ship;
-import screen.GameScreen;
 
 public class SkinBuyManager {
 
-    private static SkinBuyManager instance;
 
     /* map to store skin ownership*/
     private Map<Color, Boolean> ownedSkins;
     /* map to store skin wearing status */
     private Map<Color, Boolean> equippedSkins;
     private GameState gameState;
-    private GameScreen gameScreen;
     private Coin coin;
     private Ship ship;
 
 
-    private SkinBuyManager() {
+    public SkinBuyManager(GameState gameState) {
         ownedSkins = new HashMap<>();
         equippedSkins = new HashMap<>();
+        this.gameState = gameState;
         this.coin = gameState.getCoin();
-        this.ship = gameScreen.getShip();
     }
     
-    /**
-     * Returns the singleton instance of the SkinBuyManager class
-     * access the unique instance of the SkinBuyManager class
-     *
-     * @return The singleton instance of the SkinBuyManager class
-     */
-    public static SkinBuyManager getInstance() {
-        if (instance == null) {
-            instance = new SkinBuyManager();
-        }
-        return instance;
-    }
     /**
      * Returns the boolean of skin price payment
      *
@@ -62,7 +47,7 @@ public class SkinBuyManager {
         if (coin.getCoin()>= skinPrice) {
             if (!(isSkinOwned(skinColor))){
                 this.coin.minusCoin(skinPrice);
-                gameScreen.setShipColor(skinColor);
+                gameState.setShipColor(skinColor);
             }
         }
         ownedSkins.put(skinColor, true);  
@@ -91,7 +76,7 @@ public class SkinBuyManager {
      *
      * @param skinName The name of the skin to equip.
      */
-    public void equipSkin(Color skinColor, Ship ship) {
+    public void equipSkin(Color skinColor) {
         if (isSkinOwned(skinColor)){
             if (isSkinEquipped(skinColor)) {
                 equippedSkins.put(skinColor, true);
