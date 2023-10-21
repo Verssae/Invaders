@@ -131,49 +131,49 @@ public final class DrawManager {
 		/** Enemy bullet goes right diag. */
 		EnemyBulletRight,
 		/** First enemy ship normal - first form. */
-		ESN1_1,
+		ESnA_1,
 		/** First enemy ship normal - second form. */
-		ESN1_2,
+		ESnA_2,
 		/** Second enemy ship normal - first form. */
-		ESN2_1,
+		ESnB_1,
 		/** Second enemy ship normal - second form. */
-		ESN2_2,
+		ESnB_2,
 		/** Third enemy ship normal - first form. */
-		ESN3_1,
+		ESnC_1,
 		/** Third enemy ship normal - second form. */
-		ESN3_2,
+		ESnC_2,
 		/** Enemy ship mod1 damaged - first form. */
-		ESM1_1D,
+		ESm1_1D,
 		/** Enemy ship mod1 damaged - second form. */
-		ESM1_2D,
+		ESm1_2D,
 		/** Enemy ship mod1 - first form. */
-		ESM1_1,
+		ESm1_1,
 		/** Enemy ship mod1 - second form. */
-		ESM1_2,
+		ESm1_2,
 		/** First enemy ship mod2 - first form. */
-		ES2M1_1,
+		ESm2A_1,
 		/** First enemy ship mod2 - second form. */
-		ES2M1_2,
+		ESm2A_2,
 		/** First enemy ship mod2 (hit 1) - third form. */
-		ES2M1_1D1,
+		ESm2A_1D1,
 		/** First enemy ship mod2 (hit 1) - forth form. */
-		ES2M1_2D1,
+		ESm2A_2D1,
 		/** First enemy ship mod2 (hit 2) - fifth form. */
-		ES2M1_1D2,
+		ESm2A_1D2,
 		/** First enemy ship mod2 (hit 2)- sixth form. */
-		ES2M1_2D2,
+		ESm2A_2D2,
 		/** Second enemy ship mod2 - first form. */
-		ES2M2_1,
+		ESm2B_1,
 		/** Second enemy ship mod2 - second form. */
-		ES2M2_2,
+		ESm2B_2,
 		/** Second enemy ship mod2 (hit 1) - third form. */
-		ES2M2_1D1,
+		ESm2B_1D1,
 		/** Second enemy ship mod2 (hit 1) - forth form. */
-		ES2M2_2D1,
+		ESm2B_2D1,
 		/** Second enemy ship mod2 (hit 2) - fifth form. */
-		ES2M2_1D2,
+		ESm2B_1D2,
 		/** Second enemy ship mod2 (hit 2)- sixth form. */
-		ES2M2_2D2,
+		ESm2B_2D2,
 		/** Bonus ship1. */
 		EnemyShipSpecial1,
 		/** Bonus ship2. */
@@ -246,8 +246,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){
-				spriteMap.put(SpriteType.ESN1_1, new boolean[12][8]);
-				spriteMap.put(SpriteType.ESN1_2, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESnA_1, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESnA_2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
@@ -256,8 +256,8 @@ public final class DrawManager {
 			else if (Trash_enemyA == 1){
 				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
-				spriteMap.put(SpriteType.ESN1_1, new boolean[12][8]);
-				spriteMap.put(SpriteType.ESN1_2, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESnA_1, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESnA_2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
 			}
@@ -266,29 +266,29 @@ public final class DrawManager {
 				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
-				spriteMap.put(SpriteType.ESN1_1, new boolean[12][8]);
-				spriteMap.put(SpriteType.ESN1_2, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESnA_1, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESnA_2, new boolean[12][8]);
 			}
-			spriteMap.put(SpriteType.ESN2_1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESN2_2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESN3_1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESN3_2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESM1_1D, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESM1_2D, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESM1_1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ESM1_2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M1_1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M1_2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M1_1D1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M1_2D1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M1_1D2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M1_2D2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M2_1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M2_2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M2_1D1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M2_2D1, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M2_1D2, new boolean[12][8]);
-			spriteMap.put(SpriteType.ES2M2_2D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESnB_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESnB_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESnC_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESnC_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm1_1D, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm1_2D, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm1_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm1_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2A_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2A_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2A_1D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2A_2D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2A_1D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2A_2D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2B_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2B_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2B_1D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2B_2D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2B_1D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESm2B_2D2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial1, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial2, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial3, new boolean[16][7]);

@@ -73,34 +73,34 @@ public class EnemyShip extends Entity {
 		this.isBoss = false;
 
 		switch (this.spriteType) {
-			case ESN1_1:
-			case ESN1_2:
-			case ESN2_1:
-			case ESN2_2:
-			case ESN3_1:
-			case ESN3_2:
-			case ESM1_1D:
-			case ESM1_2D:
-			case ES2M1_1D2:
-			case ES2M1_2D2:
-			case ES2M2_1D2:
-			case ES2M2_2D2:
+			case ESnA_1:
+			case ESnA_2:
+			case ESnB_1:
+			case ESnB_2:
+			case ESnC_1:
+			case ESnC_2:
+			case ESm1_1D:
+			case ESm1_2D:
+			case ESm2A_1D2:
+			case ESm2A_2D2:
+			case ESm2B_1D2:
+			case ESm2B_2D2:
 				this.pointValue = N_TYPE_POINTS;
 				this.EnemyLife = 1;
 				break;
-			case ESM1_1:
-			case ESM1_2:
-			case ES2M1_1D1:
-			case ES2M1_2D1:
-			case ES2M2_1D1:
-			case ES2M2_2D1:
+			case ESm1_1:
+			case ESm1_2:
+			case ESm2A_1D1:
+			case ESm2A_2D1:
+			case ESm2B_1D1:
+			case ESm2B_2D1:
 				this.pointValue = M1_TYPE_POINTS;
 				this.EnemyLife = 2;
 				break;
-			case ES2M1_1:
-			case ES2M1_2:
-			case ES2M2_1:
-			case ES2M2_2:
+			case ESm2A_1:
+			case ESm2A_2:
+			case ESm2B_1:
+			case ESm2B_2:
 				this.pointValue = M2_TYPE_POINTS;
 				this.EnemyLife = 3;
 				break;
@@ -194,78 +194,78 @@ public class EnemyShip extends Entity {
 
 			switch (this.spriteType) {
 
-				case ESN1_1:
-				this.spriteType = SpriteType.ESN1_2;
-				break;
+				case ESnA_1:
+					this.spriteType = SpriteType.ESnA_2;
+					break;
 
-				case ESN1_2:
-				this.spriteType = SpriteType.ESN1_1;
-				break;
+				case ESnA_2:
+					this.spriteType = SpriteType.ESnA_1;
+					break;
 
-				case ESN2_1:
-				this.spriteType = SpriteType.ESN2_2;
-				break;
+				case ESnB_1:
+					this.spriteType = SpriteType.ESnB_2;
+					break;
 
-			case ESN2_2:
-				this.spriteType = SpriteType.ESN2_1;
-				break;
+				case ESnB_2:
+					this.spriteType = SpriteType.ESnB_1;
+					break;
 
-			/** 2 forms of mod1 enemy - change form whenever life is reduced */
-			case ESM1_1:
-			case ESM1_1D:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESM1_1D;
-				else this.spriteType = SpriteType.ESM1_2;
-				break;
+				/** 2 forms of mod1 enemy - change form whenever life is reduced */
+				case ESm1_1:
+				case ESm1_1D:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm1_1D;
+					else this.spriteType = SpriteType.ESm1_2;
+					break;
 
-			case ESM1_2:
-			case ESM1_2D:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESM1_1D;
-				else this.spriteType = SpriteType.ESM1_1;
-				break;
+				case ESm1_2:
+				case ESm1_2D:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm1_1D;
+					else this.spriteType = SpriteType.ESm1_1;
+					break;
 
-			/** 3 forms of mod2 enemy - change form whenever life is reduced */
-			case ES2M1_1:
-			case ES2M1_1D1:
-			case ES2M1_1D2:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M1_2D2;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M1_2D1;
-				else this.spriteType = SpriteType.ES2M1_2;
-				break;
+				/** 3 forms of mod2 enemy - change form whenever life is reduced */
+				case ESm2A_1:
+				case ESm2A_1D1:
+				case ESm2A_1D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2A_2D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2A_2D1;
+					else this.spriteType = SpriteType.ESm2A_2;
+					break;
 
-			case ES2M1_2:
-			case ES2M1_2D1:
-			case ES2M1_2D2:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M1_1D2;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M1_1D1;
-				else this.spriteType = SpriteType.ES2M1_1;
-				break;
+				case ESm2A_2:
+				case ESm2A_2D1:
+				case ESm2A_2D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2A_1D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2A_1D1;
+					else this.spriteType = SpriteType.ESm2A_1;
+					break;
 
-			case ES2M2_1:
-			case ES2M2_1D1:
-			case ES2M2_1D2:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M2_2D2;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M2_2D1;
-				else this.spriteType = SpriteType.ES2M2_2;
-				break;
+				case ESm2B_1:
+				case ESm2B_1D1:
+				case ESm2B_1D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2B_2D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2B_2D1;
+					else this.spriteType = SpriteType.ESm2B_2;
+					break;
 
-			case ES2M2_2:
-			case ES2M2_2D1:
-			case ES2M2_2D2:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M2_1D2;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M2_1D1;
-				else this.spriteType = SpriteType.ES2M2_1;
-				break;
+				case ESm2B_2:
+				case ESm2B_2D1:
+				case ESm2B_2D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2B_1D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2B_1D1;
+					else this.spriteType = SpriteType.ESm2B_1;
+					break;
 
-			case BossA1:
-				this.spriteType = SpriteType.BossA2;
-				break;
-			case BossA2:
-				this.spriteType = SpriteType.BossA1;
-				break;
+				case BossA1:
+					this.spriteType = SpriteType.BossA2;
+					break;
+				case BossA2:
+					this.spriteType = SpriteType.BossA1;
+					break;
 
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 	}
