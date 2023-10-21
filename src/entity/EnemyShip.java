@@ -18,14 +18,13 @@ import engine.DrawManager.SpriteType;
  */
 public class EnemyShip extends Entity {
 	/** 적들 처치시 점수 설정 */
-	/** Point value of a type A enemy. */
-	private static final int A_TYPE_POINTS = 10;
-	/** Point value of a type B enemy. */
-	private static final int B_TYPE_POINTS = 20;
-	/** Point value of a type C enemy. */
-	private static final int C_TYPE_POINTS = 30;
-	/** Point value of a type C enemy. */
-	private static final int D_TYPE_POINTS = 40;
+	/** Point value of a type normal enemy. */
+	private static final int N_TYPE_POINTS = 10;
+	/** Point value of a type mod1 enemy. */
+	private static final int M1_TYPE_POINTS = 30;
+	/** Point value of a type mod2 enemy. */
+	private static final int M2_TYPE_POINTS = 50;
+
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
@@ -74,38 +73,40 @@ public class EnemyShip extends Entity {
 		this.isBoss = false;
 
 		switch (this.spriteType) {
-		case EnemyShipA1:
-		case EnemyShipA2:
-			this.pointValue = A_TYPE_POINTS;
-			this.EnemyLife = 1;
-			break;
-		case EnemyShipB1:
-		case EnemyShipB2:
-			this.pointValue = B_TYPE_POINTS;
-			this.EnemyLife = 1;
-			break;
-		case EnemyShipC1:
-		case EnemyShipC2:
-			this.pointValue = C_TYPE_POINTS;
-			this.EnemyLife = 1;
-			break;
-		case EnemyShipSC1:
-		case EnemyShipSC2:
-			this.pointValue = C_TYPE_POINTS;
-			this.EnemyLife = 2;
-			break;
-		case EnemyShipD1:
-		case EnemyShipD2:
-		case EnemyShipD3:
-		case EnemyShipD4:
-		case EnemyShipD5:
-		case EnemyShipD6:
-			this.pointValue = D_TYPE_POINTS;
-			this.EnemyLife = 3;
-			break;
-		default:
-			this.pointValue = 0;
-			break;
+			case ESN1_1:
+			case ESN1_2:
+			case ESN2_1:
+			case ESN2_2:
+			case ESN3_1:
+			case ESN3_2:
+			case ESM1_1D:
+			case ESM1_2D:
+			case ES2M1_1D2:
+			case ES2M1_2D2:
+			case ES2M2_1D2:
+			case ES2M2_2D2:
+				this.pointValue = N_TYPE_POINTS;
+				this.EnemyLife = 1;
+				break;
+			case ESM1_1:
+			case ESM1_2:
+			case ES2M1_1D1:
+			case ES2M1_2D1:
+			case ES2M2_1D1:
+			case ES2M2_2D1:
+				this.pointValue = M1_TYPE_POINTS;
+				this.EnemyLife = 2;
+				break;
+			case ES2M1_1:
+			case ES2M1_2:
+			case ES2M2_1:
+			case ES2M2_2:
+				this.pointValue = M2_TYPE_POINTS;
+				this.EnemyLife = 3;
+				break;
+			default:
+				this.pointValue = 0;
+				break;
 		}
 	}
 
@@ -193,51 +194,68 @@ public class EnemyShip extends Entity {
 
 			switch (this.spriteType) {
 
-			case EnemyShipA1:
-				this.spriteType = SpriteType.EnemyShipA2;
+				case ESN1_1:
+				this.spriteType = SpriteType.ESN1_2;
 				break;
 
-			case EnemyShipA2:
-				this.spriteType = SpriteType.EnemyShipA1;
+				case ESN1_2:
+				this.spriteType = SpriteType.ESN1_1;
 				break;
 
-			case EnemyShipB1:
-				this.spriteType = SpriteType.EnemyShipB2;
+				case ESN2_1:
+				this.spriteType = SpriteType.ESN2_2;
 				break;
 
-			case EnemyShipB2:
-				this.spriteType = SpriteType.EnemyShipB1;
+			case ESN2_2:
+				this.spriteType = SpriteType.ESN2_1;
 				break;
 
-			/** 2 forms of enemyC - change form whenever life is reduced */
-			case EnemyShipSC1:
-			case EnemyShipC1:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC2;
-				else this.spriteType = SpriteType.EnemyShipSC2;
+			/** 2 forms of mod1 enemy - change form whenever life is reduced */
+			case ESM1_1:
+			case ESM1_1D:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESM1_1D;
+				else this.spriteType = SpriteType.ESM1_2;
 				break;
 
-			case EnemyShipSC2:
-			case EnemyShipC2:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC1;
-				else this.spriteType = SpriteType.EnemyShipSC1;
+			case ESM1_2:
+			case ESM1_2D:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESM1_1D;
+				else this.spriteType = SpriteType.ESM1_1;
 				break;
 
-			/** 3 forms of enemyD - change form whenever life is reduced */
-			case EnemyShipD1:
-			case EnemyShipD3:
-			case EnemyShipD5:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD6;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD4;
-				else this.spriteType = SpriteType.EnemyShipD2;
+			/** 3 forms of mod2 enemy - change form whenever life is reduced */
+			case ES2M1_1:
+			case ES2M1_1D1:
+			case ES2M1_1D2:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M1_2D2;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M1_2D1;
+				else this.spriteType = SpriteType.ES2M1_2;
 				break;
 
-			case EnemyShipD2:
-			case EnemyShipD4:
-			case EnemyShipD6:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD5;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD3;
-				else this.spriteType = SpriteType.EnemyShipD1;
+			case ES2M1_2:
+			case ES2M1_2D1:
+			case ES2M1_2D2:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M1_1D2;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M1_1D1;
+				else this.spriteType = SpriteType.ES2M1_1;
 				break;
+
+			case ES2M2_1:
+			case ES2M2_1D1:
+			case ES2M2_1D2:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M2_2D2;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M2_2D1;
+				else this.spriteType = SpriteType.ES2M2_2;
+				break;
+
+			case ES2M2_2:
+			case ES2M2_2D1:
+			case ES2M2_2D2:
+				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ES2M2_1D2;
+				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ES2M2_1D1;
+				else this.spriteType = SpriteType.ES2M2_1;
+				break;
+
 			case BossA1:
 				this.spriteType = SpriteType.BossA2;
 				break;

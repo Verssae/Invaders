@@ -112,34 +112,50 @@ public final class DrawManager {
 		EnemyBulletLeft,
 		/** Enemy bullet goes right diag. */
 		EnemyBulletRight,
-		/** First enemy ship - first form. */
-		EnemyShipA1,
-		/** First enemy ship - second form. */
-		EnemyShipA2,
-		/** Second enemy ship - first form. */
-		EnemyShipB1,
-		/** Second enemy ship - second form. */
-		EnemyShipB2,
-		/** Third enemy ship - first form. */
-		EnemyShipC1,
-		/** Third enemy ship - second form. */
-		EnemyShipC2,
-		/** Reinforced third enemy ship - first form. */
-		EnemyShipSC1,
-		/** Reinforced third enemy ship - second form. */
-		EnemyShipSC2,
-		/** Forth enemy ship - first form. */
-		EnemyShipD1,
-		/** Forth enemy ship - second form. */
-		EnemyShipD2,
-		/** Forth enemy ship (hit 1) - third form. */
-		EnemyShipD3,
-		/** Forth enemy ship (hit 1) - forth form. */
-		EnemyShipD4,
-		/** Forth enemy ship (hit 2) - fifth form. */
-		EnemyShipD5,
-		/** Forth enemy ship (hit 2)- sixth form. */
-		EnemyShipD6,
+		/** First enemy ship normal - first form. */
+		ESN1_1,
+		/** First enemy ship normal - second form. */
+		ESN1_2,
+		/** Second enemy ship normal - first form. */
+		ESN2_1,
+		/** Second enemy ship normal - second form. */
+		ESN2_2,
+		/** Third enemy ship normal - first form. */
+		ESN3_1,
+		/** Third enemy ship normal - second form. */
+		ESN3_2,
+		/** Enemy ship mod1 damaged - first form. */
+		ESM1_1D,
+		/** Enemy ship mod1 damaged - second form. */
+		ESM1_2D,
+		/** Enemy ship mod1 - first form. */
+		ESM1_1,
+		/** Enemy ship mod1 - second form. */
+		ESM1_2,
+		/** First enemy ship mod2 - first form. */
+		ES2M1_1,
+		/** First enemy ship mod2 - second form. */
+		ES2M1_2,
+		/** First enemy ship mod2 (hit 1) - third form. */
+		ES2M1_1D1,
+		/** First enemy ship mod2 (hit 1) - forth form. */
+		ES2M1_2D1,
+		/** First enemy ship mod2 (hit 2) - fifth form. */
+		ES2M1_1D2,
+		/** First enemy ship mod2 (hit 2)- sixth form. */
+		ES2M1_2D2,
+		/** Second enemy ship mod2 - first form. */
+		ES2M2_1,
+		/** Second enemy ship mod2 - second form. */
+		ES2M2_2,
+		/** Second enemy ship mod2 (hit 1) - third form. */
+		ES2M2_1D1,
+		/** Second enemy ship mod2 (hit 1) - forth form. */
+		ES2M2_2D1,
+		/** Second enemy ship mod2 (hit 2) - fifth form. */
+		ES2M2_1D2,
+		/** Second enemy ship mod2 (hit 2)- sixth form. */
+		ES2M2_2D2,
 		/** Bonus ship1. */
 		EnemyShipSpecial1,
 		/** Bonus ship2. */
@@ -212,8 +228,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){
-				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
-				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESN1_1, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESN1_2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
@@ -222,8 +238,8 @@ public final class DrawManager {
 			else if (Trash_enemyA == 1){
 				spriteMap.put(SpriteType.Trash1, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
-				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
-				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESN1_1, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESN1_2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
 			}
@@ -232,21 +248,29 @@ public final class DrawManager {
 				spriteMap.put(SpriteType.Trash2, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash3, new boolean[12][8]);
 				spriteMap.put(SpriteType.Trash4, new boolean[12][8]);
-				spriteMap.put(SpriteType.EnemyShipA1, new boolean[12][8]);
-				spriteMap.put(SpriteType.EnemyShipA2, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESN1_1, new boolean[12][8]);
+				spriteMap.put(SpriteType.ESN1_2, new boolean[12][8]);
 			}
-			spriteMap.put(SpriteType.EnemyShipB1, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipB2, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipC1, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipC2, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipSC1, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipSC2, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipD1, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipD2, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipD3, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipD4, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipD5, new boolean[12][8]);
-			spriteMap.put(SpriteType.EnemyShipD6, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESN2_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESN2_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESN3_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESN3_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESM1_1D, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESM1_2D, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESM1_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ESM1_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M1_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M1_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M1_1D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M1_2D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M1_1D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M1_2D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M2_1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M2_2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M2_1D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M2_2D1, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M2_1D2, new boolean[12][8]);
+			spriteMap.put(SpriteType.ES2M2_2D2, new boolean[12][8]);
 			spriteMap.put(SpriteType.EnemyShipSpecial1, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial2, new boolean[16][7]);
 			spriteMap.put(SpriteType.EnemyShipSpecial3, new boolean[16][7]);
