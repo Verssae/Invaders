@@ -64,7 +64,7 @@ public class EnhanceScreen_2P extends Screen {
      *               Frames per second, frame rate at which the game is run.
      */
     public EnhanceScreen_2P(final EnhanceManager enhanceManager, final List<GameSettings> gameSettings,
-                         final GameState_2P gameState_2P, final int width, final int height, final int fps) {
+                         final GameState_2P gameState, final int width, final int height, final int fps) {
         super(width, height, fps);
         this.enhanceManager = enhanceManager;
         this.gameSettings = gameSettings;
@@ -73,9 +73,9 @@ public class EnhanceScreen_2P extends Screen {
         this.returnCode = 8;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-        this.score = gameState_2P.getScore_1P() + gameState_2P.getScore_2P();
-        this.coin = gameState_2P.getCoin();
-        this.lives = gameState_2P.getLivesRemaining();
+        this.score = gameState.getScore_1P() + gameState.getScore_2P();
+        this.coin = gameState.getCoin();
+        this.lives = gameState.getLivesRemaining();
 
         soundEffect = new SoundEffect();
     }
@@ -127,15 +127,13 @@ public class EnhanceScreen_2P extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
                 soundEffect.playSpaceButtonSound();
                 if (this.returnCode == 8) {
-                    if (this.enhanceManager.getlvEnhanceArea() <= 2)
-                        this.enhanceManager.enhanceAreaDamage();
+                    this.enhanceManager.enhanceAreaDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
-                        gameSetting.setAreaDamage(this.enhanceManager.getlvEnhanceArea());
+                        // gameSetting.setAreaDamage(this.enhanceManager.getAreaDamage());
                     }
                 }
                 if (this.returnCode == 9) {
-                    if (this.enhanceManager.getlvEnhanceAttack() <= 5)
-                        this.enhanceManager.enhanceAttackDamage();
+                    this.enhanceManager.enhanceAttackDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
                         gameSetting.setAttackDamage(this.enhanceManager.getAttackDamage());
                     }
