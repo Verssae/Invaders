@@ -124,6 +124,9 @@ public class GameScreen_2P extends Screen {
     private int BulletsCount_1p=50;
     private int BulletsCount_2p=50;
 
+    private int BulletsRemaining_1p;
+    private int BulletsRemaining_2p;
+
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -160,6 +163,8 @@ public class GameScreen_2P extends Screen {
         this.attackDamage = gameSettings.getBaseAttackDamage();
         this.areaDamage = gameSettings.getBaseAreaDamage();
         timer = new CountUpTimer();
+        this.BulletsRemaining_1p = gameState.getBulletsRemaining_1p();
+        this.BulletsRemaining_2p = gameState.getBulletsRemaining_2p();
 
         this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
         if (gameSettings.getDifficulty() > 1) {
@@ -288,6 +293,7 @@ public class GameScreen_2P extends Screen {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_1P++;
                                 this.BulletsCount_1p--;
+                                this.BulletsRemaining_1p--;
                             }
                         }
                         else {
@@ -295,6 +301,7 @@ public class GameScreen_2P extends Screen {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_1P++;
                                 this.BulletsCount_1p--;
+                                this.BulletsRemaining_1p--;
                             }
                         }
                     }
@@ -336,6 +343,7 @@ public class GameScreen_2P extends Screen {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_2P++;
                                 this.BulletsCount_2p--;
+                                this.BulletsRemaining_2p--;
                             }
                         }
                         else {
@@ -343,6 +351,7 @@ public class GameScreen_2P extends Screen {
                                 soundEffect.playShipShootingSound();
                                 this.bulletsShot_2P++;
                                 this.BulletsCount_2p--;
+                                this.BulletsRemaining_2p--;
                             }
                         }
                     }
@@ -439,13 +448,13 @@ public class GameScreen_2P extends Screen {
             this.screenFinishedCooldown.reset();
             timer.stop();
         }
-        if(this.lives_2p==0){
+        if(this.lives_2p<=0){
             ship_2P.destroy();
         }
-        if(this.lives_1p==0){
+        if(this.lives_1p<=0){
             ship_1P.destroy();
         }
-        if (this.lives_1p == 0 && !this.levelFinished && this.lives_2p==0) {
+        if (this.lives_1p <= 0 && !this.levelFinished && this.lives_2p<=0) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             //drawManager.ghost1PostionX = this.ship_1P.getPositionX();
@@ -480,8 +489,8 @@ public class GameScreen_2P extends Screen {
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
-        if((this.BulletsCount_1p==0 && this.lives_2p ==0 && !this.levelFinished)
-        || (this.BulletsCount_2p==0 && this.lives_1p ==0 && !this.levelFinished)) {
+        if((this.BulletsCount_1p==0 && this.lives_2p <=0 && !this.levelFinished)
+        || (this.BulletsCount_2p==0 && this.lives_1p <=0 && !this.levelFinished)) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             soundEffect.playShipDestructionSound();
@@ -1013,6 +1022,6 @@ public class GameScreen_2P extends Screen {
      */
     public final GameState_2P getGameState() {
         return new GameState_2P(this.level, this.score_1P, this.score_2P, this.coin, this.lives_1p,
-                this.bulletsShot_1P, this.bulletsShot_2P, this.shipsDestroyed, this.hardcore,this.lives_2p);
+                this.bulletsShot_1P, this.bulletsShot_2P, this.shipsDestroyed, this.hardcore,this.lives_2p,this.BulletsRemaining_1p,this.BulletsRemaining_2p);
     }
 }

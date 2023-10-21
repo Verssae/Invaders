@@ -111,6 +111,9 @@ public final class Core {
 
     private static int BulletsRemaining;
 
+    private static int BulletsRemaining_1p;
+    private static int BulletsRemaining_2p;
+
     //private static GameScreen gameScreen;
 
     //private static int BulletsCount;
@@ -156,8 +159,8 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,50);
-            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,99);
+            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES,50,50);
             enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
 
             switch (returnCode) {
@@ -400,8 +403,7 @@ public final class Core {
                             + gameState.getScore() + ", "
                             + gameState.getLivesRemaining() + " lives remaining, "
                             + gameState.getBulletsShot() + " ship bullets shot and "
-                            + gameState.getShipsDestroyed() + " ships destroyed."
-                    + BulletsRemaining + "남았음");
+                            + gameState.getShipsDestroyed() + " ships destroyed.");
                     currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
@@ -467,6 +469,8 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState_2P = ((GameScreen_2P) currentScreen).getGameState();
+                        BulletsRemaining_1p = gameState_2P.getBulletsRemaining_1p();
+                        BulletsRemaining_2p = gameState_2P.getBulletsRemaining_2p();
                         gameState_2P = new GameState_2P(gameState.getLevel() + 1,
                                 gameState_2P.getScore_1P(),
                                 gameState_2P.getScore_2P(),
@@ -476,12 +480,14 @@ public final class Core {
                                 gameState_2P.getBulletsShot_2P(),
                                 gameState_2P.getShipsDestroyed(),
                                 gameState_2P.getHardCore(),
-                                gameState_2P.getLivesRemaining_2p());
+                                gameState_2P.getLivesRemaining_2p(),
+                                50,
+                                50);
                     }
                     //while (gameState.getLivesRemaining() > 0
                     // && gameState.getLevel() <= NUM_LEVELS && gameState.getLivesRemaining_2p() >0);
                     while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
-                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));
+                            && (gameState_2P.getLevel() <= NUM_LEVELS) && !(BulletsRemaining_1p==0 && BulletsRemaining_2p==0));
                     if (returnCode == 1) { //Quit during the game
                         currentScreen = new TitleScreen(width, height, FPS);
                         break;

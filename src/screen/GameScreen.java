@@ -107,7 +107,7 @@ public class GameScreen extends Screen {
 	private boolean isItemAllEat;
 	/** Check what color will be displayed*/
 	private int colorVariable;
-	private int BulletsCount = 50;
+	private int BulletsCount = 99;
 	/** Current Value of Enhancement Attack. */
 	private int attackDamage;
 	/** Current Value of Enhancement Area. */
@@ -127,9 +127,7 @@ public class GameScreen extends Screen {
 
 	private int BulletsRemaining=99;
 
-//	public int getBulletsCount() {
-//		return this.BulletsCount;
-//	}
+
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -400,7 +398,7 @@ public class GameScreen extends Screen {
 			this.screenFinishedCooldown.reset();
 			timer.stop();
 		}
-		if (this.lives == 0 && !this.levelFinished) {
+		if (this.lives <= 0 && !this.levelFinished) {
 			bgm.InGame_bgm_stop();
 			this.ship.update();
 			bgm.enemyShipSpecialbgm_stop();
@@ -812,8 +810,4 @@ public class GameScreen extends Screen {
 		return new GameState(this.level, this.score, this.coin, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.BulletsRemaining);
 	}
-
-//	public int getBulletsCount() {
-//		return this.BulletsCount;
-//	}
 }
