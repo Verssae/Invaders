@@ -54,6 +54,18 @@ public class Ship extends Entity {
 		else if(type == "c"){
 			this.spriteType = SpriteType.ShipC;
 		}
+		else if(type == "d"){
+			this.spriteType = SpriteType.ShipD;
+		}
+		else if(type == "e"){
+			this.spriteType = SpriteType.ShipE;
+		}
+		else if(type == "f"){
+			this.spriteType = SpriteType.ShipF;
+		}
+		else if(type == "g"){
+			this.spriteType = SpriteType.ShipG;
+		}
 
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);
@@ -143,6 +155,36 @@ public class Ship extends Entity {
 					this.spriteType = SpriteType.ShipC;
 				}
 			}
+		}else if(this.spriteType == spriteType.ShipD || this.spriteType == spriteType.ShipDDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+					this.spriteType = SpriteType.ShipDDestroyed;
+				} else {
+					this.spriteType = SpriteType.ShipD;
+				}
+			}
+		else if(this.spriteType == spriteType.ShipE || this.spriteType == spriteType.ShipEDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+				this.spriteType = SpriteType.ShipEDestroyed;
+			} else {
+				this.spriteType = SpriteType.ShipE;
+			}
+
+		}
+		else if(this.spriteType == spriteType.ShipF || this.spriteType == spriteType.ShipFDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+				this.spriteType = SpriteType.ShipFDestroyed;
+			} else {
+				this.spriteType = SpriteType.ShipF;
+			}
+
+		}
+		else if(this.spriteType == spriteType.ShipG || this.spriteType == spriteType.ShipGDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+				this.spriteType = SpriteType.ShipGDestroyed;
+			} else {
+				this.spriteType = SpriteType.ShipG;
+			}
+
 		}
 	}
 

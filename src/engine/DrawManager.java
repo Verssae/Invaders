@@ -116,10 +116,18 @@ public final class DrawManager {
 		ShipA,
 		ShipB,
 		ShipC,
+		ShipD,
+		ShipE,
+		ShipF,
+		ShipG,
 		/** Destroyed player ship. */
 		ShipADestroyed,
 		ShipBDestroyed,
 		ShipCDestroyed,
+		ShipDDestroyed,
+		ShipEDestroyed,
+		ShipFDestroyed,
+		ShipGDestroyed,
 		/** Player bullet. */
 		Bullet,
 		/** Player bulletY. */
@@ -237,9 +245,17 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipA, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipB, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipC, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipD, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipE, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipF, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipG, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipADestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipCDestroyed, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipDDestroyed, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipEDestroyed, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipFDestroyed, new boolean[13][8]);
+			spriteMap.put(SpriteType.ShipGDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
