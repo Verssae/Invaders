@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -169,7 +170,7 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
@@ -251,7 +252,7 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore());
+                                gameState.getHardCore(), gameState.getShipColor());
 
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -294,6 +295,8 @@ public final class Core {
 							}
 							if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15) {
 								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
+                                gameState = ((SkinStoreScreen) currentScreen).getGameState();
+                                //gameScreen = ((SkinStoreScreen) currentScreen).getGameScreen();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ "skin store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -355,7 +358,7 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
-                                        gameState.getHardCore());
+                                        gameState.getHardCore(), gameState.getShipColor());
 
                                     // SubMenu | Item Store & Enhancement & Continue & Skin Store
                                     do{
@@ -472,9 +475,8 @@ public final class Core {
                     }
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
-                    stage = frame.setScreen(currentScreen);
-
-                    outgame_bgm.OutGame_bgm_stop(); //2p 모드 시작하며 outgame bgm stop
+                    stage = frame.setScreen(currentScreen);      
+                    outgame_bgm.OutGame_bgm_stop();//2p mode 시작하며 outgame bgm stop
 
                     if (stage == 0) {
                         returnCode = 4;
@@ -507,6 +509,7 @@ public final class Core {
                                 gameState_2P.getLivesRemaining_2p());
                     }
                     //while (gameState.getLivesRemaining() > 0
+
                     // && gameState.getLevel() <= NUM_LEVELS &&gameState.getLivesRemaining_2p() >0);
                     while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
                             && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));

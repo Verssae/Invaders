@@ -1,11 +1,13 @@
 package screen;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
 import engine.GameState;
+import engine.SkinBuyManager;
 import engine.SoundEffect;
 import entity.Coin;
 
@@ -23,6 +25,14 @@ public class SkinStoreScreen extends Screen {
 
     private EnhanceManager enhanceManager;
     private GameState gameState;
+    private SkinBuyManager skinBuyManager;
+
+    private int skinPrice = 1;
+
+    private Color skinColor1 = Color.YELLOW;
+    private Color skinColor2 = Color.BLUE;
+    private Color skinColor3 = Color.RED;
+    private Color skinColor4 = Color.CYAN;
  
      /**
       * Constructor, establishes the properties of the screen.
@@ -45,6 +55,7 @@ public class SkinStoreScreen extends Screen {
          this.gameState = gameState;
          this.enhanceManager = enhanceManager;
          soundEffect = new SoundEffect();
+         this.skinBuyManager = new SkinBuyManager(gameState);
      }
  
      /**
@@ -94,10 +105,9 @@ public class SkinStoreScreen extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 soundEffect.playSpaceButtonSound();
                 if (returnCode == 86){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor1, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
@@ -105,10 +115,9 @@ public class SkinStoreScreen extends Screen {
                     }
                 }
                 if (returnCode == 88 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor3, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
@@ -116,10 +125,9 @@ public class SkinStoreScreen extends Screen {
                     }
                 }
                 if (returnCode == 87 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor2, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
@@ -127,10 +135,9 @@ public class SkinStoreScreen extends Screen {
                     }
                 }
                 if (returnCode == 89 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor4, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
