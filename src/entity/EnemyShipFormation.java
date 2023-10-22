@@ -190,63 +190,63 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					Color D_color = new Color(255, 255, b);
 					switch (level) {
 						case 1:
-							spriteType = SpriteType.ESN1_1;
+							spriteType = SpriteType.ESnA_1;
 							enemyColor = A_color;
 							break;
 						case 2:
-							spriteType = SpriteType.ESN2_1;
+							spriteType = SpriteType.ESnB_1;
 							enemyColor = B_color;
 							break;
 						case 3:
-							spriteType = SpriteType.ESN3_1;
+							spriteType = SpriteType.ESnC_1;
 							enemyColor = C_color;
 							break;
 						case 4:
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.ESM1_1;
+								spriteType = SpriteType.ESm1_1;
 								enemyColor = C_color;
 							}
 							else {
-								spriteType = SpriteType.ESN1_1;
+								spriteType = SpriteType.ESnA_1;
 								enemyColor = A_color;
 							}
 							break;
 						case 5:
-							spriteType = SpriteType.ESM1_1;
+							spriteType = SpriteType.ESm1_1;
 							enemyColor = C_color;
 							break;
 						case 6:
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.ESM1_1;
+								spriteType = SpriteType.ESm1_1;
 								enemyColor = C_color;
 							}
 							else if (i / (float) this.nShipsHigh < PROPORTION_B
 									+ PROPORTION_C) {
-								spriteType = SpriteType.ESN2_1;
+								spriteType = SpriteType.ESnB_1;
 								enemyColor = B_color;
 							}
 							else {
-								spriteType = SpriteType.ESN1_1;
+								spriteType = SpriteType.ESnA_1;
 								enemyColor = A_color;
 							}
 							break;
 						case 7:
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.ES2M1_1;
+								spriteType = SpriteType.ESm2A_1;
 								enemyColor = C_color;
 							}
 							else if (i / (float) this.nShipsHigh < PROPORTION_B
 									+ PROPORTION_C) {
-								spriteType = SpriteType.ESM1_1;
+								spriteType = SpriteType.ESm1_1;
 								enemyColor = B_color;
 							}
 							else {
-								spriteType = SpriteType.ESN2_1;
+								spriteType = SpriteType.ESnB_1;
 								enemyColor = A_color;
 							}
 							break;
 						default:
-							spriteType = SpriteType.ES2M2_1;
+							spriteType = SpriteType.ESm2B_1;
 							enemyColor = A_color;
 							break;
 					}
