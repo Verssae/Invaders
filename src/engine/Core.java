@@ -134,9 +134,6 @@ public final class Core {
     private static int BulletsRemaining_1p;
     private static int BulletsRemaining_2p;
 
-    //private static GameScreen gameScreen;
-
-    //private static int BulletsCount;
 
 
     /**
@@ -181,7 +178,7 @@ public final class Core {
         do {
             Coin coin = new Coin(0, 0);
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE,99);
-            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES,50,50;
+            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES,50,50);
             enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
 
@@ -264,8 +261,8 @@ public final class Core {
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
+                                gameState.getShipColor(),
                                 99);
-                                gameState.getHardCore(), gameState.getShipColor());
 
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -363,7 +360,7 @@ public final class Core {
                                     returnCode = frame.setScreen(currentScreen);
                                     LOGGER.info("Closing game screen.");
                                     gameState = ((GameScreen) currentScreen).getGameState();
-
+                                    BulletsRemaining = gameState.getBulletsRemaining();
 
                                     gameState = new GameState(gameState.getLevel()+1,
                                         gameState.getScore(),
@@ -371,8 +368,8 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
-                                        gameState.getHardCore(), gameState.getShipColor());
                                         gameState.getHardCore(),
+                                            gameState.getShipColor(),
                                     99);
 
                                     // SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -531,8 +528,12 @@ public final class Core {
                     }
                     //while (gameState.getLivesRemaining() > 0
                     // && gameState.getLevel() <= NUM_LEVELS &&gameState.getLivesRemaining_2p() >0);
-                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
-                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));
+//                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
+//                            && (gameState_2P.getLevel() <= NUM_LEVELS) && !(BulletsRemaining_1p == 0 && BulletsRemaining_2p==0));
+                    while (gameState_2P.getLevel() <= NUM_LEVELS
+                            && ((gameState_2P.getLivesRemaining() > 0 && BulletsRemaining_1p > 0)
+                            || (gameState_2P.getLivesRemaining_2p() > 0 && BulletsRemaining_2p > 0)));
+
                     if (returnCode == 1) { //Quit during the game
                         frame.setScreen(currentScreen);
                         break;

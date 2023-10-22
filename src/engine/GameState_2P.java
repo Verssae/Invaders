@@ -135,7 +135,6 @@ public class GameState_2P {
         return this.hardcore;
     }
 
-    //public final int getBulletsCount() { return this.BulletsCount;}
 
     /**
      * Set HardCore
