@@ -93,6 +93,7 @@ public final class DrawManager {
 	private Coin coin;
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
+	private boolean initialSound = true;
 
 	private CountUpTimer timer;
 	public int timercount = 0;
@@ -1598,8 +1599,14 @@ public final class DrawManager {
 								+ fontBigMetrics.getHeight() / 3);
 			}
 		else if (number != 0) {
-			if (isFirst)
+			if (isFirst){
 				drawLoading(screen.getHeight() / 6, screen.getHeight() / 3, screen);
+				if (initialSound) {
+					SoundEffect soundEffect = new SoundEffect();
+					soundEffect.initialStartSound();
+					initialSound = false;
+				}
+			}
 			else {
 				drawLoadingNeon(screen, "Loading...",
 						screen.getHeight() / 2

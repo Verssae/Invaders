@@ -15,6 +15,8 @@ import screen.GameScreen;
  *
  */
 public class GameScreen_2P extends Screen {
+    /** Sound status on/off. */
+    private boolean isSoundOn = true;
 
     /** Milliseconds until the screen accepts user input. */
     private static final int INPUT_DELAY = 6000;
@@ -602,8 +604,16 @@ public class GameScreen_2P extends Screen {
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
         //drawManager.scoreEmoji(this, this.score_1P);
         drawManager.drawSoundButton2(this);
-        if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus2(this, false);
-        else drawManager.drawSoundStatus2(this, true);
+        if (inputManager.isKeyDown(KeyEvent.VK_C)) {
+            isSoundOn = !isSoundOn;
+            if (isSoundOn) {
+                bgm.InGame_bgm_play();
+            } else {
+                bgm.InGame_bgm_stop();
+                soundEffect.SoundEffect_stop();
+            }
+        }
+        drawManager.drawSoundStatus2(this, isSoundOn);
         drawManager.drawTimer(this, timer.getElapsedTime());
 
         //GameOver
