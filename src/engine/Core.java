@@ -170,7 +170,7 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y");
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
@@ -252,7 +252,7 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore(), gameState.getShipColor());
+                                gameState.getHardCore(), gameState.getShipColor(), gameState.getNowSkinString());
 
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -296,7 +296,6 @@ public final class Core {
 							if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15) {
 								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
                                 gameState = ((SkinStoreScreen) currentScreen).getGameState();
-                                //gameScreen = ((SkinStoreScreen) currentScreen).getGameScreen();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ "skin store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -358,7 +357,7 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
-                                        gameState.getHardCore(), gameState.getShipColor());
+                                        gameState.getHardCore(), gameState.getShipColor(), gameState.getNowSkinString());
 
                                     // SubMenu | Item Store & Enhancement & Continue & Skin Store
                                     do{

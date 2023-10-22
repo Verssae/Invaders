@@ -25,17 +25,6 @@ public class SkinBuyManager {
         this.gameState = gameState;
         this.coin = gameState.getCoin();
     }
-    
-    /**
-     * Returns the boolean of skin price payment
-     *
-     * @return the boolean of skin price payment
-     */
-    /* public boolean isPossible(int skinPrice) {
-    *    int coinCurrent = coin.getCoin();
-    *    return coinCurrent >= skinPrice;
-    *}
-    */
 
     /**
      * Purchase a skin if it is possible based on the provided skin price.
@@ -47,7 +36,6 @@ public class SkinBuyManager {
         if (coin.getCoin()>= skinPrice) {
             if (!(isSkinOwned(skinColor))){
                 this.coin.minusCoin(skinPrice);
-                gameState.setShipColor(skinColor);
             }
         }
         ownedSkins.put(skinColor, true);  
@@ -74,13 +62,13 @@ public class SkinBuyManager {
     /**
      * Equips the skin with the given name. This method marks the skin as equipped.
      *
-     * @param skinName The name of the skin to equip.
+     * @param Color of the skin to equip.
      */
     public void equipSkin(Color skinColor) {
         if (isSkinOwned(skinColor)){
             if (isSkinEquipped(skinColor)) {
                 equippedSkins.put(skinColor, true);
-                ship.setColor(skinColor);
+                gameState.setShipColor(skinColor);
             }
         }
     }
@@ -90,9 +78,9 @@ public class SkinBuyManager {
      *
      * @param skinName The name of the skin to unequip.
      */
-    public void unequipSkin(Color skinColor, Ship ship) {
+    public void unequipSkin(Color skinColor) {
         equippedSkins.put(skinColor, false);
-        ship.setColor(Color.WHITE);
+        gameState.setShipColor(Color.WHITE);
     }
 
 }

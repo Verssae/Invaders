@@ -32,6 +32,8 @@ public class GameState {
 
 	private Color shipColor;
 
+	private String nowSkinString;
+
 
 
 
@@ -55,7 +57,7 @@ public class GameState {
 	 */
 	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore, final Color shipColor) {
+			final int shipsDestroyed, final boolean hardcore, final Color shipColor,final String nowSkinString) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
@@ -64,7 +66,14 @@ public class GameState {
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
 		this.shipColor = shipColor;
+		this.nowSkinString = nowSkinString;
 
+	}
+	public final String getNowSkinString(){
+		return this.nowSkinString;
+	}
+	public final void setNowSkinString(String nowString){
+		this.nowSkinString = nowString;
 	}
 
 	public final Color getShipColor(){
