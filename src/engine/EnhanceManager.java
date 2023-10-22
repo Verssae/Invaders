@@ -29,11 +29,11 @@ public class EnhanceManager {
     private int attackDamage;
     
     /** The number List of Ehanced Stones required according to level. (about attackdamage) */
-    ArrayList<Integer> numRequiredEnhanceAttackStoneList = new ArrayList<>(Arrays.asList(1, 2, 4, 7, 10, 15));
+    ArrayList<Integer> numRequiredEnhanceAttackStoneList = new ArrayList<>(Arrays.asList(1, 2, 4, 7, 10, 15, 0));
     /** The number List of Ehanced Stones required according to level. (about area damage) */
-    ArrayList<Integer> numRequiredEnhanceAreaStoneList = new ArrayList<>(Arrays.asList(1, 3, 7));
+    ArrayList<Integer> numRequiredEnhanceAreaStoneList = new ArrayList<>(Arrays.asList(1, 3, 7, 0));
     /** The value List of Attack Damage to be enhanced according to level. */
-    ArrayList<Integer> valEnhanceAttackList = new ArrayList<>(Arrays.asList(1, 1, 3, 5, 8, 12));
+    ArrayList<Integer> valEnhanceAttackList = new ArrayList<>(Arrays.asList(1, 1, 3, 5, 8, 12, 0));
 
     /**
 	 * Constructor.
@@ -65,7 +65,7 @@ public class EnhanceManager {
     /**
      * Enhance area damage using Enhance stone.
      */
-    public void enhanceAreaDamage() {
+    public void enhanceAreaDamage() {       
         int numRequiredEnhanceStone = this.getRequiredNumEnhanceStoneArea();
         if (numEnhanceStoneArea >= numRequiredEnhanceStone) {
             this.numEnhanceStoneArea -= numRequiredEnhanceStone;
