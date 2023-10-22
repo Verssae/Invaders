@@ -187,7 +187,7 @@ public final class Core {
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins, 99);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES, 50,50);
 
-            enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
+            enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
 
             switch (returnCode) {

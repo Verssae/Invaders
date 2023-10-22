@@ -99,11 +99,11 @@ public class StoreScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 soundEffect.playSpaceButtonSound();
-                if (returnCode == 35){
-                    if (this.coin.getCoin() >= 10 && gameState != null)
+                if (returnCode == 35 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
                     {
                         this.itemManager.PlusShieldCount(1);
-                        this.coin.minusCoin(10);
+                        this.coin.minusCoin(150);
                         System.out.println("plese do");
                     }
                     else{
@@ -114,7 +114,7 @@ public class StoreScreen extends Screen {
                     if (this.coin.getCoin() >= 10)
                     {
                         this.itemManager.PlusBombCount(1);
-                        this.coin.minusCoin(10);
+                        this.coin.minusCoin(150);
                         System.out.println("plese do");
                     }
                     else{
@@ -125,7 +125,7 @@ public class StoreScreen extends Screen {
                     if (this.coin.getCoin() >= 10)
                     {
                         this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        this.coin.minusCoin(50);
                         System.out.println("plese do");
                     }
                     else{
@@ -135,8 +135,8 @@ public class StoreScreen extends Screen {
                 if (returnCode == 38 && gameState != null){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        this.enhanceManager.PlusNumEnhanceStoneAttack(1);
+                        this.coin.minusCoin(50);
                         System.out.println("plese do");
                     }
                     else{
