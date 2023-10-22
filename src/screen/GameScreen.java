@@ -151,6 +151,7 @@ public class GameScreen extends Screen {
 	private String clearCoin;
 	private GameScreen gamescreen;
 	private Color shipColor;
+	private String nowSkinString;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -191,6 +192,7 @@ public class GameScreen extends Screen {
 		this.areaDamage = gameSettings.getBaseAreaDamage();
 		this.clearCoin = getClearCoin();
 		this.shipColor = gameState.getShipColor();
+		this.nowSkinString = gameState.getNowSkinString();
 		
 
 
@@ -872,7 +874,7 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.shipColor);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.shipColor, this.nowSkinString);
 	}
 	public Ship getShip(){
 		return ship;
