@@ -1616,7 +1616,7 @@ public final class DrawManager {
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
 					/ 3 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
-			if (i > 5)
+			if (i >= 5)
 				break;
 		}
 	}
@@ -2128,7 +2128,7 @@ if (option == 35)
 	 * @param option
 	 *               Option selected.
 	 * @param valEnhanceArea
-	 *               Current Value of Enhanced Area Range.
+	 *                Current Value of Enhanced Area Range.
 	 * @param valEnhanceDamage
 	 *               Current Value of Enhanced Damage.
 	 * @param lvEnhanceArea
