@@ -1,6 +1,8 @@
 package engine;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
 import entity.Coin;
 
@@ -34,6 +36,9 @@ public class GameState {
 
 	private String nowSkinString;
 
+	private Map<Color, Boolean> ownedSkins;
+	private Map<Color, Boolean> equippedSkins;
+
 
 
 
@@ -57,7 +62,7 @@ public class GameState {
 	 */
 	public GameState(final int level, final int score, final Coin coin,
 			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore, final Color shipColor,final String nowSkinString) {
+			final int shipsDestroyed, final boolean hardcore, final Color shipColor,final String nowSkinString, final Map<Color, Boolean> ownedSkins, final Map<Color, Boolean> equippedSkins) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
@@ -67,10 +72,20 @@ public class GameState {
 		this.hardcore = hardcore;
 		this.shipColor = shipColor;
 		this.nowSkinString = nowSkinString;
+		if (ownedSkins == null) {
+			this.ownedSkins = new HashMap<>();
+		} else {
+			this.ownedSkins = new HashMap<>(ownedSkins);
+		}
+		if (ownedSkins == null) {
+			this.equippedSkins = new HashMap<>();
+		} else {
+			this.equippedSkins = new HashMap<>(equippedSkins);
+		}
 
 	}
 	public final String getNowSkinString(){
-		return this.nowSkinString;
+		return nowSkinString;
 	}
 	public final void setNowSkinString(String nowString){
 		this.nowSkinString = nowString;
@@ -82,6 +97,18 @@ public class GameState {
 
 	public final void setShipColor(Color color){
 		this.shipColor = color;
+	}
+	public final Map<Color, Boolean> getOwnedSkins(){
+		return ownedSkins;
+	}
+	public final Map<Color, Boolean> getEquippedSkins(){
+		return equippedSkins;
+	}
+	public final void setOwnedSkins(Color color, boolean bool){
+		this.ownedSkins.put(color, bool);
+	}
+	public final void setEquipped(Color color, boolean bool){
+		this.equippedSkins.put(color, bool);
 	}
 
 	/**

@@ -1811,7 +1811,7 @@ if (option == 35)
 		String BuyString = "B U Y";
 		String ApplyString = "A P P L Y";
 		String ApplyingString = "U N A P P L Y";
-		String PrizeString = "1 0 0";
+		String PrizeString = "2 0 0";
 		int x1 = screen.getWidth()/7+20;
 		int x2 = screen.getWidth() *5/8+20;
 		int y1 = screen.getHeight()/6;
@@ -1881,7 +1881,6 @@ if (option == 35)
 		} else {
 			gameState.setNowSkinString(BuyString);
 		}
-
 		backBufferGraphics.drawString(gameState.getNowSkinString(), screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
 		if (option == 87)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));

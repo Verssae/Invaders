@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -152,6 +153,8 @@ public class GameScreen extends Screen {
 	private GameScreen gamescreen;
 	private Color shipColor;
 	private String nowSkinString;
+	private Map<Color, Boolean> ownedSkins;
+	private Map<Color, Boolean> equippedSkins;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -874,7 +877,7 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.shipColor, this.nowSkinString);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.shipColor, this.nowSkinString, this.ownedSkins, this.equippedSkins);
 	}
 	public Ship getShip(){
 		return ship;

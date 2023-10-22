@@ -1,29 +1,23 @@
 package engine;
 
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
 
 import entity.Coin;
-import entity.Ship;
 
 public class SkinBuyManager {
 
 
-    /* map to store skin ownership*/
-    private Map<Color, Boolean> ownedSkins;
-    /* map to store skin wearing status */
-    private Map<Color, Boolean> equippedSkins;
+    
+    //private Map<Color, Boolean> ownedSkins;
+    //private Map<Color, Boolean> equippedSkins;
     private GameState gameState;
     private Coin coin;
-    private Ship ship;
-
 
     public SkinBuyManager(GameState gameState) {
-        ownedSkins = new HashMap<>();
-        equippedSkins = new HashMap<>();
         this.gameState = gameState;
         this.coin = gameState.getCoin();
+        //this.ownedSkins = gameState.getOwnedSkins();
+        //this.equippedSkins = gameState.getEquippedSkins();
     }
 
     /**
@@ -38,7 +32,7 @@ public class SkinBuyManager {
                 this.coin.minusCoin(skinPrice);
             }
         }
-        ownedSkins.put(skinColor, true);  
+        gameState.setOwnedSkins(skinColor, true) ; 
     }
 
     /**
@@ -47,7 +41,7 @@ public class SkinBuyManager {
      * @return True if the player owns the skin, or false if the skin is not owned
      */
     public boolean isSkinOwned(Color skinColor) {
-        return ownedSkins.getOrDefault(skinColor, false);
+        return gameState.getOwnedSkins().getOrDefault(skinColor, false);
     }
 
     /**
@@ -56,7 +50,7 @@ public class SkinBuyManager {
      * @return True if the player wear the skin, or false if the skin isn't worn
      */
     public boolean isSkinEquipped(Color skinColor) {
-        return equippedSkins.getOrDefault(skinColor, false);
+        return gameState.getEquippedSkins().getOrDefault(skinColor, false);
     }
 
     /**
@@ -66,8 +60,8 @@ public class SkinBuyManager {
      */
     public void equipSkin(Color skinColor) {
         if (isSkinOwned(skinColor)){
-            if (isSkinEquipped(skinColor)) {
-                equippedSkins.put(skinColor, true);
+            if (!(isSkinEquipped(skinColor)) && !(gameState.getEquippedSkins().containsValue(true))) {
+                gameState.setEquipped(skinColor, true);
                 gameState.setShipColor(skinColor);
             }
         }
@@ -79,7 +73,7 @@ public class SkinBuyManager {
      * @param skinName The name of the skin to unequip.
      */
     public void unequipSkin(Color skinColor) {
-        equippedSkins.put(skinColor, false);
+        gameState.setEquipped(skinColor, false);
         gameState.setShipColor(Color.WHITE);
     }
 

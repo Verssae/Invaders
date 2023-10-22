@@ -2,7 +2,9 @@ package engine;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -166,11 +168,14 @@ public final class Core {
         GameState_2P gameState_2P;
         EnhanceManager enhanceManager;
         ItemManager itemManager;
+        Map<Color, Boolean> equippedSkins = new HashMap<>();
+        Map<Color, Boolean> ownedSkins = new HashMap<>();
+
 
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y");
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
             enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
@@ -252,7 +257,9 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore(), gameState.getShipColor(), gameState.getNowSkinString());
+                                gameState.getHardCore(), gameState.getShipColor(), 
+                                gameState.getNowSkinString(), 
+                                gameState.getOwnedSkins(), gameState.getEquippedSkins());
 
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -293,7 +300,7 @@ public final class Core {
 								returnCode = frame.setScreen(currentScreen);
 								LOGGER.info("Closing subMenu screen.");
 							}
-							if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15) {
+							if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15 || currentScreen.returnCode == 87 || currentScreen.returnCode == 88 || currentScreen.returnCode == 89) {
 								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
                                 gameState = ((SkinStoreScreen) currentScreen).getGameState();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -357,7 +364,9 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
-                                        gameState.getHardCore(), gameState.getShipColor(), gameState.getNowSkinString());
+                                        gameState.getHardCore(), gameState.getShipColor(), 
+                                        gameState.getNowSkinString(),
+                                        gameState.getOwnedSkins(), gameState.getEquippedSkins());
 
                                     // SubMenu | Item Store & Enhancement & Continue & Skin Store
                                     do{
