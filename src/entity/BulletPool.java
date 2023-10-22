@@ -35,10 +35,13 @@ public final class BulletPool {
 	 * @param speed
 	 *            Requested speed of the bullet, positive or negative depending
 	 *            on direction - positive is down.
+	 * @param damage
+	 *            Requested enhanced damage of the bullet.
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-								   final int positionY, final int speed) {
+								   final int positionY, final int speed,
+								   final int damage) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -48,8 +51,10 @@ public final class BulletPool {
 			bullet.setSpeed(speed);
 			bullet.setSprite();
 			bullet.setEffectBullet(0);
+			bullet.setDamage(damage);
+			
 		} else {
-			bullet = new Bullet(positionX, positionY, speed);
+			bullet = new Bullet(positionX, positionY, speed, damage);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;
@@ -66,10 +71,13 @@ public final class BulletPool {
 	 * @param speed
 	 *            Requested speed of the bullet, positive or negative depending
 	 *            on direction - positive is down.
+	 * @param damage
+	 *            Requested enhanced damage of the bullet.
 	 * @return Requested bullet.
 	 */
 	public static Bullet getBullet(final int positionX,
-								   final int positionY, final int speed, SpriteType bulletType) {
+								   final int positionY, final int speed, SpriteType bulletType,
+								   final int damage) {
 		Bullet bullet;
 		if (!pool.isEmpty()) {
 			bullet = pool.iterator().next();
@@ -78,8 +86,9 @@ public final class BulletPool {
 			bullet.setPositionY(positionY);
 			bullet.setSpeed(speed);
 			bullet.setSprite(bulletType);
+			bullet.setDamage(damage);
 		} else {
-			bullet = new Bullet(positionX, positionY, speed, bulletType);
+			bullet = new Bullet(positionX, positionY, speed, bulletType, damage);
 			bullet.setPositionX(positionX - bullet.getWidth() / 2);
 		}
 		return bullet;
@@ -96,10 +105,13 @@ public final class BulletPool {
 	 * @param speed
 	 *            Requested speed of the bullet, positive or negative depending
 	 *            on direction - positive is down.
+	 * @param damage
+	 *            Requested enhanced damage of the bullet.
 	 * @return Requested bulletY.
 	 */
 	public static BulletY getBulletY(final int positionX,
-									 final int positionY, int speed) {
+									 final int positionY, int speed,
+									 final int damage) {
 		BulletY bulletY;
 		if (!poolY.isEmpty()) {
 			bulletY = poolY.iterator().next();
@@ -108,8 +120,9 @@ public final class BulletPool {
 			bulletY.setPositionY(positionY);
 			bulletY.setSpeed(speed);
 			bulletY.setSprite();
+			bulletY.setDamage(damage);
 		} else {
-			bulletY = new BulletY(positionX, positionY, speed);
+			bulletY = new BulletY(positionX, positionY, speed, damage);
 			bulletY.setPositionX(positionX - bulletY.getWidth() / 2);
 		}
 		return bulletY;
