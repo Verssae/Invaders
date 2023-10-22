@@ -69,6 +69,7 @@ public final class DrawManager {
 	private static FontMetrics fontRegularMetrics;
 	/** Big sized font. */
 	private static Font fontBig;
+	private static Font fontBig_2p;
 	/** Big sized font properties. */
 	private static FontMetrics fontBigMetrics;
 
@@ -291,6 +292,7 @@ public final class DrawManager {
 			fontSmall = fileManager.loadFont(12f);
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
+			fontBig_2p = fileManager.loadFont(20f);
 			fontVeryBig = fileManager.loadFont(40f);
 			logger.info("Finished loading the fonts.");
 
@@ -467,6 +469,40 @@ public final class DrawManager {
 			return blinkingColor("HIGH_SCORES");
 	}
 
+	private Color scoreColor_1p(final int score) {
+		if (score < 800)
+			return new Color(238, 241, 255);
+		if (score >= 800 && score < 1600)
+			return new Color(210, 218, 255);
+		if (score >= 1600 && score < 2400)
+			return new Color(170, 196, 255);
+		if (score >= 2400 && score < 3200)
+			return new Color(142, 143, 250);
+		if (score >= 3200 && score < 4000)
+			return new Color(119, 82, 254);
+		if (score >= 4000 && score < 4800)
+			return new Color(25, 4, 130);
+		else
+			return blinkingColor("HIGH_SCORES");
+	}
+
+	private Color scoreColor_2p(final int score) {
+		if (score < 800)
+			return new Color(255, 234, 221);
+		if (score >= 800 && score < 1600)
+			return new Color(252, 174, 174);
+		if (score >= 1600 && score < 2400)
+			return new Color(255, 137, 137);
+		if (score >= 2400 && score < 3200)
+			return new Color(192, 100, 97);
+		if (score >= 3200 && score < 4000)
+			return new Color(154, 70, 70);
+		if (score >= 4000 && score < 4800)
+			return new Color(200, 60, 60);
+		else
+			return blinkingColor("HIGH_SCORES");
+	}
+
 	private Color levelColor(final int level) {
 		if (level == 1)
 			return Color.WHITE;
@@ -529,7 +565,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
-public void drawSoundButton1(GameScreen gamescreen){
+	public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.fillOval(375,425,55,45);
 	}
@@ -567,11 +603,17 @@ public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
 
-	public void drawScore_2p(final Screen screen, final int score) {
-		backBufferGraphics.setFont(fontBig);
-		backBufferGraphics.setColor(scoreColor(score));
+	public void drawScore_2p(final Screen screen, final int score,final String player, final int x) {
+		backBufferGraphics.setFont(fontBig_2p);
+		if (player.equals("p1")) {
+			backBufferGraphics.setColor(scoreColor_1p(score));
+		} else if (player.equals("p2")) {
+			backBufferGraphics.setColor(scoreColor_2p(score));
+		} else{
+			backBufferGraphics.setColor(scoreColor(score));
+		}
 		String scoreString = String.format("%04d", score);
-		backBufferGraphics.drawString(scoreString, screen.getWidth() - 228, 28);
+		backBufferGraphics.drawString(scoreString, x, 26);
 	}
 
 	public void drawTimer(final Screen screen, final long elapsedTime) {
@@ -693,7 +735,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		double fillRatio = lives / 3.0;
 
 		// Determine the width of the filled portion of the rectangle.
-		int filledWidth = (int) (120 * fillRatio);
+		int filledWidth = (int) (90 * fillRatio);
 
 		// Create a gradient paint that transitions from green to yellow.
 		GradientPaint gradient = new GradientPaint(x, 8, Color.GREEN, x + filledWidth, 8, Color.YELLOW);
@@ -703,14 +745,14 @@ public void drawSoundButton1(GameScreen gamescreen){
 
 		// Draw the outline of the rectangle.
 		g2d.setColor(Color.WHITE);
-		g2d.drawRect(x, 8, 120, 20);
+		g2d.drawRect(x, 8, 90, 20);
 
 		// Set the paint to the gradient and fill the left portion of the rectangle.
 		g2d.setPaint(gradient);
 		g2d.fillRect(x, 8, filledWidth, 20);
 
 		// Set the new font size and type
-		Font newFont = g2d.getFont().deriveFont(Font.BOLD, 19); // Adjust the font size as needed
+		Font newFont = g2d.getFont().deriveFont(Font.BOLD, 15); // Adjust the font size as needed
 
 		// Set the new font in the Graphics2D context
 		g2d.setFont(newFont);
@@ -719,7 +761,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		g2d.setColor(Color.WHITE);
 
 		// Calculate the position to center the "lives" text.
-		int textX = x + (120 - g2d.getFontMetrics().stringWidth(live)) / 2; // Center horizontally
+		int textX = x + (90 - g2d.getFontMetrics().stringWidth(live)) / 2; // Center horizontally
 		int textY = 7 + 20 / 2 + g2d.getFontMetrics().getAscent() / 2; // Center vertically
 
 		// Draw the "lives" text in the center of the rectangle.
