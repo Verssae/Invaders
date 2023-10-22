@@ -1,5 +1,9 @@
 package engine;
 
+import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
+
 import entity.Coin;
 
 /**
@@ -10,48 +14,64 @@ import entity.Coin;
  */
 public class GameState {
 
-	/** Current game level. */
+	/**
+	 * Current game level.
+	 */
 	private int level;
-	/** Current score. */
+	/**
+	 * Current score.
+	 */
 	private int score;
-	/** Current coin. */
+	/**
+	 * Current coin.
+	 */
 	private Coin coin;
-	/** Lives currently remaining. */
+	/**
+	 * Lives currently remaining.
+	 */
 	private double livesRemaining;
 	private double livesRemaining_2p;
-	/** Bullets shot until now. */
+	/**
+	 * Bullets shot until now.
+	 */
 	private int bulletsShot;
 
 	private int bulletsShot_2p;
-	/** Ships destroyed until now. */
+	/**
+	 * Ships destroyed until now.
+	 */
 	private int shipsDestroyed;
-	/** HardCore(Only One life) */
+	/**
+	 * HardCore(Only One life)
+	 */
 	private boolean hardcore;
 
+	private Color shipColor;
 
+	private String nowSkinString;
 
+	private Map<Color, Boolean> ownedSkins;
+	private Map<Color, Boolean> equippedSkins;
+
+	private int BulletsRemaining;
 
 	/**
 	 * Constructor.
-	 * 
-	 * @param level
-	 *            Current game level.
-	 * @param score
-	 *            Current score.
-	 * @param coin
-	 *            Current coin.
-	 * @param livesRemaining
-	 *            Lives currently remaining.
-	 * @param bulletsShot
-	 *            Bullets shot until now.
-	 * @param shipsDestroyed
-	 *            Ships destroyed until now.
-	 * @param hardcore
-	 *            Hardcore mode, Only one coin.
+	 *
+	 * @param level          Current game level.
+	 * @param score          Current score.
+	 * @param coin           Current coin.
+	 * @param livesRemaining Lives currently remaining.
+	 * @param bulletsShot    Bullets shot until now.
+	 * @param shipsDestroyed Ships destroyed until now.
+	 * @param hardcore       Hardcore mode, Only one coin.
 	 */
 	public GameState(final int level, final int score, final Coin coin,
-			final double livesRemaining, final int bulletsShot,
-			final int shipsDestroyed, final boolean hardcore) {
+					final double livesRemaining, final int bulletsShot,
+					final int shipsDestroyed, final boolean hardcore, 
+					final Color shipColor,final String nowSkinString, 
+					final Map<Color, Boolean> ownedSkins, final Map<Color, Boolean> equippedSkins, 
+					final int BulletsRemaining) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
@@ -59,7 +79,46 @@ public class GameState {
 		this.bulletsShot = bulletsShot;
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
+		this.BulletsRemaining = BulletsRemaining;
+		this.shipColor = shipColor;
+		this.nowSkinString = nowSkinString;
+		if (ownedSkins == null) {
+			this.ownedSkins = new HashMap<>();
+		} else {
+			this.ownedSkins = new HashMap<>(ownedSkins);
+		}
+		if (ownedSkins == null) {
+			this.equippedSkins = new HashMap<>();
+		} else {
+			this.equippedSkins = new HashMap<>(equippedSkins);
+		}
 
+	}
+	public final String getNowSkinString(){
+		return nowSkinString;
+	}
+	public final void setNowSkinString(String nowString){
+		this.nowSkinString = nowString;
+	}
+
+	public final Color getShipColor() {
+		return shipColor;
+	}
+
+	public final void setShipColor(Color color) {
+		this.shipColor = color;
+	}
+	public final Map<Color, Boolean> getOwnedSkins(){
+		return ownedSkins;
+	}
+	public final Map<Color, Boolean> getEquippedSkins(){
+		return equippedSkins;
+	}
+	public final void setOwnedSkins(Color color, boolean bool){
+		this.ownedSkins.put(color, bool);
+	}
+	public final void setEquipped(Color color, boolean bool){
+		this.equippedSkins.put(color, bool);
 	}
 
 	/**
@@ -100,7 +159,9 @@ public class GameState {
 	/**
 	 * @return the bulletsShot
 	 */
-	public final int getBulletsShot() {return bulletsShot;}
+	public final int getBulletsShot() {
+		return bulletsShot;
+	}
 
 	/**
 	 * @return the shipsDestroyed
@@ -135,9 +196,13 @@ public class GameState {
 	/**
 	 * Set LivesRecovery
 	 */
-	 public final void setLivesRecovery() {
+	public final void setLivesRecovery() {
 		this.score = getScore() + 100; // keeping score 
-		this.level = getLevel() -1; 
+		this.level = getLevel() - 1;
 		this.livesRemaining = 3;
-	 }
+	}
+
+	public final int getBulletsRemaining() {
+		return BulletsRemaining;
+	}
 }

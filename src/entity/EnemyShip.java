@@ -276,6 +276,7 @@ public class EnemyShip extends Entity {
 	public final void reduceEnemyLife(final int attackDamage) {
 		this.EnemyLife -= attackDamage;
 	}
+	
 	/**
 	 * Getter for the life of enemyship.
 	 *
