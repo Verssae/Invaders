@@ -97,7 +97,7 @@ public final class DrawManager {
 	public int timercount = 0;
 	public String rewardTypeString;
 	public GameScreen gamescreen;
-	
+
 	//BufferedImage img1, img2, img3, img4;
 
 
@@ -210,7 +210,7 @@ public final class DrawManager {
 		fileManager = Core.getFileManager();
 		logger = Core.getLogger();
 		logger.info("Started loading resources.");
-		
+
 		try {
 			Random random = new Random();
 			int Trash_enemyA = random.nextInt(3);
@@ -565,7 +565,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, screen.getWidth() - 80, 28);
 	}
-	
+
 	public void drawScore_2p(final Screen screen, final int score) {
 		backBufferGraphics.setFont(fontBig);
 		backBufferGraphics.setColor(scoreColor(score));
@@ -637,7 +637,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
-		backBufferGraphics.drawString(text, screen.getWidth() - 200, 88);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 80);
 	}
 
 	/**
@@ -1154,7 +1154,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		String coinString = " C O I N : " + recoveryCoin.getCoin();
 
 		if(recoveryCoin.getCoin() >= 30){
-	
+
 			backBufferGraphics.setColor(Color.YELLOW);
 			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
 
@@ -1169,8 +1169,8 @@ public void drawSoundButton1(GameScreen gamescreen){
     				backBufferGraphics.setColor(Color.orange);
     				drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
 			}
-		
-		
+
+
 		String dorecoveryString = " Y E S ";
 		String notrecoveryString = " N O ";
 
@@ -1180,7 +1180,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 			} else {backBufferGraphics.setColor(Color.red);}
 
-		}	
+		}
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, dorecoveryString,
@@ -1718,7 +1718,7 @@ backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.drawString(string, width+ 90 , height+105);
 		}
 
-		
+
 		backBufferGraphics.setColor(Color.GREEN);
 	}
 	public void drawItemStore(final Screen screen, final int option, final int PST, final int BST, final ItemManager itemManager) {
@@ -1834,7 +1834,7 @@ if (option == 35)
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()*5/8 + 33, screen.getHeight()/2 - 35);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()*5/8 + 33 , screen.getHeight() - 115);
-		
+
 		if (option == 8)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -1930,20 +1930,20 @@ if (option == 35)
 	 *               Height of the left and right Circle.
 	 */
 	public void drawEnhanceSprite(final Screen screen,
-								  final int centeredCircleX, final int centeredCircleY, 
+								  final int centeredCircleX, final int centeredCircleY,
 								  final int centeredCircleWidth, final int centeredCircleHeight,
-								  final int leftCircleX, final int rightCircleX, final int sideCircleY, 
-								  final int sideCircleWidth, final int sideCircleHeight) {				
+								  final int leftCircleX, final int rightCircleX, final int sideCircleY,
+								  final int sideCircleWidth, final int sideCircleHeight) {
 		SpriteType CurrentShip = SpriteType.ShipA;
 		SpriteType BlueEnhanceAreaStone = SpriteType.BlueEnhanceStone;
 		SpriteType PerpleEnhanceAttackStone = SpriteType.PerpleEnhanceStone;
 					
-		this.drawEntity(CurrentShip, centeredCircleX + centeredCircleWidth / 3 + 9, 
-						centeredCircleY + centeredCircleHeight / 4, 3, 3, Color.white);				
-		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2, 
-						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);							
-		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2, 
-						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);							
+		this.drawEntity(CurrentShip, centeredCircleX + centeredCircleWidth / 3 + 9,
+						centeredCircleY + centeredCircleHeight / 4, 3, 3, Color.white);
+		this.drawEntity(BlueEnhanceAreaStone, leftCircleX + sideCircleWidth / 4 - 2,
+						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.BLUE);
+		this.drawEntity(PerpleEnhanceAttackStone, rightCircleX + sideCircleWidth / 4 - 2,
+						sideCircleY + sideCircleHeight / 4 - 2, 5, 5, Color.magenta);
 	}
 
 	/**
@@ -1969,7 +1969,7 @@ if (option == 35)
 	 *               Required Number of Enhance Attack Stone.
 	 */
 	public void drawEnhanceMenu(final Screen screen, final int option, 
-								final int numEnhanceArea, final int numEnhanceDamage, 
+								final int numEnhanceArea, final int numEnhanceDamage,
 								final int lvEnhanceArea, final int lvEnhanceDamage,
 								final int attackDamage, final int addedValAttackDamage,
 								final int requiredNumEnhanceAttackStone) {
@@ -2006,7 +2006,7 @@ if (option == 35)
 			valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/0";
 			changedAttackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage);
 		}
-									
+
     	/** Height of the interface separation line. */
     	int SEPARATION_LINE_HEIGHT = 40;
 
@@ -2183,7 +2183,7 @@ if (option == 35)
 
 	public void gameOver(final Screen screen, boolean levelFinished, double lives,int bullets, CountUpTimer timer, Coin coin, String clearcoin){
 		if(levelFinished){
-			if(lives == 0 || bullets==0){
+			if(lives <= 0 || bullets<=0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
 				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
@@ -2425,9 +2425,17 @@ if (option == 35)
 	}
 
 	public void ComboCount(final Screen screen, final int ComboCount) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
-		String text = String.format("%d", ComboCount)+" Combo" ;
-		backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+		if (ComboCount !=0) {
+			backBufferGraphics.setFont(fontRegular);
+			backBufferGraphics.setColor(Color.WHITE);
+			String text = String.format("%d", ComboCount) + " Combo";
+			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+		}
+		else{
+			backBufferGraphics.setFont(fontRegular);
+			backBufferGraphics.setColor(Color.red);
+			String text = "Miss";
+			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+		}
 	}
 }
