@@ -1,11 +1,12 @@
 package screen;
 
 import java.awt.event.KeyEvent;
+
 import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
-import engine.GameSettings;
 import engine.GameState;
+import engine.ItemManager;
 import engine.SoundEffect;
 import entity.Coin;
 
@@ -25,6 +26,8 @@ public class StoreScreen extends Screen {
     private int BST;
     private EnhanceManager enhanceManager;
     private GameState gameState;
+
+    private ItemManager itemManager;
     /**
      * Constructor, establishes the properties of the screen.
      *
@@ -35,7 +38,7 @@ public class StoreScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public StoreScreen(final int width, final int height, final int fps, final GameState gameState, final EnhanceManager enhanceManager) {
+    public StoreScreen(final int width, final int height, final int fps, final GameState gameState, final EnhanceManager enhanceManager, final ItemManager itemManager) {
         super(width, height, fps);
         // Defaults to play.
         this.returnCode = 35;
@@ -46,6 +49,7 @@ public class StoreScreen extends Screen {
         this.coin = gameState.getCoin();
         this.gameState = gameState;
         this.enhanceManager = enhanceManager;
+        this.itemManager = itemManager;
         soundEffect = new SoundEffect();
     }
 
@@ -96,9 +100,9 @@ public class StoreScreen extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 soundEffect.playSpaceButtonSound();
                 if (returnCode == 35){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= 10 && gameState != null)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.itemManager.PlusShieldCount(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }
@@ -109,7 +113,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 36 && gameState != null){
                     if (this.coin.getCoin() >= 10)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.itemManager.PlusBombCount(1);
                         this.coin.minusCoin(10);
                         System.out.println("plese do");
                     }
@@ -210,7 +214,7 @@ public class StoreScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawCoin(this, this.coin, 2);
-        drawManager.drawItemStore(this, this.returnCode, PST, BST);
+        drawManager.drawItemStore(this, this.returnCode, PST, BST, this.itemManager);
         drawManager.completeDrawing(this);
     }
     
