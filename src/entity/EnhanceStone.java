@@ -5,10 +5,10 @@ import java.awt.Color;
 import engine.DrawManager.SpriteType;
 
 public class EnhanceStone extends Item{
-    /** Current Level of Enhancement Area. */
-    private int lvEnhanceArea;
     /** Current Level of Enhancement Attack. */
     private int lvEnhanceAttack;
+    /** Current Level of Enhancement Area. */
+    private int lvEnhanceArea;
     /** Current Value of Enhanced Area. */
     private int attackDamage;
     /** Current Value of Enhanced Attack. */
@@ -18,8 +18,16 @@ public class EnhanceStone extends Item{
      * Constructor, establishes the Item's properties.
      * and Set sprite dot image which can find what Item it ts.
      *
-     * @param positionX Initial position of the Item in the X axis.
-     * @param positionY Initial position of the Item in the Y axis.
+     * @param positionX 
+     *            Initial position of the Item in the X axis.
+     * @param positionY 
+     *            Initial position of the Item in the Y axis.
+     * @param lvEnhanceAttack 
+     *            Initial Level of enhanced Stone of Attack.
+     * @param lvEnhanceArea 
+     *            Initial Level of enhanced Stone of Area.
+     * @param attackDamage 
+     *            Initial Damage of bullet of ship.
      */
     public EnhanceStone(final int positionX, final int positionY,
                         final int lvEnhanceArea, final int lvEnhanceAttack,

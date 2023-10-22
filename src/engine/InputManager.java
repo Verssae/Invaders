@@ -15,6 +15,7 @@ public final class InputManager implements KeyListener {
 	private static final int NUM_KEYS = 256;
 	/** Array with the jeys marked as pressed or not. */
 	private static boolean[] keys;
+	private static boolean[] keyPressedOnce;
 	/** Singleton instance of the class. */
 	private static InputManager instance;
 
@@ -23,6 +24,7 @@ public final class InputManager implements KeyListener {
 	 */
 	private InputManager() {
 		keys = new boolean[NUM_KEYS];
+		keyPressedOnce = new boolean[NUM_KEYS];
 	}
 
 	/**
@@ -47,6 +49,14 @@ public final class InputManager implements KeyListener {
 		return keys[keyCode];
 	}
 
+	public boolean isKeyPressedOnce(final int keyCode) {
+        boolean pressedOnce = keyPressedOnce[keyCode];
+        if (pressedOnce) {
+            keyPressedOnce[keyCode] = false; // 한 번만 눌린 상태를 초기화
+        }
+        return pressedOnce;
+    }
+
 	/**
 	 * Changes the state of the key to pressed.
 	 * 
@@ -57,6 +67,7 @@ public final class InputManager implements KeyListener {
 	public void keyPressed(final KeyEvent key) {
 		if (key.getKeyCode() >= 0 && key.getKeyCode() < NUM_KEYS)
 			keys[key.getKeyCode()] = true;
+			keyPressedOnce[key.getKeyCode()] = true;
 	}
 
 	/**
