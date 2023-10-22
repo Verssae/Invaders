@@ -20,6 +20,7 @@ import screen.RandomBoxScreen;
 import screen.RandomRewardScreen;
 import screen.RecoveryPaymentScreen;
 import screen.RecoveryScreen;
+import screen.ScoreMenuScreen;
 import screen.ScoreScreen;
 import screen.Screen;
 import screen.SelectScreen;
