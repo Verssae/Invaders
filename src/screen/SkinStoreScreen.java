@@ -1,11 +1,13 @@
 package screen;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
 import engine.GameState;
+import engine.SkinBuyManager;
 import engine.SoundEffect;
 import entity.Coin;
 
@@ -21,11 +23,16 @@ public class SkinStoreScreen extends Screen {
 
     private Coin coin;
 
-    private int PST;
-
-    private int BST;
     private EnhanceManager enhanceManager;
     private GameState gameState;
+    private SkinBuyManager skinBuyManager;
+
+    private int skinPrice = 1;
+
+    private Color skinColor1 = Color.YELLOW;
+    private Color skinColor2 = Color.BLUE;
+    private Color skinColor3 = Color.RED;
+    private Color skinColor4 = Color.CYAN;
  
      /**
       * Constructor, establishes the properties of the screen.
@@ -37,19 +44,18 @@ public class SkinStoreScreen extends Screen {
       * @param fps
       *               Frames per second, frame rate at which the game is run.
       */
-     public SkinStoreScreen(final int width, final int height, final int fps) {
+     public SkinStoreScreen(final int width, final int height, final int fps, final GameState gameState, final EnhanceManager enhanceManager) {
          super(width, height, fps);
  
          // Defaults to play.
          this.returnCode = 86;
-         this.BST = enhanceManager.getNumEnhanceStoneArea();
-         this.PST = enhanceManager.getNumEnhanceStoneAttack();
          this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
          this.selectionCooldown.reset();
          this.coin = gameState.getCoin();
          this.gameState = gameState;
          this.enhanceManager = enhanceManager;
          soundEffect = new SoundEffect();
+         this.skinBuyManager = new SkinBuyManager(gameState);
      }
  
      /**
@@ -98,44 +104,40 @@ public class SkinStoreScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 soundEffect.playSpaceButtonSound();
-                if (returnCode == 35){
-                    if (this.coin.getCoin() >= 10)
+                if (returnCode == 86){
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor1, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
                         
                     }
                 }
-                if (returnCode == 36 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                if (returnCode == 88 && gameState != null){
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor3, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
 
                     }
                 }
-                if (returnCode == 37 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                if (returnCode == 87 && gameState != null){
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor2, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
                         
                     }
                 }
-                if (returnCode == 38 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                if (returnCode == 89 && gameState != null){
+                    if (this.coin.getCoin() >= skinPrice)
                     {
-                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
-                        this.coin.minusCoin(10);
+                        skinBuyManager.purchaseSkin(skinColor4, skinPrice);
                         System.out.println("plese do");
                     }
                     else{
@@ -152,65 +154,65 @@ public class SkinStoreScreen extends Screen {
       */
       private void UpMenuSkin() {
         if (this.returnCode == 86)
-            this.returnCode = 14;
-        else if (this.returnCode == 14)
+            this.returnCode = 8;
+        else if (this.returnCode == 8)
             this.returnCode = 87;
         else if (this.returnCode == 87)
-            this.returnCode = 88;
+            this.returnCode = 86;
         else if (this.returnCode == 88)
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
             this.returnCode = 89;
-        else if (this.returnCode == 15)
-            this.returnCode = 90;
-        else if (this.returnCode == 90)
-            this.returnCode = 91;
+        else if (this.returnCode == 89)
+            this.returnCode = 88;
     }
  
     private void DownMenuSkin() {
-        if (this.returnCode == 35)
-            this.returnCode = 37;
-        else if (this.returnCode == 37)
-            this.returnCode = 14;
-        else if (this.returnCode == 14)
+        if (this.returnCode == 86)
+            this.returnCode = 87;
+        else if (this.returnCode == 87)
+            this.returnCode = 8;
+        else if (this.returnCode == 8)
+            this.returnCode = 86;
+        else if (this.returnCode == 88)
+            this.returnCode = 89;
+        else if (this.returnCode == 89)
             this.returnCode = 35;
-        else if (this.returnCode == 36)
-            this.returnCode = 38;
-        else if (this.returnCode == 38)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
-            this.returnCode = 36;
+        else if (this.returnCode == 35)
+            this.returnCode = 88;
     }
     private void rightMenuSkin() {
-        if (this.returnCode == 35)
-            this.returnCode = 36;
-        else if (this.returnCode == 36)
-            this.returnCode = 35;
-        else if (this.returnCode == 37)
-            this.returnCode = 38;   
-        else if (this.returnCode == 38)
-            this.returnCode = 37;
-        else if (this.returnCode == 14)
+        if (this.returnCode == 86)
+            this.returnCode = 88;
+        else if (this.returnCode == 88)
+            this.returnCode = 86;
+        else if (this.returnCode == 87)
+            this.returnCode = 89;   
+        else if (this.returnCode == 89)
+            this.returnCode = 87;
+        else if (this.returnCode == 8)
             this.returnCode = 2;
         else if (this.returnCode == 2)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
-            this.returnCode = 14;                                                     
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
+            this.returnCode = 8;                                                     
     }
 
     private void leftMenuSkin() {
-        if (this.returnCode == 35)
-            this.returnCode = 36;
-        else if (this.returnCode == 36)
-            this.returnCode = 35;
-        else if (this.returnCode == 37)
-            this.returnCode = 38;   
-        else if (this.returnCode == 38)
-            this.returnCode = 37;
-        else if (this.returnCode == 14)
-            this.returnCode = 15;  
-        else if (this.returnCode == 15)
+        if (this.returnCode == 86)
+            this.returnCode = 88;
+        else if (this.returnCode == 88)
+            this.returnCode = 86;
+        else if (this.returnCode == 87)
+            this.returnCode = 89;   
+        else if (this.returnCode == 89)
+            this.returnCode = 87;
+        else if (this.returnCode == 8)
+            this.returnCode = 35;  
+        else if (this.returnCode == 35)
             this.returnCode = 2;
         else if (this.returnCode == 2)
-            this.returnCode = 14;            
+            this.returnCode = 8;            
     }
  
      /**
