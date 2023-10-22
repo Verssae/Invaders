@@ -637,7 +637,7 @@ public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets_2p: " + String.format("%02d", BulletsCount_2p);
-		backBufferGraphics.drawString(text, screen.getWidth() - 200, 88);
+		backBufferGraphics.drawString(text, screen.getWidth() - 200, 80);
 	}
 
 	/**
@@ -2183,7 +2183,7 @@ if (option == 35)
 
 	public void gameOver(final Screen screen, boolean levelFinished, double lives,int bullets, CountUpTimer timer, Coin coin, String clearcoin){
 		if(levelFinished){
-			if(lives == 0 || bullets==0){
+			if(lives <= 0 || bullets<=0){
 				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
 				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight());
 
