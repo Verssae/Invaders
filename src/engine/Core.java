@@ -10,22 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import entity.Coin;
-import screen.EnhanceScreen;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.HighScoreScreen;
-import screen.RandomBoxScreen;
-import screen.RandomRewardScreen;
-import screen.RecoveryPaymentScreen;
-import screen.RecoveryScreen;
-import screen.ScoreScreen;
-import screen.Screen;
-import screen.SelectScreen;
-import screen.SkinStoreScreen;
-import screen.StageSelectScreen;
-import screen.StoreScreen;
-import screen.SubMenuScreen;
-import screen.TitleScreen;
+import screen.*;
 
 /**
  * Implements core game logic.
@@ -466,7 +451,12 @@ public final class Core {
                     }
                     else if(scorescreen == 32)
                     {
-
+                        currentScreen = new TwoPlayHighScoreScreen(width, height, FPS);
+                        LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                + " Two Play high score screen at " + FPS + " fps.");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing Two Play high score screen.");
+                        break;
                     }
                     else
                         returnCode = frame.setScreen(currentScreen);
@@ -573,7 +563,7 @@ public final class Core {
                             + gameState_2P.getBulletsShot_1P() + " Ship_1P bullets shot and "
                             + gameState_2P.getBulletsShot_2P() + " Ship_2P bullets shot and "
                             + gameState_2P.getShipsDestroyed() + " ships destroyed.");
-                    currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
+                    currentScreen = new TwoPlayScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
 
                     if(returnCode==2){
