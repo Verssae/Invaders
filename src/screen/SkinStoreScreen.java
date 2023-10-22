@@ -27,7 +27,7 @@ public class SkinStoreScreen extends Screen {
     private GameState gameState;
     private SkinBuyManager skinBuyManager;
 
-    private int skinPrice = 1;
+    private int skinPrice = 200;
 
     private Color skinColor1 = Color.YELLOW;
     private Color skinColor2 = Color.BLUE;
@@ -112,8 +112,7 @@ public class SkinStoreScreen extends Screen {
                         else{
                             skinBuyManager.equipSkin(Color.YELLOW);
                         }
-                    }
-                    else{
+                    } else if (!(skinBuyManager.isSkinOwned(Color.YELLOW))){
                         if (this.coin.getCoin() >= skinPrice) {
                             skinBuyManager.purchaseSkin(skinColor1, skinPrice);
                             skinBuyManager.equipSkin(skinColor1);
@@ -123,28 +122,11 @@ public class SkinStoreScreen extends Screen {
                         
                         }
                     }
+                    else{
+                        
+                    }
                 }
                 if (returnCode == 88 && gameState != null){
-                    if(skinBuyManager.isSkinOwned(skinColor3)){
-                        if(skinBuyManager.isSkinEquipped(skinColor3)){
-                            skinBuyManager.unequipSkin(skinColor3);
-                        }
-                        else{
-                            skinBuyManager.equipSkin(skinColor3);
-                        }
-                    }
-                    else{
-                        if (this.coin.getCoin() >= skinPrice) {
-                            skinBuyManager.purchaseSkin(skinColor3, skinPrice);
-                            skinBuyManager.equipSkin(skinColor3);
-                            System.out.println("plese do");
-                        }
-                        else{
-                        
-                        }
-                    }
-                }
-                if (returnCode == 87 && gameState != null){
                     if(skinBuyManager.isSkinOwned(skinColor2)){
                         if(skinBuyManager.isSkinEquipped(skinColor2)){
                             skinBuyManager.unequipSkin(skinColor2);
@@ -157,6 +139,26 @@ public class SkinStoreScreen extends Screen {
                         if (this.coin.getCoin() >= skinPrice) {
                             skinBuyManager.purchaseSkin(skinColor2, skinPrice);
                             skinBuyManager.equipSkin(skinColor2);
+                            System.out.println("plese do");
+                        }
+                        else{
+                        
+                        }
+                    }
+                }
+                if (returnCode == 87 && gameState != null){
+                    if(skinBuyManager.isSkinOwned(skinColor3)){
+                        if(skinBuyManager.isSkinEquipped(skinColor3)){
+                            skinBuyManager.unequipSkin(skinColor3);
+                        }
+                        else{
+                            skinBuyManager.equipSkin(skinColor3);
+                        }
+                    }
+                    else{
+                        if (this.coin.getCoin() >= skinPrice) {
+                            skinBuyManager.purchaseSkin(skinColor3, skinPrice);
+                            skinBuyManager.equipSkin(skinColor3);
                             System.out.println("plese do");
                         }
                         else{
