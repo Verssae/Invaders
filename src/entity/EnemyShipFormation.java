@@ -79,6 +79,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int shootingVariance;
 	/** Initial ship speed. */
 	private int baseSpeed;
+	/** Initial ship speed. */
+	private int baseAttackDamage;
+	/** Initial ship speed. */
+	private int baseAreaDamage;
 	/** Speed of the ships. */
 	private int movementSpeed;
 	/** Current direction the formation is moving on. */
@@ -115,6 +119,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** how many moved enemy ship */
 	private int movementExtend;
 	private boolean isExtend = true;
+	private int prevAttackedPositionX;
+	private int prevAttackedPositionY;
+	private int shipsDestroyed;
 
 
 	/** Directions the formation can move. */
@@ -148,6 +155,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shootingVariance = (int) (gameSettings.getShootingFrecuency()
 					* SHOOTING_VARIANCE);
 			this.baseSpeed = gameSettings.getBaseSpeed();
+			this.baseAttackDamage = gameSettings.getBaseAttackDamage();
 			this.movementSpeed = this.baseSpeed;
 			this.positionX = INIT_POS_X;
 			this.positionY = INIT_POS_Y;
@@ -155,6 +163,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.level = level;
 			this.extend_check =1;
 			this.shooters = new ArrayList<EnemyShip>();
+			this.prevAttackedPositionX = 0;
+			this.prevAttackedPositionY = 0;
+
 			SpriteType spriteType;
 
 			this.logger.info("Initializing " + nShipsWide + "x" + nShipsHigh
@@ -572,13 +583,16 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shootingCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				bullets.add(BulletPool.getBullet(shooter.getPositionX()
-						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED)); // (int)(Math.random() * BULLET_SPEED) + 1)
+						+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, 
+						this.baseAttackDamage)); // (int)(Math.random() * BULLET_SPEED) + 1)
 				soundEffect.playEnemyShootingSound();
 				if(shooter.checkIsBoss()) {
 					bullets.add(BulletPool.getBullet(shooter.getPositionX()
-							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletLeft));
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, 
+							SpriteType.EnemyBulletLeft, this.baseAttackDamage));
 					bullets.add(BulletPool.getBullet(shooter.getPositionX()
-							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, SpriteType.EnemyBulletRight));
+							+ shooter.width / 2, shooter.getPositionY(), BULLET_SPEED, 
+							SpriteType.EnemyBulletRight, this.baseAttackDamage));
 
 				}
 			};
@@ -597,7 +611,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				if (column.get(i).equals(destroyedShip)) {
 					column.get(i).destroy(items);
 					this.logger.info("Destroyed ship in ("
-							+ this.enemyShips.indexOf(column) + "," + i + ")");
+							+ this.enemyShips.indexOf(column) + "," + i + ")"); // 수정
 				}
 
 		// Updates the list of ships that can shoot the player.
@@ -625,6 +639,97 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 		}
 		this.shipCount--;
+
+	}
+
+	/**
+	 * Destroys a ship.
+	 * 
+	 * @param lvEnhanceArea
+	 *            Level Enhanced about Area.
+	 * @param destroyedShip
+	 *            Ship to be destroyed.
+	 */
+	public final void destroy(final int lvEnhanceArea, final EnemyShip destroyedShip, Set<Item> items) {
+		this.shipsDestroyed = 0;
+		for (List<EnemyShip> column : this.enemyShips)
+			for (int i = 0; i < column.size(); i++)
+				if (column.get(i).equals(destroyedShip)) {
+					column.get(i).destroy(items);
+					this.areaDestory(lvEnhanceArea, column, i, 3, items);
+					this.logger.info("Destroyed ship in ("
+							+ this.enemyShips.indexOf(column) + "," + i + ")"); // 수정
+				}
+
+		// Updates the list of ships that can shoot the player.
+		if(this.shooters.contains(destroyedShip)){
+			int destroyedShipIndex = this.shooters.indexOf(destroyedShip);
+			int destroyedShipColumnIndex = -1;
+
+			for(List<EnemyShip> column : this.enemyShips){
+				if(column.contains(destroyedShip)){
+					destroyedShipColumnIndex = this.enemyShips.indexOf(column);
+					break;
+				}
+			}
+			List<EnemyShip> column = this.enemyShips.get(destroyedShipColumnIndex);
+			int destroyedShipRowIndex = column.indexOf(destroyedShip);
+			EnemyShip nextShooter = getNextShooter(column, destroyedShipRowIndex);
+			if (nextShooter != null)
+				this.shooters.set(destroyedShipIndex, nextShooter);
+			else {
+				this.shooters.remove(destroyedShipIndex);
+				this.logger.info("Shooters list reduced to "
+						+ this.shooters.size() + " members.");
+			}
+
+
+		}
+		this.shipCount--;
+		this.shipCount -= this.shipsDestroyed; 
+	}
+
+	/**
+	 * Destorys a ship using Area-enhanced bullets
+	 * 
+	 * @param column
+	 *            PositionX of Enemyship destroyed
+	 * @param row
+	 *            PositionY of Enmeyship destroyed
+	 * @param damage
+	 *            Enhanced Attck damage
+	 * @param itmes
+	 *            Items dropped when EnemyShip died
+	 */
+	public final void areaDestory(final int lvEnhanceArea, final List<EnemyShip> column, final int row, final int damage, Set<Item> items) {
+		try {
+			if(lvEnhanceArea >= 1) {
+				column.get(row-1).reduceEnemyLife(damage);
+				column.get(row-1).destroy(items);
+				this.shipsDestroyed += 1;
+			}
+		} catch (IndexOutOfBoundsException e) {
+		}
+		try {
+			if(lvEnhanceArea >= 2) {
+				column.get(row-2).reduceEnemyLife(damage);
+				column.get(row-2).destroy(items);
+				this.shipsDestroyed += 1;
+			}
+		} catch (IndexOutOfBoundsException e) {
+		}
+		try {
+			if(lvEnhanceArea >= 3) {
+				column.get(row-3).reduceEnemyLife(damage);
+				column.get(row-3).destroy(items);
+				this.shipsDestroyed += 1;
+			}
+		} catch (IndexOutOfBoundsException e) {
+		}
+	}
+
+	public final int getShipsDestroyed() {
+		return this.shipsDestroyed;
 	}
 
 	/**

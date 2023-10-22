@@ -4,8 +4,10 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
+import engine.EnhanceManager;
 import engine.GameState;
 import engine.SoundEffect;
+import entity.Coin;
 
 public class SkinStoreScreen extends Screen {
      /** Milliseconds between changes in user selection. */
@@ -14,11 +16,13 @@ public class SkinStoreScreen extends Screen {
      /** Time between changes in user selection. */
      private Cooldown selectionCooldown;
 
-     private int enhanceStone = 0;
-     private int numEnhanceArea = 0;
-     private int numEnhanceDamage = 0;
     /** For selection moving sound */
     private SoundEffect soundEffect;
+
+    private Coin coin;
+
+    private EnhanceManager enhanceManager;
+    private GameState gameState;
  
      /**
       * Constructor, establishes the properties of the screen.
@@ -30,15 +34,16 @@ public class SkinStoreScreen extends Screen {
       * @param fps
       *               Frames per second, frame rate at which the game is run.
       */
-     public SkinStoreScreen(final int width, final int height, final int fps) {
+     public SkinStoreScreen(final int width, final int height, final int fps, final GameState gameState, final EnhanceManager enhanceManager) {
          super(width, height, fps);
  
          // Defaults to play.
          this.returnCode = 86;
          this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
          this.selectionCooldown.reset();
-        //  this.score = gameState.getScore();
-
+         this.coin = gameState.getCoin();
+         this.gameState = gameState;
+         this.enhanceManager = enhanceManager;
          soundEffect = new SoundEffect();
      }
  
@@ -60,58 +65,169 @@ public class SkinStoreScreen extends Screen {
          super.update();
  
          draw();
-         if (this.selectionCooldown.checkFinished()
-                 && this.inputDelay.checkFinished()) {
-             if (inputManager.isKeyDown(KeyEvent.VK_UP)
-                     || inputManager.isKeyDown(KeyEvent.VK_W)) {
-                 soundEffect.playButtonClickSound();
-                 previousMenuItem();
-                 this.selectionCooldown.reset();
-             }
-             if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
-                     || inputManager.isKeyDown(KeyEvent.VK_S)) {
-                 soundEffect.playButtonClickSound();
-                 nextMenuItem();
-                 this.selectionCooldown.reset();
-             }
-             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-                 soundEffect.playSpaceButtonSound();
-                 this.isRunning = false;
-             }
-         }
+        if (this.selectionCooldown.checkFinished()
+                && this.inputDelay.checkFinished()) {
+            if (inputManager.isKeyDown(KeyEvent.VK_UP)
+                    || inputManager.isKeyDown(KeyEvent.VK_W)) {
+                soundEffect.playButtonClickSound();
+                UpMenuSkin();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
+                    || inputManager.isKeyDown(KeyEvent.VK_S)) {
+                soundEffect.playButtonClickSound();
+                DownMenuSkin();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+                    || inputManager.isKeyDown(KeyEvent.VK_D)) {
+                soundEffect.playButtonClickSound();
+                rightMenuSkin();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+                    || inputManager.isKeyDown(KeyEvent.VK_A)) {
+                soundEffect.playButtonClickSound();
+                leftMenuSkin();
+                this.selectionCooldown.reset();
+            }
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
+                soundEffect.playSpaceButtonSound();
+                if (returnCode == 86){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+                        
+                    }
+                }
+                if (returnCode == 88 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+
+                    }
+                }
+                if (returnCode == 87 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+                        
+                    }
+                }
+                if (returnCode == 89 && gameState != null){
+                    if (this.coin.getCoin() >= 10)
+                    {
+                        this.enhanceManager.PlusNumEnhanceStoneArea(1);
+                        this.coin.minusCoin(10);
+                        System.out.println("plese do");
+                    }
+                    else{
+                        
+                    }
+                }
+                this.isRunning = false;
+            }
+        }
      }
  
      /**
       * Shifts the focus to the next menu item.
       */
-     private void nextMenuItem() {
-         if (this.returnCode == 16)
-             this.returnCode = 16; //화면 넣을 순서 정해지면 변경
-         else if (this.returnCode == 16)
-             this.returnCode = 2;
-        else
-            this.returnCode = 16;
-     }
+      private void UpMenuSkin() {
+        if (this.returnCode == 86)
+            this.returnCode = 8;
+        else if (this.returnCode == 8)
+            this.returnCode = 87;
+        else if (this.returnCode == 87)
+            this.returnCode = 86;
+        else if (this.returnCode == 88)
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
+            this.returnCode = 89;
+        else if (this.returnCode == 89)
+            this.returnCode = 88;
+    }
  
-     /**
-      * Shifts the focus to the previous menu item.
-      */
-     private void previousMenuItem() {
-        if (this.returnCode == 2)
-             this.returnCode = 16;
-        else if (this.returnCode == 16)
-            this.returnCode = 16;
-        else
-             this.returnCode = 2;
-     } 
+    private void DownMenuSkin() {
+        if (this.returnCode == 86)
+            this.returnCode = 87;
+        else if (this.returnCode == 87)
+            this.returnCode = 8;
+        else if (this.returnCode == 8)
+            this.returnCode = 86;
+        else if (this.returnCode == 88)
+            this.returnCode = 89;
+        else if (this.returnCode == 89)
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
+            this.returnCode = 88;
+    }
+    private void rightMenuSkin() {
+        if (this.returnCode == 86)
+            this.returnCode = 88;
+        else if (this.returnCode == 88)
+            this.returnCode = 86;
+        else if (this.returnCode == 87)
+            this.returnCode = 89;   
+        else if (this.returnCode == 89)
+            this.returnCode = 87;
+        else if (this.returnCode == 8)
+            this.returnCode = 2;
+        else if (this.returnCode == 2)
+            this.returnCode = 35;
+        else if (this.returnCode == 35)
+            this.returnCode = 8;                                                     
+    }
+
+    private void leftMenuSkin() {
+        if (this.returnCode == 86)
+            this.returnCode = 88;
+        else if (this.returnCode == 88)
+            this.returnCode = 86;
+        else if (this.returnCode == 87)
+            this.returnCode = 89;   
+        else if (this.returnCode == 89)
+            this.returnCode = 87;
+        else if (this.returnCode == 8)
+            this.returnCode = 35;  
+        else if (this.returnCode == 35)
+            this.returnCode = 2;
+        else if (this.returnCode == 2)
+            this.returnCode = 8;            
+    }
  
      /**
       * Draws the elements associated with the screen.
       */
-     private void draw() {
-         drawManager.initDrawing(this);
-         drawManager.drawSkinStore(this, this.returnCode);
-         drawManager.completeDrawing(this);
-     }
+      private void draw() {
+        drawManager.initDrawing(this);
+        drawManager.drawCoin(this, this.coin, 2);
+        drawManager.drawSkinStore(this, this.returnCode);
+        drawManager.completeDrawing(this);
+    }
     
+    /**
+	 * Returns a DrawManager object representing the status of the game.
+	 *
+	 * @return Current game state.
+	 */
+    public EnhanceManager getEnhanceManager() {
+		return this.enhanceManager;
+	}
+
+    public GameState getGameState() {
+        return this.gameState;
+    }
 }
