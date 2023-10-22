@@ -2436,10 +2436,10 @@ if (option == 35)
 			if ( (30 <timercount && timercount<50) || (110 <timercount && timercount<130) ) y1 -=5;
 			else if (70<timercount && timercount <90) x1+=5;
 
-			this.drawEntity(SpriteType.values()[12],x1+15,y1+10,2.3,2.3, Color.white);
-			this.drawEntity(SpriteType.values()[14],x1+60,y1+10,2.4,2.4, Color.white);
-			this.drawEntity(SpriteType.values()[18],x1+100,y1+10,3,2.4, Color.white);
-			this.drawEntity(SpriteType.values()[25],x1+145,y1+13,2,2, Color.white);
+			this.drawEntity(SpriteType.ESnA_1,x1+15,y1+10,2.3,2.3, Color.white);
+			this.drawEntity(SpriteType.ESnB_1,x1+60,y1+10,2.4,2.4, Color.white);
+			this.drawEntity(SpriteType.ESm1_1,x1+100,y1+10,3,2.4, Color.white);
+			this.drawEntity(SpriteType.ESm2B_1,x1+145,y1+13,2,2, Color.white);
 		}
 
 
