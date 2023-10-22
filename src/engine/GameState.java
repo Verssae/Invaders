@@ -1,12 +1,14 @@
 package engine;
 
+import java.awt.Color;
+
 import entity.Coin;
 
 /**
  * Implements an object that stores the state of the game between levels.
- *
+ * 
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
- *
+ * 
  */
 public class GameState {
 
@@ -28,13 +30,15 @@ public class GameState {
 	/** HardCore(Only One life) */
 	private boolean hardcore;
 
+	private Color shipColor;
+
 	private int BulletsRemaining;
 
 
 
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * @param level
 	 *            Current game level.
 	 * @param score
@@ -51,8 +55,8 @@ public class GameState {
 	 *            Hardcore mode, Only one coin.
 	 */
 	public GameState(final int level, final int score, final Coin coin,
-					 final double livesRemaining, final int bulletsShot,
-					 final int shipsDestroyed, final boolean hardcore, final int BulletsRemaining) {
+			final double livesRemaining, final int bulletsShot,
+			final int shipsDestroyed, final boolean hardcore, final Color shipColor) {
 		this.level = level;
 		this.score = score;
 		this.coin = coin;
@@ -61,6 +65,16 @@ public class GameState {
 		this.shipsDestroyed = shipsDestroyed;
 		this.hardcore = hardcore;
 		this.BulletsRemaining = BulletsRemaining;
+		this.shipColor = shipColor;
+
+	}
+
+	public final Color getShipColor(){
+		return shipColor;
+	}
+
+	public final void setShipColor(Color color){
+		this.shipColor = color;
 	}
 
 	/**
@@ -136,11 +150,9 @@ public class GameState {
 	/**
 	 * Set LivesRecovery
 	 */
-	public final void setLivesRecovery() {
-		this.score = getScore() + 100; // keeping score
-		this.level = getLevel() -1;
+	 public final void setLivesRecovery() {
+		this.score = getScore() + 100; // keeping score 
+		this.level = getLevel() -1; 
 		this.livesRemaining = 3;
 	}
 	public final int getBulletsRemaining() { return BulletsRemaining;}
-
-}

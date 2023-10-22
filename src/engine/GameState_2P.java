@@ -39,11 +39,8 @@ public class GameState_2P {
      *
      * @param level
      *            Current game level.
-     * @param score_1P
-     *            1P's Current score.
-     * @param score_2P
-     *            2p's Current score.
-     *
+     * @param score
+     *            Current score.
      * @param livesRemaining
      *            Lives currently remaining.
      * @param bulletsShot

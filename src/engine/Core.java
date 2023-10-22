@@ -1,5 +1,6 @@
 package engine;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
@@ -179,8 +180,8 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false,99);
-            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES,50,50);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE,99);
+            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES,50,50;
             enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
 
@@ -264,6 +265,7 @@ public final class Core {
                                 gameState.getShipsDestroyed(),
                                 gameState.getHardCore(),
                                 99);
+                                gameState.getHardCore(), gameState.getShipColor());
 
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
@@ -306,6 +308,8 @@ public final class Core {
 							}
 							if (currentScreen.returnCode == 86 || currentScreen.returnCode == 15) {
 								currentScreen = new SkinStoreScreen(width, height, FPS, gameState, enhanceManager);
+                                gameState = ((SkinStoreScreen) currentScreen).getGameState();
+                                //gameScreen = ((SkinStoreScreen) currentScreen).getGameScreen();
 								LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 										+ "skin store screen at " + FPS + " fps.");
 								returnCode = frame.setScreen(currentScreen);
@@ -333,27 +337,27 @@ public final class Core {
                                 + " Recovery screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
                         LOGGER.info("Closing RecoveryPayment screen.");
-
+                        
                         // Checking for Recovery Feasibility and Deducting Recovery Coins.
                         if (returnCode == 51){
 
                             int coinnum = gameState.getCoin().getCoin();
-
+                            
                             if (coinnum >= 30 ){
                                 Coin recoveryCoin = new Coin(0, 0);
                                 recoveryCoin.addCoin(coinnum);
                                 recoveryCoin.minusCoin(30);
                                 gameState.setCoin(recoveryCoin);
-
+                                
                                 // Continuing game in same state (Ship: default state)
 						        gameState.setLivesRecovery();
-						        do {
+						        do { 
                                     currentScreen = new GameScreen(gameState,
 								    gameSettings.get(gameState.getLevel()-1),
                                     enhanceManager, itemManager,
                                     width, height, FPS);
 
-
+                             
                                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                                     + " game screen at " + FPS + " fps.");
                                     returnCode = frame.setScreen(currentScreen);
@@ -367,6 +371,7 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
+                                        gameState.getHardCore(), gameState.getShipColor());
                                         gameState.getHardCore(),
                                     99);
 
@@ -394,7 +399,7 @@ public final class Core {
                                             currentScreen = new StoreScreen(width, height, FPS, gameState, enhanceManager, itemManager);
                                             enhanceManager = ((StoreScreen) currentScreen).getEnhanceManager();
                                             gameState = ((StoreScreen)currentScreen).getGameState();
-
+                                            
                                             LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                                 + " store screen at " + FPS + " fps.");
                                             returnCode = frame.setScreen(currentScreen);
@@ -419,7 +424,7 @@ public final class Core {
                                     } while (currentScreen.returnCode != 2); {
                                             returnCode = frame.setScreen(currentScreen);
                                             LOGGER.info("Closing subMenu screen.");
-
+                                        
                                         } while (currentScreen.returnCode != 2);
                                         boxOpen = false;
                                         isInitMenuScreen = true;
@@ -431,8 +436,8 @@ public final class Core {
                                     frame.setScreen(currentScreen);
                                     break;
                                 }
-                            } else {
-                                // If there is an insufficient number of coins required for recovery
+                            } else { 
+                                // If there is an insufficient number of coins required for recovery 
                                 returnCode = 1; }
 					    }
                     }
@@ -486,8 +491,7 @@ public final class Core {
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
                     stage = frame.setScreen(currentScreen);
-
-                    outgame_bgm.OutGame_bgm_stop(); //2p 모드 시작하며 outgame bgm stop
+                    outgame_bgm.OutGame_bgm_stop();//2p mode 시작하며 outgame bgm stop
 
                     if (stage == 0) {
                         returnCode = 4;
@@ -527,12 +531,8 @@ public final class Core {
                     }
                     //while (gameState.getLivesRemaining() > 0
                     // && gameState.getLevel() <= NUM_LEVELS &&gameState.getLivesRemaining_2p() >0);
-//                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
-//                            && (gameState_2P.getLevel() <= NUM_LEVELS) && !(BulletsRemaining_1p==0 && BulletsRemaining_2p==0));
-                    while (gameState_2P.getLevel() <= NUM_LEVELS
-                            && ((gameState_2P.getLivesRemaining() > 0 && BulletsRemaining_1p > 0)
-                            || (gameState_2P.getLivesRemaining_2p() > 0 && BulletsRemaining_2p > 0)));
-
+                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
+                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));
                     if (returnCode == 1) { //Quit during the game
                         frame.setScreen(currentScreen);
                         break;
