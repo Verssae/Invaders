@@ -461,13 +461,38 @@ public final class Core {
                     LOGGER.info("Closing score screen.");
                     break;
                 case 3:
+
                     // High scores.
+                    currentScreen = new ScoreMenuScreen(width, height, FPS);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " high score menu screen at " + FPS + " fps.");
+                    int scorescreen = frame.setScreen(currentScreen);
+                    if(scorescreen == 31)
+                    {
+                        currentScreen = new HighScoreScreen(width, height, FPS);
+                        LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                + " high score screen at " + FPS + " fps.");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing high score screen.");
+                        break;
+                    }
+                    else if(scorescreen == 32)
+                    {
+
+                    }
+                    else
+                        returnCode = frame.setScreen(currentScreen);
+                    LOGGER.info("Closing high score menu screen.");
+                    break;
+
+                    /**
                     currentScreen = new HighScoreScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                             + " high score screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing high score screen.");
                     break;
+                    **/
+
                 case 4:
                     currentScreen = new SelectScreen(width, height, FPS, 0);
                     LOGGER.info("Select Difficulty");

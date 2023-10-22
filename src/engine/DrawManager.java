@@ -1143,6 +1143,43 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws score menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+	public void drawScoreMenu(final Screen screen, final int option) {
+		String SelectString = "Select Mode with W + S, confirm with SPACE.";
+		String OnePlayScoreString = "O n e  P l a y e r";
+		String TwoPlayScoreString = "T w o  P l a y e r";
+		String MainMenuString = "M a i n  M e n u";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
+		if (option == 31)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, OnePlayScoreString,
+				screen.getHeight() / 3 * 2);
+		if (option == 32)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, TwoPlayScoreString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, MainMenuString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+
+	}
+
+	/**
 	 * Draws Recovery select menu.
 	 *
 	 * @param screen
