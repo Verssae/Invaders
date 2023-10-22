@@ -46,19 +46,19 @@ public class Item extends Entity {
      */
     public void setSprite() {
         double type = Math.random();
-        if(type < 0.2){//20%
+        if(type < 0.2){ //20%
             this.spriteType = SpriteType.Buff_Item;
             this.setColor(Color.GREEN);
-        }else if(type < 0.4){//20%
+        }else if(type < 0.4){ //20%
             this.spriteType = SpriteType.Debuff_Item;
             this.setColor(Color.GRAY);
-        }else if(type < 0.7) {//10%
+        }else if(type < 0.5){ //10%
             this.spriteType = SpriteType.BlueEnhanceStone;
             this.setColor(Color.BLUE);
-        }else if(type < 0.8){ //10%
+        }else if(type < 0.6){ //10%
             this.spriteType = SpriteType.PerpleEnhanceStone;
             this.setColor(Color.magenta);
-        }else{ // 40%
+        }else if(type < 0.8){ //20%
             this.spriteType = SpriteType.Coin;
             this.setColor(Color.YELLOW);
         }

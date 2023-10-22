@@ -89,8 +89,8 @@ public class RandomBoxScreen extends Screen {
             }
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
                 if (this.returnCode == 20) {
-                    int rewardType =  (int) (Math.random() * 2); //0 : coin, 1: 강화석
-                    if (rewardType == 0){
+                    int probability = (int) (Math.random() * 10);
+                    if (probability >= 0 && probability <= 7) {
                         int randomCoin = (int) (Math.random() * 11) * 5;
                         getRandomCoin = Integer.toString(randomCoin);
                         this.coin.addCoin(randomCoin);
@@ -99,8 +99,7 @@ public class RandomBoxScreen extends Screen {
                         this.rewardTypeString = "C O I N ";
                     }
                     else{
-                        int randomEnhanceType = (int) (Math.random() * 2); // 0: bst, 1: pst
-                        if (randomEnhanceType == 0){
+                        if (probability == 8){
                             int randomEnhance = (int) (Math.random() * 4);
                             this.enhanceManager.PlusNumEnhanceStoneArea(randomEnhance);
                             this.randomRes = randomEnhance;
@@ -111,9 +110,11 @@ public class RandomBoxScreen extends Screen {
                             this.enhanceManager.PlusNumEnhanceStoneAttack(randomEnhance);
                             this.randomRes = randomEnhance;
                             this.rewardTypeString = "PURPLE ENHANCE STONE";
+                            }
                         }
                     }
-                }
+                
+                
                 if (this.returnCode == 21) {
                     int rewardType =  (int) (Math.random() * 2); //0 : coin, 1: 강화석
                     if (rewardType == 0){
@@ -169,7 +170,6 @@ public class RandomBoxScreen extends Screen {
                 this.isRunning = false;
             }
         }
-    
     }
 
     /**

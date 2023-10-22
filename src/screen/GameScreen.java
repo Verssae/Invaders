@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -154,6 +155,9 @@ public class GameScreen extends Screen {
 	private String clearCoin;
 	private GameScreen gamescreen;
 	private Color shipColor;
+	private String nowSkinString;
+	private Map<Color, Boolean> ownedSkins;
+	private Map<Color, Boolean> equippedSkins;
 
 	private int BulletsRemaining=99;
 
@@ -200,7 +204,7 @@ public class GameScreen extends Screen {
 		//this.BulletsCount = getBulletsCount();
 		this.clearCoin = getClearCoin();
 		this.shipColor = gameState.getShipColor();
-
+		this.nowSkinString = gameState.getNowSkinString();
 
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
@@ -897,7 +901,9 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-				this.bulletsShot, this.shipsDestroyed, this.hardcore, this.shipColor,this.BulletsRemaining);
+							this.bulletsShot, this.shipsDestroyed, this.hardcore, 
+							this.shipColor, this.nowSkinString, this.ownedSkins, this.equippedSkins, 
+							this.BulletsRemaining);
 	}
 	public Ship getShip(){
 		return ship;

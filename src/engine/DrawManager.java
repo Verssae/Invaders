@@ -1887,14 +1887,17 @@ if (option == 35)
 	 *               Option selected.
 	 */
 
-	public void drawSkinStore(final Screen screen, final int option) {
+	public void drawSkinStore(final GameState gameState, final Screen screen, final int option) {
 
 		String skinStoretxt = " * S K I N S T O R E * ";
 		String continueString = " > C O N T I N U E";
 		String EnhanceString = " > E N H A N C E";
 		String itemStoreString = " > I T E M S T O R E";
-	String BuyString = "B U Y";
-		String PrizeString = "1 0 0";
+		SkinBuyManager skinBuyManager = new SkinBuyManager(gameState);
+		String BuyString = "B U Y";
+		String ApplyString = "A P P L Y";
+		String ApplyingString = "U N A P P L Y";
+		String PrizeString = "2 0 0";
 		int x1 = screen.getWidth()/7+20;
 		int x2 = screen.getWidth() *5/8+20;
 		int y1 = screen.getHeight()/6;
@@ -1936,26 +1939,65 @@ if (option == 35)
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(itemStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
-	if (option == 86)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		if (option == 86)
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(BuyString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 15);
+				backBufferGraphics.setColor(blinkingColor("WHITE"));
+		if (skinBuyManager.isSkinOwned(Color.YELLOW)){
+			if(skinBuyManager.isSkinEquipped(Color.YELLOW)){
+				gameState.setNowSkinString(ApplyingString);
+			} 
+			else {
+				gameState.setNowSkinString(ApplyString);
+			}
+		} else {
+			gameState.setNowSkinString(BuyString);
+		}
+		backBufferGraphics.drawString(gameState.getNowSkinString(), screen.getWidth()/7 + 33 , screen.getHeight()/2 - 15);
 		if (option == 88)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(BuyString, screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
+		if (skinBuyManager.isSkinOwned(Color.BLUE)){
+			if(skinBuyManager.isSkinEquipped(Color.BLUE)){
+				gameState.setNowSkinString(ApplyingString);
+			} else {
+				gameState.setNowSkinString(ApplyString);
+			}
+		} else {
+			gameState.setNowSkinString(BuyString);
+		}
+		backBufferGraphics.drawString(gameState.getNowSkinString(), screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
 		if (option == 87)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(BuyString, screen.getWidth()/7+33, screen.getHeight() - 95);
+		if (skinBuyManager.isSkinOwned(Color.RED)){
+			if(skinBuyManager.isSkinEquipped(Color.RED)){
+				gameState.setNowSkinString(ApplyingString);
+			} 
+			else {
+				gameState.setNowSkinString(ApplyString);
+			}
+		} else {
+			gameState.setNowSkinString(BuyString);
+		}
+		backBufferGraphics.drawString(gameState.getNowSkinString(), screen.getWidth()/7+33, screen.getHeight() - 95);
 		if (option == 89)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(BuyString, screen.getWidth()*5/8 + 33, screen.getHeight() - 95);
+		if (skinBuyManager.isSkinOwned(Color.CYAN)){
+			if(skinBuyManager.isSkinEquipped(Color.CYAN)){
+				gameState.setNowSkinString(ApplyingString);
+			} 
+			else {
+				gameState.setNowSkinString(ApplyString);
+			}
+		} else {
+			gameState.setNowSkinString(BuyString);
+		}
+		backBufferGraphics.drawString(gameState.getNowSkinString(), screen.getWidth()*5/8 + 33, screen.getHeight() - 95);
 		
 	}
 
