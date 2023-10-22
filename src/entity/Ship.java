@@ -85,23 +85,25 @@ public class Ship extends Entity {
 	 * 
 	 * @param bullets
 	 *            List of bullets on screen, to add the new bullet.
+	 * @param ENHANCED_DAMAGE
+	 *            Enhanced Attack Damage. (on EnhanceScreen)
 	 * @return Checks if the bullet was shot correctly.
 	 */
-	public final boolean shoot(final Set<Bullet> bullets) {
+	public final boolean shoot(final Set<Bullet> bullets, final int ENHANCED_DAMAGE) {
 		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			this.shipEffect.shoot(bullets, BULLET_SPEED, ENHANCED_DAMAGE);
 			return true;
 		}
 		return false;
 	}
 
-	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+	public final boolean shootBulletY(final Set<BulletY> bulletsY, final int ENHANCED_DAMAGE) {
 		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
+			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED, ENHANCED_DAMAGE);
 			return true;
 		}
 		return false;
@@ -112,7 +114,7 @@ public class Ship extends Entity {
 	 */
 	public final void update() {
 		if(this.spriteType == spriteType.ShipA || this.spriteType == spriteType.ShipADestroyed || this.spriteType == spriteType.ShipAShileded) {
-			if(this.shipEffect.getShieldState()){
+			if(this.shipEffect.getShieldState() == true){
 				this.spriteType = spriteType.ShipAShileded;
 			}else{
 				if (!this.destructionCooldown.checkFinished()) {

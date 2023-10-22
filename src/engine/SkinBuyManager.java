@@ -1,47 +1,41 @@
 package engine;
 
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
 import entity.Coin;
-
+import entity.Ship;
 
 public class SkinBuyManager {
 
-    private static SkinBuyManager instance;
 
     /* map to store skin ownership*/
-    private Map<String, Boolean> ownedSkins;
+    private Map<Color, Boolean> ownedSkins;
     /* map to store skin wearing status */
-    private Map<String, Boolean> equippedSkins;
+    private Map<Color, Boolean> equippedSkins;
+    private GameState gameState;
+    private Coin coin;
+    private Ship ship;
 
-    private SkinBuyManager() {
+
+    public SkinBuyManager(GameState gameState) {
         ownedSkins = new HashMap<>();
         equippedSkins = new HashMap<>();
+        this.gameState = gameState;
+        this.coin = gameState.getCoin();
     }
     
-    /**
-     * Returns the singleton instance of the SkinBuyManager class
-     * access the unique instance of the SkinBuyManager class
-     *
-     * @return The singleton instance of the SkinBuyManager class
-     */
-    public static SkinBuyManager getInstance() {
-        if (instance == null) {
-            instance = new SkinBuyManager();
-        }
-        return instance;
-    }
     /**
      * Returns the boolean of skin price payment
      *
      * @return the boolean of skin price payment
      */
-    public boolean isPossible(int skinPrice) {
-        Coin coinInstance = new Coin(0, 0);
-        int coinCurrent = coinInstance.getCoin();
-        return coinCurrent >= skinPrice;
-    }
+    /* public boolean isPossible(int skinPrice) {
+    *    int coinCurrent = coin.getCoin();
+    *    return coinCurrent >= skinPrice;
+    *}
+    */
 
     /**
      * Purchase a skin if it is possible based on the provided skin price.
@@ -49,14 +43,14 @@ public class SkinBuyManager {
      * @param skinName   The name of the skin to purchase.
      * @param skinPrice  The price of the skin.
      */
-    public void purchaseSkin(String skinName, int skinPrice) {
-        Coin coinInstance = new Coin(0, 0);
-        if (isPossible(skinPrice)) {
-            if (!(isSkinOwned(skinName))){
-                coinInstance.minusCoin(skinPrice);
+    public void purchaseSkin(Color skinColor, int skinPrice) {
+        if (coin.getCoin()>= skinPrice) {
+            if (!(isSkinOwned(skinColor))){
+                this.coin.minusCoin(skinPrice);
+                gameState.setShipColor(skinColor);
             }
         }
-        ownedSkins.put(skinName, true);  
+        ownedSkins.put(skinColor, true);  
     }
 
     /**
@@ -64,8 +58,8 @@ public class SkinBuyManager {
      * 
      * @return True if the player owns the skin, or false if the skin is not owned
      */
-    public boolean isSkinOwned(String skinName) {
-        return ownedSkins.getOrDefault(skinName, false);
+    public boolean isSkinOwned(Color skinColor) {
+        return ownedSkins.getOrDefault(skinColor, false);
     }
 
     /**
@@ -73,8 +67,8 @@ public class SkinBuyManager {
      * 
      * @return True if the player wear the skin, or false if the skin isn't worn
      */
-    public boolean isSkinEquipped(String skinName) {
-        return equippedSkins.getOrDefault(skinName, false);
+    public boolean isSkinEquipped(Color skinColor) {
+        return equippedSkins.getOrDefault(skinColor, false);
     }
 
     /**
@@ -82,8 +76,13 @@ public class SkinBuyManager {
      *
      * @param skinName The name of the skin to equip.
      */
-    public void equipSkin(String skinName) {
-        equippedSkins.put(skinName, true);
+    public void equipSkin(Color skinColor) {
+        if (isSkinOwned(skinColor)){
+            if (isSkinEquipped(skinColor)) {
+                equippedSkins.put(skinColor, true);
+                ship.setColor(skinColor);
+            }
+        }
     }
 
     /**
@@ -91,8 +90,9 @@ public class SkinBuyManager {
      *
      * @param skinName The name of the skin to unequip.
      */
-    public void unequipSkin(String skinName) {
-        equippedSkins.put(skinName, false);
+    public void unequipSkin(Color skinColor, Ship ship) {
+        equippedSkins.put(skinColor, false);
+        ship.setColor(Color.WHITE);
     }
 
 }

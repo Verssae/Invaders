@@ -19,7 +19,7 @@ public class BulletY extends Entity {
      * positive is down.
      */
     private int speed;
-
+    /** Damage of the bullet of ship. */	
     private int damage;
     private BulletEffect bulletEffect;
     private int effectBullet;
@@ -35,10 +35,10 @@ public class BulletY extends Entity {
      *            Speed of the bullet, positive or negative depending on
      *            direction - positive is down.
      */
-    public BulletY(final int positionX, final int positionY, final int speed) {
+    public BulletY(final int positionX, final int positionY, final int speed, final int attackDamage) {
         super(positionX, positionY, 5*2 , 7*2 , Color.YELLOW);
         this.speed = speed;
-        this.damage = 3;
+        this.damage = 3 + attackDamage;
         setSprite();
     }
 
@@ -68,6 +68,14 @@ public class BulletY extends Entity {
     public final void setSpeed(final int speed) {
         this.speed = speed;
     }
+
+	/**
+	 * Sets damage of attack.
+	 */
+	public final void setDamage(final int attackDamage) {
+		this.damage = 3 + attackDamage;
+	}
+
 
     /**
      * Getter for the speed of the bullet.
