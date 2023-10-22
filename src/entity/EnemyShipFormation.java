@@ -738,7 +738,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 *            PositionY of Enmeyship destroyed
 	 * @param damage
 	 *            Enhanced Attck damage
-	 * @param itmes
+	 * @param items
 	 *            Items dropped when EnemyShip died
 	 */
 	public final void areaDestory(final int lvEnhanceArea, final List<EnemyShip> column, final int row, final int damage, Set<Item> items) {
