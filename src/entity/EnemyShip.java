@@ -18,14 +18,13 @@ import engine.DrawManager.SpriteType;
  */
 public class EnemyShip extends Entity {
 	/** 적들 처치시 점수 설정 */
-	/** Point value of a type A enemy. */
-	private static final int A_TYPE_POINTS = 10;
-	/** Point value of a type B enemy. */
-	private static final int B_TYPE_POINTS = 20;
-	/** Point value of a type C enemy. */
-	private static final int C_TYPE_POINTS = 30;
-	/** Point value of a type C enemy. */
-	private static final int D_TYPE_POINTS = 40;
+	/** Point value of a type normal enemy. */
+	private static final int N_TYPE_POINTS = 10;
+	/** Point value of a type mod1 enemy. */
+	private static final int M1_TYPE_POINTS = 30;
+	/** Point value of a type mod2 enemy. */
+	private static final int M2_TYPE_POINTS = 50;
+
 	/** Point value of a bonus enemy. */
 	private static final int BONUS_TYPE_POINTS = 100;
 	/** Point value of a boss enemy. */
@@ -74,38 +73,40 @@ public class EnemyShip extends Entity {
 		this.isBoss = false;
 
 		switch (this.spriteType) {
-		case EnemyShipA1:
-		case EnemyShipA2:
-			this.pointValue = A_TYPE_POINTS;
-			this.EnemyLife = 1;
-			break;
-		case EnemyShipB1:
-		case EnemyShipB2:
-			this.pointValue = B_TYPE_POINTS;
-			this.EnemyLife = 1;
-			break;
-		case EnemyShipC1:
-		case EnemyShipC2:
-			this.pointValue = C_TYPE_POINTS;
-			this.EnemyLife = 1;
-			break;
-		case EnemyShipSC1:
-		case EnemyShipSC2:
-			this.pointValue = C_TYPE_POINTS;
-			this.EnemyLife = 2;
-			break;
-		case EnemyShipD1:
-		case EnemyShipD2:
-		case EnemyShipD3:
-		case EnemyShipD4:
-		case EnemyShipD5:
-		case EnemyShipD6:
-			this.pointValue = D_TYPE_POINTS;
-			this.EnemyLife = 3;
-			break;
-		default:
-			this.pointValue = 0;
-			break;
+			case ESnA_1:
+			case ESnA_2:
+			case ESnB_1:
+			case ESnB_2:
+			case ESnC_1:
+			case ESnC_2:
+			case ESm1_1D:
+			case ESm1_2D:
+			case ESm2A_1D2:
+			case ESm2A_2D2:
+			case ESm2B_1D2:
+			case ESm2B_2D2:
+				this.pointValue = N_TYPE_POINTS;
+				this.EnemyLife = 1;
+				break;
+			case ESm1_1:
+			case ESm1_2:
+			case ESm2A_1D1:
+			case ESm2A_2D1:
+			case ESm2B_1D1:
+			case ESm2B_2D1:
+				this.pointValue = M1_TYPE_POINTS;
+				this.EnemyLife = 2;
+				break;
+			case ESm2A_1:
+			case ESm2A_2:
+			case ESm2B_1:
+			case ESm2B_2:
+				this.pointValue = M2_TYPE_POINTS;
+				this.EnemyLife = 3;
+				break;
+			default:
+				this.pointValue = 0;
+				break;
 		}
 	}
 
@@ -118,7 +119,8 @@ public class EnemyShip extends Entity {
 	 */
 	public EnemyShip(Color specialEnemyColor) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
-		spVariable = (int)(Math.random()*2);
+		spVariable = (int)(Math.random()*4);
+
 
 		switch (spVariable) {
 			case 0:
@@ -126,6 +128,12 @@ public class EnemyShip extends Entity {
 				break;
 			case 1:
 				this.spriteType = SpriteType.EnemyShipSpecial2;
+				break;
+			case 2:
+				this.spriteType = SpriteType.EnemyShipSpecial3;
+				break;
+			case 3:
+				this.spriteType = SpriteType.EnemyShipSpecial4;
 				break;
 		}
 
@@ -186,61 +194,78 @@ public class EnemyShip extends Entity {
 
 			switch (this.spriteType) {
 
-			case EnemyShipA1:
-				this.spriteType = SpriteType.EnemyShipA2;
-				break;
+				case ESnA_1:
+					this.spriteType = SpriteType.ESnA_2;
+					break;
 
-			case EnemyShipA2:
-				this.spriteType = SpriteType.EnemyShipA1;
-				break;
+				case ESnA_2:
+					this.spriteType = SpriteType.ESnA_1;
+					break;
 
-			case EnemyShipB1:
-				this.spriteType = SpriteType.EnemyShipB2;
-				break;
+				case ESnB_1:
+					this.spriteType = SpriteType.ESnB_2;
+					break;
 
-			case EnemyShipB2:
-				this.spriteType = SpriteType.EnemyShipB1;
-				break;
+				case ESnB_2:
+					this.spriteType = SpriteType.ESnB_1;
+					break;
 
-			/** 2 forms of enemyC - change form whenever life is reduced */
-			case EnemyShipSC1:
-			case EnemyShipC1:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC2;
-				else this.spriteType = SpriteType.EnemyShipSC2;
-				break;
+				/** 2 forms of mod1 enemy - change form whenever life is reduced */
+				case ESm1_1:
+				case ESm1_1D:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm1_1D;
+					else this.spriteType = SpriteType.ESm1_2;
+					break;
 
-			case EnemyShipSC2:
-			case EnemyShipC2:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipC1;
-				else this.spriteType = SpriteType.EnemyShipSC1;
-				break;
+				case ESm1_2:
+				case ESm1_2D:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm1_1D;
+					else this.spriteType = SpriteType.ESm1_1;
+					break;
 
-			/** 3 forms of enemyD - change form whenever life is reduced */
-			case EnemyShipD1:
-			case EnemyShipD3:
-			case EnemyShipD5:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD6;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD4;
-				else this.spriteType = SpriteType.EnemyShipD2;
-				break;
+				/** 3 forms of mod2 enemy - change form whenever life is reduced */
+				case ESm2A_1:
+				case ESm2A_1D1:
+				case ESm2A_1D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2A_2D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2A_2D1;
+					else this.spriteType = SpriteType.ESm2A_2;
+					break;
 
-			case EnemyShipD2:
-			case EnemyShipD4:
-			case EnemyShipD6:
-				if(this.getEnemyLife() < 2) this.spriteType = SpriteType.EnemyShipD5;
-				else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.EnemyShipD3;
-				else this.spriteType = SpriteType.EnemyShipD1;
-				break;
-			case BossA1:
-				this.spriteType = SpriteType.BossA2;
-				break;
-			case BossA2:
-				this.spriteType = SpriteType.BossA1;
-				break;
+				case ESm2A_2:
+				case ESm2A_2D1:
+				case ESm2A_2D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2A_1D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2A_1D1;
+					else this.spriteType = SpriteType.ESm2A_1;
+					break;
+
+				case ESm2B_1:
+				case ESm2B_1D1:
+				case ESm2B_1D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2B_2D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2B_2D1;
+					else this.spriteType = SpriteType.ESm2B_2;
+					break;
+
+				case ESm2B_2:
+				case ESm2B_2D1:
+				case ESm2B_2D2:
+					if(this.getEnemyLife() < 2) this.spriteType = SpriteType.ESm2B_1D2;
+					else if(this.getEnemyLife() < 3) this.spriteType = SpriteType.ESm2B_1D1;
+					else this.spriteType = SpriteType.ESm2B_1;
+					break;
+
+				case BossA1:
+					this.spriteType = SpriteType.BossA2;
+					break;
+				case BossA2:
+					this.spriteType = SpriteType.BossA1;
+					break;
 
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 	}
@@ -277,7 +302,10 @@ public class EnemyShip extends Entity {
 		this.isDestroyed = true;
 		this.spriteType = randomDestroy();
 		if ((Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial1 ? 1 : 0)))
-				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial2 ? 1 : 0)))) {
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial2 ? 1 : 0)))
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial3 ? 1 : 0)))
+				|| (Math.random() < DROP_ITEM_PROB + (0.1 * 2 * (this.getSpriteType() == SpriteType.EnemyShipSpecial4 ? 1 : 0))))
+		{
 			items.add(ItemPool.getItem(this.positionX, this.positionY));
 		}
 	}
