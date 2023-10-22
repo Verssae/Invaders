@@ -424,7 +424,7 @@ public final class Core {
                                         boxOpen = false;
                                         isInitMenuScreen = true;
                                 } while (gameState.getLivesRemaining() > 0
-                                            && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot()<=99);
+                                            && gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
 
                                 if (returnCode == 1) { // Quit during the game
                                     currentScreen = new TitleScreen(width, height, FPS);
@@ -508,9 +508,10 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState_2P = ((GameScreen_2P) currentScreen).getGameState();
-                        gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
+
                         BulletsRemaining_1p = gameState_2P.getBulletsRemaining_1p();
                         BulletsRemaining_2p = gameState_2P.getBulletsRemaining_2p();
+
                         gameState_2P = new GameState_2P(gameState.getLevel() + 1,
                                 gameState_2P.getScore_1P(),
                                 gameState_2P.getScore_2P(),
@@ -526,8 +527,12 @@ public final class Core {
                     }
                     //while (gameState.getLivesRemaining() > 0
                     // && gameState.getLevel() <= NUM_LEVELS &&gameState.getLivesRemaining_2p() >0);
-                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
-                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));
+//                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
+//                            && (gameState_2P.getLevel() <= NUM_LEVELS) && !(BulletsRemaining_1p==0 && BulletsRemaining_2p==0));
+                    while (gameState_2P.getLevel() <= NUM_LEVELS
+                            && ((gameState_2P.getLivesRemaining() > 0 && BulletsRemaining_1p > 0)
+                            || (gameState_2P.getLivesRemaining_2p() > 0 && BulletsRemaining_2p > 0)));
+
                     if (returnCode == 1) { //Quit during the game
                         frame.setScreen(currentScreen);
                         break;
