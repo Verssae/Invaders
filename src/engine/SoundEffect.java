@@ -15,6 +15,9 @@ public class SoundEffect {
     File buttonclicksound = new File("sound/soundEffect/ButtonClick.wav");
     File spacebuttonsound = new File("sound/soundEffect/SpaceButton.wav");
     File stagechangesound = new File("sound/soundEffect/StageChange.wav");
+
+    File initialStartSound=  new File("sound/soundEffect/initialSatrt.wav");
+
     /**
      * Play ship's shooting sound
      */
