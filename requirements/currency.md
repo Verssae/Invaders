@@ -13,24 +13,23 @@ Currency becomes the Key Attraction Point that affects the influx of new users a
 
 | Name | Item    | Requirements                                  |
 |------|---------|-----------------------------------------------|
-| Songeun Lee | Enhancement Currency | Weapon Enhancement, Tower Addition and Enhancement |
-| Hayeon Choi | Buy Skins | Change Character and Background Image |
-| Daeun Song | Stage Rewards |  Random Rewards, Rewards Based on Game Outcome |
-| Siwoo Ryu | Item Store | UI, Main Screen Linkage, Currency Check, Item Purchase |
-| Seoyeon Park | Monster Kill Rewards | Coin Rewards for Enemy Defeat |  
-| Minseo Kim | Ship Regeneration | Health Points Restoration, Device-Specific Currency Differences, Variation in Currency Based on Recovery Amount | 
+| Songeun Lee | Enhancement Currency | Weapon Enhancement(midterm) - area and attack, Tower Addition and Enhancement(final) |
+| Hayeon Choi | Buy Skins | Change Ship Color(midterm), Change Character and Background Image |
+| Daeun Song | Stage Rewards | Random Rewards, Rewards Based on Game Outcome(Stage Clear) |
+| Siwoo Ryu | Item Store | Store UI, Item(bomb, shild, enhanced Stone) Purchase System |
+| Seoyeon Park | Monster Kill Rewards | add Coin Entity, Coin Rewards for Enemy Defeat |  
+| Minseo Kim | Ship Regeneration | Health Points Restoration(midterm), Device-Specific Currency Differences, Variation in Currency Based on Recovery Amount | 
 
 
 ## Detail Requirements
 
 ### 1. Enhancement Currency
-- Enhance Weapon (Spaceship) | Increase weapon damage (single target, area of effect) using resources.
-    - Weapon Damage Increase 1: Instead of firing one shot, you can penetrate through enemies in a straight line n times.
+- Enhance Weapon (Spaceship) | Increase weapon damage (attack, area) using enhanced Stone.
+    - Weapon Damage Increase 1: Instead of firing one shot, you can penetrate through enemies in a straight line n times. (midterm)
     - Weapon Damage Increase 2: Instead of firing one shot, you can eliminate all enemies within a certain radius of a single target.
-    - Weapon Damage Increase 3: Increase the weapon's damage per shot. 
-    - After enhancing the weapon, receive a random coin upon successful weapon attack.
-- Add and Upgrade Towers | Use resources to add towers (up to a maximum of 3) and enhance specific towers (basic, 1st-tier, 2nd-tier).
-(Team 6 Item System / Team 2 Sound Effects, BGM) 
+    - Weapon Damage Increase 3: Increase the weapon's damage per shot. (midterm) 
+- Add and Upgrade Towers | Use enhanced stone to add towers (up to a maximum of 3) and enhance specific towers (basic, 1st-tier, 2nd-tier).
+[Team 6 Item System / Team 2 Sound Effects] 
 
 ### 2. Buy Skins 
 - Skin Shop Configuration: Character, Background (Team 6 Item System)
@@ -59,6 +58,6 @@ Currency becomes the Key Attraction Point that affects the influx of new users a
     - The higher the performance of the aircraft, the higher the recovery cost.
  
 ## Dependencies on Other Teams:
-- Team 5 | Player & Enemy Ship Variety | Adjustment of Enhancement System Values
-- Team 5 | Player & Enemy Ship Variety | Apply Skin System
-- Team 6 | Item System | Item Effects
+- Team 6 | Item System | Bomb, Shild, Coin and Enhanced Stone Drop
+- Team 7 | HUD | Button UI for using BOMB and SHILD, Timer
+- Team 5 | Player & Enemy Ship Variety | Skin Color Parameter
