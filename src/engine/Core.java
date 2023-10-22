@@ -129,6 +129,13 @@ public final class Core {
     private static Boolean boxOpen = false;
     private static Boolean isInitMenuScreen = true;
 
+    private static int BulletsRemaining;
+
+    private static int BulletsRemaining_1p;
+    private static int BulletsRemaining_2p;
+
+
+
     /**
      * Test implementation.
      *
@@ -170,8 +177,8 @@ public final class Core {
         int returnCode = 1;
         do {
             Coin coin = new Coin(0, 0);
-            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE);
-            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES);
+            gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE,99);
+            gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES,50,50);
             enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
 
@@ -245,6 +252,7 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState = ((GameScreen) currentScreen).getGameState();
+                        BulletsRemaining = gameState.getBulletsRemaining();
 
                         gameState = new GameState(gameState.getLevel() + 1,
                                 gameState.getScore(),
@@ -252,13 +260,15 @@ public final class Core {
                                 gameState.getLivesRemaining(),
                                 gameState.getBulletsShot(),
                                 gameState.getShipsDestroyed(),
-                                gameState.getHardCore(), gameState.getShipColor());
+                                gameState.getHardCore(),
+                                gameState.getShipColor(),
+                                99);
 
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
 							if (gameState.getLivesRemaining() <= 0) { break; }
-                            if (gameState.getBulletsShot() > 99) { break; }
+                            if (BulletsRemaining <= 0) { break; }
 							if (!boxOpen){
 								currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
 								returnCode = frame.setScreen(currentScreen);
@@ -306,7 +316,7 @@ public final class Core {
 						boxOpen = false;
 						isInitMenuScreen = true;
 					} while (gameState.getLivesRemaining() > 0
-							&& gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot() <= 99);
+							&& gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
 
 
                     // Recovery | Default State & Exit
@@ -350,7 +360,7 @@ public final class Core {
                                     returnCode = frame.setScreen(currentScreen);
                                     LOGGER.info("Closing game screen.");
                                     gameState = ((GameScreen) currentScreen).getGameState();
-
+                                    BulletsRemaining = gameState.getBulletsRemaining();
 
                                     gameState = new GameState(gameState.getLevel()+1,
                                         gameState.getScore(),
@@ -358,12 +368,14 @@ public final class Core {
                                         gameState.getLivesRemaining(),
                                         gameState.getBulletsShot(),
                                         gameState.getShipsDestroyed(),
-                                        gameState.getHardCore(), gameState.getShipColor());
+                                        gameState.getHardCore(),
+                                            gameState.getShipColor(),
+                                    99);
 
                                     // SubMenu | Item Store & Enhancement & Continue & Skin Store
                                     do{
                                         if (gameState.getLivesRemaining() <= 0) { break; }
-                                        if (gameState.getBulletsShot() > 99) {break;}
+                                        if (BulletsRemaining <= 0) {break;}
                                         if (!boxOpen){
                                             currentScreen = new RandomBoxScreen(gameState, width, height, FPS, enhanceManager);
 								            returnCode = frame.setScreen(currentScreen);
@@ -414,8 +426,8 @@ public final class Core {
                                         boxOpen = false;
                                         isInitMenuScreen = true;
                                 } while (gameState.getLivesRemaining() > 0
-                                            && gameState.getLevel() <= NUM_LEVELS && gameState.getBulletsShot()<=99);
-                        
+                                            && gameState.getLevel() <= NUM_LEVELS && BulletsRemaining > 0);
+
                                 if (returnCode == 1) { // Quit during the game
                                     currentScreen = new TitleScreen(width, height, FPS);
                                     frame.setScreen(currentScreen);
@@ -475,7 +487,7 @@ public final class Core {
                     }
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
-                    stage = frame.setScreen(currentScreen);      
+                    stage = frame.setScreen(currentScreen);
                     outgame_bgm.OutGame_bgm_stop();//2p mode 시작하며 outgame bgm stop
 
                     if (stage == 0) {
@@ -497,7 +509,11 @@ public final class Core {
                         LOGGER.info("Closing game screen.");
 
                         gameState_2P = ((GameScreen_2P) currentScreen).getGameState();
-                        gameState_2P = new GameState_2P(gameState_2P.getLevel() + 1,
+
+                        BulletsRemaining_1p = gameState_2P.getBulletsRemaining_1p();
+                        BulletsRemaining_2p = gameState_2P.getBulletsRemaining_2p();
+
+                        gameState_2P = new GameState_2P(gameState.getLevel() + 1,
                                 gameState_2P.getScore_1P(),
                                 gameState_2P.getScore_2P(),
                                 gameState_2P.getCoin(),
@@ -506,13 +522,18 @@ public final class Core {
                                 gameState_2P.getBulletsShot_2P(),
                                 gameState_2P.getShipsDestroyed(),
                                 gameState_2P.getHardCore(),
-                                gameState_2P.getLivesRemaining_2p());
+                                gameState_2P.getLivesRemaining_2p(),
+                                50,
+                                50);
                     }
                     //while (gameState.getLivesRemaining() > 0
-
                     // && gameState.getLevel() <= NUM_LEVELS &&gameState.getLivesRemaining_2p() >0);
-                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
-                            && (gameState_2P.getLevel() <= NUM_LEVELS) && (gameState_2P.getBulletsShot_1P()<50 && gameState_2P.getBulletsShot_2P()<50));
+//                    while (!(gameState_2P.getLivesRemaining()==0 && gameState_2P.getLivesRemaining_2p()==0)
+//                            && (gameState_2P.getLevel() <= NUM_LEVELS) && !(BulletsRemaining_1p == 0 && BulletsRemaining_2p==0));
+                    while (gameState_2P.getLevel() <= NUM_LEVELS
+                            && ((gameState_2P.getLivesRemaining() > 0 && BulletsRemaining_1p > 0)
+                            || (gameState_2P.getLivesRemaining_2p() > 0 && BulletsRemaining_2p > 0)));
+
                     if (returnCode == 1) { //Quit during the game
                         frame.setScreen(currentScreen);
                         break;
