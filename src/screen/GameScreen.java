@@ -1,13 +1,12 @@
 package screen;
 
 import engine.*;
+import engine.DrawManager.SpriteType;
 import entity.*;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.*;
-
-import engine.DrawManager.SpriteType;
 
 
 /**
@@ -120,6 +119,7 @@ public class GameScreen extends Screen {
 	private EnhanceManager enhanceManager;
 
 	private CountUpTimer timer;
+	private int Miss = 0;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -479,7 +479,7 @@ public class GameScreen extends Screen {
 		else drawManager.drawSoundStatus1(this, true);
 
 		drawManager.drawTimer(this, timer.getElapsedTime());
-		if (combo !=0) {
+		if(Miss==1) {
 			drawManager.ComboCount(this, this.combo);
 		}
 		//GameOver
@@ -599,6 +599,7 @@ public class GameScreen extends Screen {
 						soundEffect.playEnemyDestructionSound();
 						this.combo++;
 						this.score += combo;
+						this.Miss =1;
 						if(enemyShip.getEnemyLife() < 1) {
 							this.score += enemyShip.getPointValue();
 							this.shipsDestroyed++;
@@ -607,7 +608,8 @@ public class GameScreen extends Screen {
 						recyclableBullet.add(bullet);
 					}
 				if (bullet.getPositionY()<50){
-						combo =0;
+					combo =0;
+					Miss =1;
 				}
 				if (this.enemyShipSpecial != null
 						&& !this.enemyShipSpecial.isDestroyed()
@@ -615,6 +617,7 @@ public class GameScreen extends Screen {
 					enemyShipSpecial.reduceEnemyLife(this.attackDamage);
 					this.combo ++;
 					this.score += combo;
+					this.Miss =1;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
@@ -628,6 +631,7 @@ public class GameScreen extends Screen {
 				}
 				if (bullet.getPositionY()<50){
 					combo =0;
+					Miss =1;
 				}
 			}
 		if (this.laser != null) {
@@ -715,6 +719,7 @@ public class GameScreen extends Screen {
 					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
 					this.combo ++;
 					this.score += combo;
+					this.Miss =1;
 					if(enemyShipSpecial.getEnemyLife() < 1) {
 						this.score += this.enemyShipSpecial.getPointValue();
 						this.shipsDestroyed++;
@@ -728,6 +733,7 @@ public class GameScreen extends Screen {
 				}
 				if (bulletY.getPositionY()<50){
 					combo =0;
+					Miss =1;
 				}
 			}
 		this.items.removeAll(recyclableItem);

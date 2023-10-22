@@ -3,15 +3,17 @@ package engine;
 import entity.Coin;
 import entity.Entity;
 import entity.Ship;
-import screen.Screen;
 import screen.GameScreen;
 import screen.GameScreen_2P;
+import screen.Screen;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage; // monster animation on a loading box
+import java.awt.geom.RoundRectangle2D;
+import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
@@ -21,9 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
-import java.awt.geom.RoundRectangle2D;
-
-import javax.imageio.ImageIO;
 
 /**
  * Manages screen drawing.
@@ -2086,9 +2085,17 @@ public final class DrawManager {
 	}
 
 	public void ComboCount(final Screen screen, final int ComboCount) {
-		backBufferGraphics.setFont(fontRegular);
-		backBufferGraphics.setColor(Color.WHITE);
-		String text = String.format("%d", ComboCount)+" Combo" ;
-		backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+		if (ComboCount !=0) {
+			backBufferGraphics.setFont(fontRegular);
+			backBufferGraphics.setColor(Color.WHITE);
+			String text = String.format("%d", ComboCount) + " Combo";
+			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+		}
+		else{
+			backBufferGraphics.setFont(fontRegular);
+			backBufferGraphics.setColor(Color.red);
+			String text = "Miss";
+			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
+		}
 	}
 }
