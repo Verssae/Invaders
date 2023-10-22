@@ -576,9 +576,11 @@ public class GameScreen_2P extends Screen {
 
 
         // Interface.
-        drawManager.drawScore_2p(this, this.score_1P);
+        drawManager.drawScore_2p(this, this.score_1P,"p1", 105);
+        drawManager.drawScore_2p(this, this.score_1P + this.score_2P,"total", 183);
+        drawManager.drawScore_2p(this, this.score_2P,"p2",260);
         drawManager.drawLivesbar_2p(this, this.lives_1p, 8, "1P lives");
-        drawManager.drawLivesbar_2p(this, this.lives_2p, 294, "2P lives");
+        drawManager.drawLivesbar_2p(this, this.lives_2p, 330, "2P lives");
         drawManager.drawitemcircle(this,1,2);
         drawManager.BulletsCount_1p(this,this.BulletsCount_1p);
         drawManager.BulletsCount_2p(this, this.BulletsCount_2p);
@@ -588,8 +590,7 @@ public class GameScreen_2P extends Screen {
                 drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
         }
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
-        drawManager.scoreEmoji(this, this.score_1P);
-        drawManager.drawLevel(this, this.level);
+        //drawManager.scoreEmoji(this, this.score_1P);
         drawManager.drawSoundButton2(this);
         if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus2(this, false);
         else drawManager.drawSoundStatus2(this, true);
