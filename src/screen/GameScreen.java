@@ -40,6 +40,8 @@ import entity.Ship;
  *
  */
 public class GameScreen extends Screen {
+	/** Sound status on/off. */
+	private boolean isSoundOn = true;
 
 	/** Milliseconds until the screen accepts user input. */
 	private static final int INPUT_DELAY = 6000;
@@ -576,8 +578,16 @@ public class GameScreen extends Screen {
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
 		drawManager.drawSoundButton1(this);
-		if (inputManager.isKeyDown(KeyEvent.VK_C))  drawManager.drawSoundStatus1(this, false);
-		else drawManager.drawSoundStatus1(this, true);
+		if (inputManager.isKeyDown(KeyEvent.VK_C)) {
+			isSoundOn = !isSoundOn;
+			if (isSoundOn) {
+				bgm.InGame_bgm_play();
+			} else {
+				bgm.InGame_bgm_stop();
+				soundEffect.SoundEffect_stop();
+			}
+		}
+		drawManager.drawSoundStatus1(this, isSoundOn);
 
 		drawManager.drawTimer(this, timer.getElapsedTime());
 		if(Miss==1) {
