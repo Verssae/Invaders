@@ -100,7 +100,7 @@ public class StoreScreen extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 soundEffect.playSpaceButtonSound();
                 if (returnCode == 35 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= 150)
                     {
                         this.itemManager.PlusShieldCount(1);
                         this.coin.minusCoin(150);
@@ -111,7 +111,7 @@ public class StoreScreen extends Screen {
                     }
                 }
                 if (returnCode == 36 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= 150)
                     {
                         this.itemManager.PlusBombCount(1);
                         this.coin.minusCoin(150);
@@ -122,7 +122,7 @@ public class StoreScreen extends Screen {
                     }
                 }
                 if (returnCode == 37 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= 50)
                     {
                         this.enhanceManager.PlusNumEnhanceStoneArea(1);
                         this.coin.minusCoin(50);
@@ -133,7 +133,7 @@ public class StoreScreen extends Screen {
                     }
                 }
                 if (returnCode == 38 && gameState != null){
-                    if (this.coin.getCoin() >= 10)
+                    if (this.coin.getCoin() >= 50)
                     {
                         this.enhanceManager.PlusNumEnhanceStoneAttack(1);
                         this.coin.minusCoin(50);
