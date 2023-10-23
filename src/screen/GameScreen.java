@@ -553,7 +553,7 @@ public class GameScreen extends Screen {
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
 			if (itemManager.getShieldCount() > 0 && timer.getElapsedTime() != 0 && ship.getShieldState() != true && !levelFinished)
 			{
-				logger.info("Key number 1 press");
+				logger.info("Key number 1 press");	
 				itemManager.PlusShieldCount(-1);
 				ship.setShieldState(true);
 				ship.update();

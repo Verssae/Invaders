@@ -1870,10 +1870,10 @@ backBufferGraphics.setColor(Color.white);
 		String EnhanceString = " > E N H A N C E";
 		String skinStoreString = " > S K I N S T O R E";
 		String BuyString = "B U Y";
-		String PrizeString = "1 0 0";
-		String PrizeString1 = "2 0 0";
-		String PrizeString2 = "3 0 0";
-		String PrizeString3 = "4 0 0";
+		String PrizeString = "1 5 0";
+		String PrizeString1 = "1 5 0";
+		String PrizeString2 = "5 0";
+		String PrizeString3 = "5 0";
 		String ShieldString = "" + itemManager.getShieldCount();
 		String BombString = "" + itemManager.getBombCount();
 		String BSTString = "" + BST;
@@ -1896,8 +1896,8 @@ backBufferGraphics.setColor(Color.white);
 backBufferGraphics.setColor(Color.yellow);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 35);
 		backBufferGraphics.drawString(PrizeString1, screen.getWidth()*5/8 + 33, screen.getHeight()/2 - 35);
-		backBufferGraphics.drawString(PrizeString2, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
-		backBufferGraphics.drawString(PrizeString3, screen.getWidth()*5/8 + 33 , screen.getHeight() - 115);
+		backBufferGraphics.drawString(PrizeString2, screen.getWidth()/7 + 40 , screen.getHeight() - 115);
+		backBufferGraphics.drawString(PrizeString3, screen.getWidth()*5/8 + 40 , screen.getHeight() - 115);
 		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
