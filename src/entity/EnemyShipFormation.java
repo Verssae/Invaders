@@ -189,36 +189,36 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					Color C_color = new Color(r2, 125, 255);
 					Color D_color = new Color(255, 255, b);
 					switch (level) {
-						case 1:
-							spriteType = SpriteType.ESnA_1;
-							enemyColor = A_color;
-							break;
-						case 2:
-							spriteType = SpriteType.ESnB_1;
-							enemyColor = B_color;
-							break;
-						case 3:
-							spriteType = SpriteType.ESnC_1;
-							enemyColor = C_color;
-							break;
-						case 4:
-							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.ESm1_1;
-								enemyColor = C_color;
-							}
-							else {
+						case 1: // nA, nB
+							if (i / (float) this.nShipsHigh < PROPORTION_B) {
 								spriteType = SpriteType.ESnA_1;
 								enemyColor = A_color;
 							}
+							else {
+								spriteType = SpriteType.ESnB_1;
+								enemyColor = B_color;
+							}
 							break;
-						case 5:
-							spriteType = SpriteType.ESm1_1;
-							enemyColor = C_color;
+
+						case 2: // nA, nB, nC
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.ESnA_1;
+								enemyColor = A_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B + PROPORTION_C) {
+								spriteType = SpriteType.ESnB_1;
+								enemyColor = B_color;
+							}
+							else {
+								spriteType = SpriteType.ESnC_1;
+								enemyColor = C_color;
+							}
 							break;
-						case 6:
+
+						case 3: // m1, nB, nC
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
 								spriteType = SpriteType.ESm1_1;
-								enemyColor = C_color;
+								enemyColor = D_color;
 							}
 							else if (i / (float) this.nShipsHigh < PROPORTION_B
 									+ PROPORTION_C) {
@@ -226,27 +226,71 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 								enemyColor = B_color;
 							}
 							else {
-								spriteType = SpriteType.ESnA_1;
-								enemyColor = A_color;
+								spriteType = SpriteType.ESnC_1;
+								enemyColor = C_color;
 							}
 							break;
-						case 7:
+						case 4: // m1, nB
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.ESm1_1;
+								enemyColor = D_color;
+							}
+							else {
+								spriteType = SpriteType.ESnB_1;
+								enemyColor = B_color;
+							}
+							break;
+						case 5: // m2A, nB, nC
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
 								spriteType = SpriteType.ESm2A_1;
-								enemyColor = C_color;
+								enemyColor = A_color;
 							}
 							else if (i / (float) this.nShipsHigh < PROPORTION_B
 									+ PROPORTION_C) {
-								spriteType = SpriteType.ESm1_1;
+								spriteType = SpriteType.ESnB_1;
 								enemyColor = B_color;
 							}
 							else {
-								spriteType = SpriteType.ESnB_1;
+								spriteType = SpriteType.ESnC_1;
+								enemyColor = C_color;
+							}
+							break;
+						case 6: // m2A, nB, m1
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.ESm2A_1;
 								enemyColor = A_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B
+									+ PROPORTION_C) {
+								spriteType = SpriteType.ESnB_1;
+								enemyColor = B_color;
+							}
+							else {
+								spriteType = SpriteType.ESm1_1;
+								enemyColor = D_color;
+							}
+							break;
+						case 7: // m2A, m2B, nC, m1
+							if (i / (float) this.nShipsHigh < PROPORTION_C) {
+								spriteType = SpriteType.ESm2A_1;
+								enemyColor = A_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B) {
+								spriteType = SpriteType.ESm2B_1;
+								enemyColor = B_color;
+							}
+							else if (i / (float) this.nShipsHigh < PROPORTION_B
+									+ PROPORTION_C) {
+								spriteType = SpriteType.ESnC_1;
+								enemyColor = C_color;
+							}
+							else {
+								spriteType = SpriteType.ESm1_1;
+								enemyColor = D_color;
 							}
 							break;
 						default:
-							spriteType = SpriteType.ESm2B_1;
+							spriteType = SpriteType.ESnA_1;
 							enemyColor = A_color;
 							break;
 					}
@@ -694,7 +738,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 *            PositionY of Enmeyship destroyed
 	 * @param damage
 	 *            Enhanced Attck damage
-	 * @param itmes
+	 * @param items
 	 *            Items dropped when EnemyShip died
 	 */
 	public final void areaDestory(final int lvEnhanceArea, final List<EnemyShip> column, final int row, final int damage, Set<Item> items) {
