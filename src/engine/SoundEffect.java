@@ -19,6 +19,8 @@ public class SoundEffect {
     File spacebuttonsound = new File("sound/soundEffect/SpaceButton.wav");
     File stagechangesound = new File("sound/soundEffect/StageChange.wav");
     File initialStartSound = new File("sound/soundEffect/initialStart.wav");
+    File startSound = new File("sound/soundEffect/start.wav");
+
 
     /**
      * Play ship's shooting sound
@@ -139,6 +141,21 @@ public class SoundEffect {
         try {
             Clip clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(initialStartSound));
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Play game start sound
+     *
+     *
+     */
+    public void startSound() {
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(startSound));
             clip.start();
         } catch (Exception e) {
             e.printStackTrace();
