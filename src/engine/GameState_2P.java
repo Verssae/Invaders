@@ -108,7 +108,6 @@ public class GameState_2P {
     public final double getLivesRemaining_2p() {
         return livesRemaining_2p;
     }
-
     /**
      * @return the bulletsShot
      */
@@ -155,8 +154,19 @@ public class GameState_2P {
      * Set LivesRecovery
      */
     public final void setLivesRecovery() {
-        this.score_1P = getScore_1P() + 100; // keeping score
-        this.level = getLevel() -1;
-        this.livesRemaining = 3;
+        if(hardcore){
+            this.score_1P = getScore_1P() + 100;
+            this.score_2P = getScore_2P() + 100;
+            this.level = getLevel() - 1;
+            this.livesRemaining = 1;
+            this.livesRemaining_2p = 1;
+        }
+        else {
+            this.score_1P = getScore_1P() + 100; // keeping score
+            this.score_2P = getScore_2P() + 100;
+            this.level = getLevel() - 1;
+            this.livesRemaining = 3;
+            this.livesRemaining_2p = 3;
+        }
     }
 }
