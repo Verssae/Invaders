@@ -94,6 +94,10 @@ public final class DrawManager {
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 	private boolean initialSound = true;
+	public boolean initialSound2 = true;
+	private boolean isAfterLoading = false;
+
+
 
 	private CountUpTimer timer;
 	public int timercount = 0;
@@ -1694,10 +1698,17 @@ public final class DrawManager {
 				drawLoadingNeon(screen, "Loading...",
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3, number);
+				isAfterLoading = true;
+				initialSound2 = true;
 				timercount++;
 			}
 		} else {
 			drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
+			if (isAfterLoading && initialSound2) {
+				SoundEffect effect = new SoundEffect();
+				effect.startSound();
+				initialSound2 = false;
+			}
 			isFirst = false;
 			timercount = 0;
 		}
