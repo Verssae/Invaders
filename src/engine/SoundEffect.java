@@ -157,23 +157,7 @@ public class SoundEffect {
         }
     }
 
-    /**
-     * Play game end sound - when lost all lives
-     *
-     *
-     */
-    public void endSound() {
-        try {
-            String soundFilePath = "sound/soundEffect/gameEnding.wav";
-            File soundFile = new File(soundFilePath).getAbsoluteFile();
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile.getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     /**
      * Play Enemyshipspecial's destruction sound
      */
