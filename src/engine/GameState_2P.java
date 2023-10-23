@@ -8,7 +8,7 @@ import entity.Coin;
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  *
  */
-public class GameState_2P {
+public class GameState_2P{
 
     /** Current game level. */
     private int level;
@@ -18,8 +18,8 @@ public class GameState_2P {
     /** Current coin. */
     private Coin coin;
     /** Lives currently remaining. */
-    private double livesRemaining;
-    private double livesRemaining_2p;
+    private double livesRemaining_1P;
+    private double livesRemaining_2P;
     /** Bullets shot until now. */
     private int bulletsShot_1P;
     private int bulletsShot_2P;
@@ -51,14 +51,14 @@ public class GameState_2P {
      *            Hardcore mode, Only one coin.
      */
     public GameState_2P(final int level, final int score_1P, final int score_2P, final Coin coin,
-                     final double livesRemaining, final int bulletsShot_1P, final int bulletShot_2P,
-                     final int shipsDestroyed, final boolean hardcore,final double livesRemaining_2p, final int BulletsRemaining_1p,final int BulletsRemaining_2p) {
+                     final double livesRemaining_1P, final double livesRemaining_2P, final int bulletsShot_1P, final int bulletShot_2P,
+                     final int shipsDestroyed, final boolean hardcore, final int BulletsRemaining_1p,final int BulletsRemaining_2p) {
         this.level = level;
         this.score_1P = score_1P;
         this.score_2P = score_2P;
         this.coin = coin;
-        this.livesRemaining = livesRemaining;
-        this.livesRemaining_2p = livesRemaining_2p;
+        this.livesRemaining_1P = livesRemaining_1P;
+        this.livesRemaining_2P = livesRemaining_2P;
         this.bulletsShot_1P = bulletsShot_1P;
         this.bulletsShot_2P = bulletsShot_2P;
         this.shipsDestroyed = shipsDestroyed;
@@ -102,11 +102,11 @@ public class GameState_2P {
     /**
      * @return the livesRemaining
      */
-    public final double getLivesRemaining() {
-        return livesRemaining;
+    public final double getLivesRemaining_1P() {
+        return livesRemaining_1P;
     }
-    public final double getLivesRemaining_2p() {
-        return livesRemaining_2p;
+    public final double getLivesRemaining_2P() {
+        return livesRemaining_2P;
     }
     /**
      * @return the bulletsShot
@@ -139,7 +139,8 @@ public class GameState_2P {
      * Set HardCore
      */
     public final void setHardCore() {
-        this.livesRemaining = 1;
+        this.livesRemaining_1P = 1;
+        this.livesRemaining_2P = 1;
         this.hardcore = true;
     }
 
@@ -158,15 +159,15 @@ public class GameState_2P {
             this.score_1P = getScore_1P() + 100;
             this.score_2P = getScore_2P() + 100;
             this.level = getLevel() - 1;
-            this.livesRemaining = 1;
-            this.livesRemaining_2p = 1;
+            this.livesRemaining_1P = 1;
+            this.livesRemaining_2P = 1;
         }
         else {
             this.score_1P = getScore_1P() + 100; // keeping score
             this.score_2P = getScore_2P() + 100;
             this.level = getLevel() - 1;
-            this.livesRemaining = 3;
-            this.livesRemaining_2p = 3;
+            this.livesRemaining_1P = 3;
+            this.livesRemaining_2P = 3;
         }
     }
 }

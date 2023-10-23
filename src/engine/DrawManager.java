@@ -338,7 +338,7 @@ public final class DrawManager {
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
-			// Font loading.
+			// Font loading
 			fontSmall = fileManager.loadFont(12f);
 			fontRegular = fileManager.loadFont(14f);
 			fontBig = fileManager.loadFont(24f);
@@ -1193,6 +1193,42 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws sub menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+	public void drawSubMenu_2P(final Screen screen, final int option) {
+		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
+		String itemStoreString = "I T E M S T O R E";
+		String ehanceString = "E N H A N C E M E N T";
+		String playString = "C O N T I N U E";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, itemStoreString,
+				screen.getHeight() / 3 * 2);
+		if (option == 7)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, ehanceString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, playString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
+	/**
 	 * Draws score menu.
 	 *
 	 * @param screen
@@ -1308,6 +1344,59 @@ public final class DrawManager {
 
 			if(recoveryCoin.getCoin() >= 30){
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
+			} else {backBufferGraphics.setColor(Color.red);}
+
+		}
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, dorecoveryString,
+				screen.getHeight() / 3 * 2);
+		if (option == 52)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, notrecoveryString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+
+
+	}
+
+	public void drawRecoveryConfirmPage_2P(GameState_2P gameState,final Screen screen, final int option) {
+		String paymentMessage = "Please pay 150 amount to recover:";
+		backBufferGraphics.setColor(Color.white);
+		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
+
+		GameState_2P recoveryGameState = gameState;
+		Coin recoveryCoin = recoveryGameState.getCoin();
+
+		String coinString = " C O I N : " + recoveryCoin.getCoin();
+
+		if(recoveryCoin.getCoin() >= 30){
+
+			backBufferGraphics.setColor(Color.YELLOW);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "Your coin is enough";
+			backBufferGraphics.setColor(Color.PINK);
+			drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+		} else {
+			backBufferGraphics.setColor(Color.red);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "You need more coin to continue";
+			backBufferGraphics.setColor(Color.orange);
+			drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+		}
+
+
+		String dorecoveryString = " Y E S ";
+		String notrecoveryString = " N O ";
+
+		if (option == 51){
+
+			if(recoveryCoin.getCoin() >= 30){
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			} else {backBufferGraphics.setColor(Color.red);}
 
 		}
@@ -1914,6 +2003,71 @@ backBufferGraphics.setColor(Color.yellow);
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(skinStoreString, screen.getWidth() - 140, screen.getHeight() - 30);
 if (option == 35)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 15);
+		if (option == 36)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth() *5/8 + 33, screen.getHeight()/2 - 15);
+		if (option == 37)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth()/7+33, screen.getHeight() - 95);
+		if (option == 38)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(BuyString, screen.getWidth()*5/8 + 33, screen.getHeight() - 95);
+	}
+
+	public void drawItemStore_2P(final Screen screen, final int option, final int PST, final int BST, final ItemManager itemManager) {
+		String itemStoretxt = " * I T E M S T O R E * ";
+		String continueString = " > C O N T I N U E";
+		String EnhanceString = " > E N H A N C E";
+		String BuyString = "B U Y";
+		String PrizeString = "1 5 0";
+		String PrizeString1 = "1 5 0";
+		String PrizeString2 = "5 0";
+		String PrizeString3 = "5 0";
+		String ShieldString = "" + itemManager.getShieldCount();
+		String BombString = "" + itemManager.getBombCount();
+		String BSTString = "" + BST;
+		String PSTStiring = "" + PST;
+
+		int rectWidth = screen.getWidth();
+		int rectHeight = screen.getHeight() / 6;
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.fillRect(0, screen.getHeight() / 2 - rectHeight / 2,
+				rectWidth, rectHeight);
+		backBufferGraphics.setColor(Color.green);
+		drawCenteredBigString(screen, itemStoretxt,	screen.getHeight()/4 - 97);
+		drawHorizontalLine(screen, screen.getHeight()/14);
+		drawItemthings(screen.getWidth()/7, screen.getHeight()/6, 100, Color.GRAY,1, ShieldString);
+		drawItemthings(screen.getWidth() *5/8, screen.getHeight()/6, 100, Color.RED,2, BombString);
+		drawItemthings(screen.getWidth()/7, screen.getHeight()*4/7 - 30, 100,Color.BLUE,3, BSTString);
+		drawItemthings(screen.getWidth()*5/8, screen.getHeight()*4/7 - 30, 100, Color.magenta,4, PSTStiring);
+
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.yellow);
+		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 35);
+		backBufferGraphics.drawString(PrizeString1, screen.getWidth()*5/8 + 33, screen.getHeight()/2 - 35);
+		backBufferGraphics.drawString(PrizeString2, screen.getWidth()/7 + 40 , screen.getHeight() - 115);
+		backBufferGraphics.drawString(PrizeString3, screen.getWidth()*5/8 + 40 , screen.getHeight() - 115);
+		if (option == 14)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(EnhanceString, screen.getWidth()/15 - 20, screen.getHeight() - 30);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(continueString, screen.getWidth()/3, screen.getHeight() - 30);
+		if (option == 35)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
