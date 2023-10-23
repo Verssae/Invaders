@@ -2388,6 +2388,38 @@ if (option == 35)
 		}
 	}
 
+	public void gameOver_2p(final Screen screen, boolean levelFinished, double lives_1p, double lives_2p, int bullets_1p, int bullets_2p, CountUpTimer timer,
+							Coin coin, String clearcoin){
+		if(levelFinished){
+			if((lives_1p <= 0 && lives_2p <= 0) || (bullets_1p <= 0 && bullets_2p <= 0)){
+				backBufferGraphics.setColor(animateColor(new Color(0, 0, 0, 0), Color.black, 3000, endTimer));
+				backBufferGraphics.fillRect(0, 0, screen.getWidth(), screen.getHeight());
+
+				backBufferGraphics.setFont(fontBig);
+				backBufferGraphics.setColor(Color.red);
+				backBufferGraphics.drawString("Game Over", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Game Over") / 2, screen.getHeight() / 2);
+			}
+			else{
+				String getClearTime = "" + (int)(timer.getElapsedTime() / 1000) + "." +  (timer.getElapsedTime() % 1000);
+				backBufferGraphics.setFont(fontBig);
+				backBufferGraphics.setColor(Color.white);
+				backBufferGraphics.drawString("Stage Clear", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Stage Clear") / 2, screen.getHeight() / 2);
+				backBufferGraphics.drawString(getClearTime, screen.getWidth() / 2 - fontBigMetrics.stringWidth(getClearTime) / 2, screen.getHeight() / 2 + 20);
+				if ((int)(timer.getElapsedTime() / 1000) > 0 && (int)(timer.getElapsedTime() / 1000) < 30) {
+					backBufferGraphics.drawString("COIN : 20", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 20") / 2, screen.getHeight() / 2 + 40);
+				}
+				else if ((int)(timer.getElapsedTime() / 1000) >= 30 && (int)(timer.getElapsedTime() / 1000) < 40) {
+					backBufferGraphics.drawString("COIN : 15", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 15") / 2, screen.getHeight() / 2 + 40);
+				}
+				else if ((int)(timer.getElapsedTime() / 1000) >= 40 && (int)(timer.getElapsedTime() / 1000) < 50) {
+					backBufferGraphics.drawString("COIN : 10", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 10") / 2, screen.getHeight() / 2 + 40);
+				}
+				else{
+					backBufferGraphics.drawString("COIN : 5", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 5") / 2, screen.getHeight() / 2 + 40);
+				}
+			}
+		}
+	}
 	public void changeGhostColor(boolean levelFinished, double lives){
 		if(levelFinished && lives == 0) {
 			int ghostColorValue;
@@ -2401,10 +2433,48 @@ if (option == 35)
 			//backBufferGraphics.setColor(ghostColor);
 		}
 	}
+	public void changeGhostColor_2p(boolean levelFinished, double lives_1p, double lives_2p){
+		if(levelFinished && lives_1p <= 0 && lives_2p <= 0){
+			int ghostColorValue;
+			if (225 < (255 - ((int)(System.currentTimeMillis() - ghostTImer) / 10)))
+				ghostColorValue = 225;
+			else if (0 < (255 - ((int)(System.currentTimeMillis() - ghostTImer) / 10)))
+				ghostColorValue = (255 - ((int)(System.currentTimeMillis() - ghostTImer) / 10));
+			else
+				ghostColorValue = 0;
+			ghostColor = new Color(ghostColorValue, ghostColorValue, ghostColorValue, 0);
+			//backBufferGraphics.setColor(ghostColor);
+		}
+	}
+
 	public void drawGhost(boolean levelFinished, double lives){
 		if(levelFinished && lives == 0) {
 			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
 			System.out.println(ghostColor);
+			if(timer){
+				if(System.currentTimeMillis() - ghostTImer < 1000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
+				else if (System.currentTimeMillis() - ghostTImer < 2000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX++, ghostPostionY--, 2, 2, Color.white);
+				else
+					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
+			}
+			else {
+				if(System.currentTimeMillis() - ghostTImer < 1000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX, ghostPostionY, 2, 2, Color.white);
+				else if (System.currentTimeMillis() - ghostTImer < 2000)
+					this.drawEntity(SpriteType.Ghost, ghostPostionX, ghostPostionY, 2, 2, Color.white);
+				else
+					this.drawEntity(SpriteType.Ghost, ghostPostionX, ghostPostionY, 2, 2, Color.white);
+			}
+		}
+	}
+	public void drawGhost_2p(boolean levelFinished, double lives_1p, double lives_2p){
+		if(levelFinished && lives_1p <= 0 && lives_2p <=0) {
+			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
+			System.out.println(ghostColor);
+			System.out.println(lives_1p);
+			System.out.println(lives_2p);
 			if(timer){
 				if(System.currentTimeMillis() - ghostTImer < 1000)
 					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);

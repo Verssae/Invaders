@@ -156,7 +156,7 @@ public class GameScreen_2P extends Screen {
         this.score_2P = gameState.getScore_2P();
         this.coin = gameState.getCoin();
         this.lives_1p = gameState.getLivesRemaining();
-        this.lives_2p = gameState.getLivesRemaining();
+        this.lives_2p = gameState.getLivesRemaining_2p();
         //if (this.bonusLife)
         //this.lives++;
         this.bulletsShot_1P = gameState.getBulletsShot_1P();
@@ -485,7 +485,6 @@ public class GameScreen_2P extends Screen {
         if (this.BulletsCount_2p <= 0){
             this.ship_2P.destroy();
             this.BulletsCount_2p = 0;
-
         }
         if (this.BulletsCount_1p == 0 && this.BulletsCount_2p == 0 && !this.levelFinished){
             bgm.enemyShipSpecialbgm_stop();
@@ -493,8 +492,8 @@ public class GameScreen_2P extends Screen {
             soundEffect.playShipDestructionSound();
             this.screenFinishedCooldown.reset();
         }
-        if((this.BulletsCount_1p==0 && this.lives_2p <=0 && !this.levelFinished)
-        || (this.BulletsCount_2p==0 && this.lives_1p <=0 && !this.levelFinished)) {
+        if((this.lives_1p <= 0 && this.lives_2p <= 0) && !this.levelFinished
+        &&  (this.BulletsCount_1p == 0 && this.BulletsCount_2p == 0)) {
             bgm.enemyShipSpecialbgm_stop();
             this.levelFinished = true;
             soundEffect.playShipDestructionSound();
@@ -531,6 +530,7 @@ public class GameScreen_2P extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, (int)this.lives_1p);
+        drawManager.drawBackground(this, SEPARATION_LINE_HEIGHT, (int)this.lives_2p);
         if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
         drawManager.drawBackgroundLines(this, SEPARATION_LINE_HEIGHT);
         drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship_1P.getPositionX(), this.ship_1P.getPositionY(), this.ship_1P.getWidth(), this.ship_1P.getHeight());
@@ -617,13 +617,11 @@ public class GameScreen_2P extends Screen {
         drawManager.drawTimer(this, timer.getElapsedTime());
 
         //GameOver
-        drawManager.gameOver(this, this.levelFinished, this.lives_1p, this.BulletsCount_1p, this.timer, this.coin, this.clearCoin);
-        drawManager.changeGhostColor(this.levelFinished, this.lives_1p);
-        drawManager.drawGhost(this.levelFinished, this.lives_1p);
+        drawManager.gameOver_2p(this, this.levelFinished, this.lives_1p, this.lives_2p, this.BulletsCount_1p, this.BulletsCount_2p, this.timer, this.coin, this.clearCoin);
+        drawManager.changeGhostColor_2p(this.levelFinished, this.lives_1p, this.lives_2p);
+        drawManager.drawGhost_2p(this.levelFinished, this.lives_1p, this.lives_2p);
         this.ship_1P.gameEndShipMotion(this.levelFinished, this.lives_1p);
 
-        drawManager.changeGhostColor(this.levelFinished, this.lives_2p);
-        drawManager.drawGhost(this.levelFinished, this.lives_2p);
         this.ship_2P.gameEndShipMotion(this.levelFinished, this.lives_2p);
 
 
@@ -761,7 +759,7 @@ public class GameScreen_2P extends Screen {
                         this.ship_1P.destroy();
                         if (this.lives_1p != 1) soundEffect.playShipCollisionSound();
                         this.lives_1p--;
-                        this.logger.info("Hit on player ship, " + this.lives_1p
+                        this.logger.info("Hit on player ship_1p, " + this.lives_1p
                                 + " lives remaining.");
                     }
                 }
@@ -771,7 +769,7 @@ public class GameScreen_2P extends Screen {
                         this.ship_2P.destroy();
                         if (this.lives_2p != 1) soundEffect.playShipCollisionSound();
                         this.lives_2p--;
-                        this.logger.info("Hit on player ship, " + this.lives_2p
+                        this.logger.info("Hit on player ship_2p, " + this.lives_2p
                                 + " lives remaining.");
                     }
                 }

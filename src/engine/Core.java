@@ -521,6 +521,7 @@ public final class Core {
                         SETTINGS_LEVEL_5.setDifficulty(difficulty);
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_8.setDifficulty(difficulty);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -528,6 +529,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_5);
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
+                        gameSettings.add(SETTINGS_LEVEL_8);
                     }
                     LOGGER.info("select Level"); // Stage(Level) Selection
                     currentScreen = new StageSelectScreen(width, height, FPS, gameSettings.toArray().length, 1);
