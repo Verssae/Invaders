@@ -29,6 +29,8 @@ import screen.StageSelectScreen;
 import screen.StoreScreen;
 import screen.SubMenuScreen;
 import screen.TitleScreen;
+import screen.TwoPlayHighScoreScreen;
+import screen.TwoPlayScoreScreen;
 
 /**
  * Implements core game logic.
@@ -187,7 +189,7 @@ public final class Core {
             gameState = new GameState(1, 0, coin, MAX_LIVES, 0, 0, false, Color.WHITE, "B U Y", ownedSkins, equippedSkins, 99);
             gameState_2P = new GameState_2P(1, 0, 0,coin, MAX_LIVES, 0, 0, 0, false, MAX_LIVES, 50,50);
 
-            enhanceManager = new EnhanceManager(100, 100, 0, 0, 1);
+            enhanceManager = new EnhanceManager(0, 0, 0, 0, 1);
             itemManager = new ItemManager(0, 0);
 
             switch (returnCode) {
@@ -478,7 +480,12 @@ public final class Core {
                     }
                     else if(scorescreen == 32)
                     {
-
+                        currentScreen = new TwoPlayHighScoreScreen(width, height, FPS);
+                        LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
+                                + " Two Play high score screen at " + FPS + " fps.");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing Two Play high score screen.");
+                        break;
                     }
                     else
                         returnCode = frame.setScreen(currentScreen);
@@ -585,7 +592,7 @@ public final class Core {
                             + gameState_2P.getBulletsShot_1P() + " Ship_1P bullets shot and "
                             + gameState_2P.getBulletsShot_2P() + " Ship_2P bullets shot and "
                             + gameState_2P.getShipsDestroyed() + " ships destroyed.");
-                    currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
+                    currentScreen = new TwoPlayScoreScreen(width, height, FPS, gameState, difficulty);
                     returnCode = frame.setScreen(currentScreen);
 
                     if(returnCode==2){

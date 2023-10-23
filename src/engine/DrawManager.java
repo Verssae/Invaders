@@ -94,6 +94,10 @@ public final class DrawManager {
 	/** Sprite types mapped to their images. */
 	private static Map<SpriteType, boolean[][]> spriteMap;
 	private boolean initialSound = true;
+	public boolean initialSound2 = true;
+	private boolean isAfterLoading = false;
+
+
 
 	private CountUpTimer timer;
 	public int timercount = 0;
@@ -1616,7 +1620,7 @@ public final class DrawManager {
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
 					/ 3 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
-			if (i > 5)
+			if (i >= 5)
 				break;
 		}
 	}
@@ -1694,10 +1698,17 @@ public final class DrawManager {
 				drawLoadingNeon(screen, "Loading...",
 						screen.getHeight() / 2
 								+ fontBigMetrics.getHeight() / 3, number);
+				isAfterLoading = true;
+				initialSound2 = true;
 				timercount++;
 			}
 		} else {
 			drawGo(screen, "GO!", screen.getHeight() / 2 + fontBigMetrics.getHeight() / 3);
+			if (isAfterLoading && initialSound2) {
+				SoundEffect effect = new SoundEffect();
+				effect.startSound();
+				initialSound2 = false;
+			}
 			isFirst = false;
 			timercount = 0;
 		}
@@ -1859,10 +1870,10 @@ backBufferGraphics.setColor(Color.white);
 		String EnhanceString = " > E N H A N C E";
 		String skinStoreString = " > S K I N S T O R E";
 		String BuyString = "B U Y";
-		String PrizeString = "1 0 0";
-		String PrizeString1 = "2 0 0";
-		String PrizeString2 = "3 0 0";
-		String PrizeString3 = "4 0 0";
+		String PrizeString = "1 5 0";
+		String PrizeString1 = "1 5 0";
+		String PrizeString2 = "5 0";
+		String PrizeString3 = "5 0";
 		String ShieldString = "" + itemManager.getShieldCount();
 		String BombString = "" + itemManager.getBombCount();
 		String BSTString = "" + BST;
@@ -1885,8 +1896,8 @@ backBufferGraphics.setColor(Color.white);
 backBufferGraphics.setColor(Color.yellow);
 		backBufferGraphics.drawString(PrizeString, screen.getWidth()/7 + 33 , screen.getHeight()/2 - 35);
 		backBufferGraphics.drawString(PrizeString1, screen.getWidth()*5/8 + 33, screen.getHeight()/2 - 35);
-		backBufferGraphics.drawString(PrizeString2, screen.getWidth()/7 + 33 , screen.getHeight() - 115);
-		backBufferGraphics.drawString(PrizeString3, screen.getWidth()*5/8 + 33 , screen.getHeight() - 115);
+		backBufferGraphics.drawString(PrizeString2, screen.getWidth()/7 + 40 , screen.getHeight() - 115);
+		backBufferGraphics.drawString(PrizeString3, screen.getWidth()*5/8 + 40 , screen.getHeight() - 115);
 		if (option == 14)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -2128,7 +2139,7 @@ if (option == 35)
 	 * @param option
 	 *               Option selected.
 	 * @param valEnhanceArea
-	 *               Current Value of Enhanced Area Range.
+	 *                Current Value of Enhanced Area Range.
 	 * @param valEnhanceDamage
 	 *               Current Value of Enhanced Damage.
 	 * @param lvEnhanceArea
