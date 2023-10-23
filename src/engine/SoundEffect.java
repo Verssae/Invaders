@@ -19,6 +19,8 @@ public class SoundEffect {
     File spacebuttonsound = new File("sound/soundEffect/SpaceButton.wav");
     File stagechangesound = new File("sound/soundEffect/StageChange.wav");
     File initialStartSound = new File("sound/soundEffect/initialStart.wav");
+    File startSound = new File("sound/soundEffect/start.wav");
+
 
     /**
      * Play ship's shooting sound
@@ -145,6 +147,21 @@ public class SoundEffect {
         }
     }
 
+    /**
+     * Play game start sound
+     *
+     *
+     */
+    public void startSound() {
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(startSound));
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void playInitialStartSoundWithDelay() {
         Timer timer = new Timer();
         timer.schedule(new InitialStartSoundTask(), 2000); // 2000ms = 2 sec
@@ -157,23 +174,7 @@ public class SoundEffect {
         }
     }
 
-    /**
-     * Play game end sound - when lost all lives
-     *
-     *
-     */
-    public void endSound() {
-        try {
-            String soundFilePath = "sound/soundEffect/gameEnding.wav";
-            File soundFile = new File(soundFilePath).getAbsoluteFile();
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile.getAbsoluteFile());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
     /**
      * Play Enemyshipspecial's destruction sound
      */
