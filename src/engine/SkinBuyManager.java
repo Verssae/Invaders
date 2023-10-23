@@ -1,38 +1,38 @@
 package engine;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.awt.Color;
 
+import entity.Coin;
 
 public class SkinBuyManager {
 
-    private static SkinBuyManager instance;
 
-    /* map to store skin ownership*/
-    private Map<String, Boolean> ownedSkins;
-    /* map to store skin wearing status */
-    private Map<String, Boolean> equippedSkins;
     
-    private SkinBuyManager() {
-        ownedSkins = new HashMap<>();
-        equippedSkins = new HashMap<>();
+    //private Map<Color, Boolean> ownedSkins;
+    //private Map<Color, Boolean> equippedSkins;
+    private GameState gameState;
+    private Coin coin;
+
+    public SkinBuyManager(GameState gameState) {
+        this.gameState = gameState;
+        this.coin = gameState.getCoin();
+        //this.ownedSkins = gameState.getOwnedSkins();
+        //this.equippedSkins = gameState.getEquippedSkins();
     }
-    
-/**
- * Returns the singleton instance of the SkinBuyManager class
- * access the unique instance of the SkinBuyManager class
- *
- * @return The singleton instance of the SkinBuyManager class
- */
-    public static SkinBuyManager getInstance() {
-        if (instance == null) {
-            instance = new SkinBuyManager();
+
+    /**
+     * Purchase a skin if it is possible based on the provided skin price.
+     *
+     * @param skinName   The name of the skin to purchase.
+     * @param skinPrice  The price of the skin.
+     */
+    public void purchaseSkin(Color skinColor, int skinPrice) {
+        if (coin.getCoin()>= skinPrice) {
+            if (!(isSkinOwned(skinColor))){
+                this.coin.minusCoin(skinPrice);
+            }
         }
-        return instance;
-    }
-    //화폐 단위 생성 후 코드 추가 예정
-    public void purchaseSkin(String skinName) {
-        ownedSkins.put(skinName, true);  
+        gameState.setOwnedSkins(skinColor, true) ; 
     }
 
     /**
@@ -40,8 +40,8 @@ public class SkinBuyManager {
      * 
      * @return True if the player owns the skin, or false if the skin is not owned
      */
-    public boolean isSkinOwned(String skinName) {
-        return ownedSkins.getOrDefault(skinName, false);
+    public boolean isSkinOwned(Color skinColor) {
+        return gameState.getOwnedSkins().getOrDefault(skinColor, false);
     }
 
     /**
@@ -49,17 +49,22 @@ public class SkinBuyManager {
      * 
      * @return True if the player wear the skin, or false if the skin isn't worn
      */
-    public boolean isSkinEquipped(String skinName) {
-        return equippedSkins.getOrDefault(skinName, false);
+    public boolean isSkinEquipped(Color skinColor) {
+        return gameState.getEquippedSkins().getOrDefault(skinColor, false);
     }
 
     /**
      * Equips the skin with the given name. This method marks the skin as equipped.
      *
-     * @param skinName The name of the skin to equip.
+     * @param Color of the skin to equip.
      */
-    public void equipSkin(String skinName) {
-        equippedSkins.put(skinName, true);
+    public void equipSkin(Color skinColor) {
+        if (isSkinOwned(skinColor)){
+            if (!(isSkinEquipped(skinColor)) && !(gameState.getEquippedSkins().containsValue(true))) {
+                gameState.setEquipped(skinColor, true);
+                gameState.setShipColor(skinColor);
+            }
+        }
     }
 
     /**
@@ -67,8 +72,9 @@ public class SkinBuyManager {
      *
      * @param skinName The name of the skin to unequip.
      */
-    public void unequipSkin(String skinName) {
-        equippedSkins.put(skinName, false);
+    public void unequipSkin(Color skinColor) {
+        gameState.setEquipped(skinColor, false);
+        gameState.setShipColor(Color.WHITE);
     }
 
 }

@@ -9,10 +9,12 @@ import engine.Core;
 import engine.EnhanceManager;
 import engine.GameSettings;
 import engine.GameState;
-import entity.Bullet;
-
 import engine.SoundEffect;
+import entity.Coin;
 
+/**
+ * Implements the Enhance screen, where clicking 'Enhancement' on SubMenu Screen.
+ */
 public class EnhanceScreen extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
@@ -20,6 +22,8 @@ public class EnhanceScreen extends Screen {
     private static final int SEPARATION_LINE_HEIGHT = 40;
     /** Current score. */
     private int score;
+    /** Current coin. */
+    private Coin coin;
     /** Player lives left. */
 	private double lives;
     /** Time between changes in user selection. */
@@ -35,13 +39,22 @@ public class EnhanceScreen extends Screen {
     private int leftCircleX = (this.width - 220) / 2;
     private int rightCircleX = this.width - (this.width - 220) / 2 - 70;
     private int sideCircleY = SEPARATION_LINE_HEIGHT * 5;
+    /** EnhanceManager taken from the Core.java */
     private EnhanceManager enhanceManager;
+    /** Game settings taken from the Core.java */
     private List<GameSettings> gameSettings;
     /** For selection moving sound */
     private SoundEffect soundEffect;
+
     /**
      * Constructor, establishes the properties of the screen.
      *
+     * @param enhanceManager
+     *               Screen width.
+     * @param gameSettings
+     *               Screen width.
+     * @param gameState
+     *               Screen width.
      * @param width
      *               Screen width.
      * @param height
@@ -60,6 +73,7 @@ public class EnhanceScreen extends Screen {
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
         this.score = gameState.getScore();
+        this.coin = gameState.getCoin();
         this.lives = gameState.getLivesRemaining();
 
         soundEffect = new SoundEffect();
@@ -112,13 +126,15 @@ public class EnhanceScreen extends Screen {
             if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
                 soundEffect.playSpaceButtonSound();
                 if (this.returnCode == 8) {
-                    this.enhanceManager.enhanceAreaDamage();
+                    if (this.enhanceManager.getlvEnhanceArea() <= 2)
+                        this.enhanceManager.enhanceAreaDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
-                        gameSetting.setAreaDamage(this.enhanceManager.getAreaDamage());
+                        gameSetting.setAreaDamage(this.enhanceManager.getlvEnhanceArea());
                     }
                 }
                 if (this.returnCode == 9) {
-                    this.enhanceManager.enhanceAttackDamage();
+                    if (this.enhanceManager.getlvEnhanceAttack() <= 5)
+                        this.enhanceManager.enhanceAttackDamage();
                     for (GameSettings gameSetting : this.gameSettings) {
                         gameSetting.setAttackDamage(this.enhanceManager.getAttackDamage());
                     }
@@ -183,8 +199,8 @@ public class EnhanceScreen extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawLivesbar(this, this.lives);
         drawManager.drawScore(this, this.score);
+        drawManager.drawCoin(this, this.coin, 1);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 
         drawManager.drawCircleLine(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 0);
@@ -192,6 +208,8 @@ public class EnhanceScreen extends Screen {
         drawManager.drawCircleFill(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
         drawManager.drawCircleLine(this, leftCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
         drawManager.drawCircleLine(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
+        drawManager.drawEnhanceSprite(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 
+                                            leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
 
         String AreaString = "Area";
 		String DamageString = "Damage";
@@ -214,7 +232,9 @@ public class EnhanceScreen extends Screen {
 
         drawManager.drawEnhanceMenu(this, this.returnCode, 
                                     this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
-                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack());
+                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack(),
+                                    this.enhanceManager.getAttackDamage(), this.enhanceManager.getValEnhanceAttack(),
+                                    this.enhanceManager.getRequiredNumEnhanceStoneAttack());
 
         drawManager.completeDrawing(this);
     }

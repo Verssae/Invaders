@@ -17,12 +17,16 @@ public class GameSettings {
 	/** Frequency of enemy shootings, +/- 30%. */
 	private int shootingFrecuency;
 	/** Difficulty of Game */
-	private double difficulty;
+
+	private int difficulty;
 	/** Check if the stage is boss stage. */
 	private boolean isBossStage;
 
+	/** Damage of area. */
 	private int baseAreaDamage;
+	/** Damage of Attack. */
 	private int baseAttackDamage;
+
 	/**
 	 * Constructor.
 	 * 
@@ -34,8 +38,12 @@ public class GameSettings {
 	 *            Speed of the enemies.
 	 * @param shootingFrecuency
 	 *            Frecuency of enemy shootings, +/- 30%.
-	 * @param  difficulty
+	 * @param difficulty
 	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
+	 * @param baseAreaDamage
+	 *            Area Damage of the bullet of ship.
+	 * @param baseAttackDamage
+	 * 			  Attack Damage of the bullet of ship.
 	 */
 	public GameSettings(final int formationWidth, final int formationHeight,
 			final int baseSpeed, final int shootingFrecuency, final int difficulty,
@@ -127,18 +135,31 @@ public class GameSettings {
 	 */
 	public final boolean checkIsBoss() {return this.isBossStage; }
 
+
+	/**
+	 * @return the Enhanced Attack Damage
+	 */	
 	public final int getBaseAttackDamage(){
 		return this.baseAttackDamage;
 	}
 
+	/**
+	 * @return the Enhanced Area Damage
+	 */	
 	public final int getBaseAreaDamage(){
 		return this.baseAreaDamage;
 	}
 
+	/**
+	 * Set Attack Damage
+	 */	
 	public final void setAttackDamage(int attackDamage) {
 		this.baseAttackDamage = attackDamage;
 	}
 
+	/**
+	 * Set Area Damage
+	 */	
 	public final void setAreaDamage(int areaDamage) {
 		this.baseAreaDamage = areaDamage;
 	}
