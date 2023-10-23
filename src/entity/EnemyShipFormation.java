@@ -190,67 +190,63 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					Color D_color = new Color(255, 255, b);
 					switch (level) {
 						case 1:
-							spriteType = SpriteType.EnemyShipA1;
+							spriteType = SpriteType.ESnA_1;
 							enemyColor = A_color;
 							break;
 						case 2:
-							spriteType = SpriteType.EnemyShipB1;
+							spriteType = SpriteType.ESnB_1;
 							enemyColor = B_color;
 							break;
 						case 3:
-							spriteType = SpriteType.EnemyShipC1;
+							spriteType = SpriteType.ESnC_1;
 							enemyColor = C_color;
 							break;
 						case 4:
-							spriteType = SpriteType.EnemyShipSC1;
-							enemyColor = C_color;
-							break;
-						case 5:
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.EnemyShipSC1;
+								spriteType = SpriteType.ESm1_1;
 								enemyColor = C_color;
 							}
 							else {
-								spriteType = SpriteType.EnemyShipA1;
+								spriteType = SpriteType.ESnA_1;
 								enemyColor = A_color;
 							}
 							break;
+						case 5:
+							spriteType = SpriteType.ESm1_1;
+							enemyColor = C_color;
+							break;
 						case 6:
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.EnemyShipSC1;
+								spriteType = SpriteType.ESm1_1;
 								enemyColor = C_color;
 							}
 							else if (i / (float) this.nShipsHigh < PROPORTION_B
 									+ PROPORTION_C) {
-								spriteType = SpriteType.EnemyShipB1;
+								spriteType = SpriteType.ESnB_1;
 								enemyColor = B_color;
 							}
 							else {
-								spriteType = SpriteType.EnemyShipA1;
+								spriteType = SpriteType.ESnA_1;
 								enemyColor = A_color;
 							}
 							break;
 						case 7:
 							if (i / (float) this.nShipsHigh < PROPORTION_C) {
-								spriteType = SpriteType.EnemyShipSC1;
+								spriteType = SpriteType.ESm2A_1;
 								enemyColor = C_color;
-							}
-							else if (i / (float) this.nShipsHigh < PROPORTION_B) {
-								spriteType = SpriteType.EnemyShipD1;
-								enemyColor = D_color;
 							}
 							else if (i / (float) this.nShipsHigh < PROPORTION_B
 									+ PROPORTION_C) {
-								spriteType = SpriteType.EnemyShipB1;
+								spriteType = SpriteType.ESm1_1;
 								enemyColor = B_color;
 							}
 							else {
-								spriteType = SpriteType.EnemyShipA1;
+								spriteType = SpriteType.ESnB_1;
 								enemyColor = A_color;
 							}
 							break;
 						default:
-							spriteType = SpriteType.EnemyShipA1;
+							spriteType = SpriteType.ESm2B_1;
 							enemyColor = A_color;
 							break;
 					}
