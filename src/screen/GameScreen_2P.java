@@ -558,6 +558,7 @@ public class GameScreen_2P extends Screen {
             } else {
                 bgm.InGame_bgm_stop();
                 soundEffect.SoundEffect_stop();
+                bgm.enemyShipSpecialbgm_stop();
             }
         }
         drawManager.drawSoundStatus2(this, isSoundOn);

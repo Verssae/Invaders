@@ -483,7 +483,9 @@ public class GameScreen extends Screen {
 				bgm.InGame_bgm_play();
 			} else {
 				bgm.InGame_bgm_stop();
+				bgm.enemyShipSpecialbgm_stop();
 				soundEffect.SoundEffect_stop();
+
 			}
 		}
 		drawManager.drawSoundStatus1(this, isSoundOn);
