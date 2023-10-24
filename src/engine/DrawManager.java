@@ -2311,7 +2311,8 @@ if (option == 35)
 								final int numEnhanceArea, final int numEnhanceDamage,
 								final int lvEnhanceArea, final int lvEnhanceDamage,
 								final int attackDamage, final int addedValAttackDamage,
-								final int requiredNumEnhanceAttackStone) {
+								final int requiredNumEnhanceAttackStone,
+								final int requiredNumEnhanceAreaStone) {
 		String subMenuString = "S U B M E N U";
 		String itemStoreString = "I T E M S T O R E";
 		String playString = "C O N T I N U E";
@@ -2319,7 +2320,7 @@ if (option == 35)
 				+ Integer.toString(lvEnhanceArea + 1);
 		String lvEnhanceDamageString = "Attack Lv" + Integer.toString(lvEnhanceDamage) + " > "
 				+ Integer.toString(lvEnhanceDamage + 1);
-		String valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/1";
+		String valEnhanceAreaString =  Integer.toString(numEnhanceArea) + "/" + Integer.toString(requiredNumEnhanceAreaStone);
 		String valEnhanceDamageString = Integer.toString(numEnhanceDamage) + "/" + Integer.toString(requiredNumEnhanceAttackStone);
 		String changedAttackDamageString = Integer.toString(attackDamage) + ">" + Integer.toString(attackDamage + addedValAttackDamage);
 		String changedAreaString = "";
