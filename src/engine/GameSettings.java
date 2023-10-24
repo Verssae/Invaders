@@ -38,8 +38,12 @@ public class GameSettings {
 	 *            Speed of the enemies.
 	 * @param shootingFrecuency
 	 *            Frecuency of enemy shootings, +/- 30%.
-	 * @param  difficulty
+	 * @param difficulty
 	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
+	 * @param baseAreaDamage
+	 *            Area Damage of the bullet of ship.
+	 * @param baseAttackDamage
+	 * 			  Attack Damage of the bullet of ship.
 	 */
 	public GameSettings(final int formationWidth, final int formationHeight,
 			final int baseSpeed, final int shootingFrecuency, final int difficulty,

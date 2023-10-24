@@ -4,10 +4,10 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.GameState;
+import engine.GameState_2P;
 import entity.Coin;
 
-public class RandomRewardScreen extends Screen {
+public class RandomRewardScreen_2P extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
     /** Time between changes in user selection. */
@@ -18,7 +18,7 @@ public class RandomRewardScreen extends Screen {
     private String getRewardTypeString;
     /**
      * Constructor, establishes the properties of the screen.
-     * 
+     *
      * @param gameState
      *                  Current game state.
      * @param width
@@ -28,7 +28,7 @@ public class RandomRewardScreen extends Screen {
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public RandomRewardScreen(final GameState gameState, int width, int height, int fps, int randomRes, String getRewardTypeString) {
+    public RandomRewardScreen_2P(final GameState_2P gameState, int width, int height, int fps, int randomRes, String getRewardTypeString) {
         super(width, height, fps);
 
         // Defaults to play.
@@ -39,7 +39,7 @@ public class RandomRewardScreen extends Screen {
         this.randomRes = randomRes;
         this.getRewardTypeString = getRewardTypeString;
     }
- 
+
     /**
      * Starts the action.
      *
@@ -66,7 +66,7 @@ public class RandomRewardScreen extends Screen {
                 this.selectionCooldown.reset();
             }
             if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
-                || inputManager.isKeyDown(KeyEvent.VK_D)) {
+                    || inputManager.isKeyDown(KeyEvent.VK_D)) {
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
@@ -91,12 +91,12 @@ public class RandomRewardScreen extends Screen {
      * Shifts the focus to the previous menu item.
      */
     private void previousMenuItem() {
-        if (this.returnCode == 2) 
-            this.returnCode = 7; 
-        else if (this.returnCode == 7) 
-            this.returnCode = 13; 
+        if (this.returnCode == 2)
+            this.returnCode = 7;
+        else if (this.returnCode == 7)
+            this.returnCode = 13;
         else
-            this.returnCode = 2; 
+            this.returnCode = 2;
     }
 
     /**

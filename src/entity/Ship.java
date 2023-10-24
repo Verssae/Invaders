@@ -54,6 +54,18 @@ public class Ship extends Entity {
 		else if(type == "c"){
 			this.spriteType = SpriteType.ShipC;
 		}
+		else if(type == "d"){
+			this.spriteType = SpriteType.ShipD;
+		}
+		else if(type == "e"){
+			this.spriteType = SpriteType.ShipE;
+		}
+		else if(type == "f"){
+			this.spriteType = SpriteType.ShipF;
+		}
+		else if(type == "g"){
+			this.spriteType = SpriteType.ShipG;
+		}
 
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);
@@ -85,23 +97,25 @@ public class Ship extends Entity {
 	 * 
 	 * @param bullets
 	 *            List of bullets on screen, to add the new bullet.
+	 * @param ENHANCED_DAMAGE
+	 *            Enhanced Attack Damage. (on EnhanceScreen)
 	 * @return Checks if the bullet was shot correctly.
 	 */
-	public final boolean shoot(final Set<Bullet> bullets) {
+	public final boolean shoot(final Set<Bullet> bullets, final int ENHANCED_DAMAGE) {
 		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			this.shipEffect.shoot(bullets, BULLET_SPEED);
+			this.shipEffect.shoot(bullets, BULLET_SPEED, ENHANCED_DAMAGE);
 			return true;
 		}
 		return false;
 	}
 
-	public final boolean shootBulletY(final Set<BulletY> bulletsY) {
+	public final boolean shootBulletY(final Set<BulletY> bulletsY, final int ENHANCED_DAMAGE) {
 		this.shipEffect.attackSpeedUp();
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
-			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED);
+			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED, ENHANCED_DAMAGE);
 			return true;
 		}
 		return false;
@@ -112,7 +126,7 @@ public class Ship extends Entity {
 	 */
 	public final void update() {
 		if(this.spriteType == spriteType.ShipA || this.spriteType == spriteType.ShipADestroyed || this.spriteType == spriteType.ShipAShileded) {
-			if(this.shipEffect.getShieldState()){
+			if(this.shipEffect.getShieldState() == true){
 				this.spriteType = spriteType.ShipAShileded;
 			}else{
 				if (!this.destructionCooldown.checkFinished()) {
@@ -141,6 +155,36 @@ public class Ship extends Entity {
 					this.spriteType = SpriteType.ShipC;
 				}
 			}
+		}else if(this.spriteType == spriteType.ShipD || this.spriteType == spriteType.ShipDDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+					this.spriteType = SpriteType.ShipDDestroyed;
+				} else {
+					this.spriteType = SpriteType.ShipD;
+				}
+			}
+		else if(this.spriteType == spriteType.ShipE || this.spriteType == spriteType.ShipEDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+				this.spriteType = SpriteType.ShipEDestroyed;
+			} else {
+				this.spriteType = SpriteType.ShipE;
+			}
+
+		}
+		else if(this.spriteType == spriteType.ShipF || this.spriteType == spriteType.ShipFDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+				this.spriteType = SpriteType.ShipFDestroyed;
+			} else {
+				this.spriteType = SpriteType.ShipF;
+			}
+
+		}
+		else if(this.spriteType == spriteType.ShipG || this.spriteType == spriteType.ShipGDestroyed) {
+			if (!this.destructionCooldown.checkFinished()) {
+				this.spriteType = SpriteType.ShipGDestroyed;
+			} else {
+				this.spriteType = SpriteType.ShipG;
+			}
+
 		}
 	}
 

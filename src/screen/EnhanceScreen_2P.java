@@ -8,14 +8,14 @@ import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
 import engine.GameSettings;
-import engine.GameState;
+import engine.GameState_2P;
 import engine.SoundEffect;
 import entity.Coin;
 
 /**
  * Implements the Enhance screen, where clicking 'Enhancement' on SubMenu Screen.
  */
-public class EnhanceScreen extends Screen {
+public class EnhanceScreen_2P extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
     /** Height of the interface separation line. */
@@ -25,7 +25,7 @@ public class EnhanceScreen extends Screen {
     /** Current coin. */
     private Coin coin;
     /** Player lives left. */
-	private double lives;
+    private double lives;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
     /** Settings of Centered Circle Frame */
@@ -62,19 +62,19 @@ public class EnhanceScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public EnhanceScreen(final EnhanceManager enhanceManager, final List<GameSettings> gameSettings,
-                         final GameState gameState, final int width, final int height, final int fps) {
+    public EnhanceScreen_2P(final EnhanceManager enhanceManager, final List<GameSettings> gameSettings,
+                         final GameState_2P gameState, final int width, final int height, final int fps) {
         super(width, height, fps);
         this.enhanceManager = enhanceManager;
         this.gameSettings = gameSettings;
-        
+
         // Defaults to play.
         this.returnCode = 8;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-        this.score = gameState.getScore();
+        this.score = gameState.getScore_1P() + gameState.getScore_2P();
         this.coin = gameState.getCoin();
-        this.lives = gameState.getLivesRemaining();
+        this.lives = gameState.getLivesRemaining_1P();
 
         soundEffect = new SoundEffect();
     }
@@ -147,7 +147,7 @@ public class EnhanceScreen extends Screen {
     /**
      * Shifts the focus to the next menu item. (Horizontal Ver.)
      */
-    private void nextHorizontalMenuItem() { 
+    private void nextHorizontalMenuItem() {
         if (this.returnCode == 8)
             this.returnCode = 9;
         else
@@ -208,52 +208,52 @@ public class EnhanceScreen extends Screen {
         drawManager.drawCircleFill(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
         drawManager.drawCircleLine(this, leftCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
         drawManager.drawCircleLine(this, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight, 0);
-        drawManager.drawEnhanceSprite(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 
-                                            leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
+        drawManager.drawEnhanceSprite(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight,
+                leftCircleX, rightCircleX, sideCircleY, sideCircleWidth, sideCircleHeight);
 
         String AreaString = "Area";
-		String DamageString = "Damage";
-		String EnhanceString = "Enhance";
-		String StoneString = "Stone";
+        String DamageString = "Damage";
+        String EnhanceString = "Enhance";
+        String StoneString = "Stone";
         int fontSizeOption = 0;
 
-        drawManager.drawEnhanceStoneString(this, AreaString, 
-                                            leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 20, 
-                                            Color.GRAY, fontSizeOption);
-        drawManager.drawEnhanceStoneString(this, EnhanceString + " " + StoneString, 
-                                            leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 40, 
-                                            Color.GRAY, fontSizeOption);
-        drawManager.drawEnhanceStoneString(this, DamageString, 
-                                            rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 20, 
-                                            Color.GRAY, fontSizeOption);
-        drawManager.drawEnhanceStoneString(this, EnhanceString + " " + StoneString, 
-                                            rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 40, 
-                                            Color.GRAY, fontSizeOption);
+        drawManager.drawEnhanceStoneString(this, AreaString,
+                leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 20,
+                Color.GRAY, fontSizeOption);
+        drawManager.drawEnhanceStoneString(this, EnhanceString + " " + StoneString,
+                leftCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 40,
+                Color.GRAY, fontSizeOption);
+        drawManager.drawEnhanceStoneString(this, DamageString,
+                rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 20,
+                Color.GRAY, fontSizeOption);
+        drawManager.drawEnhanceStoneString(this, EnhanceString + " " + StoneString,
+                rightCircleX + sideCircleWidth / 2, sideCircleY + sideCircleHeight + 40,
+                Color.GRAY, fontSizeOption);
 
-        drawManager.drawEnhanceMenu(this, this.returnCode, 
-                                    this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
-                                    this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack(),
-                                    this.enhanceManager.getAttackDamage(), this.enhanceManager.getValEnhanceAttack(),
-                                    this.enhanceManager.getRequiredNumEnhanceStoneAttack());
+        drawManager.drawEnhanceMenu(this, this.returnCode,
+                this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(),
+                this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack(),
+                this.enhanceManager.getAttackDamage(), this.enhanceManager.getValEnhanceAttack(),
+                this.enhanceManager.getRequiredNumEnhanceStoneAttack());
 
         drawManager.completeDrawing(this);
     }
 
     /**
-	 * Returns a List of GameSettings object representing the status of the game.
-	 *
-	 * @return Current game settings.
-	 */
+     * Returns a List of GameSettings object representing the status of the game.
+     *
+     * @return Current game settings.
+     */
     public List<GameSettings> getGameSettings() {
-		return this.gameSettings;
-	}
+        return this.gameSettings;
+    }
 
     /**
-	 * Returns a DrawManager object representing the status of the game.
-	 *
-	 * @return Current game state.
-	 */
+     * Returns a DrawManager object representing the status of the game.
+     *
+     * @return Current game state.
+     */
     public EnhanceManager getEnhanceManager() {
-		return this.enhanceManager;
-	}
+        return this.enhanceManager;
+    }
 }

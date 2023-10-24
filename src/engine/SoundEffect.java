@@ -1,9 +1,12 @@
 package engine;
 
 import java.io.File;
+import java.util.TimerTask;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioInputStream;
+import java.util.Timer;
+
 
 public class SoundEffect {
 
@@ -15,6 +18,10 @@ public class SoundEffect {
     File buttonclicksound = new File("sound/soundEffect/ButtonClick.wav");
     File spacebuttonsound = new File("sound/soundEffect/SpaceButton.wav");
     File stagechangesound = new File("sound/soundEffect/StageChange.wav");
+    File initialStartSound = new File("sound/soundEffect/initialStart.wav");
+    File startSound = new File("sound/soundEffect/start.wav");
+
+
     /**
      * Play ship's shooting sound
      */
@@ -132,11 +139,8 @@ public class SoundEffect {
      */
     public void initialStartSound() {
         try {
-            String soundFilePath = "#";
-            File soundFile = new File(soundFilePath).getAbsoluteFile();
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile.getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+            clip.open(AudioSystem.getAudioInputStream(initialStartSound));
             clip.start();
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,22 +148,33 @@ public class SoundEffect {
     }
 
     /**
-     * Play game end sound - when lost all lives
+     * Play game start sound
      *
      *
      */
-    public void endSound() {
+    public void startSound() {
         try {
-            String soundFilePath = "sound/soundEffect/gameEnding.wav";
-            File soundFile = new File(soundFilePath).getAbsoluteFile();
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile.getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
+            clip.open(AudioSystem.getAudioInputStream(startSound));
             clip.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public void playInitialStartSoundWithDelay() {
+        Timer timer = new Timer();
+        timer.schedule(new InitialStartSoundTask(), 2000); // 2000ms = 2 sec
+    }
+
+    class InitialStartSoundTask extends TimerTask {
+        @Override
+        public void run() {
+            initialStartSound();
+        }
+    }
+
+
     /**
      * Play Enemyshipspecial's destruction sound
      */

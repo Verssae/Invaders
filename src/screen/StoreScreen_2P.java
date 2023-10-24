@@ -5,12 +5,12 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 import engine.EnhanceManager;
-import engine.GameState;
+import engine.GameState_2P;
 import engine.ItemManager;
 import engine.SoundEffect;
 import entity.Coin;
 
-public class StoreScreen extends Screen {
+public class StoreScreen_2P extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
 
@@ -25,7 +25,7 @@ public class StoreScreen extends Screen {
 
     private int BST;
     private EnhanceManager enhanceManager;
-    private GameState gameState;
+    private GameState_2P gameState;
 
     private ItemManager itemManager;
     /**
@@ -38,7 +38,7 @@ public class StoreScreen extends Screen {
      * @param fps
      *               Frames per second, frame rate at which the game is run.
      */
-    public StoreScreen(final int width, final int height, final int fps, final GameState gameState, final EnhanceManager enhanceManager, final ItemManager itemManager) {
+    public StoreScreen_2P(final int width, final int height, final int fps, final GameState_2P gameState, final EnhanceManager enhanceManager, final ItemManager itemManager) {
         super(width, height, fps);
         // Defaults to play.
         this.returnCode = 35;
@@ -107,7 +107,7 @@ public class StoreScreen extends Screen {
                         System.out.println("plese do");
                     }
                     else{
-                        
+
                     }
                 }
                 if (returnCode == 36 && gameState != null){
@@ -129,7 +129,7 @@ public class StoreScreen extends Screen {
                         System.out.println("plese do");
                     }
                     else{
-                        
+
                     }
                 }
                 if (returnCode == 38 && gameState != null){
@@ -140,7 +140,7 @@ public class StoreScreen extends Screen {
                         System.out.println("plese do");
                     }
                     else{
-                        
+
                     }
                 }
                 this.isRunning = false;
@@ -155,8 +155,6 @@ public class StoreScreen extends Screen {
         else if (this.returnCode == 37)
             this.returnCode = 35;
         else if (this.returnCode == 36)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
             this.returnCode = 38;
         else if (this.returnCode == 38)
             this.returnCode = 36;
@@ -171,8 +169,6 @@ public class StoreScreen extends Screen {
         else if (this.returnCode == 36)
             this.returnCode = 38;
         else if (this.returnCode == 38)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
             this.returnCode = 36;
     }
     private void rightMenuItem() {
@@ -181,15 +177,13 @@ public class StoreScreen extends Screen {
         else if (this.returnCode == 36)
             this.returnCode = 35;
         else if (this.returnCode == 37)
-            this.returnCode = 38;   
+            this.returnCode = 38;
         else if (this.returnCode == 38)
             this.returnCode = 37;
         else if (this.returnCode == 14)
             this.returnCode = 2;
         else if (this.returnCode == 2)
-            this.returnCode = 15;
-        else if (this.returnCode == 15)
-            this.returnCode = 14;                                                     
+            this.returnCode = 14;
     }
 
     private void leftMenuItem() {
@@ -198,15 +192,13 @@ public class StoreScreen extends Screen {
         else if (this.returnCode == 36)
             this.returnCode = 35;
         else if (this.returnCode == 37)
-            this.returnCode = 38;   
+            this.returnCode = 38;
         else if (this.returnCode == 38)
             this.returnCode = 37;
         else if (this.returnCode == 14)
-            this.returnCode = 15;  
-        else if (this.returnCode == 15)
             this.returnCode = 2;
         else if (this.returnCode == 2)
-            this.returnCode = 14;            
+            this.returnCode = 14;
     }
     /**
      * Draws the elements associated with the screen.123
@@ -214,20 +206,20 @@ public class StoreScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawCoin(this, this.coin, 2);
-        drawManager.drawItemStore(this, this.returnCode, PST, BST, this.itemManager);
+        drawManager.drawItemStore_2P(this, this.returnCode, PST, BST, this.itemManager);
         drawManager.completeDrawing(this);
     }
-    
-    /**
-	 * Returns a DrawManager object representing the status of the game.
-	 *
-	 * @return Current game state.
-	 */
-    public EnhanceManager getEnhanceManager() {
-		return this.enhanceManager;
-	}
 
-    public GameState getGameState() {
+    /**
+     * Returns a DrawManager object representing the status of the game.
+     *
+     * @return Current game state.
+     */
+    public EnhanceManager getEnhanceManager() {
+        return this.enhanceManager;
+    }
+
+    public GameState_2P getGameState() {
         return this.gameState;
     }
 }
