@@ -234,7 +234,8 @@ public class EnhanceScreen extends Screen {
                                     this.enhanceManager.getNumEnhanceStoneArea(), this.enhanceManager.getNumEnhanceStoneAttack(), 
                                     this.enhanceManager.getlvEnhanceArea(), this.enhanceManager.getlvEnhanceAttack(),
                                     this.enhanceManager.getAttackDamage(), this.enhanceManager.getValEnhanceAttack(),
-                                    this.enhanceManager.getRequiredNumEnhanceStoneAttack());
+                                    this.enhanceManager.getRequiredNumEnhanceStoneAttack(),
+                                    this.enhanceManager.getRequiredNumEnhanceStoneArea());
 
         drawManager.completeDrawing(this);
     }
