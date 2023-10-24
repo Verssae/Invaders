@@ -58,7 +58,7 @@ public class Item extends Entity {
         }else if(type < 0.6){ //10%
             this.spriteType = SpriteType.PerpleEnhanceStone;
             this.setColor(Color.magenta);
-        }else if(type < 0.8){ //20%
+        }else { 
             this.spriteType = SpriteType.Coin;
             this.setColor(Color.YELLOW);
         }
