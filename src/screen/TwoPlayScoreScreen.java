@@ -7,7 +7,7 @@ import java.util.List;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.GameState;
+import engine.GameState_2P;
 import engine.Score;
 
 import engine.SoundEffect;
@@ -89,12 +89,12 @@ public class TwoPlayScoreScreen extends Screen {
      * @param gameState Current game state.
      */
     public TwoPlayScoreScreen(final int width, final int height, final int fps,
-                       final GameState gameState, final int difficulty) {
+                       final GameState_2P gameState, final int difficulty) {
         super(width, height, fps);
         this.difficulty = difficulty;
-        this.score = gameState.getScore();
-        this.livesRemaining = gameState.getLivesRemaining();
-        this.bulletsShot = gameState.getBulletsShot();
+        this.score = gameState.getScore_1P() + gameState.getScore_2P();
+        this.livesRemaining = gameState.getLivesRemaining_1P() + gameState.getLivesRemaining_2P();
+        this.bulletsShot = gameState.getBulletsShot_1P() + gameState.getBulletsShot_2P();
         this.shipsDestroyed = gameState.getShipsDestroyed();
         this.isNewRecord = false;
         this.name = "AAA".toCharArray();
