@@ -1310,7 +1310,7 @@ public final class DrawManager {
 	 */
 
 	public void drawRecoveryConfirmPage(GameState gameState,final Screen screen, final int option) {
-		String paymentMessage = "Please pay 150 amount to recover:";
+		String paymentMessage = "Please pay 30 amount to recover:";
 		backBufferGraphics.setColor(Color.white);
 		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
 
