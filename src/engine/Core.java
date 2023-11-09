@@ -15,7 +15,7 @@ import entity.Coin;
 import screen.*;
 
 /**
- * Implements core game logic.1
+ * Implements core game logic.
  *
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  */
