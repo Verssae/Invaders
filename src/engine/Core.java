@@ -734,6 +734,12 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
+                case 5:
+                    // Setting Screen.
+                    currentScreen = new SettingScreen(width, height, FPS);
+                    LOGGER.info("Starting" + WIDTH + "x" + "Setting Screen Menu at" + FPS + "fps.");
+                    int settingscreen = frame.setScreen(currentScreen);
+
                 default:
                     break;
             }

@@ -1053,6 +1053,7 @@ public final class DrawManager {
 		String playString = "P L A Y";
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
+		String SettingString = "S E T T I N G";
 		String exitString = "E X I T";
 
 		if (option == 2)
@@ -1065,20 +1066,26 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, twoplayString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		drawCenteredRegularString(screen, twoplayString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
 		if (option == 3)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, SettingString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 6);
 		if (option == 0)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
+		drawCenteredRegularString(screen, exitString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 8);
 	}
 
 
