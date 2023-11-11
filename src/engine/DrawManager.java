@@ -2854,4 +2854,67 @@ if (option == 35)
 			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 		}
 	}
+	public void drawSettingMenu(final Screen screen, final int setting){
+		String MainMenuString = "M A I N  M E N U";
+		String SoundSettingString = "S O U N D  S E T T I N G";
+		String KeySettingString = "K E Y  S E T T I N G";
+		if (setting == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, MainMenuString, screen.getHeight()
+				/ 3 * 2 );
+		if (setting == 101)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, SoundSettingString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (setting == 102)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, KeySettingString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+	public void drawSoundSettingMenu(final Screen screen, final int setting){
+		String BackString = "B A C K";
+		String SoundOnString = "S O U N D  O N";
+		String SoundOffString = "S O U N D  O F F";
+		if (setting == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, BackString, screen.getHeight()
+				/ 3 * 2 );
+		if (setting == 103)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, SoundOnString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (setting == 104)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, SoundOffString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+	}
+
+	public void drawKeySettingMenu(final Screen screen, final int setting){
+		String BackString = "B A C K";
+		String KeyString = "K E Y";
+		if (setting == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, BackString, screen.getHeight()
+				/ 3 * 2 );
+		if (setting == 105)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, KeyString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 2);
+	}
 }

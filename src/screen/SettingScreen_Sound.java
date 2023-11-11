@@ -7,7 +7,7 @@ import engine.Core;
 import engine.SoundEffect;
 
 
-public class SettingScreen extends Screen{
+public class SettingScreen_Sound extends Screen{
     private static final int SELECTION_TIME = 200;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
@@ -15,7 +15,7 @@ public class SettingScreen extends Screen{
     private SoundEffect soundEffect;
 
 
-    public SettingScreen(int width, int height, int fps) {
+    public SettingScreen_Sound(int width, int height, int fps) {
         super(width, height, fps);
 
         this.returnCode = 1;
@@ -57,11 +57,13 @@ public class SettingScreen extends Screen{
     }
     private void nextMenuItem() {
         if (this.returnCode == 1)
-            this.returnCode = 101;
-        else if (this.returnCode == 101)
-            this.returnCode = 102;
-        else if (this.returnCode == 102)
-            this.returnCode = 1;
+            this.returnCode = 5;
+        else if (this.returnCode == 5)
+            this.returnCode = 103;
+        else if (this.returnCode == 103)
+            this.returnCode = 104;
+        else if (this.returnCode ==104)
+            this.returnCode = 5;
     }
 
     /**
@@ -69,16 +71,18 @@ public class SettingScreen extends Screen{
      */
     private void previousMenuItem() {
         if (this.returnCode == 1)
-            this.returnCode = 102;
-        else if (this.returnCode == 101)
-            this.returnCode = 1;
-        else if (this.returnCode == 102)
-            this.returnCode = 101;
+            this.returnCode = 104;
+        else if (this.returnCode == 5)
+            this.returnCode = 104;
+        else if (this.returnCode == 103)
+            this.returnCode = 5;
+        else if (this.returnCode == 104)
+            this.returnCode = 103;
     }
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawSettingMenu(this, this.returnCode);
+        drawManager.drawSoundSettingMenu(this, this.returnCode);
 
         drawManager.completeDrawing(this);
     }
