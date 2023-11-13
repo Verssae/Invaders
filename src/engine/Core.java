@@ -67,24 +67,23 @@ public final class Core {
      */
     private static GameSettings SETTINGS_LEVEL_4 = new GameSettings(6, 6, 30, 1500, 1, 1, 1);
     /**
-     * Difficulty settings for level 5.
+     * Difficulty settings for level 5(Boss).
      */
-    private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(7, 6, 20, 3900, 1, 1, 1);
+    private static GameSettings SETTINGS_LEVEL_5 = new GameSettings(10, 1000,1, 1, 1);
     /**
      * Difficulty settings for level 6.
      */
-    private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 7, 10, 3600, 1, 1, 1);
+    private static GameSettings SETTINGS_LEVEL_6 = new GameSettings(7, 6, 20, 3900, 1, 1, 1);
     /**
      * Difficulty settings for level 7.
      */
 
-    private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(8, 7, 2, 3300, 1, 1, 1);
+    private static GameSettings SETTINGS_LEVEL_7 = new GameSettings(7, 7, 10, 3600, 1, 1, 1);
 
     /**
-     * Difficulty settings for level 8(Boss).
+     * Difficulty settings for level 8.
      */
-    private static GameSettings SETTINGS_LEVEL_8 =
-            new GameSettings(10, 1000,1, 1, 1);
+    private static GameSettings SETTINGS_LEVEL_8 = new GameSettings(8, 7, 2, 3300, 1, 1, 1);
 
 
     /**
