@@ -43,12 +43,19 @@ public class EnemyShip extends Entity {
 	/** check which special enemy to generate. */
 	private int spVariable;
 
-
+	/** Check the enemyship is Special one */
+	private boolean special;
 
 	/** Check the enemyship is boss */
 	private boolean isBoss;
 
+	/** Position of Launching Special bullet */
+	private int launchPos;
 
+	/** Check Launching Special bullet */
+	private boolean launched = false;
+
+	private int bulletType;
 
 
 	/**
@@ -71,6 +78,7 @@ public class EnemyShip extends Entity {
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
 		this.isBoss = false;
+		this.special = false;
 
 		switch (this.spriteType) {
 			case ESnA_1:
@@ -117,11 +125,11 @@ public class EnemyShip extends Entity {
 	 * @param specialEnemyColor
 	 * 			   Color of the special ship.
 	 */
-	public EnemyShip(Color specialEnemyColor) {
+	public EnemyShip(Color specialEnemyColor, final int attackType, final int LaunchPos) {
 		super(-32, 60, 16 * 2, 7 * 2, specialEnemyColor);
 		spVariable = (int)(Math.random()*4);
-
-
+		launchPos = LaunchPos;
+		bulletType = attackType;
 		switch (spVariable) {
 			case 0:
 				this.spriteType = SpriteType.EnemyShipSpecial1;
@@ -142,6 +150,19 @@ public class EnemyShip extends Entity {
 		this.pointValue = BONUS_TYPE_POINTS;
 		this.EnemyLife = 1;
 		this.isBoss = false;
+		this.special = true;
+	}
+
+	public final int getLaunchPos() {
+		return launchPos;
+	}
+	public final int getBulletType() { return bulletType;}
+
+	public boolean getSpBulletLoaded() {
+		return launched;
+	}
+	public void LaunchSpecialBullet() {
+		launched = true;
 	}
 
 	/**
@@ -160,7 +181,7 @@ public class EnemyShip extends Entity {
 		this.pointValue = BOSS_TYPE_POINTS;
 		this.EnemyLife = enemylife;
 		this.isBoss = true;
-
+		this.special = false;
 	}
 
 	/**

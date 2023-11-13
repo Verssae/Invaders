@@ -19,19 +19,9 @@ import engine.GameSettings;
 import engine.GameState;
 import engine.ItemManager;
 import engine.SoundEffect;
-import entity.Bullet;
-import entity.BulletLine;
-import entity.BulletPool;
-import entity.BulletY;
-import entity.Coin;
-import entity.EnemyShip;
-import entity.EnemyShipFormation;
-import entity.Entity;
-import entity.Item;
-import entity.ItemPool;
-import entity.Laser;
-import entity.LaserLine;
-import entity.Ship;
+import entity.*;
+
+import javax.script.ScriptEngine;
 
 
 /**
@@ -62,6 +52,16 @@ public class GameScreen extends Screen {
 	private static int LASER_LOAD = 2000;
 	/** Time until laser disappears. */
 	private static final int LASER_ACTIVATE = 1000;
+	/** Time until Blaze disappears. */
+	private static final int Blaze_ACTIVATE = 3000;
+	/** Time until Poison disappears. */
+	private static final int Poison_ACTIVATE = 2000;
+	/** Time until Smog disappears. */
+	private static final int Smog_ACTIVATE = 5000;
+	/** Time until EMP disappears. */
+	private static final int EMP_ACTIVATE = 3000;
+	private static final int[] SPAttack_ACT = {Blaze_ACTIVATE, Poison_ACTIVATE, Smog_ACTIVATE, EMP_ACTIVATE};
+	private static final int SpAtSpriteCooldown = 250;
 	/** Time from finishing the level to screen change. */
 	private static final int SCREEN_CHANGE_INTERVAL = 3000;
 	/** Height of the interface separation line. */
@@ -80,6 +80,7 @@ public class GameScreen extends Screen {
 	private Cooldown enemyShipSpecialCooldown;
 	/** Time until bonus ship explosion disappears. */
 	private Cooldown enemyShipSpecialExplosionCooldown;
+	private Cooldown SpecialAttackSpriteCooldown;
 	/** Time from finishing the level to screen change. */
 	private Cooldown screenFinishedCooldown;
 	/** Set of bullets fired by on screen ships. */
@@ -140,6 +141,8 @@ public class GameScreen extends Screen {
 	private int areaDamage;
 	/** EnhanceManager to manage enhancement (received from Core.java) */
 	private EnhanceManager enhanceManager;
+	/** X postion where the special bullet is launched */
+	private int launchPos;
 	/** Combo counting*/
 	private int combo=0;
 	/**  */
@@ -159,6 +162,12 @@ public class GameScreen extends Screen {
 	private Map<Color, Boolean> ownedSkins;
 	private Map<Color, Boolean> equippedSkins;
 
+	/** Special Bullet **/
+	private SpecialBullet SpBullet;
+	private Cooldown SpecialAttackCooldown;
+	private Cooldown SpecialAtDamageCooldown;
+	private final int BlazeDamageCooldown = 500;
+	private final double BlazeDamage = 0.1;
 	private int BulletsRemaining=99;
 
 
@@ -381,27 +390,37 @@ public class GameScreen extends Screen {
 
 
 				if (this.enemyShipSpecial != null) {
-					if (!this.enemyShipSpecial.isDestroyed())
+					if (!this.enemyShipSpecial.isDestroyed()) {
 						this.enemyShipSpecial.move(2, 0);
+						if (this.enemyShipSpecial.getPositionX() > this.enemyShipSpecial.getLaunchPos()
+								&& !this.enemyShipSpecial.getSpBulletLoaded()) {
+							this.enemyShipSpecial.LaunchSpecialBullet();
+							this.SpBullet = new SpecialBullet(this.enemyShipSpecial.getPositionX(),
+									this.enemyShipSpecial.getPositionY(), 10, 1,
+									this.enemyShipSpecial.getColor(), this.enemyShipSpecial.getBulletType());
+						}
+					}
 					else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
 						this.enemyShipSpecial = null;
+
 				}
 				if (this.enemyShipSpecial == null
 						&& this.enemyShipSpecialCooldown.checkFinished()) {
 					bgm.enemyShipSpecialbgm_play();
 					colorVariable = (int)(Math.random()*4);
+					launchPos = (int)(this.getWidth() * Math.random());
 					switch (colorVariable) {
 						case 0:
-							this.enemyShipSpecial = new EnemyShip(Color.RED);
+							this.enemyShipSpecial = new EnemyShip(Color.RED, colorVariable, launchPos);
 							break;
 						case 1:
-							this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+							this.enemyShipSpecial = new EnemyShip(Color.YELLOW, colorVariable, launchPos);
 							break;
 						case 2:
-							this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+							this.enemyShipSpecial = new EnemyShip(Color.BLUE, colorVariable, launchPos);
 							break;
 						case 3:
-							this.enemyShipSpecial = new EnemyShip(Color.WHITE);
+							this.enemyShipSpecial = new EnemyShip(Color.WHITE, colorVariable, launchPos);
 							break;
 						default:
 							break;
@@ -414,6 +433,33 @@ public class GameScreen extends Screen {
 					bgm.enemyShipSpecialbgm_stop();
 					this.enemyShipSpecial = null;
 					this.logger.info("The special ship has escaped");
+				}
+				if (this.SpBullet != null) {
+					if (this.SpBullet.getPositionY() < getHeight() && !this.SpBullet.getActivate()){
+						this.SpBullet.update();
+					}
+					else if (this.SpecialAttackCooldown == null){
+						this.SpecialAttackCooldown = Core.getCooldown(SPAttack_ACT[this.SpBullet.getType()]);
+						this.SpecialAttackCooldown.reset();
+						this.SpecialAttackSpriteCooldown = Core.getCooldown(SpAtSpriteCooldown);
+						this.SpecialAttackSpriteCooldown.reset();
+						this.SpBullet.setActivate();
+						this.SpBullet.ChangePos(this.SpBullet.getPositionX() - 4 * this.SpBullet.getWidth(),
+								getHeight()-4*this.SpBullet.getHeight()+5);
+						logger.info("Special Bullet has been activated");
+					}
+					else if (this.SpBullet.getActivate() && this.SpecialAttackCooldown.checkFinished()) {
+						this.SpecialAttackCooldown = null;
+						this.SpBullet = null;
+						this.SpecialAtDamageCooldown = null;
+						logger.info("Special Bullet has been disappeared");
+					}
+					else {
+						if (this.SpecialAttackSpriteCooldown.checkFinished()) {
+							this.SpBullet.update_sprite();
+							this.SpecialAttackSpriteCooldown.reset();
+						}
+					}
 				}
 
 				this.ship.update();
@@ -438,6 +484,7 @@ public class GameScreen extends Screen {
 		}
 		if (this.lives <= 0 && !this.levelFinished) {
 			bgm.InGame_bgm_stop();
+			this.lives = 0;
 			this.ship.update();
 			bgm.enemyShipSpecialbgm_stop();
 			this.levelFinished = true;
@@ -521,6 +568,19 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
+		if (this.SpBullet != null){
+			if (!this.SpBullet.getActivate())
+				drawManager.drawEntity(this.SpBullet,
+						this.SpBullet.getPositionX(),
+						this.SpBullet.getPositionY());
+			else {
+				for (int i = 0; i < 8; i++) {
+					drawManager.drawEntity(this.SpBullet,
+					this.SpBullet.getPositionX() + i * this.SpBullet.getWidth()/8,
+							this.SpBullet.getPositionY());
+				}
+			}
+		}
 		if (this.laser != null)
 			drawManager.drawEntity(this.laser,
 					this.laser.getPositionX(),
@@ -767,6 +827,33 @@ public class GameScreen extends Screen {
 					if (gameSettings.getDifficulty() == 3) this.lives = 0;
 					this.logger.info("Hit on player ship, " + this.lives
 							+ " lives remaining.");
+				}
+			}
+		}
+		if (this.SpBullet != null) {
+			if (checkCollision(this.SpBullet, this.ship) && !this.levelFinished) {
+				if (!this.ship.isDestroyed()) {
+					if (gameSettings.getDifficulty() == 3) this.lives = 0;
+					if (!this.SpBullet.getActivate()) {
+						this.ship.destroy();
+						if (this.lives != 1) soundEffect.playShipCollisionSound();
+						this.lives--;
+						this.logger.info("Hit on player ship, " + this.lives
+								+ " lives remaining.");
+					}
+					else {
+						if (this.SpecialAtDamageCooldown == null)
+							this.SpecialAtDamageCooldown = Core.getCooldown(this.BlazeDamageCooldown);
+						else if (this.SpecialAtDamageCooldown.checkFinished()) {
+							this.lives -= this.BlazeDamage;
+							this.SpecialAtDamageCooldown.reset();
+						}
+					}
+				}
+			}
+			else {
+				if (this.SpBullet.getActivate() && this.SpecialAtDamageCooldown != null) {
+					this.SpecialAtDamageCooldown = null;
 				}
 			}
 		}
