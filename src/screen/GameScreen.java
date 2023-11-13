@@ -55,11 +55,11 @@ public class GameScreen extends Screen {
 	/** Time until Blaze disappears. */
 	private static final int Blaze_ACTIVATE = 3000;
 	/** Time until Poison disappears. */
-	private static final int Poison_ACTIVATE = 2000;
+	private static final int Poison_ACTIVATE = 10000;
 	/** Time until Smog disappears. */
-	private static final int Smog_ACTIVATE = 5000;
+	private static final int Smog_ACTIVATE = 10000;
 	/** Time until EMP disappears. */
-	private static final int EMP_ACTIVATE = 3000;
+	private static final int EMP_ACTIVATE = 10000;
 	private static final int[] SPAttack_ACT = {Blaze_ACTIVATE, Poison_ACTIVATE, Smog_ACTIVATE, EMP_ACTIVATE};
 	private static final int SpAtSpriteCooldown = 250;
 	/** Time from finishing the level to screen change. */
@@ -169,8 +169,9 @@ public class GameScreen extends Screen {
 	private final int BlazeDamageCooldown = 500;
 	private final double BlazeDamage = 0.1;
 	private int BulletsRemaining=99;
-
-
+	/** EMP Emergency Escape Code **/
+	private int[] EmerCode = {KeyEvent.VK_0, KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3
+			, KeyEvent.VK_4, KeyEvent.VK_5, KeyEvent.VK_6, KeyEvent.VK_7, KeyEvent.VK_8, KeyEvent.VK_9};
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -307,6 +308,7 @@ public class GameScreen extends Screen {
 			if (this.inputDelay.checkFinished() && !this.levelFinished) {
 				pause = inputManager.isKeyDown(KeyEvent.VK_ESCAPE);
 				if (!this.ship.isDestroyed()) {
+
 					boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT)
 							|| inputManager.isKeyDown(KeyEvent.VK_D);
 					boolean moveLeft = inputManager.isKeyDown(KeyEvent.VK_LEFT)
@@ -318,30 +320,29 @@ public class GameScreen extends Screen {
 
 					if (this.ship.getSpeed() >= 0)
 					{
-						if (moveRight && !isRightBorder) {
+						if (moveRight && !isRightBorder && !EmpActivated()) {
 							this.ship.moveRight();
 						}
-						if (moveLeft && !isLeftBorder) {
+						if (moveLeft && !isLeftBorder && !EmpActivated()) {
 							this.ship.moveLeft();
 						}
 					} else {
-						if (moveRight && !isLeftBorder) {
+						if (moveRight && !isLeftBorder && !EmpActivated()) {
 							this.ship.moveRight();
 						}
-						if (moveLeft && !isRightBorder) {
+						if (moveLeft && !isRightBorder && !EmpActivated()) {
 							this.ship.moveLeft();
 						}
 					}
-					if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
-						if(bulletsShot % 3 == 0 && !(bulletsShot == 0)) {
+					if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && !EmpActivated()) {
+						if (bulletsShot % 3 == 0 && !(bulletsShot == 0)) {
 							if (this.ship.shootBulletY(this.bulletsY, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
 								this.BulletsCount--;
 								this.BulletsRemaining--;
 							}
-						}
-						else {
+						} else {
 							if (this.ship.shoot(this.bullets, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
 								this.bulletsShot++;
@@ -355,7 +356,7 @@ public class GameScreen extends Screen {
 					 * 폭탄은 데미지랑 상관 없이 한 열을 지워버리나봐요!!
 					 * 너무 사기적이라 보스에는 아마 적용이 안 될 거 같아요!!
 					 */
-					if(inputManager.isKeyDown(KeyEvent.VK_B)) {
+					if(inputManager.isKeyDown(KeyEvent.VK_B) && !EmpActivated()) {
 						if(ship.getBomb()){
 							this.enemyShipFormation.bombDestroy(items);
 							this.ship.setBomb(false);
@@ -443,21 +444,39 @@ public class GameScreen extends Screen {
 						this.SpecialAttackCooldown.reset();
 						this.SpecialAttackSpriteCooldown = Core.getCooldown(SpAtSpriteCooldown);
 						this.SpecialAttackSpriteCooldown.reset();
-						this.SpBullet.setActivate();
-						this.SpBullet.ChangePos(this.SpBullet.getPositionX() - 4 * this.SpBullet.getWidth(),
-								getHeight()-4*this.SpBullet.getHeight()+5);
+						this.SpBullet.setActivate(this.SpBullet.getType());
+						if (this.SpBullet.getType() == 0) {
+							this.SpBullet.ChangePos(this.SpBullet.getPositionX() - 4 * this.SpBullet.getWidth(),
+									getHeight()-4*this.SpBullet.getHeight()+5);
+						}
 						logger.info("Special Bullet has been activated");
 					}
 					else if (this.SpBullet.getActivate() && this.SpecialAttackCooldown.checkFinished()) {
+						if (this.SpBullet.getType() == 0) {
+							this.SpecialAtDamageCooldown = null;
+						}
 						this.SpecialAttackCooldown = null;
 						this.SpBullet = null;
-						this.SpecialAtDamageCooldown = null;
+						this.SpecialAttackSpriteCooldown = null;
 						logger.info("Special Bullet has been disappeared");
 					}
 					else {
-						if (this.SpecialAttackSpriteCooldown.checkFinished()) {
-							this.SpBullet.update_sprite();
-							this.SpecialAttackSpriteCooldown.reset();
+						if (this.SpecialAttackSpriteCooldown != null) {
+							if (this.SpecialAttackSpriteCooldown.checkFinished()) {
+								this.SpBullet.update_sprite();
+								this.SpecialAttackSpriteCooldown.reset();
+							}
+						}
+					}
+				}
+
+				if (EmpActivated()) {
+					if (inputManager.isKeyDown(this.EmerCode[this.SpBullet.getEmerCode()])) {
+						if (!this.SpBullet.CountDown()) {
+							this.SpBullet = null;
+							this.SpecialAttackCooldown = null;
+							this.SpecialAttackSpriteCooldown = null;
+							logger.info("Special Bullet has been disappeared");
 						}
 					}
 				}
@@ -574,10 +593,15 @@ public class GameScreen extends Screen {
 						this.SpBullet.getPositionX(),
 						this.SpBullet.getPositionY());
 			else {
-				for (int i = 0; i < 8; i++) {
-					drawManager.drawEntity(this.SpBullet,
-					this.SpBullet.getPositionX() + i * this.SpBullet.getWidth()/8,
-							this.SpBullet.getPositionY());
+				if (this.SpBullet.getType() == 0) {
+					for (int i = 0; i < 8; i++) {
+						drawManager.drawEntity(this.SpBullet,
+								this.SpBullet.getPositionX() + i * this.SpBullet.getWidth()/8,
+								this.SpBullet.getPositionY());
+					}
+				}
+				else {
+					drawManager.EMPEmergency(this, this.SpBullet.getEmerCode());
 				}
 			}
 		}
@@ -841,7 +865,7 @@ public class GameScreen extends Screen {
 						this.logger.info("Hit on player ship, " + this.lives
 								+ " lives remaining.");
 					}
-					else {
+					else if (this.SpBullet.getType() == 0){
 						if (this.SpecialAtDamageCooldown == null)
 							this.SpecialAtDamageCooldown = Core.getCooldown(this.BlazeDamageCooldown);
 						else if (this.SpecialAtDamageCooldown.checkFinished()) {
@@ -1000,5 +1024,11 @@ public class GameScreen extends Screen {
 	public String getClearCoin() {
 		return this.clearCoin;
 	}
-	
+
+	public boolean EmpActivated() {
+		if (this.SpBullet != null) {
+            return this.SpBullet.getActivate() && this.SpBullet.getType() != 0;
+		}
+		return false;
+	}
 }

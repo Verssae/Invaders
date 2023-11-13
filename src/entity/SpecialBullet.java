@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import effect.BulletEffect;
 import engine.DrawManager.SpriteType;
@@ -25,6 +26,11 @@ public class SpecialBullet extends Entity {
     private int damage;
     /** Type of the bullet of Special ship. */
     private final int type;
+    /** code of EMP Emergency Escape */
+    private int EmerCode;
+    /** The number of code */
+    private int count;
+
     /** Activation of the Special bullet. */
     private boolean activate;
     /**
@@ -57,12 +63,20 @@ public class SpecialBullet extends Entity {
         this.spriteType = SpriteType.EnemyBullet;
     }
 
-    public final void setActivate() {
-        this.width = 11;
-        this.height = 8;
-        this.spriteType = SpriteType.Blaze_1;
-        setColor(Color.RED);
-        this.activate = true;
+    public final void setActivate(int type) {
+        if (type == 0) {
+            this.width = 11;
+            this.height = 8;
+            this.spriteType = SpriteType.Blaze_1;
+            setColor(Color.RED);
+            this.activate = true;
+        }
+        else {
+            this.spriteType = null;
+            this.EmerCode = (int)(Math.random()*9);
+            this.count = 4;
+            this.activate = true;
+        }
     }
 
     public final void ChangePos(int x, int y) {
@@ -107,7 +121,19 @@ public class SpecialBullet extends Entity {
             this.spriteType = SpriteType.Blaze_1;
     }
 
+    public final boolean CountDown() {
+        this.count--;
+        if (this.count > 0) {
+            this.EmerCode = (int)(Math.random() * 9);
+            return true;
+        }
+        else
+            return false;
+    }
 
+    public int getEmerCode() {
+        return this.EmerCode;
+    }
 
 
     /**

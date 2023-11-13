@@ -956,6 +956,11 @@ public final class DrawManager {
 			Color gray = new Color(RGB, RGB, RGB);
 			return gray;
 		}
+		if (color == "RED") {
+			int RGB = (int) (Math.random() * (255 - 155) + 100);
+			Color red = new Color(RGB, 0, 0);
+			return red;
+		}
 		return Color.WHITE;
 	}
 
@@ -2852,4 +2857,12 @@ if (option == 35)
 			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 		}
 	}
+
+	public void EMPEmergency(final Screen screen, final int code) {
+		backBufferGraphics.setColor(blinkingColor("RED"));
+		String text = "Press EMP Emergency Code";
+		drawCenteredBigString(screen, text, screen.getHeight()-150);
+		drawCenteredBigString(screen, ""+code, screen.getHeight()-120);
+	}
+
 }
