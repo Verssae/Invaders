@@ -444,7 +444,7 @@ public class GameScreen extends Screen {
 						this.SpecialAttackCooldown.reset();
 						this.SpecialAttackSpriteCooldown = Core.getCooldown(SpAtSpriteCooldown);
 						this.SpecialAttackSpriteCooldown.reset();
-						this.SpBullet.setActivate(this.SpBullet.getType());
+						this.SpBullet.setActivate();
 						if (this.SpBullet.getType() == 0) {
 							this.SpBullet.ChangePos(this.SpBullet.getPositionX() - 4 * this.SpBullet.getWidth(),
 									getHeight()-4*this.SpBullet.getHeight()+5);

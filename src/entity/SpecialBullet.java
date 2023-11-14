@@ -63,8 +63,8 @@ public class SpecialBullet extends Entity {
         this.spriteType = SpriteType.EnemyBullet;
     }
 
-    public final void setActivate(int type) {
-        if (type == 0) {
+    public final void setActivate() {
+        if (this.type == 0) {
             this.width = 11;
             this.height = 8;
             this.spriteType = SpriteType.Blaze_1;
@@ -73,8 +73,9 @@ public class SpecialBullet extends Entity {
         }
         else {
             this.spriteType = null;
-            this.EmerCode = (int)(Math.random()*9);
             this.count = 4;
+            this.EmerCode = (int)(Math.random()*9);
+            this.count--;
             this.activate = true;
         }
     }
@@ -122,9 +123,11 @@ public class SpecialBullet extends Entity {
     }
 
     public final boolean CountDown() {
-        this.count--;
         if (this.count > 0) {
-            this.EmerCode = (int)(Math.random() * 9);
+            int last = this.EmerCode;
+            while (last == this.EmerCode)
+                this.EmerCode = (int)(Math.random() * 9);
+            this.count--;
             return true;
         }
         else
