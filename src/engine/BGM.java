@@ -58,6 +58,22 @@ public class BGM {
     /**
      * Play enemyShipSpecial appear BGM
      */
+//    public void enemyShipSpecialbgm_play(){
+//        try{
+//            AudioInputStream enemyShipSpecialStream = AudioSystem.getAudioInputStream(enemyShipSpecialappearbgm);
+//            AudioFormat enemyShipSpecialFormat = enemyShipSpecialStream.getFormat();
+//            DataLine.Info enemyShipSpecialInfo = new DataLine.Info(Clip.class, enemyShipSpecialFormat);
+//
+//            enemyShipSpecialbgmCLip = (Clip) AudioSystem.getLine(enemyShipSpecialInfo);
+//            enemyShipSpecialbgmCLip.open(enemyShipSpecialStream);
+//            bgm_volumedowm();
+//            enemyShipSpecialbgmCLip.start();
+//            enemyShipSpecialbgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     public void enemyShipSpecialbgm_play(){
         try{
             AudioInputStream enemyShipSpecialStream = AudioSystem.getAudioInputStream(enemyShipSpecialappearbgm);
@@ -73,6 +89,8 @@ public class BGM {
             e.printStackTrace();
         }
     }
+
+
     /**
      * Stop enemyShipSpecial appear BGM
      */
