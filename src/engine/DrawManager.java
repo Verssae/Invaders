@@ -200,6 +200,8 @@ public final class DrawManager {
 		BossA1,
 		/** Boss ship - second form. */
 		BossA2,
+		/** Boss ship 2 */
+		BossB1,
 		/** Destroyed enemy ship. */
 		Explosion,
 
@@ -326,6 +328,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.PerpleEnhanceStone, new boolean[8][8]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
+			spriteMap.put(SpriteType.BossB1, new boolean[24][18]);
 			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
 			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
 			spriteMap.put(SpriteType.Coin, new boolean[7][7]);
