@@ -613,7 +613,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawLivesbar_2p(this, this.lives_2p, 330, "2P lives");
         drawManager.drawCoin(this, this.coin, 0);
         drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
-        isboss = gameSettings.checkIsBoss();
+        isboss = gameSettings.checkIsBossStage();
 
         if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
             if (itemManager.getShieldCount() > 0 && timer.getElapsedTime() != 0 && ship_1P.getShieldState() != true && ship_2P.getShieldState() != true && !levelFinished)

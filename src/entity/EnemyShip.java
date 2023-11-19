@@ -149,18 +149,30 @@ public class EnemyShip extends Entity {
 	 *
 	 * @param enemylife
 	 *            Lives of the boss ship.
-	 * @param bossColor
-	 * 			  Color of the boss ship.
+	 * @param bossCode
+	 *            Type of the boss ship.
 	 */
-	public EnemyShip(final int positionX, final int positionY, final int enemylife, Color bossColor) {
-		super(positionX, positionY, 22 * 2, 13 * 2, Color.RED);
-		this.spriteType = SpriteType.BossA1;
+	public EnemyShip(final int positionX, final int positionY, final int enemylife, int bossCode) {
+		super(positionX, positionY);
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
 		this.pointValue = BOSS_TYPE_POINTS;
 		this.EnemyLife = enemylife;
 		this.isBoss = true;
-
+		switch (bossCode) {
+			case 1:
+				this.spriteType = SpriteType.BossA1;
+				this.color = Color.RED;
+				this.width = 22;
+				this.height = 13;
+				break;
+			case 2:
+				this.spriteType = SpriteType.BossB1;
+				this.color = Color.GRAY;
+				this.width = 24;
+				this.height = 18;
+				break;
+		}
 	}
 
 	/**

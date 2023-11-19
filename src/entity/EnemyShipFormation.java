@@ -10,7 +10,7 @@ import engine.*;
 import screen.Screen;
 import engine.DrawManager.SpriteType;
 
-import static java.awt.Color.BLUE;
+
 
 /**
  * Groups enemy ships into a formation that moves together.
@@ -108,7 +108,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Number of not destroyed ships. */
 	private int shipCount;
 	/** Check if it is a boss */
-	private boolean isboss;
+	private boolean isBoss;
+	/** Code of boss. */
+	private int bossCode;
 	/** Difficulty of game. */
 	private double difficulty;
 	/** Current difficulty level number. */
@@ -141,9 +143,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 *            Current game settings.
 	 */
 	public EnemyShipFormation(final GameSettings gameSettings, int level) {
-		this.isboss = gameSettings.checkIsBoss();
+		this.isBoss = gameSettings.checkIsBossStage();
+		this.bossCode = gameSettings.getBossCode();
 		//enemy is not a boss
-		if(!this.isboss) {
+		if(bossCode == 0) {
 			this.drawManager = Core.getDrawManager();
 			this.logger = Core.getLogger();
 			this.enemyShips = new ArrayList<List<EnemyShip>>();
@@ -343,11 +346,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				this.enemyShips.add(new ArrayList<EnemyShip>());
 			for (List<EnemyShip> column : this.enemyShips) {
 				for (int i = 0; i < this.nShipsHigh; i++) {
-
 					column.add(new EnemyShip((SEPARATION_DISTANCE
 							* this.enemyShips.indexOf(column))
 							+ positionX, (SEPARATION_DISTANCE * i)
-							+ positionY, 50, BLUE));
+							+ positionY, 50, bossCode));
 					this.shipCount++;
 				}
 			}
@@ -389,7 +391,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	 * Updates the position of the ships.
 	 */
 	public final void update() {
-		if(!this.isboss) {
+		if(!this.isBoss) {
 			if (this.shootingCooldown == null) {
 				this.shootingCooldown = Core.getVariableCooldown(shootingInterval,
 						shootingVariance);

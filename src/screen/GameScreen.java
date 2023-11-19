@@ -547,7 +547,7 @@ public class GameScreen extends Screen {
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
-		isboss = gameSettings.checkIsBoss();
+		isboss = gameSettings.checkIsBossStage();
 
 		// Check if the 1 key is pressed
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
