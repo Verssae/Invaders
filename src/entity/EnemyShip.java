@@ -163,14 +163,14 @@ public class EnemyShip extends Entity {
 			case 1:
 				this.spriteType = SpriteType.BossA1;
 				this.color = Color.RED;
-				this.width = 22;
-				this.height = 13;
+				this.width = 22*2;
+				this.height = 13*2;
 				break;
 			case 2:
 				this.spriteType = SpriteType.BossB1;
 				this.color = Color.GRAY;
-				this.width = 24;
-				this.height = 18;
+				this.width = 24*2;
+				this.height = 18*2;
 				break;
 		}
 	}
