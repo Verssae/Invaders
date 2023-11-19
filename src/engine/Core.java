@@ -46,7 +46,7 @@ public final class Core {
     /**
      * Total number of levels.
      */
-    private static final int NUM_LEVELS = 8;
+    private static final int NUM_LEVELS = 9;
     /**
      * difficulty of the game
      */
@@ -86,6 +86,10 @@ public final class Core {
      * Difficulty settings for level 8.
      */
     private static GameSettings SETTINGS_LEVEL_8 = new GameSettings(8, 7, 2, 3300, 1, 1, 1);
+    /**
+     * Difficulty settings for level 9(Boss).
+     */
+    private static GameSettings SETTINGS_LEVEL_9 = new GameSettings(10, 1000,1, 1, 1, 2);
 
 
     /**
@@ -209,6 +213,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_9.setDifficulty(difficulty);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -217,6 +222,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
+                        gameSettings.add(SETTINGS_LEVEL_9);
 
                     }
 
@@ -505,6 +511,7 @@ public final class Core {
                         SETTINGS_LEVEL_6.setDifficulty(difficulty);
                         SETTINGS_LEVEL_7.setDifficulty(difficulty);
                         SETTINGS_LEVEL_8.setDifficulty(difficulty);
+                        SETTINGS_LEVEL_9.setDifficulty(difficulty);
                         gameSettings.add(SETTINGS_LEVEL_1);
                         gameSettings.add(SETTINGS_LEVEL_2);
                         gameSettings.add(SETTINGS_LEVEL_3);
@@ -513,6 +520,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
+                        gameSettings.add(SETTINGS_LEVEL_9);
                     }
 
                     LOGGER.info("select Level"); // Stage(Level) Selection
