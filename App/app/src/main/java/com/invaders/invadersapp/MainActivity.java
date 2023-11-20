@@ -2,6 +2,7 @@ package com.invaders.invadersapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -12,5 +13,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         TextView title = (TextView) findViewById(R.id.title);
+        title.setTextColor(Color.parseColor("#00ff00"));
     }
 }
