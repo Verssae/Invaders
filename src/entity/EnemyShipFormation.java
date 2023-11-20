@@ -78,6 +78,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Variance in the time between shots. */
 	private int shootingVariance;
 	/** Initial ship speed. */
+	private Cooldown bossLaserCooldown;
+	private int BOSS_LASER_INTERVAL = 10000;
+	private int BOSS_LASER_VARIANCE = 2000;
+	private BossLaser bossLaser;
+	private boolean isShooting = false;
 	private int baseSpeed;
 	/** Initial ship speed. */
 	private int baseAttackDamage;
@@ -124,6 +129,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int prevAttackedPositionX;
 	private int prevAttackedPositionY;
 	private int shipsDestroyed;
+
+
 
 
 	/** Directions the formation can move. */
@@ -507,6 +514,13 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 						shootingVariance);
 				this.shootingCooldown.reset();
 			}
+			if (bossCode == 2) {
+				if (this.bossLaserCooldown == null) {
+					this.bossLaserCooldown = Core.getVariableCooldown(BOSS_LASER_INTERVAL,
+							BOSS_LASER_VARIANCE);
+					this.bossLaserCooldown.reset();
+				}
+			}
 
 			cleanUp();
 
@@ -545,6 +559,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					movementX = -X_SPEED;
 
 				positionX += movementX;
+
 
 				// Cleans explosions.
 				List<EnemyShip> destroyed;
@@ -639,6 +654,36 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				}
 			};
 		}
+	}
+
+	public final void shootBossLaser() {
+		Set<EnemyShip> shooters = numberOfShooters();
+		if (this.bossLaserCooldown.checkFinished() && this.bossLaser == null) {
+			this.bossLaserCooldown.reset();
+			for(EnemyShip shooter : shooters){
+				isShooting = true;
+				bossLaser = new BossLaser(shooter.getPositionX()/2, shooter.getPositionY()/2+100);
+			}
+		}
+	}
+
+	public final BossLaser getBossLaser() {
+		return this.bossLaser;
+	}
+
+	public final boolean checkLaser() {
+		return isShooting;
+	}
+
+	public final void clearBossLaser() {
+		if (bossLaser != null) {
+			bossLaser = null;
+			isShooting = false;
+		}
+	}
+
+	public int getPositionX() {
+		return positionX;
 	}
 
 	/**
@@ -973,6 +1018,4 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.shipCount--;
 		}
 	}
-
 }
-
