@@ -147,17 +147,17 @@ public class EnemyShip extends Entity {
 	/**
 	 * Constructor, establishes the ship's properties for a boss ship.
 	 *
-	 * @param enemylife
+	 * @param enemyLife
 	 *            Lives of the boss ship.
 	 * @param bossCode
 	 *            Type of the boss ship.
 	 */
-	public EnemyShip(final int positionX, final int positionY, final int enemylife, int bossCode) {
+	public EnemyShip(final int positionX, final int positionY, final int enemyLife, int bossCode) {
 		super(positionX, positionY);
 		this.animationCooldown = Core.getCooldown(500);
 		this.isDestroyed = false;
 		this.pointValue = BOSS_TYPE_POINTS;
-		this.EnemyLife = enemylife;
+		this.EnemyLife = enemyLife;
 		this.isBoss = true;
 		switch (bossCode) {
 			case 1:
