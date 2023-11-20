@@ -3,6 +3,9 @@
     <style name="Base.Theme.Invaders" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!--Set background and status bar-->
+        <item name="android:windowBackground">@color/black</item>
     </style>
 
     <style name="Theme.Invaders" parent="Base.Theme.Invaders" />
