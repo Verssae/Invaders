@@ -7,7 +7,7 @@ import java.awt.*;
 public class BossLaser extends Entity{
 
     public BossLaser(final int Position_X, final int Position_Y) {
-        super(Position_X, Position_Y, 32*2, 383, Color.YELLOW);
+        super(Position_X, Position_Y, 32*2, 383*2, Color.YELLOW);
         setSprite();
     }
 
