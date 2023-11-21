@@ -78,10 +78,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	/** Variance in the time between shots. */
 	private int shootingVariance;
 	/** Initial ship speed. */
-	private Cooldown bossLaserCooldown;
-	private int BOSS_LASER_INTERVAL = 10000;
-	private int BOSS_LASER_VARIANCE = 2000;
-	private BossLaser bossLaser;
+	private Cooldown bossBeamCooldown;
+	private int BOSS_BEAM_INTERVAL = 10000;
+	private int BOSS_BEAM_VARIANCE = 2000;
+	private BossBeam bossBeam;
 	private boolean isShooting = false;
 	private int baseSpeed;
 	/** Initial ship speed. */
@@ -515,10 +515,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				this.shootingCooldown.reset();
 			}
 			if (bossCode == 2) {
-				if (this.bossLaserCooldown == null) {
-					this.bossLaserCooldown = Core.getVariableCooldown(BOSS_LASER_INTERVAL,
-							BOSS_LASER_VARIANCE);
-					this.bossLaserCooldown.reset();
+				if (this.bossBeamCooldown == null) {
+					this.bossBeamCooldown = Core.getVariableCooldown(BOSS_BEAM_INTERVAL,
+							BOSS_BEAM_VARIANCE);
+					this.bossBeamCooldown.reset();
 				}
 			}
 
@@ -658,27 +658,27 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	public final void shootBossLaser() {
 		Set<EnemyShip> shooters = numberOfShooters();
-		if (this.bossLaserCooldown.checkFinished() && this.bossLaser == null) {
-			this.bossLaserCooldown.reset();
+		if (this.bossBeamCooldown.checkFinished() && this.bossBeam == null) {
+			this.bossBeamCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				isShooting = true;
-				bossLaser = new BossLaser(shooter.getPositionX() - shooter.getWidth()/2 + 16,
+				bossBeam = new BossBeam(shooter.getPositionX() - shooter.getWidth()/2 + 16,
 						shooter.getPositionY() + shooter.getHeight());
 			}
 		}
 	}
 
-	public final BossLaser getBossLaser() {
-		return this.bossLaser;
+	public final BossBeam getBossBeam() {
+		return this.bossBeam;
 	}
 
-	public final boolean checkLaser() {
+	public final boolean checkBeam() {
 		return isShooting;
 	}
 
-	public final void clearBossLaser() {
-		if (bossLaser != null) {
-			bossLaser = null;
+	public final void clearBossBeam() {
+		if (bossBeam != null) {
+			bossBeam = null;
 			isShooting = false;
 		}
 	}
