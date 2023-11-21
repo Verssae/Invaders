@@ -662,7 +662,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.bossLaserCooldown.reset();
 			for(EnemyShip shooter : shooters){
 				isShooting = true;
-				bossLaser = new BossLaser(shooter.getPositionX()/2, shooter.getPositionY()/2+100);
+				bossLaser = new BossLaser(shooter.getPositionX() - shooter.getWidth()/2 + 16,
+						shooter.getPositionY() + shooter.getHeight());
 			}
 		}
 	}
@@ -1017,5 +1018,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 			this.shipCount--;
 		}
+	}
+
+	public int getWidth() {
+		return this.width;
 	}
 }

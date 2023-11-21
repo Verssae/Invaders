@@ -425,7 +425,8 @@ public class GameScreen extends Screen {
 						bosslaserLaunchCooldown.reset();
 					}
 					else {
-						bossLaser.setPositionX(enemyShipFormation.getPositionX() - gameSettings.getBaseSpeed());
+						bossLaser.setPositionX(enemyShipFormation.getPositionX()
+								+ enemyShipFormation.getWidth()/2 - 32);
 					}
 					if(bosslaserLaunchCooldown.checkFinished()) {
 						enemyShipFormation.clearBossLaser();
