@@ -5,13 +5,13 @@ import android.widget.TextView;
 
 public class BlinkingRunnable extends MainActivity implements Runnable {
 
-    private TextView[] tv;
+    private TextView[] textViews;
     public String[] colors;
     private String[] colorsInit;
     private int count = 0;
     private int changedidx;
     public BlinkingRunnable(TextView[] t, String[] c) {
-        tv = t;
+        textViews = t;
         colors = c;
         colorsInit = new String[c.length];
         for (int i = 0; i < c.length; i++) {
@@ -21,8 +21,8 @@ public class BlinkingRunnable extends MainActivity implements Runnable {
     @Override
     public void run() {
         while (true) {
-            for (int i = 0; i < tv.length; i++) {
-                tv[i].setTextColor(blinkingColor(colors[i]));
+            for (int i = 0; i < textViews.length; i++) {
+                textViews[i].setTextColor(blinkingColor(colors[i]));
             }
             if (count == 1) {
                 colors[changedidx] = colorsInit[changedidx];
