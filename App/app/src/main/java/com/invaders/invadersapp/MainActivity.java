@@ -2,6 +2,7 @@ package com.invaders.invadersapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -21,14 +22,17 @@ public class MainActivity extends AppCompatActivity {
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
+                startActivity(intent);
             }
         });
+
         Button itemstore = (Button) findViewById(R.id.itemstore);
-        play.setOnClickListener(new View.OnClickListener() {
+        itemstore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), ItemStore.class);
+                startActivity(intent);
             }
         });
 
