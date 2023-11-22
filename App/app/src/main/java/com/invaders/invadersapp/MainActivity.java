@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     private Button play;
     private Button itemstore;
     private BlinkingRunnable br;
-    public TextView[] textViews;
+    private TextView[] textViews;
     private String[] colors;
 
     @Override
