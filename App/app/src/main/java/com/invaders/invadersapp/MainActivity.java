@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         Button play = (Button) findViewById(R.id.play);
         play.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
                 startActivity(intent);
             }
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Button itemstore = (Button) findViewById(R.id.itemstore);
         itemstore.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ItemStore.class);
                 startActivity(intent);
             }
