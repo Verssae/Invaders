@@ -3,23 +3,21 @@ package com.invaders.invadersapp;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class BlinkingRunnable extends MainActivity implements Runnable {
-    TextView textView;
-    Button play;
-    Button itemstore;
-    String color;
-    public BlinkingRunnable(TextView tv, Button b1, Button b2, String c) {
-        textView = tv;
-        play = b1;
-        itemstore = b2;
+    TextView[] textView;
+    String[] color;
+    public BlinkingRunnable(TextView[] t, String[] c) {
+        textView = t;
         color = c;
     }
     @Override
     public void run() {
         while (true) {
-            textView.setTextColor(blinkingColor(color));
-            play.setTextColor(blinkingColor("WHITE"));
-            itemstore.setTextColor(blinkingColor("WHITE"));
+            for (int i = 0; i < textView.length; i++) {
+                textView[i].setTextColor(blinkingColor(color[i]));
+            }
             try {
                 Thread.sleep(10);
             } catch (Exception e) {
