@@ -1,7 +1,6 @@
 package com.invaders.invadersapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,11 +9,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+    /** Title textview. */
     private TextView title;
+    /** Play button. */
     private Button play;
+    /** Item store button. */
     private Button itemstore;
+    /** Runnable object for text blinking. */
     private BlinkingRunnable br;
+    /** TextView array for BlinkingRunnable parameter. */
     private TextView[] textViews;
+    /** String array of colors for BlinkingRunnable parameter. */
     private String[] colors;
 
     @Override
@@ -28,9 +33,11 @@ public class MainActivity extends AppCompatActivity {
         textViews = new TextView[]{title, play, itemstore};
         colors = new String[]{"GREEN", "WHITE", "WHITE"};
 
+        //Blinking starts.
         br = new BlinkingRunnable(textViews, colors);
         Thread t = new Thread(br);
         t.start();
+
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         itemstore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Set blinking matched color.
+     *
+     * @param color Main color of blinking.
+     *
+     * @return Color int of random color matched color.
+     */
     public int blinkingColor(String color) {
         if (color == "GREEN") {
             return Color.rgb(0, (int) (Math.random() * (255 - 155) + 155), 0);
