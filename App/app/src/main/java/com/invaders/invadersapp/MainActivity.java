@@ -13,6 +13,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView title;
     private Button play;
     private Button itemstore;
+    private BlinkingRunnable br;
+    public TextView[] textViews;
+    private String[] colors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +25,16 @@ public class MainActivity extends AppCompatActivity {
         play = (Button) findViewById(R.id.play);
         itemstore = (Button) findViewById(R.id.itemstore);
 
+        textViews = new TextView[]{title, play, itemstore};
+        colors = new String[]{"GREEN", "WHITE", "WHITE"};
+
+        br = new BlinkingRunnable(textViews, colors);
+        Thread t = new Thread(br);
+        t.start();
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                br.changeColor(1, "GREEN");
                 Intent intent = new Intent(getApplicationContext(), SelectDifficulty.class);
                 startActivity(intent);
             }
@@ -33,17 +43,11 @@ public class MainActivity extends AppCompatActivity {
         itemstore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                br.changeColor(2, "GREEN");
                 Intent intent = new Intent(getApplicationContext(), ItemStore.class);
                 startActivity(intent);
             }
         });
-
-        TextView[] textViews = {title, play, itemstore};
-        String[] colors = {"GREEN", "WHITE", "WHITE"};
-
-        BlinkingRunnable br = new BlinkingRunnable(textViews, colors);
-        Thread t = new Thread(br);
-        t.start();
     }
 
     public int blinkingColor(String color) {
