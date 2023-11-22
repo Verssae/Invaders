@@ -236,7 +236,9 @@ public final class DrawManager {
 		Ghost,
 		Blaze_1,
 
-		Blaze_2;
+		Blaze_2,
+
+		Smog;
 	};
 
 
@@ -340,6 +342,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Ghost, new boolean[9][11]);
 			spriteMap.put(SpriteType.Blaze_1, new boolean[11][8]);
 			spriteMap.put(SpriteType.Blaze_2, new boolean[11][8]);
+			spriteMap.put(SpriteType.Smog, new boolean[24][4]);
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
@@ -2625,7 +2628,7 @@ if (option == 35)
 	public void drawGhost(boolean levelFinished, double lives){
 		if(levelFinished && lives == 0) {
 			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
-			System.out.println(ghostColor);
+			//System.out.println(ghostColor);
 			if(timer){
 				if(System.currentTimeMillis() - ghostTImer < 1000)
 					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
@@ -2647,9 +2650,9 @@ if (option == 35)
 	public void drawGhost_2p(boolean levelFinished, double lives_1p, double lives_2p){
 		if(levelFinished && lives_1p <= 0 && lives_2p <=0) {
 			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
-			System.out.println(ghostColor);
-			System.out.println(lives_1p);
-			System.out.println(lives_2p);
+			//System.out.println(ghostColor);
+			//System.out.println(lives_1p);
+			//System.out.println(lives_2p);
 			if(timer){
 				if(System.currentTimeMillis() - ghostTImer < 1000)
 					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
@@ -2788,6 +2791,18 @@ if (option == 35)
 		g2.fillRect(0, separationLineHeight, screen.getWidth(), screen.getHeight());
 	}
 
+	public void drawBackgroundEntity(final Screen screen, int separationLineHeight, int EntityX, int EntityY, int EntityWidth, int EntityHeight,
+		int r, int g, int b, int w1, int w2, int h1){
+		Point2D center = new Point2D.Float(EntityX - EntityWidth, EntityY + EntityHeight/2);
+		//System.out.println(center);
+		float[] dist = {0.0f, 0.2f, 1.0f};
+		Color[] colors = {new Color(r,g,b,brightness), new Color(r,g,b,brightness+20), new Color(0,0,0,0)};
+		RadialGradientPaint p = new RadialGradientPaint(center, (int)EntityHeight, dist, colors);
+		Graphics2D g2 = (Graphics2D) backBufferGraphics;
+		g2.setPaint(p);
+		g2.fillRect(EntityX - EntityWidth * w1, EntityY, EntityWidth * w2, EntityHeight * h1);
+	}
+
 	/**
 	 * Draws background lines.
 	 * [Clean Code Team] This method was created by alicek0.
@@ -2865,4 +2880,9 @@ if (option == 35)
 		drawCenteredBigString(screen, ""+code, screen.getHeight()-120);
 	}
 
+	public void DrawSmog(final Screen screen) {
+		for (int y = 60; y < screen.getHeight() - 120; y += 4)
+			for (int x = 0; x < screen.getWidth(); x += 24)
+				this.drawEntity(SpriteType.Smog, x, y, 24, 4,blinkingColor("GRAY"));
+	}
 }

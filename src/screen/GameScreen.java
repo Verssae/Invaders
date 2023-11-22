@@ -53,14 +53,14 @@ public class GameScreen extends Screen {
 	/** Time until laser disappears. */
 	private static final int LASER_ACTIVATE = 1000;
 	/** Time until Blaze disappears. */
-	private static final int Blaze_ACTIVATE = 3000;
+	private static final int[] Blaze_ACTIVATE = {2000, 3000, 4000, 4000};
 	/** Time until Poison disappears. */
-	private static final int Poison_ACTIVATE = 10000;
+	private static final int[] Poison_ACTIVATE = {2000, 2500, 3000, 3000};
 	/** Time until Smog disappears. */
-	private static final int Smog_ACTIVATE = 10000;
+	private static final int[] Smog_ACTIVATE = {3000, 4000, 5000, 5000};
 	/** Time until EMP disappears. */
-	private static final int EMP_ACTIVATE = 10000;
-	private static final int[] SPAttack_ACT = {Blaze_ACTIVATE, Poison_ACTIVATE, Smog_ACTIVATE, EMP_ACTIVATE};
+	private static final int[] EMP_ACTIVATE = {10000, 10000, 10000, 10000};
+	private static final int[][] SPAttack_ACT = {Blaze_ACTIVATE, Poison_ACTIVATE, Smog_ACTIVATE, EMP_ACTIVATE};
 	private static final int SpAtSpriteCooldown = 250;
 	/** Time from finishing the level to screen change. */
 	private static final int SCREEN_CHANGE_INTERVAL = 3000;
@@ -166,12 +166,19 @@ public class GameScreen extends Screen {
 	private SpecialBullet SpBullet;
 	private Cooldown SpecialAttackCooldown;
 	private Cooldown SpecialAtDamageCooldown;
-	private final int BlazeDamageCooldown = 500;
-	private final double BlazeDamage = 0.1;
+	private Cooldown SpecialAtMaintainCooldown;
+	private final int[] BlazeDamageCooldown = {750, 600, 500, 500};
+	private final int[] BlazeMaintainCooldown = {2000, 2500, 3000, 3000};
+	private final int[] PoisonDamageCooldown = {800, 750, 600, 600};
+	private final int[] PoisonMaintainCooldown = {2000, 2500, 3000, 3000};
+	private final double[] PoisonDamage = {0.1, 0.1, 0.2, 0.2};
+	private final double[] BlazeDamage = {0.1, 0.1, 0.2, 0.2};
 	private int BulletsRemaining=99;
 	/** EMP Emergency Escape Code **/
 	private int[] EmerCode = {KeyEvent.VK_0, KeyEvent.VK_1, KeyEvent.VK_2, KeyEvent.VK_3
 			, KeyEvent.VK_4, KeyEvent.VK_5, KeyEvent.VK_6, KeyEvent.VK_7, KeyEvent.VK_8, KeyEvent.VK_9};
+
+	private int lastSpAt;
 
 	/**
 	 * Constructor, establishes the properties of the screen.
@@ -236,6 +243,7 @@ public class GameScreen extends Screen {
 		enemyShipFormation = new EnemyShipFormation(this.gameSettings, this.level);
 		enemyShipFormation.attach(this);
 		this.ship = new Ship(this.width / 2, this.height - 30, "d", this.shipColor);
+		this.ship.setSPEED(2);
 		this.bulletLine = new BulletLine(this.width / 2 , this.height + 120);
 		// Appears each 10-30 seconds.
 		this.enemyShipSpecialCooldown = Core.getVariableCooldown(
@@ -320,21 +328,21 @@ public class GameScreen extends Screen {
 
 					if (this.ship.getSpeed() >= 0)
 					{
-						if (moveRight && !isRightBorder && !EmpActivated()) {
+						if (moveRight && !isRightBorder && getActivatedType() != 3) {
 							this.ship.moveRight();
 						}
-						if (moveLeft && !isLeftBorder && !EmpActivated()) {
+						if (moveLeft && !isLeftBorder && getActivatedType() != 3) {
 							this.ship.moveLeft();
 						}
 					} else {
-						if (moveRight && !isLeftBorder && !EmpActivated()) {
+						if (moveRight && !isLeftBorder && getActivatedType() != 3) {
 							this.ship.moveRight();
 						}
-						if (moveLeft && !isRightBorder && !EmpActivated()) {
+						if (moveLeft && !isRightBorder && getActivatedType() != 3) {
 							this.ship.moveLeft();
 						}
 					}
-					if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && !EmpActivated()) {
+					if (inputManager.isKeyDown(KeyEvent.VK_SPACE) && getActivatedType() != 3) {
 						if (bulletsShot % 3 == 0 && !(bulletsShot == 0)) {
 							if (this.ship.shootBulletY(this.bulletsY, this.attackDamage)) {
 								soundEffect.playShipShootingSound();
@@ -356,7 +364,7 @@ public class GameScreen extends Screen {
 					 * 폭탄은 데미지랑 상관 없이 한 열을 지워버리나봐요!!
 					 * 너무 사기적이라 보스에는 아마 적용이 안 될 거 같아요!!
 					 */
-					if(inputManager.isKeyDown(KeyEvent.VK_B) && !EmpActivated()) {
+					if(inputManager.isKeyDown(KeyEvent.VK_B) && getActivatedType() != 3) {
 						if(ship.getBomb()){
 							this.enemyShipFormation.bombDestroy(items);
 							this.ship.setBomb(false);
@@ -440,21 +448,18 @@ public class GameScreen extends Screen {
 						this.SpBullet.update();
 					}
 					else if (this.SpecialAttackCooldown == null){
-						this.SpecialAttackCooldown = Core.getCooldown(SPAttack_ACT[this.SpBullet.getType()]);
+						this.SpecialAttackCooldown = Core.getCooldown(SPAttack_ACT[this.SpBullet.getType()][(int)gameSettings.getDifficulty()]);
 						this.SpecialAttackCooldown.reset();
 						this.SpecialAttackSpriteCooldown = Core.getCooldown(SpAtSpriteCooldown);
 						this.SpecialAttackSpriteCooldown.reset();
-						this.SpBullet.setActivate();
-						if (this.SpBullet.getType() == 0) {
+						this.SpBullet.setActivate((int)gameSettings.getDifficulty() + 2 - (int)(gameSettings.getDifficulty()/3));
+						if (this.SpBullet.getType() == 0 || this.SpBullet.getType() == 1) {
 							this.SpBullet.ChangePos(this.SpBullet.getPositionX() - 4 * this.SpBullet.getWidth(),
 									getHeight()-4*this.SpBullet.getHeight()+5);
 						}
 						logger.info("Special Bullet has been activated");
 					}
 					else if (this.SpBullet.getActivate() && this.SpecialAttackCooldown.checkFinished()) {
-						if (this.SpBullet.getType() == 0) {
-							this.SpecialAtDamageCooldown = null;
-						}
 						this.SpecialAttackCooldown = null;
 						this.SpBullet = null;
 						this.SpecialAttackSpriteCooldown = null;
@@ -470,7 +475,26 @@ public class GameScreen extends Screen {
 					}
 				}
 
-				if (EmpActivated()) {
+				if (this.SpecialAtMaintainCooldown != null){
+					//System.out.println(this.SpecialAtMaintainCooldown.timePassed());
+					if (this.SpecialAtDamageCooldown != null && colorVariable == 1) {
+						//System.out.println(this.SpecialAtDamageCooldown.timePassed());
+						if (this.SpecialAtDamageCooldown.checkFinished()) {
+							//System.out.println("damaged!");
+							this.lives -= this.PoisonDamage[(int)gameSettings.getDifficulty()];
+							this.SpecialAtDamageCooldown.reset();
+						}
+					}
+					if (this.SpecialAtMaintainCooldown.checkFinished()) {
+						//System.out.println(this.SpecialAtMaintainCooldown.getMilliseconds());
+						if (colorVariable == 0) this.ship.setSPEED(this.ship.getSpeed()*2);
+						this.SpecialAtMaintainCooldown = null;
+						this.SpecialAtDamageCooldown = null;
+						this.ship.setColor(Color.white);
+					}
+				}
+
+				if (getActivatedType() == 3) {
 					if (inputManager.isKeyDown(this.EmerCode[this.SpBullet.getEmerCode()])) {
 						if (!this.SpBullet.CountDown()) {
 							this.SpBullet = null;
@@ -578,6 +602,20 @@ public class GameScreen extends Screen {
 		if (this.enemyShipSpecial != null) drawManager.drawBackgroundSpecialEnemy(this, SEPARATION_LINE_HEIGHT);
 		drawManager.drawBackgroundLines(this, SEPARATION_LINE_HEIGHT);
 		drawManager.drawBackgroundPlayer(this, SEPARATION_LINE_HEIGHT, this.ship.getPositionX(), this.ship.getPositionY(), this.ship.getWidth(), this.ship.getHeight());
+		if (this.laser != null) drawManager.drawBackgroundEntity(this, SEPARATION_LINE_HEIGHT
+				, this.laser.getPositionX(), this.laser.getPositionY(), this.laser.getWidth(), this.laser.getHeight()
+				, 255, 0, 0, 2, 6, 1);
+		if (this.laserline != null) drawManager.drawBackgroundEntity(this, SEPARATION_LINE_HEIGHT
+				, this.laserline.getPositionX(), this.laserline.getPositionY(), this.laserline.getWidth(), this.laserline.getHeight()
+				,255, 255, 0, 2, 6, 1);
+		if (getActivatedType() != -1) {
+			int r, g, b;
+			if (getActivatedType() == 0) {
+				drawManager.drawBackgroundEntity(this, SEPARATION_LINE_HEIGHT
+						, this.SpBullet.getPositionX() + this.SpBullet.getWidth()/2, this.SpBullet.getPositionY(), this.SpBullet.getWidth(), this.SpBullet.getHeight()
+						, 255, 155, 0, 0,2, 2);
+			}
+		}
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
@@ -587,24 +625,6 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(this.enemyShipSpecial,
 					this.enemyShipSpecial.getPositionX(),
 					this.enemyShipSpecial.getPositionY());
-		if (this.SpBullet != null){
-			if (!this.SpBullet.getActivate())
-				drawManager.drawEntity(this.SpBullet,
-						this.SpBullet.getPositionX(),
-						this.SpBullet.getPositionY());
-			else {
-				if (this.SpBullet.getType() == 0) {
-					for (int i = 0; i < 8; i++) {
-						drawManager.drawEntity(this.SpBullet,
-								this.SpBullet.getPositionX() + i * this.SpBullet.getWidth()/8,
-								this.SpBullet.getPositionY());
-					}
-				}
-				else {
-					drawManager.EMPEmergency(this, this.SpBullet.getEmerCode());
-				}
-			}
-		}
 		if (this.laser != null)
 			drawManager.drawEntity(this.laser,
 					this.laser.getPositionX(),
@@ -625,6 +645,28 @@ public class GameScreen extends Screen {
 		for (BulletY bulletY : this.bulletsY)
 			drawManager.drawEntity(bulletY, bulletY.getPositionX(),
 					bulletY.getPositionY());
+
+		if (this.SpBullet != null){
+			if (!this.SpBullet.getActivate())
+				drawManager.drawEntity(this.SpBullet,
+						this.SpBullet.getPositionX(),
+						this.SpBullet.getPositionY());
+			else {
+				if (this.SpBullet.getType() == 0 || this.SpBullet.getType() == 1) {
+					for (int i = 0; i < 8; i++) {
+						drawManager.drawEntity(this.SpBullet,
+								this.SpBullet.getPositionX() + i * this.SpBullet.getWidth()/8,
+								this.SpBullet.getPositionY());
+					}
+				}
+				else if (this.SpBullet.getType() == 2) {
+					drawManager.DrawSmog(this);
+				}
+				else if (this.SpBullet.getType() == 3) {
+					drawManager.EMPEmergency(this, this.SpBullet.getEmerCode());
+				}
+			}
+		}
 
 		// Interface.
 		drawManager.drawScore(this, this.score);
@@ -865,18 +907,45 @@ public class GameScreen extends Screen {
 						this.logger.info("Hit on player ship, " + this.lives
 								+ " lives remaining.");
 					}
-					else if (this.SpBullet.getType() == 0){
-						if (this.SpecialAtDamageCooldown == null)
-							this.SpecialAtDamageCooldown = Core.getCooldown(this.BlazeDamageCooldown);
+					else if (this.SpBullet.getType() == 0) {
+						if (this.SpecialAtDamageCooldown == null) {
+							//System.out.println("On Fire!");
+							this.SpecialAtDamageCooldown = Core.getCooldown(this.BlazeDamageCooldown[(int)gameSettings.getDifficulty()]);
+							this.SpecialAtDamageCooldown.reset();
+						}
 						else if (this.SpecialAtDamageCooldown.checkFinished()) {
-							this.lives -= this.BlazeDamage;
+							this.lives -= this.BlazeDamage[(int)gameSettings.getDifficulty()];
+							this.SpecialAtDamageCooldown.reset();
+						}
+						if (this.SpecialAtMaintainCooldown == null) {
+							this.SpecialAtMaintainCooldown = Core.getCooldown(this.BlazeMaintainCooldown[(int)gameSettings.getDifficulty()]);
+							this.ship.setColor(Color.RED);
+							this.ship.setSPEED(this.ship.getSpeed()/2);
+							this.SpecialAtMaintainCooldown.reset();
+						}
+						else {
+							this.SpecialAtMaintainCooldown.reset();
+						}
+					}
+					else if (this.SpBullet.getType() == 1) {
+						if (this.SpecialAtMaintainCooldown == null) {
+							this.SpecialAtMaintainCooldown = Core.getCooldown(this.PoisonMaintainCooldown[(int)gameSettings.getDifficulty()]);
+							//System.out.println("Poisoned!");
+							this.ship.setColor(new Color(0,66,0));
+							this.SpecialAtMaintainCooldown.reset();
+						}
+						else {
+							this.SpecialAtMaintainCooldown.reset();
+						}
+						if (this.SpecialAtDamageCooldown == null) {
+							this.SpecialAtDamageCooldown = Core.getCooldown(this.PoisonDamageCooldown[(int)gameSettings.getDifficulty()]);
 							this.SpecialAtDamageCooldown.reset();
 						}
 					}
 				}
 			}
 			else {
-				if (this.SpBullet.getActivate() && this.SpecialAtDamageCooldown != null) {
+				if (this.SpBullet.getActivate() && this.SpecialAtDamageCooldown != null && this.SpBullet.getType() != 1) {
 					this.SpecialAtDamageCooldown = null;
 				}
 			}
@@ -1025,10 +1094,13 @@ public class GameScreen extends Screen {
 		return this.clearCoin;
 	}
 
-	public boolean EmpActivated() {
+	public int getActivatedType() {
 		if (this.SpBullet != null) {
-            return this.SpBullet.getActivate() && this.SpBullet.getType() != 0;
+			if (this.SpBullet.getActivate())
+				return this.SpBullet.getType();
+			else
+				return -1;
 		}
-		return false;
+		return -1;
 	}
 }

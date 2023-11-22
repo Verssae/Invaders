@@ -63,17 +63,20 @@ public class SpecialBullet extends Entity {
         this.spriteType = SpriteType.EnemyBullet;
     }
 
-    public final void setActivate() {
-        if (this.type == 0) {
+    public final void setActivate(int count) {
+        if (this.type == 0 || this.type == 1) {
             this.width = 11;
             this.height = 8;
             this.spriteType = SpriteType.Blaze_1;
-            setColor(Color.RED);
+            if (this.type == 0)
+                setColor(Color.RED);
+            else
+                setColor(new Color(0,66,0));
             this.activate = true;
         }
         else {
             this.spriteType = null;
-            this.count = 4;
+            this.count = count;
             this.EmerCode = (int)(Math.random()*9);
             this.count--;
             this.activate = true;
