@@ -38,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        BlinkingRunnable Br = new BlinkingRunnable(title, play, itemstore, "GREEN");
-        Thread t = new Thread(Br);
+        TextView[] textViews = {title, play, itemstore};
+        String[] colors = {"GREEN", "WHITE", "WHITE"};
+
+        BlinkingRunnable br = new BlinkingRunnable(textViews, colors);
+        Thread t = new Thread(br);
         t.start();
     }
 
