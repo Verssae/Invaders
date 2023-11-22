@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SelectDifficulty extends AppCompatActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle saveInstanceState) {
-        super.onCreate(saveInstanceState);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.selectdifficulty);
     }
 }
