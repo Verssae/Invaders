@@ -670,7 +670,7 @@ public final class DrawManager {
 		backBufferGraphics.setFont(fontSmall);
 		backBufferGraphics.setColor(Color.WHITE);
 		String timeString = formatTime(elapsedTime);
-		backBufferGraphics.drawString(timeString, 30, 450);
+		backBufferGraphics.drawString(timeString, 15, 65);
 	}
 
 	private String formatTime(long elapsedTime) {
@@ -691,11 +691,11 @@ public final class DrawManager {
 	 */
 	public void drawCoinCount(final Screen screen, final Coin coin, final int drawCoinOption) {
 		if (drawCoinOption == 0) {
-			this.drawEntity(SpriteType.Coin, 15, 55, 1.5, 1.5, Color.YELLOW);
+			this.drawEntity(SpriteType.Coin, screen.getWidth() - 205, 55, 1.5, 1.5, Color.YELLOW);
 			backBufferGraphics.setFont(fontRegular);
 			backBufferGraphics.setColor(Color.WHITE);
 			String coinString = String.format("%03d", coin.getCoin());
-			backBufferGraphics.drawString(coinString, 30, 65);
+			backBufferGraphics.drawString(coinString, screen.getWidth() - 190, 65);
 		}
 		else if (drawCoinOption == 1) {
 			this.drawEntity(SpriteType.Coin, 20, 13, 2, 2, Color.YELLOW);
@@ -714,10 +714,14 @@ public final class DrawManager {
 	}
 
 	public void BulletsCount(final Screen screen, final int BulletsCount) {
+		drawEntity(SpriteType.Bullet, screen.getWidth() - 145, 55, 2, 2, Color.GREEN);
+		drawEntity(SpriteType.Bullet, screen.getWidth() - 135, 55, 2, 2, Color.GREEN);
+		drawEntity(SpriteType.Bullet, screen.getWidth() - 125, 55, 2, 2, Color.GREEN);
+
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.setColor(Color.WHITE);
-		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
-		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
+		String text = String.format("%02d", BulletsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 113, 65);
 	}
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
@@ -820,16 +824,14 @@ public final class DrawManager {
 
 	public void drawitemcircle(final Screen screen, final int itemcount1, final int itemcount2) {
 		Graphics2D g2d = (Graphics2D) backBufferGraphics;
-		// this.drawEntity(SpriteType.Bullet,350,450,5,5); <<-- 이런식으로 아이콘 추가
-		float strokeWidth = 3.0f; // 원의 선굵기
-		BasicStroke stroke = new BasicStroke(strokeWidth); // 원의 선굵기
-		g2d.setStroke(stroke); // 원의 선굵기
-		g2d.setColor(Color.white); // 원의 선색깔
-		g2d.fillOval(375, 310, 55, 45); // 원 위치
-		g2d.fillOval(375, 365, 55, 45); // 원 위치
-		g2d.setColor(Color.black); // 원의 선색깔
-		g2d.drawString(Integer.toString(itemcount1), 395, 340); // 글자 추가
-		g2d.drawString(Integer.toString(itemcount2), 395, 395); // 글자 추가
+
+		drawEntity(SpriteType.ShipAShileded, screen.getWidth() - 78, 56, 1, 1.2, Color.BLUE);
+		drawEntity(SpriteType.Explosion, screen.getWidth() - 40, 57, 1, 1.2, Color.gray);
+
+		g2d.setFont(fontRegular);
+		g2d.setColor(Color.white);
+		g2d.drawString(Integer.toString(itemcount1), screen.getWidth() - 63, 65); 
+		g2d.drawString(Integer.toString(itemcount2), screen.getWidth() - 25, 65); 
 	}
 
 	public void drawBossLivesbar(final Screen screen, int boss_lives) {
