@@ -53,6 +53,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private static final int IsSExtend_location = 1;
 	/** moving speed*/
 	private static final int Extend_x= 1;
+	private int BEAM_INTERVAL = 10000;
+	private int BEAM_VARIANCE = 2000;
 
 	/** DrawManager instance. */
 	private DrawManager drawManager;
@@ -79,8 +81,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int shootingVariance;
 	/** Initial ship speed. */
 	private Cooldown bossBeamCooldown;
-	private int BEAM_INTERVAL = 10000;
-	private int BEAM_VARIANCE = 2000;
 	private Beam beam;
 	private boolean isShooting = false;
 	private int baseSpeed;

@@ -100,6 +100,7 @@ public class GameScreen extends Screen {
 	/** Laser on/off (difficulty normal, upper than 4level or difficulty hard, hardcore */
 	private boolean laserActivate;
 	/** Set of "BulletY" fired by player ships. */
+	private Cooldown bosslaserLaunchCooldown;
 	private Set<BulletY> bulletsY;
 
 	/** Sound Effects for player's ship and enemy. */
