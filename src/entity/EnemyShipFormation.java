@@ -79,9 +79,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int shootingVariance;
 	/** Initial ship speed. */
 	private Cooldown bossBeamCooldown;
-	private int BOSS_BEAM_INTERVAL = 10000;
-	private int BOSS_BEAM_VARIANCE = 2000;
-	private BossBeam bossBeam;
+	private int BEAM_INTERVAL = 10000;
+	private int BEAM_VARIANCE = 2000;
+	private Beam beam;
 	private boolean isShooting = false;
 	private int baseSpeed;
 	/** Initial ship speed. */
@@ -516,8 +516,8 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			}
 			if (bossCode == 2) {
 				if (this.bossBeamCooldown == null) {
-					this.bossBeamCooldown = Core.getVariableCooldown(BOSS_BEAM_INTERVAL,
-							BOSS_BEAM_VARIANCE);
+					this.bossBeamCooldown = Core.getVariableCooldown(BEAM_INTERVAL,
+							BEAM_VARIANCE);
 					this.bossBeamCooldown.reset();
 				}
 			}
@@ -656,28 +656,28 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		}
 	}
 
-	public final void shootBossLaser() {
+	public final void shootBeam() {
 		Set<EnemyShip> shooters = numberOfShooters();
-		if (this.bossBeam == null) {
+		if (this.beam == null) {
 			for(EnemyShip shooter : shooters){
 				isShooting = true;
-				bossBeam = new BossBeam(shooter.getPositionX() - shooter.getWidth()/2 + 16,
+				beam = new Beam(shooter.getPositionX() - shooter.getWidth()/2 + 16,
 						shooter.getPositionY() + shooter.getHeight());
 			}
 		}
 	}
 
-	public final BossBeam getBossBeam() {
-		return this.bossBeam;
+	public final Beam getBeam() {
+		return this.beam;
 	}
 
 	public final boolean checkBeam() {
 		return isShooting;
 	}
 
-	public final void clearBossBeam() {
-		if (bossBeam != null) {
-			bossBeam = null;
+	public final void clearBeam() {
+		if (beam != null) {
+			beam = null;
 			isShooting = false;
 		}
 	}

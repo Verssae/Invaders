@@ -4,9 +4,9 @@ import engine.DrawManager;
 
 import java.awt.*;
 
-public class BossBeam extends Entity{
+public class Beam extends Entity{
 
-    public BossBeam(final int Position_X, final int Position_Y) {
+    public Beam(final int Position_X, final int Position_Y) {
         super(Position_X, Position_Y, 32*2, 383*2, Color.YELLOW);
         setSprite();
     }
@@ -16,6 +16,6 @@ public class BossBeam extends Entity{
     }
 
     public void setSprite() {
-        this.spriteType = DrawManager.SpriteType.BossBeam;
+        this.spriteType = DrawManager.SpriteType.Beam;
     }
 }

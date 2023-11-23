@@ -227,7 +227,7 @@ public final class DrawManager {
 		/** Laserline */
 		LaserLine,
 		/** BossBeam */
-		BossBeam,
+		Beam,
 		Coin,
 		BlueEnhanceStone,
 		PerpleEnhanceStone,
@@ -333,7 +333,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.BossB1, new boolean[24][18]);
 			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
 			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
-			spriteMap.put(SpriteType.BossBeam, new boolean[32][383]);
+			spriteMap.put(SpriteType.Beam, new boolean[32][383]);
 			spriteMap.put(SpriteType.Coin, new boolean[7][7]);
 			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);

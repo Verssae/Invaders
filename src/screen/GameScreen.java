@@ -50,9 +50,9 @@ public class GameScreen extends Screen {
 	private static int LASER_LOAD = 2000;
 	/** Time until laser disappears. */
 	private static final int LASER_ACTIVATE = 1000;
-	private static final int BOSS_BEAM_INTERVAL = 10000;
-	private static final int BOSS_BEAM_VARIANCE = 1000;
-	private static final int BOSS_BEAM_ACTIVATE = 2000;
+	private static final int BEAM_INTERVAL = 10000;
+	private static final int BEAM_VARIANCE = 1000;
+	private static final int BEAM_ACTIVATE = 2000;
 	private static final int BEAM_LOAD = 1000;
 	/** Time from finishing the level to screen change. */
 	private static final int SCREEN_CHANGE_INTERVAL = 3000;
@@ -78,10 +78,10 @@ public class GameScreen extends Screen {
 	private Set<Bullet> bullets;
 	/** Check boss. */
 	private int bossCode;
-	private BossBeam bossBeam;
-	private Cooldown bossBeamCooldown;
+	private Beam beam;
+	private Cooldown beamCooldown;
 	private Cooldown beamLoadCooldown;
-	private Cooldown bossBeamLaunchCooldown;
+	private Cooldown beamLaunchCooldown;
 	private boolean beamReady;
 	private LaserLine beamLine;
 	private boolean beamShooting;
@@ -248,15 +248,15 @@ public class GameScreen extends Screen {
 		this.laserLaunchCooldown = Core
 				.getCooldown(LASER_ACTIVATE);
 		this.laserLaunchCooldown.reset();
-		this.bossBeamCooldown = Core.getVariableCooldown(
-				BOSS_BEAM_INTERVAL, BOSS_BEAM_VARIANCE);
-		bossBeamCooldown.reset();
+		this.beamCooldown = Core.getVariableCooldown(
+				BEAM_INTERVAL, BEAM_VARIANCE);
+		beamCooldown.reset();
 		this.beamLoadCooldown = Core
 				.getCooldown(BEAM_LOAD);
 		beamLoadCooldown.reset();
-		this.bossBeamLaunchCooldown = Core
-				.getCooldown(BOSS_BEAM_ACTIVATE);
-		bossBeamLaunchCooldown.reset();
+		this.beamLaunchCooldown = Core
+				.getCooldown(BEAM_ACTIVATE);
+		beamLaunchCooldown.reset();
 		this.beamShooting = false;
 		this.beamReady = false;
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
@@ -435,30 +435,30 @@ public class GameScreen extends Screen {
 				this.enemyShipFormation.shoot(this.bullets);
 
 				if (this.bossCode == 2) {
-					if (this.bossBeamCooldown.checkFinished() && beamLine == null) {
+					if (this.beamCooldown.checkFinished() && beamLine == null) {
 						this.beamLine = new LaserLine(
 								enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2,
 								enemyShipFormation.getPositionY() + 36);
-						bossBeamCooldown.reset();
-						bossBeamLaunchCooldown.reset();
+						beamCooldown.reset();
+						beamLaunchCooldown.reset();
 					}
-					else if (this.beamLine != null && this.bossBeam == null && bossBeamLaunchCooldown.checkFinished()) {
+					else if (this.beamLine != null && this.beam == null && beamLaunchCooldown.checkFinished()) {
 						this.beamLine = null;
 						this.beamShooting = true;
-						enemyShipFormation.shootBossLaser();
-						this.bossBeam = enemyShipFormation.getBossBeam();
-						bossBeamLaunchCooldown.reset();
+						enemyShipFormation.shootBeam();
+						this.beam = enemyShipFormation.getBeam();
+						beamLaunchCooldown.reset();
 					}
-					else if(this. beamLine == null && this.bossBeam != null && bossBeamLaunchCooldown.checkFinished()) {
-						enemyShipFormation.clearBossBeam();
-						this.bossBeam = null;
+					else if(this. beamLine == null && this.beam != null && beamLaunchCooldown.checkFinished()) {
+						enemyShipFormation.clearBeam();
+						this.beam = null;
 						this.beamShooting = false;
 					}
 					if (this.beamLine != null) {
 						beamLine.setPositionX(enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2);
 					}
-					if (this.bossBeam != null) {
-						bossBeam.setPositionX(enemyShipFormation.getPositionX()
+					if (this.beam != null) {
+						beam.setPositionX(enemyShipFormation.getPositionX()
 								+ enemyShipFormation.getWidth()/2 - 32);
 					}
 				}
@@ -581,9 +581,9 @@ public class GameScreen extends Screen {
 					this.beamLine.getPositionX(),
 					this.beamLine.getPositionY());
 		}
-		if (bossBeam != null) {
-			drawManager.drawEntity(bossBeam, bossBeam.getPositionX(),
-					bossBeam.getPositionY());
+		if (beam != null) {
+			drawManager.drawEntity(beam, beam.getPositionX(),
+					beam.getPositionY());
 		}
 
 		for (Bullet bullet : this.bullets)
@@ -822,8 +822,8 @@ public class GameScreen extends Screen {
 				}
 			}
 		}
-		if (this.bossBeam != null) {
-			if (checkCollision(this.bossBeam, this.ship) && !this.levelFinished) {
+		if (this.beam != null) {
+			if (checkCollision(this.beam, this.ship) && !this.levelFinished) {
 				if (!this.ship.isDestroyed()) {
 					this.ship.destroy();
 					this.lives = 0;
