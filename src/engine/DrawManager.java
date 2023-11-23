@@ -233,7 +233,8 @@ public final class DrawManager {
 		EnhanceStone,
 		//ShipCShileded,
 		gravestone,
-		Ghost;
+		Ghost,
+		Sound;
 	};
 
 
@@ -335,6 +336,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 			spriteMap.put(SpriteType.gravestone, new boolean[13][9]);
 			spriteMap.put(SpriteType.Ghost, new boolean[9][11]);
+			spriteMap.put(SpriteType.Sound, new boolean[14][14]);
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
@@ -615,6 +617,7 @@ public final class DrawManager {
 		backBufferGraphics.setColor(levelColor(level));
 		backBufferGraphics.drawString(Integer.toString(level), 150, 28);
 	}
+
 	public void drawSoundButton1(GameScreen gamescreen){
 		backBufferGraphics.setColor(Color.WHITE);
 		backBufferGraphics.fillOval(375,425,55,45);
@@ -627,14 +630,20 @@ public final class DrawManager {
 
 	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.drawString(statusText, 379, 455);
+		if (statusText.equals("ON")) {
+			drawEntity(SpriteType.Sound, gamescreen.getWidth() - 40, gamescreen.getHeight() - 50, 1.5, 1.5, Color.red);
+		} else {
+			drawEntity(SpriteType.Sound, gamescreen.getWidth() - 40, gamescreen.getHeight() - 50, 1.5, 1.5, Color.GRAY);
+		}
 	}
 
 	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.drawString(statusText, 379, 455);
+		if (statusText.equals("ON")) {
+			drawEntity(SpriteType.Sound, gamescreen_2P.getWidth() - 40, gamescreen_2P.getHeight() - 50, 1.5, 1.5, Color.red);
+		} else {
+			drawEntity(SpriteType.Sound, gamescreen_2P.getWidth() - 40, gamescreen_2P.getHeight() - 50, 1.5, 1.5, Color.GRAY);
+		}
 	}
 
 

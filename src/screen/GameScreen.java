@@ -581,7 +581,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
-		drawManager.drawSoundButton1(this);
+		// drawManager.drawSoundButton1(this);
 		if (inputManager.isKeyDown(KeyEvent.VK_C)) {
 			isSoundOn = !isSoundOn;
 			if (isSoundOn) {
