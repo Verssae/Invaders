@@ -689,7 +689,7 @@ public final class DrawManager {
 	 * @param coin
 	 *               Current score.
 	 */
-	public void drawCoin(final Screen screen, final Coin coin, final int drawCoinOption) {
+	public void drawCoinCount(final Screen screen, final Coin coin, final int drawCoinOption) {
 		if (drawCoinOption == 0) {
 			this.drawEntity(SpriteType.Coin, 15, 55, 1.5, 1.5, Color.YELLOW);
 			backBufferGraphics.setFont(fontRegular);

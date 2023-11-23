@@ -611,7 +611,7 @@ public class GameScreen_2P extends Screen {
         drawManager.drawScore_2p(this, this.score_2P,"p2",260);
         drawManager.drawLivesbar_2p(this, this.lives_1p, 8, "1P lives");
         drawManager.drawLivesbar_2p(this, this.lives_2p, 330, "2P lives");
-        drawManager.drawCoin(this, this.coin, 0);
+        drawManager.drawCoinCount(this, this.coin, 0);
         drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
         isboss = gameSettings.checkIsBoss();
 

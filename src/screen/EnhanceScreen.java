@@ -200,7 +200,7 @@ public class EnhanceScreen extends Screen {
     private void draw() {
         drawManager.initDrawing(this);
         drawManager.drawScore(this, this.score);
-        drawManager.drawCoin(this, this.coin, 1);
+        drawManager.drawCoinCount(this, this.coin, 1);
         drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
 
         drawManager.drawCircleLine(this, centeredCircleX, centeredCircleY, centeredCircleWidth, centeredCircleHeight, 0);
