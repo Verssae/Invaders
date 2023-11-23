@@ -131,6 +131,8 @@ public class GameScreen_2P extends Screen {
     private EnhanceManager enhanceManager;
     private int BulletsRemaining_1p;
     private int BulletsRemaining_2p;
+    /** Special Bullet **/
+    private SpecialBullet SpBullet;
 
     /**
      * Constructor, establishes the properties of the screen.
@@ -396,28 +398,36 @@ public class GameScreen_2P extends Screen {
                     }
                 }
                 if (this.enemyShipSpecial != null) {
-                    if (!this.enemyShipSpecial.isDestroyed())
+                    if (!this.enemyShipSpecial.isDestroyed()) {
                         this.enemyShipSpecial.move(2, 0);
+                        if (this.enemyShipSpecial.getPositionX() > this.enemyShipSpecial.getLaunchPos()
+                                && !this.enemyShipSpecial.getSpBulletLoaded()) {
+                            this.enemyShipSpecial.LaunchSpecialBullet();
+                            this.SpBullet = new SpecialBullet(this.enemyShipSpecial.getPositionX(),
+                                    this.enemyShipSpecial.getPositionY(), 3, 1,
+                                    this.enemyShipSpecial.getColor(), this.enemyShipSpecial.getBulletType());
+                        }
+                    }
                     else if (this.enemyShipSpecialExplosionCooldown.checkFinished())
                         this.enemyShipSpecial = null;
-
                 }
                 if (this.enemyShipSpecial == null
                         && this.enemyShipSpecialCooldown.checkFinished()) {
                     bgm.enemyShipSpecialbgm_play();
                     colorVariable = (int)(Math.random()*4);
+                    int launchPos = (int)(this.getWidth() * Math.random());
                     switch (colorVariable) {
                         case 0:
-                            this.enemyShipSpecial = new EnemyShip(Color.RED);
+                            this.enemyShipSpecial = new EnemyShip(Color.RED, colorVariable, launchPos);
                             break;
                         case 1:
-                            this.enemyShipSpecial = new EnemyShip(Color.YELLOW);
+                            this.enemyShipSpecial = new EnemyShip(Color.YELLOW, colorVariable, launchPos);
                             break;
                         case 2:
-                            this.enemyShipSpecial = new EnemyShip(Color.BLUE);
+                            this.enemyShipSpecial = new EnemyShip(Color.BLUE, colorVariable, launchPos);
                             break;
                         case 3:
-                            this.enemyShipSpecial = new EnemyShip(Color.WHITE);
+                            this.enemyShipSpecial = new EnemyShip(Color.WHITE, colorVariable, launchPos);
                             break;
                         default:
                             break;
@@ -430,6 +440,14 @@ public class GameScreen_2P extends Screen {
                     bgm.enemyShipSpecialbgm_stop();
                     this.enemyShipSpecial = null;
                     this.logger.info("The special ship has escaped");
+                }
+                if (this.SpBullet != null) {
+                    if (this.SpBullet.getPositionY() < getHeight()){
+                        this.SpBullet.update();
+                    }
+                    else {
+                        this.SpBullet = null;
+                    }
                 }
 
                 this.ship_1P.update();
@@ -604,6 +622,10 @@ public class GameScreen_2P extends Screen {
             drawManager.drawEntity(bulletY, bulletY.getPositionX(),
                     bulletY.getPositionY());
 
+        if (this.SpBullet != null)
+            drawManager.drawEntity(this.SpBullet,
+                    this.SpBullet.getPositionX(),
+                    this.SpBullet.getPositionY());
 
         // Interface.
         drawManager.drawScore_2p(this, this.score_1P,"p1", 105);
@@ -904,6 +926,28 @@ public class GameScreen_2P extends Screen {
                     this.lives_2p--;
                     if (gameSettings.getDifficulty() == 3) this.lives_2p = 0;
                     this.logger.info("Hit on ship_2 " + this.lives_2p
+                            + " lives remaining.");
+                }
+            }
+        }
+        if (this.SpBullet != null) {
+            if (checkCollision(this.SpBullet, this.ship_1P) && !this.levelFinished) {
+                if (!this.ship_1P.isDestroyed()) {
+                    this.ship_1P.destroy();
+                    if (this.lives_1p != 1) soundEffect.playShipCollisionSound();
+                    this.lives_1p--;
+                    if (gameSettings.getDifficulty() == 3) this.lives_1p = 0;
+                    this.logger.info("Hit on player ship, " + this.lives_1p
+                            + " lives remaining.");
+                }
+            }
+            if (checkCollision(this.SpBullet, this.ship_2P) && !this.levelFinished) {
+                if (!this.ship_2P.isDestroyed()) {
+                    this.ship_2P.destroy();
+                    if (this.lives_2p != 1) soundEffect.playShipCollisionSound();
+                    this.lives_2p--;
+                    if (gameSettings.getDifficulty() == 3) this.lives_2p = 0;
+                    this.logger.info("Hit on player ship, " + this.lives_2p
                             + " lives remaining.");
                 }
             }

@@ -19,14 +19,14 @@ public class Laser extends Entity {
     private boolean activated;
 
     /**
-     * Constructor, establishes the bullet's properties.
+     * Constructor, establishes the laser's properties.
      *
      * @param Position_X
-     *            Initial position of the bullet in the X axis.
+     *            Initial position of the laser in the X axis.
      * @param Position_Y
-     *            Initial position of the bullet in the Y axis.
+     *            Initial position of the laser in the Y axis.
      * @param act
-     *            Activated Lazer
+     *            Activated Laser
      */
     public Laser(final int Position_X, final int Position_Y, final boolean act) {
         super(Position_X, Position_Y, 1*2, 448, Color.RED);
@@ -35,7 +35,7 @@ public class Laser extends Entity {
     }
 
     /**
-     * Sets correct sprite for the bullet, based on speed.
+     * Sets correct sprite for the laser, based on speed.
      */
     public final void setSprite() {
         this.spriteType = SpriteType.Laser;
