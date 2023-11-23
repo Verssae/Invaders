@@ -1035,6 +1035,7 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
+		String pvpScoresString = "P V P  S C O R E S";
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -1059,6 +1060,12 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
+				* 2 + fontRegularMetrics.getHeight() * 8);
+		if (option == 1000)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, pvpScoresString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
@@ -1636,8 +1643,6 @@ public final class DrawManager {
 		drawCenteredBigString(screen, Paused, screen.getHeight() * 3 / 4);
 		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
 	}
-
-
 	public void drawDiffScore(final Screen screen, final int difficulty) {
 		String EasyString = "EASY";
 		String NormalString = "NORMAL";
@@ -1670,12 +1675,25 @@ public final class DrawManager {
 		backBufferGraphics.drawString(HardCoreString, screen.getWidth() * 7 / 8
 				- fontRegularMetrics.stringWidth(HardCoreString) / 2, screen.getHeight() * 2/7);
 	}
+
+
 	/**
 	 * Draws high score screen title and instructions.
 	 *
 	 * @param screen
 	 *               Screen to draw on.
 	 */
+	public void drawPvpScoreMenu(final Screen screen) {
+		String highScoreString = "PVP Scores";
+		String instructionsString = "Press SPACE to return";
+
+		backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
+		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, instructionsString,
+				screen.getHeight() / 5);
+	}
 	public void drawHighScoreMenu(final Screen screen) {
 		String highScoreString = "High Scores";
 		String instructionsString = "Press SPACE to return";
@@ -1708,6 +1726,23 @@ public final class DrawManager {
 					score.getScore());
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
 					/ 3 + fontRegularMetrics.getHeight() * (i + 1) * 2);
+			i++;
+			if (i >= 5)
+				break;
+		}
+	}
+	public void drawPvpScores(final Screen screen,
+							   final List<Score> highScores) {
+		backBufferGraphics.setColor(blinkingColor("WHITE"));
+		int i = 0;
+		String scoreString = "";
+		String rank[] = {"1st", "2nd", "3th", "4th", "5th"};
+
+		for (Score score : highScores) {
+			scoreString = String.format("%s        %s        %04d", rank[i], score.getName(),
+					score.getScore());
+			drawCenteredRegularString(screen, scoreString, screen.getHeight()
+					/ 5 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
 			if (i >= 5)
 				break;

@@ -725,6 +725,13 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
+                case 1000:
+                    // High scores.
+                    currentScreen = new PvpScoreScreen(width, height, FPS);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " pvp score screen at " + FPS + " fps.");
+                    returnCode = frame.setScreen(currentScreen);
+                    LOGGER.info("Closing pvp score menu screen.");
+                    break;
                 default:
                     break;
             }
