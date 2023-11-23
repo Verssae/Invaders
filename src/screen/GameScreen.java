@@ -90,8 +90,8 @@ public class GameScreen extends Screen {
 	private Cooldown laserLaunchCooldown;
 	/** Laser on/off (difficulty normal, upper than 4level or difficulty hard, hardcore */
 	private boolean laserActivate;
+	private Cooldown bossBeamLaunchCooldown;
 	/** Set of "BulletY" fired by player ships. */
-	private Cooldown bosslaserLaunchCooldown;
 	private Set<BulletY> bulletsY;
 
 	/** Sound Effects for player's ship and enemy. */
@@ -240,9 +240,9 @@ public class GameScreen extends Screen {
 		this.laserLaunchCooldown = Core
 				.getCooldown(LASER_ACTIVATE);
 		this.laserLaunchCooldown.reset();
-		this.bosslaserLaunchCooldown = Core.
+		this.bossBeamLaunchCooldown = Core.
 				getCooldown(BOSS_LASER_ACTIVATE);
-		bosslaserLaunchCooldown.reset();
+		bossBeamLaunchCooldown.reset();
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.bulletsY = new HashSet<BulletY>();
@@ -422,13 +422,13 @@ public class GameScreen extends Screen {
 					if (!enemyShipFormation.checkBeam()) {
 						enemyShipFormation.shootBossLaser();
 						this.bossBeam = enemyShipFormation.getBossBeam();
-						bosslaserLaunchCooldown.reset();
+						bossBeamLaunchCooldown.reset();
 					}
 					else {
 						bossBeam.setPositionX(enemyShipFormation.getPositionX()
 								+ enemyShipFormation.getWidth()/2 - 32);
 					}
-					if(bosslaserLaunchCooldown.checkFinished()) {
+					if(bossBeamLaunchCooldown.checkFinished()) {
 						enemyShipFormation.clearBossBeam();
 						this.bossBeam = null;
 					}
