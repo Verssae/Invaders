@@ -463,7 +463,6 @@ public class GameScreen extends Screen {
 					}
 				}
 				}
-
 			manageCollisions();
 			manageCollisionsY();
 			cleanBullets();
