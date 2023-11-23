@@ -658,8 +658,7 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 
 	public final void shootBossLaser() {
 		Set<EnemyShip> shooters = numberOfShooters();
-		if (this.bossBeamCooldown.checkFinished() && this.bossBeam == null) {
-			this.bossBeamCooldown.reset();
+		if (this.bossBeam == null) {
 			for(EnemyShip shooter : shooters){
 				isShooting = true;
 				bossBeam = new BossBeam(shooter.getPositionX() - shooter.getWidth()/2 + 16,
@@ -684,7 +683,11 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	}
 
 	public int getPositionX() {
-		return positionX;
+		return this.positionX;
+	}
+
+	public int getPositionY() {
+		return this.positionY;
 	}
 
 	/**

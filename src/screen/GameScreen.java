@@ -50,7 +50,10 @@ public class GameScreen extends Screen {
 	private static int LASER_LOAD = 2000;
 	/** Time until laser disappears. */
 	private static final int LASER_ACTIVATE = 1000;
-	private static final int BOSS_LASER_ACTIVATE = 1000;
+	private static final int BOSS_BEAM_INTERVAL = 10000;
+	private static final int BOSS_BEAM_VARIANCE = 1000;
+	private static final int BOSS_BEAM_ACTIVATE = 2000;
+	private static final int BEAM_LOAD = 1000;
 	/** Time from finishing the level to screen change. */
 	private static final int SCREEN_CHANGE_INTERVAL = 3000;
 	/** Height of the interface separation line. */
@@ -76,6 +79,12 @@ public class GameScreen extends Screen {
 	/** Check boss. */
 	private int bossCode;
 	private BossBeam bossBeam;
+	private Cooldown bossBeamCooldown;
+	private Cooldown beamLoadCooldown;
+	private Cooldown bossBeamLaunchCooldown;
+	private boolean beamReady;
+	private LaserLine beamLine;
+	private boolean beamShooting;
 	/** Laser */
 	private Laser laser;
 	/** Laserline */
@@ -90,7 +99,6 @@ public class GameScreen extends Screen {
 	private Cooldown laserLaunchCooldown;
 	/** Laser on/off (difficulty normal, upper than 4level or difficulty hard, hardcore */
 	private boolean laserActivate;
-	private Cooldown bossBeamLaunchCooldown;
 	/** Set of "BulletY" fired by player ships. */
 	private Set<BulletY> bulletsY;
 
@@ -240,9 +248,17 @@ public class GameScreen extends Screen {
 		this.laserLaunchCooldown = Core
 				.getCooldown(LASER_ACTIVATE);
 		this.laserLaunchCooldown.reset();
-		this.bossBeamLaunchCooldown = Core.
-				getCooldown(BOSS_LASER_ACTIVATE);
+		this.bossBeamCooldown = Core.getVariableCooldown(
+				BOSS_BEAM_INTERVAL, BOSS_BEAM_VARIANCE);
+		bossBeamCooldown.reset();
+		this.beamLoadCooldown = Core
+				.getCooldown(BEAM_LOAD);
+		beamLoadCooldown.reset();
+		this.bossBeamLaunchCooldown = Core
+				.getCooldown(BOSS_BEAM_ACTIVATE);
 		bossBeamLaunchCooldown.reset();
+		this.beamShooting = false;
+		this.beamReady = false;
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.bulletsY = new HashSet<BulletY>();
@@ -419,18 +435,31 @@ public class GameScreen extends Screen {
 				this.enemyShipFormation.shoot(this.bullets);
 
 				if (this.bossCode == 2) {
-					if (!enemyShipFormation.checkBeam()) {
+					if (this.bossBeamCooldown.checkFinished() && beamLine == null) {
+						this.beamLine = new LaserLine(
+								enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2,
+								enemyShipFormation.getPositionY() + 36);
+						bossBeamCooldown.reset();
+						bossBeamLaunchCooldown.reset();
+					}
+					else if (this.beamLine != null && this.bossBeam == null && bossBeamLaunchCooldown.checkFinished()) {
+						this.beamLine = null;
+						this.beamShooting = true;
 						enemyShipFormation.shootBossLaser();
 						this.bossBeam = enemyShipFormation.getBossBeam();
 						bossBeamLaunchCooldown.reset();
 					}
-					else {
-						bossBeam.setPositionX(enemyShipFormation.getPositionX()
-								+ enemyShipFormation.getWidth()/2 - 32);
-					}
-					if(bossBeamLaunchCooldown.checkFinished()) {
+					else if(this. beamLine == null && this.bossBeam != null && bossBeamLaunchCooldown.checkFinished()) {
 						enemyShipFormation.clearBossBeam();
 						this.bossBeam = null;
+						this.beamShooting = false;
+					}
+					if (this.beamLine != null) {
+						beamLine.setPositionX(enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2);
+					}
+					if (this.bossBeam != null) {
+						bossBeam.setPositionX(enemyShipFormation.getPositionX()
+								+ enemyShipFormation.getWidth()/2 - 32);
 					}
 				}
 				}
@@ -547,6 +576,11 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(item, item.getPositionX(),
 					item.getPositionY());
 		enemyShipFormation.draw();
+		if (beamLine != null) {
+			drawManager.drawEntity(this.beamLine,
+					this.beamLine.getPositionX(),
+					this.beamLine.getPositionY());
+		}
 		if (bossBeam != null) {
 			drawManager.drawEntity(bossBeam, bossBeam.getPositionX(),
 					bossBeam.getPositionY());
