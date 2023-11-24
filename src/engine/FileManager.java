@@ -163,6 +163,33 @@ public final class FileManager {
 
 		return highScores;
 	}
+	private List<Score> loadDefaultPvpScores(final int difficulty) throws IOException {
+		List<Score> highScores = new ArrayList<Score>();
+		InputStream inputStream = null;
+		BufferedReader reader = null;
+
+		try {
+			inputStream = FileManager.class.getClassLoader()
+					.getResourceAsStream("pvpscore");
+			reader = new BufferedReader(new InputStreamReader(inputStream));
+
+			Score highScore = null;
+			String name = reader.readLine();
+			String score = reader.readLine();
+
+			while ((name != null) && (score != null)) {
+				highScore = new Score(name, Integer.parseInt(score));
+				highScores.add(highScore);
+				name = reader.readLine();
+				score = reader.readLine();
+			}
+		} finally {
+			if (inputStream != null)
+				inputStream.close();
+		}
+
+		return highScores;
+	}
 
 	/**
 	 * Loads high scores from file, and returns a sorted list of pairs score -
@@ -172,6 +199,50 @@ public final class FileManager {
 	 * @throws IOException
 	 *                     In case of loading problems.
 	 */
+	public List<Score> loadPvpScores(final int difficulty) throws IOException {
+
+		List<Score> highScores = new ArrayList<Score>();
+		InputStream inputStream = null;
+		BufferedReader bufferedReader = null;
+
+		try {
+			String jarPath = FileManager.class.getProtectionDomain()
+					.getCodeSource().getLocation().getPath();
+			jarPath = URLDecoder.decode(jarPath, "UTF-8");
+
+			String scoresPath = new File(jarPath).getParent();
+			scoresPath += File.separator;
+			scoresPath += "pvpscore";
+			File scoresFile = new File(scoresPath);
+			inputStream = new FileInputStream(scoresFile);
+			bufferedReader = new BufferedReader(new InputStreamReader(
+					inputStream, Charset.forName("UTF-8")));
+
+			logger.info("Loading user pvp scores.");
+
+			Score highScore = null;
+			String name = bufferedReader.readLine();
+			String score = bufferedReader.readLine();
+
+			while ((name != null) && (score != null)) {
+				highScore = new Score(name, Integer.parseInt(score));
+				highScores.add(highScore);
+				name = bufferedReader.readLine();
+				score = bufferedReader.readLine();
+			}
+
+		} catch (FileNotFoundException e) {
+			// loads default if there's no user scores.
+			logger.info("Loading default pvp scores.");
+			highScores = loadDefaultPvpScores(difficulty);
+		} finally {
+			if (bufferedReader != null)
+				bufferedReader.close();
+		}
+
+		Collections.sort(highScores);
+		return highScores;
+	}
 	public List<Score> loadHighScores(final int difficulty) throws IOException {
 
 		List<Score> highScores = new ArrayList<Score>();
