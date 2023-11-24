@@ -262,7 +262,7 @@ public class SkinStoreScreen extends Screen {
       */
       private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawCoin(this, this.coin, 2);
+        drawManager.drawCoinCount(this, this.coin, 2);
         drawManager.drawSkinStore(this.gameState, this, this.returnCode);
         drawManager.completeDrawing(this);
     }

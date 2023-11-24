@@ -205,7 +205,7 @@ public class StoreScreen_2P extends Screen {
      */
     private void draw() {
         drawManager.initDrawing(this);
-        drawManager.drawCoin(this, this.coin, 2);
+        drawManager.drawCoinCount(this, this.coin, 2);
         drawManager.drawItemStore_2P(this, this.returnCode, PST, BST, this.itemManager);
         drawManager.completeDrawing(this);
     }

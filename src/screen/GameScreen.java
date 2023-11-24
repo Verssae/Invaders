@@ -545,7 +545,7 @@ public class GameScreen extends Screen {
 		// Interface.
 		drawManager.drawScore(this, this.score);
 		drawManager.drawLivesbar(this, this.lives);
-		drawManager.drawCoin(this, this.coin, 0);
+		drawManager.drawCoinCount(this, this.coin, 0);
 		drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
 		isboss = gameSettings.checkIsBoss();
 
@@ -581,7 +581,7 @@ public class GameScreen extends Screen {
 		drawManager.scoreEmoji(this, this.score);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
-		drawManager.drawSoundButton1(this);
+		// drawManager.drawSoundButton1(this);
 		if (inputManager.isKeyDown(KeyEvent.VK_C)) {
 			isSoundOn = !isSoundOn;
 			if (isSoundOn) {
