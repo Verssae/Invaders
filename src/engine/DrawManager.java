@@ -2546,14 +2546,21 @@ public final class DrawManager {
 				backBufferGraphics.drawString("Game Over", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Game Over") / 2, screen.getHeight() / 2);
 			}
 			else {
-				String getClearTime = "" + (int)(timer.getElapsedTime() / 1000) + "." +  (timer.getElapsedTime() % 1000);
+				double elapsedTimeSeconds = timer.getElapsedTime() / 1000.0;
+				int minutes = (int) (elapsedTimeSeconds % 3600) / 60;
+				int seconds = (int) elapsedTimeSeconds % 60;
+				int milliseconds = (int) (timer.getElapsedTime() % 1000);
+				String getClearTime = String.format("%02d:%02d.%03d", minutes, seconds, milliseconds);
+				
 				backBufferGraphics.setFont(fontBig);
+				backBufferGraphics.setColor(Color.green);
+				backBufferGraphics.drawString("Stage Clear", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Stage Clear") / 2, screen.getHeight() * 3 / 8);
+				
 				backBufferGraphics.setColor(Color.white);
-				backBufferGraphics.drawString("Stage Clear", screen.getWidth() / 2 - fontBigMetrics.stringWidth("Stage Clear") / 2, screen.getHeight() / 2);
 				backBufferGraphics.drawString(getClearTime, screen.getWidth() / 2 - fontBigMetrics.stringWidth(getClearTime) / 2, screen.getHeight() / 2 + 20);
+				backBufferGraphics.setColor(Color.yellow);
 				if ((int)(timer.getElapsedTime() / 1000) > 0 && (int)(timer.getElapsedTime() / 1000) < 30) {
 					backBufferGraphics.drawString("COIN : 20", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 20") / 2, screen.getHeight() / 2 + 40);
-
 				}
 				else if ((int)(timer.getElapsedTime() / 1000) >= 30 && (int)(timer.getElapsedTime() / 1000) < 40) {
 					backBufferGraphics.drawString("COIN : 15", screen.getWidth() / 2 - fontBigMetrics.stringWidth("COIN : 15") / 2, screen.getHeight() / 2 + 40);
