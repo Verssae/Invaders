@@ -50,6 +50,8 @@ public final class Core {
      */
     private static int difficulty = 1;
 
+    public static boolean checkInfinity = false ;
+
     /**
      * Difficulty settings for level 1.
      */
@@ -216,6 +218,7 @@ public final class Core {
                         gameSettings.add(SETTINGS_LEVEL_6);
                         gameSettings.add(SETTINGS_LEVEL_7);
                         gameSettings.add(SETTINGS_LEVEL_8);
+                        gameSettings.add(SETTINGS_LEVEL_1);
 
                     }
 
@@ -227,6 +230,11 @@ public final class Core {
                         LOGGER.info("Go Difficulty Select");
                         break;
                     }
+                    if (stage == 9)
+                        checkInfinity = true;
+                    else
+                        checkInfinity = false;
+
                     LOGGER.info("Closing Level screen.");
                     gameState.setLevel(stage);
 
@@ -234,10 +242,21 @@ public final class Core {
 
                     // Game & score.
                     do {
-                        currentScreen = new GameScreen(gameState,
-                                gameSettings.get(gameState.getLevel() - 1),
-                                enhanceManager, itemManager,
-                                width, height, FPS);
+                        if (gameState.getLevel() == NUM_LEVELS + 1) {
+                            gameState.setLevel(1);
+                            currentScreen = new GameScreen(gameState,
+                                    gameSettings.get(gameState.getLevel() - 1),
+                                    enhanceManager, itemManager,
+                                    width, height, FPS);
+                        }
+
+                        else {
+                            currentScreen = new GameScreen(gameState,
+                                    gameSettings.get(gameState.getLevel() - 1),
+                                    enhanceManager, itemManager,
+                                    width, height, FPS);
+                        }
+
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -246,18 +265,34 @@ public final class Core {
                         gameState = ((GameScreen) currentScreen).getGameState();
                         BulletsRemaining = gameState.getBulletsRemaining();
 
-                        gameState = new GameState(gameState.getLevel() + 1,
-                                gameState.getScore(),
-                                gameState.getCoin(),
-                                gameState.getLivesRemaining(),
-                                gameState.getBulletsShot(),
-                                gameState.getShipsDestroyed(),
-                                gameState.getHardCore(), 
-                                gameState.getShipColor(), 
-                                gameState.getNowSkinString(), 
-                                gameState.getOwnedSkins(), 
-                                gameState.getEquippedSkins(),
-                                99);
+                        if (gameState.getLevel() == NUM_LEVELS && checkInfinity) {
+                            gameState = new GameState(1,
+                                    gameState.getScore(),
+                                    gameState.getCoin(),
+                                    gameState.getLivesRemaining(),
+                                    gameState.getBulletsShot(),
+                                    gameState.getShipsDestroyed(),
+                                    gameState.getHardCore(),
+                                    gameState.getShipColor(),
+                                    gameState.getNowSkinString(),
+                                    gameState.getOwnedSkins(),
+                                    gameState.getEquippedSkins(),
+                                    99);
+                        }
+                        else {
+                            gameState = new GameState(gameState.getLevel() + 1,
+                                    gameState.getScore(),
+                                    gameState.getCoin(),
+                                    gameState.getLivesRemaining(),
+                                    gameState.getBulletsShot(),
+                                    gameState.getShipsDestroyed(),
+                                    gameState.getHardCore(),
+                                    gameState.getShipColor(),
+                                    gameState.getNowSkinString(),
+                                    gameState.getOwnedSkins(),
+                                    gameState.getEquippedSkins(),
+                                    99);
+                        }
 
 						// SubMenu | Item Store & Enhancement & Continue & Skin Store
 						do{
