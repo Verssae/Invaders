@@ -52,9 +52,13 @@ public class GameScreen extends Screen {
 	private static int LASER_LOAD = 2000;
 	/** Time until laser disappears. */
 	private static final int LASER_ACTIVATE = 1000;
+	/** Minimum time between Beam's appearances. */
 	private static final int BEAM_INTERVAL = 10000;
+	/** Maximum variance in the time between Beam's appearances. */
 	private static final int BEAM_VARIANCE = 1000;
+	/** Maintaining time of beam. */
 	private static final int BEAM_ACTIVATE = 2000;
+	/** Load time of Beam. */
 	private static final int BEAM_LOAD = 1000;
 	/** Time until Blaze disappears. */
 	private static final int[] Blaze_ACTIVATE = {2000, 3000, 4000, 4000};
@@ -91,13 +95,16 @@ public class GameScreen extends Screen {
 	private Set<Bullet> bullets;
 	/** Check boss. */
 	private int bossCode;
+	/** Beam */
 	private Beam beam;
+	/** Time between beam launch */
 	private Cooldown beamCooldown;
+	/** Load time of beam */
 	private Cooldown beamLoadCooldown;
+	/** Maintaining time of beam */
 	private Cooldown beamLaunchCooldown;
-	private boolean beamReady;
+	/** Beamline */
 	private LaserLine beamLine;
-	private boolean beamShooting;
 	/** Laser */
 	private Laser laser;
 	/** Laserline */
@@ -288,8 +295,6 @@ public class GameScreen extends Screen {
 		this.beamLaunchCooldown = Core
 				.getCooldown(BEAM_ACTIVATE);
 		beamLaunchCooldown.reset();
-		this.beamShooting = false;
-		this.beamReady = false;
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.bulletsY = new HashSet<BulletY>();
@@ -541,12 +546,12 @@ public class GameScreen extends Screen {
 						this.beamLine = new LaserLine(
 								enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2,
 								enemyShipFormation.getPositionY() + 36);
+						beamLine.setColor(Color.RED);
 						beamCooldown.reset();
 						beamLaunchCooldown.reset();
 					}
 					else if (this.beamLine != null && this.beam == null && beamLaunchCooldown.checkFinished()) {
 						this.beamLine = null;
-						this.beamShooting = true;
 						enemyShipFormation.shootBeam();
 						this.beam = enemyShipFormation.getBeam();
 						beamLaunchCooldown.reset();
@@ -554,7 +559,6 @@ public class GameScreen extends Screen {
 					else if(this. beamLine == null && this.beam != null && beamLaunchCooldown.checkFinished()) {
 						enemyShipFormation.clearBeam();
 						this.beam = null;
-						this.beamShooting = false;
 					}
 					if (this.beamLine != null) {
 						beamLine.setPositionX(enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2);
