@@ -51,8 +51,8 @@ public class GameState_2P{
      *            Hardcore mode, Only one coin.
      */
     public GameState_2P(final int level, final int score_1P, final int score_2P, final Coin coin,
-                     final double livesRemaining_1P, final double livesRemaining_2P, final int bulletsShot_1P, final int bulletShot_2P,
-                     final int shipsDestroyed, final boolean hardcore, final int BulletsRemaining_1p,final int BulletsRemaining_2p) {
+                        final double livesRemaining_1P, final double livesRemaining_2P, final int bulletsShot_1P, final int bulletShot_2P,
+                        final int shipsDestroyed, final boolean hardcore, final int BulletsRemaining_1p,final int BulletsRemaining_2p) {
         this.level = level;
         this.score_1P = score_1P;
         this.score_2P = score_2P;
