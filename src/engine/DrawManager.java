@@ -33,7 +33,6 @@ import javax.imageio.ImageIO;
 import entity.Coin;
 import entity.Entity;
 import screen.GameScreen;
-import screen.GameScreen_2P;
 import screen.Screen;
 
 
@@ -620,23 +619,11 @@ public final class DrawManager {
 		backBufferGraphics.fillOval(375,425,55,45);
 	}
 
-	public void drawSoundButton2(GameScreen_2P gamescreen_2P){
-		backBufferGraphics.setColor(Color.WHITE);
-		backBufferGraphics.fillOval(375,425,55,45);
-	}
-
 	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.drawString(statusText, 379, 455);
 	}
-
-	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
-		String statusText = keyboard ? "ON" : "OFF";
-		backBufferGraphics.setColor(Color.BLACK);
-		backBufferGraphics.drawString(statusText, 379, 455);
-	}
-
 
 	/**
 	 * Draws current score on screen.
@@ -1351,59 +1338,6 @@ public final class DrawManager {
 
 			if(recoveryCoin.getCoin() >= 30){
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
-			} else {backBufferGraphics.setColor(Color.red);}
-
-		}
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, dorecoveryString,
-				screen.getHeight() / 3 * 2);
-		if (option == 52)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, notrecoveryString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-
-
-
-	}
-
-	public void drawRecoveryConfirmPage_2P(GameState_2P gameState,final Screen screen, final int option) {
-		String paymentMessage = "Please pay 150 amount to recover:";
-		backBufferGraphics.setColor(Color.white);
-		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
-
-		GameState_2P recoveryGameState = gameState;
-		Coin recoveryCoin = recoveryGameState.getCoin();
-
-		String coinString = " C O I N : " + recoveryCoin.getCoin();
-
-		if(recoveryCoin.getCoin() >= 30){
-
-			backBufferGraphics.setColor(Color.YELLOW);
-			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
-
-			String successMessage = "Your coin is enough";
-			backBufferGraphics.setColor(Color.PINK);
-			drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
-		} else {
-			backBufferGraphics.setColor(Color.red);
-			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
-
-			String successMessage = "You need more coin to continue";
-			backBufferGraphics.setColor(Color.orange);
-			drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
-		}
-
-
-		String dorecoveryString = " Y E S ";
-		String notrecoveryString = " N O ";
-
-		if (option == 51){
-
-			if(recoveryCoin.getCoin() >= 30){
-				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			} else {backBufferGraphics.setColor(Color.red);}
 
 		}
