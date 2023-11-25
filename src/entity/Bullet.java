@@ -69,7 +69,6 @@ public class Bullet extends Entity {
 		this.effectBullet = 0;
 		this.damage = attackDamage;
 	}
-
 	/**
 	 * Sets correct sprite for the bullet, based on speed.
 	 */
