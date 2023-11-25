@@ -53,8 +53,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private static final int IsSExtend_location = 1;
 	/** moving speed*/
 	private static final int Extend_x= 1;
-	private int BEAM_INTERVAL = 10000;
-	private int BEAM_VARIANCE = 2000;
 
 	/** DrawManager instance. */
 	private DrawManager drawManager;
@@ -79,10 +77,10 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 	private int shootingInterval;
 	/** Variance in the time between shots. */
 	private int shootingVariance;
-	/** Initial ship speed. */
-	private Cooldown bossBeamCooldown;
+	/** Beam. */
 	private Beam beam;
 	private boolean isShooting = false;
+	/** Initial ship speed. */
 	private int baseSpeed;
 	/** Initial ship speed. */
 	private int baseAttackDamage;
@@ -514,13 +512,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 						shootingVariance);
 				this.shootingCooldown.reset();
 			}
-			if (bossCode == 2) {
-				if (this.bossBeamCooldown == null) {
-					this.bossBeamCooldown = Core.getVariableCooldown(BEAM_INTERVAL,
-							BEAM_VARIANCE);
-					this.bossBeamCooldown.reset();
-				}
-			}
 
 			cleanUp();
 
@@ -660,7 +651,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		Set<EnemyShip> shooters = numberOfShooters();
 		if (this.beam == null) {
 			for(EnemyShip shooter : shooters){
-				isShooting = true;
 				beam = new Beam(shooter.getPositionX() - shooter.getWidth()/2 + 16,
 						shooter.getPositionY() + shooter.getHeight());
 			}
@@ -671,14 +661,9 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 		return this.beam;
 	}
 
-	public final boolean checkBeam() {
-		return isShooting;
-	}
-
 	public final void clearBeam() {
 		if (beam != null) {
 			beam = null;
-			isShooting = false;
 		}
 	}
 
