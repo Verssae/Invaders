@@ -776,7 +776,7 @@ public class GameScreen extends Screen {
 				this.logger.info("Get Item ");
 
 				//* settings of coins randomly got when killing monsters
-				ArrayList<Integer> coinProbability = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 1, 1, 2, 3, 4));
+				ArrayList<Integer> coinProbability = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 1, 1, 1, 2, 3, 4, 5));
 				Random random = new Random();
 				int randomIndex = random.nextInt(coinProbability.size());
 
@@ -789,6 +789,11 @@ public class GameScreen extends Screen {
 				}
 				if(item.getSpriteType() == SpriteType.PerpleEnhanceStone){
 					this.enhanceManager.PlusNumEnhanceStoneAttack(1);
+				} //여기 life item drop 부분
+				if(item.getSpriteType() == SpriteType.LifeItem){
+					if (this.lives < 3){
+						this.lives += 1;
+					}
 				}
 				this.ship.checkGetItem(item);
 			}

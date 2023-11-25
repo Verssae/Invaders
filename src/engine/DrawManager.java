@@ -234,7 +234,8 @@ public final class DrawManager {
 		//ShipCShileded,
 		gravestone,
 		Ghost,
-		Sound;
+		Sound,
+		LifeItem;
 	};
 
 
@@ -337,6 +338,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.gravestone, new boolean[13][9]);
 			spriteMap.put(SpriteType.Ghost, new boolean[9][11]);
 			spriteMap.put(SpriteType.Sound, new boolean[14][14]);
+			spriteMap.put(SpriteType.LifeItem, new boolean[9][11]);
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
@@ -1921,6 +1923,7 @@ public final class DrawManager {
 		String bomb = "B O M B";
 		String BST = "B S T O N E";
 		String PST = "P S T O N E";
+		String Life = "L I F E";
 		backBufferGraphics.drawRect(width, height, size, size);
 
 		if (option == 1){
@@ -1953,6 +1956,14 @@ public final class DrawManager {
 			backBufferGraphics.setFont(fontSmall);
 			backBufferGraphics.drawString(PST, width + 18, height + size - 10);
 			drawEntity(SpriteType.PerpleEnhanceStone, width + 25, height + 25, size/15, size/15, color);
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontBig);
+			backBufferGraphics.drawString(string, width+ 90 , height+105);
+		} else if (option == 5){
+			backBufferGraphics.setColor(Color.white);
+			backBufferGraphics.setFont(fontSmall);
+			backBufferGraphics.drawString(Life, width + 18, height + size - 10);
+			drawEntity(SpriteType.LifeItem, width + 25, height + 25, size/15, size/15, color);
 			backBufferGraphics.setColor(Color.white);
 			backBufferGraphics.setFont(fontBig);
 			backBufferGraphics.drawString(string, width+ 90 , height+105);

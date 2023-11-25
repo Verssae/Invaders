@@ -1,8 +1,9 @@
 package entity;
 
+import java.awt.Color;
+
 import engine.Cooldown;
 import engine.Core;
-import java.awt.Color;
 import engine.DrawManager.SpriteType;
 
 public class Item extends Entity {
@@ -46,19 +47,23 @@ public class Item extends Entity {
      */
     public void setSprite() {
         double type = Math.random();
-        if(type < 0.2){ //20%
+        if(type < 0.1){ //10%
             this.spriteType = SpriteType.Buff_Item;
             this.setColor(Color.GREEN);
-        }else if(type < 0.4){ //20%
+        }else if(type < 0.3){ //20%
             this.spriteType = SpriteType.Debuff_Item;
             this.setColor(Color.GRAY);
-        }else if(type < 0.5){ //10%
+        }else if(type < 0.4){ //10%
             this.spriteType = SpriteType.BlueEnhanceStone;
             this.setColor(Color.BLUE);
-        }else if(type < 0.6){ //10%
+        }else if(type < 0.5){ //10%
             this.spriteType = SpriteType.PerpleEnhanceStone;
-            this.setColor(Color.magenta);
-        }else { 
+            this.setColor(Color.magenta);  
+        }else if(type < 0.7){ //20%
+            this.spriteType = SpriteType.LifeItem;
+            this.setColor(Color.pink);  
+        }
+        else { 
             this.spriteType = SpriteType.Coin;
             this.setColor(Color.YELLOW);
         }
