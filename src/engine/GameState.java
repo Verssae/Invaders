@@ -155,6 +155,9 @@ public class GameState {
 	public final double getLivesRemaining() {
 		return livesRemaining;
 	}
+	public final void plusLives() {
+		this.livesRemaining += 1;
+	}
 
 	/**
 	 * @return the bulletsShot

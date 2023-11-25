@@ -790,10 +790,8 @@ public class GameScreen extends Screen {
 				if(item.getSpriteType() == SpriteType.PerpleEnhanceStone){
 					this.enhanceManager.PlusNumEnhanceStoneAttack(1);
 				} //여기 life item drop 부분
-				if(item.getSpriteType() == SpriteType.LifeItem){
-					if (this.lives < 3){
-						this.lives += 1;
-					}
+				if(item.getSpriteType() == SpriteType.LifeItem || this.lives < 3){
+					getGameState().plusLives();
 				}
 				this.ship.checkGetItem(item);
 			}
