@@ -106,7 +106,7 @@ public class EnhanceScreenRecovery extends Screen {
         drawManager.initDrawing(this);
 
         // drawManager.drawTitle(this);
-        drawManager.drawSubMenu(this, this.returnCode);
+        drawManager.drawRecoverySubMenu(this, this.returnCode);
 
         drawManager.completeDrawing(this);
     }
