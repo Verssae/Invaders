@@ -1054,31 +1054,38 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
+		String TutorialString = "T U T O R I A L";
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, playString,
-				screen.getHeight() / 3 * 2);
+				screen.getHeight() / 3 * 2 - fontRegularMetrics.getHeight() * 2);
 		if (option == 4)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, twoplayString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				screen.getHeight() / 3 * 2);
 		if (option == 3)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+		drawCenteredRegularString(screen, highScoresString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, TutorialString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
 		if (option == 0)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
+		drawCenteredRegularString(screen, exitString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
 
@@ -2890,5 +2897,16 @@ if (option == 35)
 		for (int y = 60; y < screen.getHeight() - 120; y += 4)
 			for (int x = 0; x < screen.getWidth(); x += 24)
 				this.drawEntity(SpriteType.Smog, x, y, 24, 4,blinkingColor("GRAY"));
+	}
+
+	public void drawTutorial(final Screen screen) {
+		String moveLeftString = "A / ←  :  Move Left";
+		String moveRightString = "D / →  :  Move Right";
+		String shootString = "Space Bar  :  Shoot Bullet";
+		String bulletDamageString = "1  Damage";
+		String specialBulletDamageString = "3  Damage";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+
 	}
 }
