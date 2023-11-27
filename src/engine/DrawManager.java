@@ -1163,6 +1163,36 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws Recovery menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+	public void RecoverySubMenu(final Screen screen, final int option) {
+		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
+		String ehanceString = "E N H A N C E M E N T";
+		String playString = "C O N T I N U E";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
+		if (option == 7)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, ehanceString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 2)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, playString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);	
+	}
+
+	
+	/**
 	 * Draws sub menu.
 	 *
 	 * @param screen
