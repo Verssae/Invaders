@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import engine.Cooldown;
 import engine.Core;
 import engine.SoundEffect;
+import engine.SoundManager;
 
 
 public class SettingScreen_Sound extends Screen{
