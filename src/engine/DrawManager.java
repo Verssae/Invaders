@@ -1172,6 +1172,7 @@ public final class DrawManager {
 		backBufferGraphics.drawImage(image1, screen.getWidth() * 2 / 4 - 25, screen.getHeight() / 2 - 20, 60, 60, null);
 	}
 
+
 	/**
 	 * Draws Recovery menu.
 	 *

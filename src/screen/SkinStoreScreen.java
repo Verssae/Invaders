@@ -27,7 +27,7 @@ public class SkinStoreScreen extends Screen {
     private GameState gameState;
     private SkinBuyManager skinBuyManager;
 
-    private int skinPrice = 20;
+    private int skinPrice = 200;
 
     private Color skinColor1 = Color.YELLOW;
     private Color skinColor2 = Color.BLUE;
