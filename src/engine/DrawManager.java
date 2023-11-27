@@ -1170,7 +1170,7 @@ public final class DrawManager {
 	 * @param option
 	 *               Option selected.
 	 */
-	public void RecoverySubMenu(final Screen screen, final int option) {
+	public void drawRecoverySubMenu(final Screen screen, final int option) {
 		String SelectString = "Select difficulty with W + S, confirm with SPACE.";
 		String ehanceString = "E N H A N C E M E N T";
 		String playString = "C O N T I N U E";
@@ -1191,7 +1191,7 @@ public final class DrawManager {
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);	
 	}
 
-	
+
 	/**
 	 * Draws sub menu.
 	 *
