@@ -189,7 +189,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 					square();
 					break;
 			}
-			logger.info(positionY+" ");
 			this.shipWidth = this.enemyShips.get(0).get(0).getWidth();
 			int minimum = 0;
 			for(int i=0; i<this.enemyShips.size(); i++){
@@ -311,8 +310,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 				boolean isAtHorizontalAltitude = ((positionY+extend_check-1) % DESCENT_DISTANCE ==0);
 
 				if (currentDirection == Direction.DOWN) {
-					logger.info(positionY
-							+" "+ this.height +" "+ screen.getHeight() +" "+ BOTTOM_MARGIN);
 					if (isAtHorizontalAltitude)
 						if (previousDirection == Direction.RIGHT) {
 							currentDirection = Direction.LEFT;
@@ -322,8 +319,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 							this.logger.info("Formation now moving right 2");
 						}
 				} else if (currentDirection == Direction.LEFT) {
-					logger.info(minimumBottom
-							+" "+ this.height +" "+ screen.getHeight() +" "+ BOTTOM_MARGIN);
 					if (isAtLeftSide)
 						if (!isAtBottom) {
 							previousDirection = currentDirection;
@@ -334,8 +329,6 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 							this.logger.info("Formation now moving right 4");
 						}
 				} else {
-					logger.info(minimumBottom
-							+" "+ this.height +" "+ screen.getHeight() +" "+ BOTTOM_MARGIN);
 					if (isAtRightSide)
 						if (!isAtBottom) {
 							previousDirection = currentDirection;
