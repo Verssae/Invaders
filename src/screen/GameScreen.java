@@ -52,6 +52,14 @@ public class GameScreen extends Screen {
 	private static int LASER_LOAD = 2000;
 	/** Time until laser disappears. */
 	private static final int LASER_ACTIVATE = 1000;
+	/** Minimum time between Beam's appearances. */
+	private static final int BEAM_INTERVAL = 10000;
+	/** Maximum variance in the time between Beam's appearances. */
+	private static final int BEAM_VARIANCE = 1000;
+	/** Maintaining time of beam. */
+	private static final int BEAM_ACTIVATE = 2000;
+	/** Load time of Beam. */
+	private static final int BEAM_LOAD = 1000;
 	/** Time until Blaze disappears. */
 	private static final int[] Blaze_ACTIVATE = {2000, 3000, 4000, 4000};
 	/** Time until Poison disappears. */
@@ -85,6 +93,18 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+	/** Check boss. */
+	private int bossCode;
+	/** Beam */
+	private Beam beam;
+	/** Time between beam launch */
+	private Cooldown beamCooldown;
+	/** Load time of beam */
+	private Cooldown beamLoadCooldown;
+	/** Maintaining time of beam */
+	private Cooldown beamLaunchCooldown;
+	/** Beamline */
+	private LaserLine beamLine;
 	/** Laser */
 	private Laser laser;
 	/** Laserline */
@@ -100,6 +120,7 @@ public class GameScreen extends Screen {
 	/** Laser on/off (difficulty normal, upper than 4level or difficulty hard, hardcore */
 	private boolean laserActivate;
 	/** Set of "BulletY" fired by player ships. */
+	private Cooldown bosslaserLaunchCooldown;
 	private Set<BulletY> bulletsY;
 
 	/** Sound Effects for player's ship and enemy. */
@@ -231,6 +252,8 @@ public class GameScreen extends Screen {
 			LASER_LOAD = 1500;
 		}
 
+		this.bossCode = gameSettings.getBossCode();
+
 	}
 
 
@@ -263,6 +286,15 @@ public class GameScreen extends Screen {
 		this.laserLaunchCooldown = Core
 				.getCooldown(LASER_ACTIVATE);
 		this.laserLaunchCooldown.reset();
+		this.beamCooldown = Core.getVariableCooldown(
+				BEAM_INTERVAL, BEAM_VARIANCE);
+		beamCooldown.reset();
+		this.beamLoadCooldown = Core
+				.getCooldown(BEAM_LOAD);
+		beamLoadCooldown.reset();
+		this.beamLaunchCooldown = Core
+				.getCooldown(BEAM_ACTIVATE);
+		beamLaunchCooldown.reset();
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
 		this.bullets = new HashSet<Bullet>();
 		this.bulletsY = new HashSet<BulletY>();
@@ -517,8 +549,35 @@ public class GameScreen extends Screen {
 				this.ship.update();
 				this.enemyShipFormation.update();
 				this.enemyShipFormation.shoot(this.bullets);
-			}
 
+				if (this.bossCode == 2) {
+					if (this.beamCooldown.checkFinished() && beamLine == null) {
+						this.beamLine = new LaserLine(
+								enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2,
+								enemyShipFormation.getPositionY() + 36);
+						beamLine.setColor(Color.RED);
+						beamCooldown.reset();
+						beamLaunchCooldown.reset();
+					}
+					else if (this.beamLine != null && this.beam == null && beamLaunchCooldown.checkFinished()) {
+						this.beamLine = null;
+						enemyShipFormation.shootBeam();
+						this.beam = enemyShipFormation.getBeam();
+						beamLaunchCooldown.reset();
+					}
+					else if(this. beamLine == null && this.beam != null && beamLaunchCooldown.checkFinished()) {
+						enemyShipFormation.clearBeam();
+						this.beam = null;
+					}
+					if (this.beamLine != null) {
+						beamLine.setPositionX(enemyShipFormation.getPositionX() + enemyShipFormation.getWidth()/2);
+					}
+					if (this.beam != null) {
+						beam.setPositionX(enemyShipFormation.getPositionX()
+								+ enemyShipFormation.getWidth()/2 - 32);
+					}
+				}
+				}
 			manageCollisions();
 			manageCollisionsY();
 			cleanBullets();
@@ -646,6 +705,15 @@ public class GameScreen extends Screen {
 			drawManager.drawEntity(item, item.getPositionX(),
 					item.getPositionY());
 		enemyShipFormation.draw();
+		if (beamLine != null) {
+			drawManager.drawEntity(this.beamLine,
+					this.beamLine.getPositionX(),
+					this.beamLine.getPositionY());
+		}
+		if (beam != null) {
+			drawManager.drawEntity(beam, beam.getPositionX(),
+					beam.getPositionY());
+		}
 
 		for (Bullet bullet : this.bullets)
 			drawManager.drawEntity(bullet, bullet.getPositionX(),
@@ -682,7 +750,7 @@ public class GameScreen extends Screen {
 		drawManager.drawLivesbar(this, this.lives);
 		drawManager.drawCoin(this, this.coin, 0);
 		drawManager.drawitemcircle(this,itemManager.getShieldCount(),itemManager.getBombCount());
-		isboss = gameSettings.checkIsBoss();
+		isboss = gameSettings.checkIsBossStage();
 
 		// Check if the 1 key is pressed
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
@@ -900,6 +968,16 @@ public class GameScreen extends Screen {
 					if (this.lives != 1) soundEffect.playShipCollisionSound();
 					this.lives--;
 					if (gameSettings.getDifficulty() == 3) this.lives = 0;
+					this.logger.info("Hit on player ship, " + this.lives
+							+ " lives remaining.");
+				}
+			}
+		}
+		if (this.beam != null) {
+			if (checkCollision(this.beam, this.ship) && !this.levelFinished) {
+				if (!this.ship.isDestroyed()) {
+					this.ship.destroy();
+					this.lives = 0;
 					this.logger.info("Hit on player ship, " + this.lives
 							+ " lives remaining.");
 				}

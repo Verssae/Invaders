@@ -21,7 +21,8 @@ public class GameSettings {
 	private int difficulty;
 	/** Check if the stage is boss stage. */
 	private boolean isBossStage;
-
+	/** Code of boss. 0 is not a boss*/
+	private int bossCode;
 	/** Damage of area. */
 	private int baseAreaDamage;
 	/** Damage of Attack. */
@@ -56,6 +57,7 @@ public class GameSettings {
 		this.isBossStage = false;
 		this.baseAreaDamage = baseAreaDamage;
 		this.baseAttackDamage = baseAttackDamage;
+		this.bossCode = 0;
 	}
 	/**
 	 * Constructor, boss stage.
@@ -68,7 +70,7 @@ public class GameSettings {
 	 * 			  Difficulty of Game, 0: EASY 1: NORMAL 2: HARD 3: HARDCORE(DEATHMATCH)
 	 */
 	public GameSettings(final int baseSpeed, final int shootingFrecuency, final int difficulty,
-						final int baseAreaDamage, final int baseAttackDamage) {
+						final int baseAreaDamage, final int baseAttackDamage, final int bossCode) {
 		this.formationWidth = 1;
 		this.formationHeight = 1;
 		this.baseSpeed = baseSpeed;
@@ -77,6 +79,7 @@ public class GameSettings {
 		this.isBossStage = true;
 		this.baseAreaDamage = baseAreaDamage;
 		this.baseAttackDamage = baseAttackDamage;
+		this.bossCode = bossCode;
 	}
 
 	/**
@@ -133,7 +136,7 @@ public class GameSettings {
 	 * Check if the stage is boss stage
 	 * @return True if the stage is boss stage
 	 */
-	public final boolean checkIsBoss() {return this.isBossStage; }
+	public final boolean checkIsBossStage() {return this.isBossStage; }
 
 
 	/**
@@ -162,5 +165,19 @@ public class GameSettings {
 	 */	
 	public final void setAreaDamage(int areaDamage) {
 		this.baseAreaDamage = areaDamage;
+	}
+
+	/**
+	 * Getter for bossCode
+	 */
+	public int getBossCode() {
+		return bossCode;
+	}
+
+	/**
+	 * Setter for bossCode
+	 */
+	public void setBossCode(int bossCode) {
+		this.bossCode = bossCode;
 	}
 }
