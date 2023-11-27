@@ -98,7 +98,6 @@ public final class DrawManager {
 	private boolean isAfterLoading = false;
 
 
-
 	private CountUpTimer timer;
 	public int timercount = 0;
 	public String rewardTypeString;
@@ -246,7 +245,6 @@ public final class DrawManager {
 		fileManager = Core.getFileManager();
 		logger = Core.getLogger();
 		logger.info("Started loading resources.");
-
 		try {
 			Random random = new Random();
 			int Trash_enemyA = random.nextInt(3);
@@ -1075,6 +1073,18 @@ public final class DrawManager {
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
+	public void printItemMsg(int itemKey){
+		if (itemKey == 1){
+			String ItemMsg1 = "The SHIELD item is NOT available.";
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+			backBufferGraphics.drawString(ItemMsg1, 120, 85);
+		}
+		else if (itemKey == 2){
+			String ItemMsg2 = "The BOMB item is NOT available.";
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+			backBufferGraphics.drawString(ItemMsg2, 120, 85);
+		}
+	}
 
 	public void drawRandomBox(final Screen screen, final int option) {
 		String introduceString1 = "SELECT ONE OF THE THREE BOXES";

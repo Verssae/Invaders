@@ -550,27 +550,29 @@ public class GameScreen extends Screen {
 		isboss = gameSettings.checkIsBoss();
 
 		// Check if the 1 key is pressed
-		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
-			if (itemManager.getShieldCount() > 0 && timer.getElapsedTime() != 0 && ship.getShieldState() != true && !levelFinished)
-			{
-				logger.info("Key number 1 press");	
+		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1) && timer.getElapsedTime() != 0 && !enemyShipFormation.isEmpty()){
+			logger.info("Key number 1 press");
+
+			if (itemManager.getShieldCount() > 0) {
 				itemManager.PlusShieldCount(-1);
 				ship.setShieldState(true);
 				ship.update();
+			}else if (itemManager.getShieldCount() == 0){
+				drawManager.printItemMsg(1);
 			}
+		}else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) && timer.getElapsedTime() != 0 && !enemyShipFormation.isEmpty()){
+			logger.info("Key number 2 press");
 
-
-		}
-		else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) & timer.getElapsedTime() != 0 && enemyShipFormation.isEmpty() == false)
-		{
-			if (itemManager.getBombCount() > 0)
-			{
-				logger.info("Key number 2 press");
+			if (itemManager.getBombCount() > 0) {
 				itemManager.PlusBombCount(-1);
 				this.enemyShipFormation.bombDestroy(items);
+			} else if (itemManager.getBombCount() == 0){
+				drawManager.printItemMsg(2);
 			}
-
 		}
+			
+
+		
 
 
 		if (isboss) {
