@@ -21,7 +21,7 @@ public class Entity {
 	/** Height of the entity. */
 	protected int height;
 	/** Color of the entity. */
-	private Color color;
+	protected Color color;
 	/** Sprite type assigned to the entity. */
 	protected SpriteType spriteType;
 
@@ -40,12 +40,25 @@ public class Entity {
 	 *                  Color of the entity.
 	 */
 	public Entity(final int positionX, final int positionY, final int width,
-			final int height, final Color color) {
+				  final int height, final Color color) {
 		this.positionX = positionX;
 		this.positionY = positionY;
 		this.width = width;
 		this.height = height;
 		this.color = color;
+	}
+
+	/**
+	 * Constructor, establishes the entity's generic properties without width, height.
+	 *
+	 * @param positionX
+	 *                  Initial position of the entity in the X axis.
+	 * @param positionY
+	 *                  Initial position of the entity in the Y axis.
+	 */
+	public Entity(final int positionX, final int positionY) {
+		this.positionX = positionX;
+		this.positionY = positionY;
 	}
 
 	/**
@@ -129,5 +142,25 @@ public class Entity {
 	 */
 	public final int getHeight() {
 		return this.height;
+	}
+
+	/**
+	 * Setter for the width of the image associated to the entity.
+	 *
+	 * @param width
+	 *                  New hidth of the entity.
+	 */
+	public final void setWidth(final int width) {
+		this.width = width;
+	}
+
+	/**
+	 * Setter for the height of the image associated to the entity.
+	 *
+	 * @param height
+	 *                  New height of the entity.
+	 */
+	public final void setHeight(final int height) {
+		this.height = height;
 	}
 }

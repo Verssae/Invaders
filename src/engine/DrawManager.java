@@ -202,6 +202,8 @@ public final class DrawManager {
 		BossA1,
 		/** Boss ship - second form. */
 		BossA2,
+		/** Boss ship 2 */
+		BossB1,
 		/** Destroyed enemy ship. */
 		Explosion,
 
@@ -226,6 +228,8 @@ public final class DrawManager {
 		Laser,
 		/** Laserline */
 		LaserLine,
+		/** BossBeam */
+		Beam,
 		Coin,
 		BlueEnhanceStone,
 		PerpleEnhanceStone,
@@ -235,7 +239,12 @@ public final class DrawManager {
 		EnhanceStone,
 		//ShipCShileded,
 		gravestone,
-		Ghost;
+		Ghost,
+		Blaze_1,
+
+		Blaze_2,
+
+		Smog;
 	};
 
 
@@ -329,8 +338,10 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.PerpleEnhanceStone, new boolean[8][8]);
 			spriteMap.put(SpriteType.BossA1, new boolean[22][13]);
 			spriteMap.put(SpriteType.BossA2, new boolean[22][13]);
+			spriteMap.put(SpriteType.BossB1, new boolean[24][18]);
 			spriteMap.put(SpriteType.Laser, new boolean[2][240]);
 			spriteMap.put(SpriteType.LaserLine, new boolean[1][240]);
+			spriteMap.put(SpriteType.Beam, new boolean[32][383]);
 			spriteMap.put(SpriteType.Coin, new boolean[7][7]);
 			spriteMap.put(SpriteType.ShipAShileded, new boolean[13][8]);
 			spriteMap.put(SpriteType.ShipBShileded, new boolean[13][8]);
@@ -338,6 +349,9 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Explosion4, new boolean[10][10]);
 			spriteMap.put(SpriteType.gravestone, new boolean[13][9]);
 			spriteMap.put(SpriteType.Ghost, new boolean[9][11]);
+			spriteMap.put(SpriteType.Blaze_1, new boolean[11][8]);
+			spriteMap.put(SpriteType.Blaze_2, new boolean[11][8]);
+			spriteMap.put(SpriteType.Smog, new boolean[24][4]);
 			fileManager.loadSprite(spriteMap);
 			logger.info("Finished loading the sprites.");
 
@@ -953,6 +967,11 @@ public final class DrawManager {
 			int RGB = (int) (Math.random() * (160 - 100) + 100);
 			Color gray = new Color(RGB, RGB, RGB);
 			return gray;
+		}
+		if (color == "RED") {
+			int RGB = (int) (Math.random() * (255 - 155) + 100);
+			Color red = new Color(RGB, 0, 0);
+			return red;
 		}
 		return Color.WHITE;
 	}
@@ -2618,7 +2637,7 @@ if (option == 35)
 	public void drawGhost(boolean levelFinished, double lives){
 		if(levelFinished && lives == 0) {
 			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
-			System.out.println(ghostColor);
+			//System.out.println(ghostColor);
 			if(timer){
 				if(System.currentTimeMillis() - ghostTImer < 1000)
 					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
@@ -2640,9 +2659,9 @@ if (option == 35)
 	public void drawGhost_2p(boolean levelFinished, double lives_1p, double lives_2p){
 		if(levelFinished && lives_1p <= 0 && lives_2p <=0) {
 			boolean timer = (System.currentTimeMillis() - ghostTImer) % 2 == 0;
-			System.out.println(ghostColor);
-			System.out.println(lives_1p);
-			System.out.println(lives_2p);
+			//System.out.println(ghostColor);
+			//System.out.println(lives_1p);
+			//System.out.println(lives_2p);
 			if(timer){
 				if(System.currentTimeMillis() - ghostTImer < 1000)
 					this.drawEntity(SpriteType.Ghost, ghostPostionX--, ghostPostionY--, 2, 2, Color.white);
@@ -2781,6 +2800,18 @@ if (option == 35)
 		g2.fillRect(0, separationLineHeight, screen.getWidth(), screen.getHeight());
 	}
 
+	public void drawBackgroundEntity(final Screen screen, int separationLineHeight, int EntityX, int EntityY, int EntityWidth, int EntityHeight,
+		int r, int g, int b, int w1, int w2, int h1){
+		Point2D center = new Point2D.Float(EntityX - EntityWidth, EntityY + EntityHeight/2);
+		//System.out.println(center);
+		float[] dist = {0.0f, 0.2f, 1.0f};
+		Color[] colors = {new Color(r,g,b,brightness), new Color(r,g,b,brightness+20), new Color(0,0,0,0)};
+		RadialGradientPaint p = new RadialGradientPaint(center, (int)EntityHeight, dist, colors);
+		Graphics2D g2 = (Graphics2D) backBufferGraphics;
+		g2.setPaint(p);
+		g2.fillRect(EntityX - EntityWidth * w1, EntityY, EntityWidth * w2, EntityHeight * h1);
+	}
+
 	/**
 	 * Draws background lines.
 	 * [Clean Code Team] This method was created by alicek0.
@@ -2849,5 +2880,18 @@ if (option == 35)
 			String text = "Miss";
 			backBufferGraphics.drawString(text, screen.getWidth() - 90, 80);
 		}
+	}
+
+	public void EMPEmergency(final Screen screen, final int code) {
+		backBufferGraphics.setColor(blinkingColor("RED"));
+		String text = "Press EMP Emergency Code";
+		drawCenteredBigString(screen, text, screen.getHeight()-150);
+		drawCenteredBigString(screen, ""+code, screen.getHeight()-120);
+	}
+
+	public void DrawSmog(final Screen screen) {
+		for (int y = 60; y < screen.getHeight() - 120; y += 4)
+			for (int x = 0; x < screen.getWidth(); x += 24)
+				this.drawEntity(SpriteType.Smog, x, y, 24, 4,blinkingColor("GRAY"));
 	}
 }
