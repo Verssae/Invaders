@@ -550,7 +550,7 @@ public class GameScreen extends Screen {
 		isboss = gameSettings.checkIsBoss();
 
 		// Check if the 1 key is pressed
-		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1) & timer.getElapsedTime() != 0 & enemyShipFormation.isEmpty() == false){
+		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1) && timer.getElapsedTime() != 0 && !enemyShipFormation.isEmpty()){
 			logger.info("Key number 1 press");
 
 			if (itemManager.getShieldCount() > 0) {
@@ -560,7 +560,7 @@ public class GameScreen extends Screen {
 			}else if (itemManager.getShieldCount() == 0){
 				drawManager.printItemMsg(1);
 			}
-		}else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) & timer.getElapsedTime() != 0 && enemyShipFormation.isEmpty() == false){
+		}else if (inputManager.isKeyPressedOnce(KeyEvent.VK_2) && timer.getElapsedTime() != 0 && !enemyShipFormation.isEmpty()){
 			logger.info("Key number 2 press");
 
 			if (itemManager.getBombCount() > 0) {

@@ -1084,7 +1084,6 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 			backBufferGraphics.drawString(ItemMsg2, 120, 85);
 		}
-		
 	}
 
 	public void drawRandomBox(final Screen screen, final int option) {
