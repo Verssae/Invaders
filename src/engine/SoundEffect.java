@@ -20,6 +20,7 @@ public class SoundEffect {
     File stagechangesound = new File("sound/soundEffect/StageChange.wav");
     File initialStartSound = new File("sound/soundEffect/initialStart.wav");
     File startSound = new File("sound/soundEffect/start.wav");
+    
     File useCoinSound = new File("sound/soundEffect/usecoin.wav");
     
     /**
