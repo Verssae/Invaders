@@ -385,11 +385,12 @@ public class GameScreen extends Screen {
 							this.laserLaunchCooldown.reset();
 							this.laserline = null;
 							this.laser = new Laser(this.nextLaserX, SEPARATION_LINE_HEIGHT, true);
+							soundEffect.playLaserSound();
 							this.logger.info("Laser has been launched.");
 						} else {
 							if (this.nextLaserX == -1 && laserCooldown.checkFinished()) {
 								this.logger.info("Laser will be launched.");
-								this.nextLaserX = (int) (Math.random() * 448);
+								this.nextLaserX = (int) (Math.random() * 420) + 10;
 								this.laserline = new LaserLine(this.nextLaserX, SEPARATION_LINE_HEIGHT);
 								this.laserLoadCooldown.reset();
 							}
@@ -457,6 +458,14 @@ public class GameScreen extends Screen {
 							this.SpBullet.ChangePos(this.SpBullet.getPositionX() - 4 * this.SpBullet.getWidth(),
 									getHeight()-4*this.SpBullet.getHeight()+5);
 						}
+						if (this.SpBullet.getType() == 0)
+							soundEffect.playBlazeSound();
+						else if (this.SpBullet.getType() == 1)
+							soundEffect.playPoisonSound();
+						else if (this.SpBullet.getType() == 2)
+							soundEffect.playSmogSound();
+						else if (this.SpBullet.getType() == 3)
+							soundEffect.playEMPSound();
 						logger.info("Special Bullet has been activated");
 					}
 					else if (this.SpBullet.getActivate() && this.SpecialAttackCooldown.checkFinished()) {
