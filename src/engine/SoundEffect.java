@@ -20,8 +20,8 @@ public class SoundEffect {
     File stagechangesound = new File("sound/soundEffect/StageChange.wav");
     File initialStartSound = new File("sound/soundEffect/initialStart.wav");
     File startSound = new File("sound/soundEffect/start.wav");
-
-
+    File useCoinSound = new File("sound/soundEffect/usecoin.wav");
+    
     /**
      * Play ship's shooting sound
      */
@@ -124,6 +124,19 @@ public class SoundEffect {
             System.err.println("SOUND ERROR: Space Key sound error.");
         }
     }
+
+    public void playUseCoinSound() {
+        try {
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(useCoinSound));
+            clip.start();
+
+            Thread.sleep(1);
+        } catch (Exception e) {
+            System.err.println("SOUND ERROR: useCoin sound error.");
+        }
+    }
+
     public void SoundEffect_play(){
 
     }

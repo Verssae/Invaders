@@ -102,6 +102,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 35 && gameState != null){
                     if (this.coin.getCoin() >= 150)
                     {
+                        soundEffect.playUseCoinSound();
                         this.itemManager.PlusShieldCount(1);
                         this.coin.minusCoin(150);
                         System.out.println("plese do");
@@ -113,6 +114,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 36 && gameState != null){
                     if (this.coin.getCoin() >= 150)
                     {
+                        soundEffect.playUseCoinSound();
                         this.itemManager.PlusBombCount(1);
                         this.coin.minusCoin(150);
                         System.out.println("plese do");
@@ -124,6 +126,7 @@ public class StoreScreen extends Screen {
                 if (returnCode == 37 && gameState != null){
                     if (this.coin.getCoin() >= 50)
                     {
+                        soundEffect.playUseCoinSound();
                         this.enhanceManager.PlusNumEnhanceStoneArea(1);
                         this.coin.minusCoin(50);
                         System.out.println("plese do");
@@ -134,7 +137,8 @@ public class StoreScreen extends Screen {
                 }
                 if (returnCode == 38 && gameState != null){
                     if (this.coin.getCoin() >= 50)
-                    {
+                    {   
+                        soundEffect.playUseCoinSound();
                         this.enhanceManager.PlusNumEnhanceStoneAttack(1);
                         this.coin.minusCoin(50);
                         System.out.println("plese do");
