@@ -24,7 +24,7 @@ public class Ship extends Entity {
 	/** Speed of the bullets shot by the ship. */
 	public static final int BULLETY_SPEED = -9;
 	/** Movement of the ship for each unit of time. */
-	private static final int SPEED = 2;
+	private static int SPEED = 2;
 
 	/** Minimum time between shots. */
 	public Cooldown shootingCooldown;
@@ -249,6 +249,7 @@ public final void gameEndShipMotion(boolean levelFinished, double lives){
 	}
 }
 
+	public void setSPEED(int s) {SPEED=s;}
 	/** Return the ship's attack speed
 	 * @return shootingCooldown
 	 */
