@@ -140,6 +140,8 @@ public final class DrawManager {
 		BulletY,
 		/** Enemy bullet. */
 		EnemyBullet,
+		/** Player Bomb. */
+		Bomb,
 		/** Enemy bullet goes left diag. */
 		EnemyBulletLeft,
 		/** Enemy bullet goes right diag. */
@@ -265,6 +267,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipGDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
+			spriteMap.put(SpriteType.Bomb, new boolean[5][5]); // 270
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
