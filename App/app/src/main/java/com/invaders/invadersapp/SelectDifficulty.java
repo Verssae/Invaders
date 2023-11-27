@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SelectDifficulty extends AppCompatActivity {
+
+    private Button easyButton, normalButton, hardButton, hardcoreButton, mainButton;
+    private BlinkingRunnable br;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -16,6 +20,18 @@ public class SelectDifficulty extends AppCompatActivity {
         setContentView(R.layout.selectdifficulty);
 
         Button easyButton = findViewById(R.id.button_easy);
+        Button normalButton = findViewById(R.id.button_normal);
+        Button hardButton = findViewById(R.id.button_hard);
+        Button hardcoreButton = findViewById(R.id.button_hardcore);
+        Button mainButton = findViewById(R.id.button_main);
+
+        TextView[] textViews = new TextView[]{easyButton, normalButton, hardButton, hardcoreButton, mainButton};
+        String[] colors = new String[]{"WHITE", "WHITE", "WHITE", "WHITE", "WHITE"};
+
+        br = new BlinkingRunnable(textViews, colors);
+        Thread t = new Thread(br);
+        t.start();
+
         easyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,7 +39,6 @@ public class SelectDifficulty extends AppCompatActivity {
             }
         });
 
-        Button normalButton = findViewById(R.id.button_normal);
         normalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,7 +46,6 @@ public class SelectDifficulty extends AppCompatActivity {
             }
         });
 
-        Button hardButton = findViewById(R.id.button_hard);
         hardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +53,6 @@ public class SelectDifficulty extends AppCompatActivity {
             }
         });
 
-        Button hardcoreButton = findViewById(R.id.button_hardcore);
         hardcoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +60,6 @@ public class SelectDifficulty extends AppCompatActivity {
             }
         });
 
-        Button mainButton = findViewById(R.id.button_main);
         mainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +70,6 @@ public class SelectDifficulty extends AppCompatActivity {
             }
         });
 
-        // 중간, 어려움 난이도 버튼에 대한 코드도 추가...
     }
 }
 
