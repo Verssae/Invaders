@@ -9,9 +9,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
 public class SelectDifficulty extends AppCompatActivity {
 
     private Button easyButton, normalButton, hardButton, hardcoreButton, mainButton;
+    private TextView title;
     private BlinkingRunnable br;
 
     @Override
@@ -19,14 +22,15 @@ public class SelectDifficulty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selectdifficulty);
 
-        Button easyButton = findViewById(R.id.button_easy);
-        Button normalButton = findViewById(R.id.button_normal);
-        Button hardButton = findViewById(R.id.button_hard);
-        Button hardcoreButton = findViewById(R.id.button_hardcore);
-        Button mainButton = findViewById(R.id.button_main);
+        title = findViewById(R.id.difficultytitle);
+        easyButton = findViewById(R.id.button_easy);
+        normalButton = findViewById(R.id.button_normal);
+        hardButton = findViewById(R.id.button_hard);
+        hardcoreButton = findViewById(R.id.button_hardcore);
+        mainButton = findViewById(R.id.button_main);
 
-        TextView[] textViews = new TextView[]{easyButton, normalButton, hardButton, hardcoreButton, mainButton};
-        String[] colors = new String[]{"WHITE", "WHITE", "WHITE", "WHITE", "WHITE"};
+        TextView[] textViews = new TextView[]{title, easyButton, normalButton, hardButton, hardcoreButton, mainButton};
+        String[] colors = new String[]{"WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE"};
 
         br = new BlinkingRunnable(textViews, colors);
         Thread t = new Thread(br);
@@ -64,7 +68,6 @@ public class SelectDifficulty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SelectDifficulty.this, MainActivity.class);
-                // MainActivity를 새로 시작하는 대신 기존에 존재하는 인스턴스로 돌아갑니다.
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
