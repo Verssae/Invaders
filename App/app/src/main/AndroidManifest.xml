@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".SelectDifficulty" />
         <activity android:name=".ItemStore" />
+        <activity android:name=".InGame" />
     </application>
 
 </manifest>
