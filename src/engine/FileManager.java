@@ -15,6 +15,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -199,93 +203,86 @@ public final class FileManager {
 	 * @throws IOException
 	 *                     In case of loading problems.
 	 */
-	public List<Score> loadPvpScores(final int difficulty) throws IOException {
+	public List<Score> loadPvpScores() throws IOException {
 
 		List<Score> highScores = new ArrayList<Score>();
-		InputStream inputStream = null;
-		BufferedReader bufferedReader = null;
-
-		try {
-			String jarPath = FileManager.class.getProtectionDomain()
-					.getCodeSource().getLocation().getPath();
-			jarPath = URLDecoder.decode(jarPath, "UTF-8");
-
-			String scoresPath = new File(jarPath).getParent();
-			scoresPath += File.separator;
-			scoresPath += "pvpscore";
-			File scoresFile = new File(scoresPath);
-			inputStream = new FileInputStream(scoresFile);
-			bufferedReader = new BufferedReader(new InputStreamReader(
-					inputStream, Charset.forName("UTF-8")));
-
-			logger.info("Loading user pvp scores.");
-
-			Score highScore = null;
-			String name = bufferedReader.readLine();
-			String score = bufferedReader.readLine();
-
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
-				highScores.add(highScore);
-				name = bufferedReader.readLine();
-				score = bufferedReader.readLine();
+		Login app = new Login();
+		Connection conn = app.connect();
+		PreparedStatement pSt;
+		Score highScore;
+			try {
+				pSt = conn.prepareStatement("select * from pvp_score order by score desc");
+				ResultSet rs = pSt.executeQuery();
+				while(rs.next()){
+					highScore = new Score(rs.getString(1), rs.getInt(2));
+					highScores.add(highScore);
+				}
+				pSt.close();
+			} catch (SQLException e){
+				e.printStackTrace();
 			}
 
-		} catch (FileNotFoundException e) {
-			// loads default if there's no user scores.
-			logger.info("Loading default pvp scores.");
-			highScores = loadDefaultPvpScores(difficulty);
-		} finally {
-			if (bufferedReader != null)
-				bufferedReader.close();
-		}
-
-		Collections.sort(highScores);
 		return highScores;
 	}
 	public List<Score> loadHighScores(final int difficulty) throws IOException {
 
 		List<Score> highScores = new ArrayList<Score>();
-		InputStream inputStream = null;
-		BufferedReader bufferedReader = null;
-
-		try {
-			String jarPath = FileManager.class.getProtectionDomain()
-					.getCodeSource().getLocation().getPath();
-			jarPath = URLDecoder.decode(jarPath, "UTF-8");
-
-			String scoresPath = new File(jarPath).getParent();
-			scoresPath += File.separator;
-			scoresPath += "scores";
-			scoresPath += difficulty;
-			File scoresFile = new File(scoresPath);
-			inputStream = new FileInputStream(scoresFile);
-			bufferedReader = new BufferedReader(new InputStreamReader(
-					inputStream, Charset.forName("UTF-8")));
-
-			logger.info("Loading user high scores.");
-
-			Score highScore = null;
-			String name = bufferedReader.readLine();
-			String score = bufferedReader.readLine();
-
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
-				highScores.add(highScore);
-				name = bufferedReader.readLine();
-				score = bufferedReader.readLine();
+		Login app = new Login();
+		Connection conn = app.connect();
+		PreparedStatement pSt;
+		Score highScore;
+		if(difficulty==0){
+			try {
+				pSt = conn.prepareStatement("select * from easy_score order by score desc");
+				ResultSet rs = pSt.executeQuery();
+				while(rs.next()){
+					highScore = new Score(rs.getString(1), rs.getInt(2));
+					highScores.add(highScore);
+				}
+				pSt.close();
+			} catch (SQLException e){
+				e.printStackTrace();
 			}
-
-		} catch (FileNotFoundException e) {
-			// loads default if there's no user scores.
-			logger.info("Loading default high scores.");
-			highScores = loadDefaultHighScores(difficulty);
-		} finally {
-			if (bufferedReader != null)
-				bufferedReader.close();
 		}
-
-		Collections.sort(highScores);
+		if(difficulty==1){
+			try {
+				pSt = conn.prepareStatement("select * from normal_score order by score desc");
+				ResultSet rs = pSt.executeQuery();
+				while(rs.next()){
+					highScore = new Score(rs.getString(1), rs.getInt(2));
+					highScores.add(highScore);
+				}
+				pSt.close();
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
+		if(difficulty==2){
+			try {
+				pSt = conn.prepareStatement("select * from hard_score order by score desc");
+				ResultSet rs = pSt.executeQuery();
+				while(rs.next()){
+					highScore = new Score(rs.getString(1), rs.getInt(2));
+					highScores.add(highScore);
+				}
+				pSt.close();
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
+		if(difficulty==3){
+			try {
+				pSt = conn.prepareStatement("select * from hardcore_score order by score desc");
+				ResultSet rs = pSt.executeQuery();
+				while(rs.next()){
+					highScore = new Score(rs.getString(1), rs.getInt(2));
+					highScores.add(highScore);
+				}
+				pSt.close();
+			} catch (SQLException e){
+				e.printStackTrace();
+			}
+		}
 		return highScores;
 	}
 

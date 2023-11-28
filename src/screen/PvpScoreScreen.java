@@ -37,7 +37,7 @@ public class PvpScoreScreen extends Screen {
         this.returnCode = 1;
         this.difficulty = 0;
         try {
-            this.pvpScores = Core.getFileManager().loadPvpScores(0);
+            this.pvpScores = Core.getFileManager().loadPvpScores();
         } catch (NumberFormatException | IOException e) {
             logger.warning("Couldn't load high scores!");
         }
