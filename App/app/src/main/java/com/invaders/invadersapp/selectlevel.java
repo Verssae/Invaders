@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 public class selectlevel extends AppCompatActivity {
+    private BlinkingRunnable br;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,5 +81,22 @@ public class selectlevel extends AppCompatActivity {
 
             }
         });
+
+        Button btnmain = findViewById(R.id.btnmain);
+        btnmain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // main이 선택되었을 때의 동작
+
+            }
+        });
+
+        TextView[] textViews = new TextView[]{btnLevel1, btnLevel2, btnLevel2, btnLevel3, btnLevel4,
+                btnLevel5, btnLevel6, btnLevel7, btnmain};
+        String[] colors = new String[]{"GREEN", "WHITE", "WHITE", "WHITE", "WHITE", "GREY"};
+
+        br = new BlinkingRunnable(textViews, colors);
+        Thread t = new Thread(br);
+        t.start();
     }
 }
