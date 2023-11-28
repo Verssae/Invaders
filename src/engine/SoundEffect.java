@@ -8,7 +8,7 @@ import javax.sound.sampled.AudioInputStream;
 import java.util.Timer;
 
 
-public class SoundEffect {
+public class    SoundEffect {
 
     File shipshootingsound = new File("sound/soundEffect/Shipshooting.wav");
     File shipdestructionsound = new File("sound/soundEffect/Shipdestruction.wav");
