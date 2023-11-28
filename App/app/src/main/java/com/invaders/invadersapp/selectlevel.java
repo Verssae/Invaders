@@ -71,5 +71,14 @@ public class selectlevel extends AppCompatActivity {
 
             }
         });
+
+        Button btnLevel7 = findViewById(R.id.btnLevel7);
+        btnLevel7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 레벨 7이 선택되었을 때의 동작
+
+            }
+        });
     }
 }
