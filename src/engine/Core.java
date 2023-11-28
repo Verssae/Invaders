@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.Color;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -162,6 +163,16 @@ public final class Core {
         Map<Color, Boolean> equippedSkins = new HashMap<>();
         Map<Color, Boolean> ownedSkins = new HashMap<>();
 
+        //login test start
+        System.out.println("login test start");
+        Login data = new Login();
+        Connection conn = data.connect();
+        data.displayPlayer(conn);
+        String id = "test";
+        String password = "123";
+        String username =data.loginCheck(conn,id,password);
+        System.out.println("login test end");
+        //login test end
 
         int returnCode = 1;
         do {
@@ -189,6 +200,7 @@ public final class Core {
                     currentScreen = new SelectScreen(width, height, FPS, 0); // Difficulty Selection
                     LOGGER.info("Select Difficulty");
                     difficulty = frame.setScreen(currentScreen);
+                    System.out.println(difficulty);
                     if (difficulty == 4) {
                         returnCode = 1;
                         LOGGER.info("Go Main");
@@ -439,7 +451,8 @@ public final class Core {
                             + gameState.getLivesRemaining() + " lives remaining, "
                             + gameState.getBulletsShot() + " ship bullets shot and "
                             + gameState.getShipsDestroyed() + " ships destroyed.");
-                    currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
+                    currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty,username);
+                    data.scoreUpdate(conn,username, gameState.getScore(), difficulty);
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
@@ -735,7 +748,7 @@ public final class Core {
                             + gameState.getLivesRemaining() + " lives remaining, "
                             + gameState.getBulletsShot() + " ship bullets shot and "
                             + gameState.getShipsDestroyed() + " ships destroyed.");
-                    currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty);
+                    currentScreen = new ScoreScreen(width, height, FPS, gameState, difficulty,username);
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;

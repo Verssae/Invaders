@@ -1497,9 +1497,9 @@ public final class DrawManager {
 	 *                         Current character selected for modification.
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
-			final int nameCharSelected) {
+			final int nameCharSelected,String username) {
 		String newRecordString = "New Record!";
-		String introduceNameString = "Introduce name:";
+		String introduceNameString = "username:";
 
 		backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
@@ -1515,7 +1515,11 @@ public final class DrawManager {
 						+ fontRegularMetrics.getWidths()[name[1]]
 						+ fontRegularMetrics.getWidths()[name[2]]
 						+ fontRegularMetrics.getWidths()[' ']) / 2;
-
+		backBufferGraphics.drawString(username,
+				positionX,
+				screen.getHeight() / 4 + fontRegularMetrics.getHeight()
+						* 14);
+		/*
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
 				backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
@@ -1533,6 +1537,7 @@ public final class DrawManager {
 					screen.getHeight() / 4 + fontRegularMetrics.getHeight()
 							* 14);
 		}
+		 */
 	}
 
 	/**
