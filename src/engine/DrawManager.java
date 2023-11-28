@@ -1480,8 +1480,13 @@ public final class DrawManager {
 		drawCenteredRegularString(screen, SelectString_2,screen.getHeight() / 8 + screen.getHeight() / 16);
 		String[] Stage = new String[stages];
 		backBufferGraphics.setFont(fontBig);
-		for (int i = 0; i < stages; i++) {
-			Stage[i] = String.valueOf(i+1);
+		for (int i = 0; i < stages ; i++) {
+			if (i != stages - 1)
+				Stage[i] = String.valueOf(i+1);
+			else {
+				backBufferGraphics.setFont(fontRegular);
+				Stage[i] = "inf";
+			}
 			if (option == i)
 				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			else
