@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.w3c.dom.Text;
 
 public class SelectDifficulty extends AppCompatActivity {
-
+    /** Difficulty Button. */
     private Button easyButton, normalButton, hardButton, hardcoreButton, mainButton;
+    /** Difficulty Title textview. */
     private TextView title;
+    /** Runnable object for text blinking. */
     private BlinkingRunnable br;
 
     @Override
@@ -30,48 +32,11 @@ public class SelectDifficulty extends AppCompatActivity {
         mainButton = findViewById(R.id.button_main);
 
         TextView[] textViews = new TextView[]{title, easyButton, normalButton, hardButton, hardcoreButton, mainButton};
-        String[] colors = new String[]{"WHITE", "WHITE", "WHITE", "WHITE", "WHITE", "WHITE"};
+        String[] colors = new String[]{"GREEN", "WHITE", "WHITE", "WHITE", "WHITE", "GREY"};
 
         br = new BlinkingRunnable(textViews, colors);
         Thread t = new Thread(br);
         t.start();
-
-        easyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 다음 화면으로 이동
-            }
-        });
-
-        normalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 다음 화면으로 이동
-            }
-        });
-
-        hardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 다음 화면으로 이동
-            }
-        });
-
-        hardcoreButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 다음 화면으로 이동
-            }
-        });
-
-        mainButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SelectDifficulty.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
-        });
 
     }
 }
