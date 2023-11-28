@@ -19,7 +19,7 @@ public class Effect {
     /** boolean in shieldState**/
     protected boolean shieldState = false;
     /** boolean in bomb
-     * int로 바꾸셔서 개수 활용하셔도 됩니다.*/
+     int로 바꾸셔서 개수 활용하셔도 됩니다.*/
     public boolean bomb;
 
 

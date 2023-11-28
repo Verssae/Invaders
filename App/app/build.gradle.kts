@@ -5,6 +5,7 @@ plugins {
 android {
     namespace = "com.invaders.invadersapp"
     compileSdk = 34
+    tasks.register("prepareKotlinBuildScriptModel"){}
 
     defaultConfig {
         applicationId = "com.invaders.invadersapp"
