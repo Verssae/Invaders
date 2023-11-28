@@ -1204,8 +1204,6 @@ public class GameScreen extends Screen {
 		}
 		List<EnemyShip> column = enemyShips.get(col);
 		row = column.indexOf(enemyShip);
-		int colSize = enemyShips.size();
-		int rowSize = enemyShips.get(0).size();
 		this.score += enemyShip.getPointValue();
 		this.shipsDestroyed++;
 		this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);

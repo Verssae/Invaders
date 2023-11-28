@@ -1177,7 +1177,7 @@ public class GameScreen_2P extends Screen {
         for(Bomb bomb : this.player1Bombs) {
             for(EnemyShip enemyShip : this.enemyShipFormation) {
                 if(!enemyShip.isDestroyed() && checkCollision(bomb, enemyShip)) {
-                    areaDestroy(enemyShip, this.score_1P);
+                    areaDestroy1P(enemyShip);
                     recyclableBomb1P.add(bomb);
                 }
             }
@@ -1201,7 +1201,7 @@ public class GameScreen_2P extends Screen {
         for(Bomb bomb : this.player2Bombs) {
             for(EnemyShip enemyShip : this.enemyShipFormation) {
                 if(!enemyShip.isDestroyed() && checkCollision(bomb, enemyShip)) {
-                    areaDestroy(enemyShip, this.score_2P);
+                    areaDestroy2P(enemyShip);
                     recyclableBomb2P.add(bomb);
                 }
             }
@@ -1227,7 +1227,7 @@ public class GameScreen_2P extends Screen {
         BombPool.recycle(recyclableBomb2P);
     }
 
-    private void areaDestroy(EnemyShip enemyShip, int score) {
+    private void areaDestroy1P(EnemyShip enemyShip) {
         int col = -1, row = -1;
         List<List<EnemyShip>> enemyShips = this.enemyShipFormation.getEnemyShips();
         for(List<EnemyShip> column : enemyShips) {
@@ -1237,9 +1237,7 @@ public class GameScreen_2P extends Screen {
         }
         List<EnemyShip> column = enemyShips.get(col);
         row = column.indexOf(enemyShip);
-        int colSize = enemyShips.size();
-        int rowSize = enemyShips.get(0).size();
-        score += enemyShip.getPointValue();
+        this.score_1P += enemyShip.getPointValue();
         this.shipsDestroyed++;
         this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
         for(int dir = 0; dir < 8; dir++) {
@@ -1250,7 +1248,35 @@ public class GameScreen_2P extends Screen {
             }
             EnemyShip enemy = enemyShips.get(nCol).get(nRow);
             if(!enemy.isDestroyed()) {
-                score += enemyShip.getPointValue();
+                this.score_1P += enemyShip.getPointValue();
+                this.shipsDestroyed++;
+                this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemy, this.items);
+            }
+        }
+    }
+
+    private void areaDestroy2P(EnemyShip enemyShip) {
+        int col = -1, row = -1;
+        List<List<EnemyShip>> enemyShips = this.enemyShipFormation.getEnemyShips();
+        for(List<EnemyShip> column : enemyShips) {
+            if(column.contains(enemyShip)) {
+                col = enemyShips.indexOf(column);
+            }
+        }
+        List<EnemyShip> column = enemyShips.get(col);
+        row = column.indexOf(enemyShip);
+        this.score_2P += enemyShip.getPointValue();
+        this.shipsDestroyed++;
+        this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
+        for(int dir = 0; dir < 8; dir++) {
+            int nRow = row + DX[dir];
+            int nCol = col + DY[dir];
+            if(nRow < 0 || nCol < 0 ||  nCol >= enemyShips.size() || nRow >= enemyShips.get(nCol).size()) {
+                continue;
+            }
+            EnemyShip enemy = enemyShips.get(nCol).get(nRow);
+            if(!enemy.isDestroyed()) {
+                this.score_2P += enemyShip.getPointValue();
                 this.shipsDestroyed++;
                 this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemy, this.items);
             }
