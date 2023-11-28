@@ -276,8 +276,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.ShipGDestroyed, new boolean[13][8]);
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
-			spriteMap.put(SpriteType.Bomb, new boolean[5][5]); // 270
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
+			spriteMap.put(SpriteType.Bomb, new boolean[5][5]); // 270
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){
@@ -736,6 +736,8 @@ public final class DrawManager {
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
 	}
+
+
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
 		backBufferGraphics.setFont(fontRegular);

@@ -2,12 +2,7 @@ package screen;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import engine.BGM;
 import engine.Cooldown;
@@ -74,6 +69,10 @@ public class GameScreen extends Screen {
 	private static final int SCREEN_CHANGE_INTERVAL = 3000;
 	/** Height of the interface separation line. */
 	private static final int SEPARATION_LINE_HEIGHT = 40;
+	private static final int INIT_BOMB_COUNT = 5;
+	private static final int BOMB_INTERVAL = 1000;
+	private static final int[] DX = new int[] {1, 0, -1, 0, 1, 1, -1, -1};
+	private static final int[] DY = new int[] {0, 1, 0, -1, 1, -1, 1, -1};
 	/** Current game difficulty settings. */
 	private GameSettings gameSettings;
 	/** Current difficulty level number. */
@@ -93,6 +92,7 @@ public class GameScreen extends Screen {
 	private Cooldown screenFinishedCooldown;
 	/** Set of bullets fired by on screen ships. */
 	private Set<Bullet> bullets;
+
 	/** Check boss. */
 	private int bossCode;
 	/** Beam */
@@ -156,6 +156,12 @@ public class GameScreen extends Screen {
 	/** Check what color will be displayed*/
 	private int colorVariable;
 	private int BulletsCount = 99;
+	/** Set of Bombs fired by ships on screen */
+	private Set<Bomb> bombs;
+	/** the number of bomb*/
+	private int bombCount;
+	/** minimum time between bomb launch */
+	private Cooldown bombCooldown;
 	/** Current Value of Enhancement Attack. */
 	private int attackDamage;
 	/** Current Value of Enhancement Area. */
@@ -169,9 +175,7 @@ public class GameScreen extends Screen {
 	/**  */
 	private boolean isboss;
 	/**  */
-	private boolean bomb; // testing
-	/**  */
-	private Cooldown bombCool;
+
 	/**  */
 	private CountUpTimer timer;
 	private int Miss = 0;
@@ -243,7 +247,7 @@ public class GameScreen extends Screen {
 		this.clearCoin = getClearCoin();
 		this.shipColor = gameState.getShipColor();
 		this.nowSkinString = gameState.getNowSkinString();
-
+		this.bombCount = INIT_BOMB_COUNT;
 
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
@@ -296,6 +300,8 @@ public class GameScreen extends Screen {
 				.getCooldown(BEAM_ACTIVATE);
 		beamLaunchCooldown.reset();
 		this.screenFinishedCooldown = Core.getCooldown(SCREEN_CHANGE_INTERVAL);
+		this.bombCooldown = Core.getCooldown(BOMB_INTERVAL);
+		this.bombs = new HashSet<Bomb>();
 		this.bullets = new HashSet<Bullet>();
 		this.bulletsY = new HashSet<BulletY>();
 		this.items = new HashSet<Item>();
@@ -396,11 +402,10 @@ public class GameScreen extends Screen {
 					 * 폭탄은 데미지랑 상관 없이 한 열을 지워버리나봐요!!
 					 * 너무 사기적이라 보스에는 아마 적용이 안 될 거 같아요!!
 					 */
-					if(inputManager.isKeyDown(KeyEvent.VK_B) && getActivatedType() != 3) {
-						if(ship.getBomb()){
-							this.enemyShipFormation.bombDestroy(items);
-							this.ship.setBomb(false);
-						}
+					if(!isboss && inputManager.isKeyDown(KeyEvent.VK_B) && getActivatedType() != 3
+							&& bombCount > 0 && this.ship.shootBomb(this.bombs)) {
+						this.bombCount--;
+
 					}
 				}
 				if (this.laserActivate) {
@@ -571,8 +576,10 @@ public class GameScreen extends Screen {
 				}
 			manageCollisions();
 			manageCollisionsY();
+			manageBombColisions();
 			cleanBullets();
 			cleanBulletsY();
+			cleanBombs();
 			cleanItems();
 			draw();
 		}
@@ -713,6 +720,11 @@ public class GameScreen extends Screen {
 		for (BulletY bulletY : this.bulletsY)
 			drawManager.drawEntity(bulletY, bulletY.getPositionX(),
 					bulletY.getPositionY());
+
+
+		for (Bomb bomb : this.bombs)
+			drawManager.drawEntity(bomb, bomb.getPositionX(), bomb.getPositionY());
+
 
 		if (this.SpBullet != null){
 			if (!this.SpBullet.getActivate())
@@ -862,6 +874,17 @@ public class GameScreen extends Screen {
 		}
 		this.bulletsY.removeAll(recyclable);
 		BulletPool.recycleBulletY(recyclable);
+	}
+
+	private void cleanBombs() {
+		Set<Bomb> recyclable = new HashSet<>();
+		for(Bomb bomb : this.bombs) {
+			bomb.update();
+			if(bomb.getPositionY() < SEPARATION_LINE_HEIGHT || bomb.getPositionY() > this.height)
+				recyclable.add(bomb);
+		}
+		this.bombs.removeAll(recyclable);
+		BombPool.recycle(recyclable);
 	}
 	/**
 	 * update and Cleans items that end the Living-Time
@@ -1128,6 +1151,64 @@ public class GameScreen extends Screen {
 		BulletPool.recycleBulletY(recyclableBulletY);
 	}
 
+	private void manageBombColisions() {
+		Set<Bomb> recyclableBomb = new HashSet<>();
+		for(Bomb bomb : this.bombs) {
+			for(EnemyShip enemyShip : this.enemyShipFormation) {
+				if(!enemyShip.isDestroyed() && checkCollision(bomb, enemyShip)) {
+					areaDestroy(enemyShip);
+					recyclableBomb.add(bomb);
+				}
+			}
+
+			if (this.enemyShipSpecial != null
+					&& !this.enemyShipSpecial.isDestroyed()
+					&& checkCollision(bomb, this.enemyShipSpecial)) {
+
+				this.score += this.enemyShipSpecial.getPointValue();
+				this.shipsDestroyed++;
+				this.enemyShipSpecial.destroy(this.items);
+				soundEffect.enemyshipspecialDestructionSound();
+				bgm.enemyShipSpecialbgm_stop();
+				if (this.lives < 2.9) this.lives = this.lives + 0.1;
+				this.enemyShipSpecialExplosionCooldown.reset();
+
+				recyclableBomb.add(bomb);
+			}
+		}
+		this.bombs.removeAll(recyclableBomb);
+		BombPool.recycle(recyclableBomb);
+	}
+
+	private void areaDestroy(EnemyShip enemyShip) {
+		int col = -1, row = -1;
+		List<List<EnemyShip>> enemyShips = this.enemyShipFormation.getEnemyShips();
+		for(List<EnemyShip> column : enemyShips) {
+			if(column.contains(enemyShip)) {
+				col = enemyShips.indexOf(column);
+			}
+		}
+		List<EnemyShip> column = enemyShips.get(col);
+		row = column.indexOf(enemyShip);
+		int colSize = enemyShips.size();
+		int rowSize = enemyShips.get(0).size();
+		this.score += enemyShip.getPointValue();
+		this.shipsDestroyed++;
+		this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
+		for(int dir = 0; dir < 8; dir++) {
+			int nRow = row + DX[dir];
+			int nCol = col + DY[dir];
+			if(nRow < 0 || nCol < 0 ||  nCol >= enemyShips.size() || nRow >= enemyShips.get(nCol).size()) {
+				continue;
+			}
+			EnemyShip enemy = enemyShips.get(nCol).get(nRow);
+			if(!enemy.isDestroyed()) {
+				this.score += enemyShip.getPointValue();
+				this.shipsDestroyed++;
+				this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemy, this.items);
+			}
+		}
+	}
 	/**
 	 * Checks if two entities are colliding.
 	 *
