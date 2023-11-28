@@ -682,6 +682,11 @@ public class GameScreen extends Screen {
 						, 255, 155, 0, 0,2, 2);
 			}
 		}
+
+		if(!isboss){
+			drawManager.bombsCount(this, this.bombCount);
+		}
+
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawEntity(this.ship, this.ship.getPositionX(),
 				this.ship.getPositionY());
