@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class InGame extends AppCompatActivity {
     private double shipPosition = 0.5;
+    private ImageView ship;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,9 +23,12 @@ public class InGame extends AppCompatActivity {
 
         ImageView left_icon = (ImageView) findViewById(R.id.left_icon);
         ImageView right_icon = (ImageView) findViewById(R.id.right_icon);
+        ship = (ImageView) findViewById(R.id.ship);
 
         left_icon.setImageResource(R.drawable.left_button);
         right_icon.setImageResource(R.drawable.right_button);
+
+        Log.i("Position", ship.getX()+"");
 
         left_icon.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -32,7 +36,6 @@ public class InGame extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     left_icon.setImageResource(R.drawable.left_touched);
                     handlerLeft.post(runnableLeft);
-                    Log.i("Position", shipPosition+"");
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     left_icon.setImageResource(R.drawable.left_button);
@@ -48,7 +51,6 @@ public class InGame extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     right_icon.setImageResource(R.drawable.right_touched);
                     handlerRight.post(runnableRight);
-                    Log.i("Position", shipPosition+"");
                 }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     right_icon.setImageResource(R.drawable.right_button);
@@ -62,23 +64,23 @@ public class InGame extends AppCompatActivity {
     private Runnable runnableLeft = new Runnable() {
         @Override
         public void run() {
-            if (shipPosition-0.02 > 0) shipPosition -= 0.02;
-            else shipPosition = 0;
-            Log.i("Position", shipPosition+"");
+            if (ship.getX()-8 > 0) ship.setX(ship.getX()-8);
+            else ship.setX(0);
+            Log.i("Position", ship.getX()+"");
             // 쉽 무빙
             // Call the runnable again
-            handlerLeft.postDelayed(this, 100);
+            handlerLeft.postDelayed(this, 17);
         }
     };
     private Handler handlerRight = new Handler(Looper.getMainLooper());
     private Runnable runnableRight = new Runnable() {
         @Override
         public void run() {
-            if (shipPosition+0.02 < 1) shipPosition += 0.02;
-            else shipPosition = 1;
-            Log.i("Position", shipPosition+"");
+            if (ship.getX()+8 < 1008) ship.setX(ship.getX()+8);
+            else ship.setX(1008);
+            Log.i("Position", ship.getX()+"");
             // Call the runnable again
-            handlerRight.postDelayed(this, 100);
+            handlerRight.postDelayed(this, 17);
         }
     };
 }
