@@ -215,7 +215,7 @@ public class TwoPlayScoreScreen extends Screen {
                         / this.bulletsShot, this.isNewRecord);
 
         if (this.isNewRecord)
-            drawManager.drawNameInput(this, this.name, this.nameCharSelected);
+            drawManager.drawNameInput(this, this.name, this.nameCharSelected,"");
 
         drawManager.completeDrawing(this);
     }

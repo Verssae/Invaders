@@ -80,6 +80,8 @@ public class ScoreScreen extends Screen {
 	/** For selection moving sound */
 	private SoundEffect soundEffect;
 
+	private String username;
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -89,7 +91,7 @@ public class ScoreScreen extends Screen {
 	 * @param gameState Current game state.
 	 */
 	public ScoreScreen(final int width, final int height, final int fps,
-					   final GameState gameState, final int difficulty) {
+					   final GameState gameState, final int difficulty ,String username) {
 		super(width, height, fps);
 		this.difficulty = difficulty;
 		this.score = gameState.getScore();
@@ -98,6 +100,7 @@ public class ScoreScreen extends Screen {
 		this.shipsDestroyed = gameState.getShipsDestroyed();
 		this.isNewRecord = false;
 		this.name = "AAA".toCharArray();
+		this.username=username;
 		this.nameCharSelected = 0;
 		this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
 		this.selectionCooldown.reset();
@@ -190,7 +193,7 @@ public class ScoreScreen extends Screen {
 	 * Saves the score as a high score.
 	 */
 	private void saveScore() {
-		highScores.add(new Score(new String(this.name), score));
+		highScores.add(new Score(new String(this.username), score));
 		Collections.sort(highScores);
 		if (highScores.size() > MAX_HIGH_SCORE_NUM)
 			highScores.remove(highScores.size() - 1);
@@ -215,7 +218,7 @@ public class ScoreScreen extends Screen {
 						/ this.bulletsShot, this.isNewRecord);
 
 		if (this.isNewRecord)
-			drawManager.drawNameInput(this, this.name, this.nameCharSelected);
+			drawManager.drawNameInput(this, this.name, this.nameCharSelected,username);
 
 		drawManager.completeDrawing(this);
 	}
