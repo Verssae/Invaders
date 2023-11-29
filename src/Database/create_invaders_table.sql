@@ -1,6 +1,6 @@
 CREATE DATABASE invader;
 
-\c mydatabase;
+-- \c mydatabase;
 
 -- Player 테이블 생성
 -- player_id = 사용자의 고유 아이디 
