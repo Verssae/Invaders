@@ -45,7 +45,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level1 button
-
+                br.changeColor(1, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
@@ -53,7 +55,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level2 button
-
+                br.changeColor(2, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
@@ -61,7 +65,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level3 button
-
+                br.changeColor(3, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
@@ -69,7 +75,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level4 button
-
+                br.changeColor(4, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
@@ -77,7 +85,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level5 button
-
+                br.changeColor(5, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
@@ -85,7 +95,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level6 button
-
+                br.changeColor(6, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
@@ -93,7 +105,9 @@ public class selectlevel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // action of level7 button
-
+                br.changeColor(7, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), GamePlay.class);
+                startActivity(intent);
             }
         });
 
