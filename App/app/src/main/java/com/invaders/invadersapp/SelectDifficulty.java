@@ -38,6 +38,16 @@ public class SelectDifficulty extends AppCompatActivity {
         Thread t = new Thread(br);
         t.start();
 
+        // for testing select level page, added code of easy button
+        easyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                br.changeColor(1, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), selectlevel.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
 
