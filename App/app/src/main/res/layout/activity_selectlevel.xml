@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/leveltitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:background="@android:color/transparent" />
 
     <Button
@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/blackopsone"
         android:text="main"
-        android:textSize="10dp"
+        android:textSize="18dp"
         app:layout_constraintTop_toBottomOf="@+id/btnLevel6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
