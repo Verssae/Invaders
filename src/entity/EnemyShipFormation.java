@@ -176,16 +176,21 @@ public class EnemyShipFormation implements Iterable<EnemyShip> {
 			this.prevAttackedPositionY = 0;
 			switch (level){
 				case 1:
-				case 2:
 					triangle();
 					break;
+				case 2:
+					diamond();
+					break;
 				case 3:
+					triangle();
+					break;
 				case 4:
 					diamond();
 					break;
 				case 5:
 				case 6:
 				case 7:
+				case 8:
 					square();
 					break;
 			}

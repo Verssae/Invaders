@@ -59,11 +59,11 @@ public final class Core {
     /**
      * Difficulty settings for level 2.
      */
-    private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(9, 4, 50, 2500, 1, 1, 1);
+    private static GameSettings SETTINGS_LEVEL_2 = new GameSettings(5, 5, 50, 2500, 1, 1, 1);
     /**
      * Difficulty settings for level 3.
      */
-    private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(5, 5, 40, 1500, 1, 1, 1);
+    private static GameSettings SETTINGS_LEVEL_3 = new GameSettings(9, 4, 40, 1500, 1, 1, 1);
     /**
      * Difficulty settings for level 4.
      */
