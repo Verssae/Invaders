@@ -48,6 +48,16 @@ public class SelectDifficulty extends AppCompatActivity {
             }
         });
 
+        //go back to main when click 'mainbutton'
+        mainButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                br.changeColor(5, "GREEN");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
 
