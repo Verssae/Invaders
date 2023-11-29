@@ -129,6 +129,8 @@ public final class DrawManager {
 		EnemyBullet,
 		/** Player Bomb. */
 		Bomb,
+		/** Player Drill */
+		Drill,
 		/** Enemy bullet goes left diag. */
 		EnemyBulletLeft,
 		/** Enemy bullet goes right diag. */
@@ -265,7 +267,7 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.Bomb, new boolean[5][5]);
-
+			spriteMap.put(SpriteType.Drill, new boolean[2][10]);
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){

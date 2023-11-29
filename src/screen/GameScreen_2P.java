@@ -46,6 +46,7 @@ public class GameScreen_2P extends Screen {
     private static final int BOMB_INTERVAL = 1000;
     private static final int[] DX = new int[] {1, 0, -1, 0, 1, 1, -1, -1};
     private static final int[] DY = new int[] {0, 1, 0, -1, 1, -1, 1, -1};
+    private static final int DRILL_SPEED = -5;
 
 
     /** Current game difficulty settings. */
@@ -139,6 +140,10 @@ public class GameScreen_2P extends Screen {
     private int player1BombCount;
     private int player2BombCount;
     /** minimum time between bomb launch */
+
+    /** Player Drill */
+    private Drill player1Drill;
+    private Drill player2Drill;
     private Cooldown player1BombCooldown;
     private Cooldown player2BombCooldown;
     private GameScreen gamescreen;
@@ -343,6 +348,13 @@ public class GameScreen_2P extends Screen {
                         this.player1BombCount--;
 
                     }
+
+                    if(!isboss && inputManager.isKeyDown(KeyEvent.VK_R) && this.player1Drill == null) {
+                        this.player1Drill = new Drill(this.ship_1P.getPositionX() +
+                                this.ship_1P.getWidth() / 2, this.ship_1P.getPositionY(), DRILL_SPEED);
+
+                    }
+
                 }
                 if (!this.ship_2P.isDestroyed()) {
                     boolean moveRight = inputManager.isKeyDown(KeyEvent.VK_RIGHT);
@@ -390,6 +402,12 @@ public class GameScreen_2P extends Screen {
                     if(!isboss && inputManager.isKeyDown(KeyEvent.VK_B)
                             && player2BombCount > 0 && this.ship_2P.shootBomb(this.player2Bombs)) {
                         this.player2BombCount--;
+
+                    }
+
+                    if(!isboss && inputManager.isKeyDown(KeyEvent.VK_N) && this.player2Drill == null) {
+                        this.player2Drill = new Drill(this.ship_2P.getPositionX() +
+                                this.ship_2P.getWidth() / 2, this.ship_2P.getPositionY(), DRILL_SPEED);
 
                     }
                 }
@@ -489,6 +507,17 @@ public class GameScreen_2P extends Screen {
             cleanBulletsY_1P();
             cleanBulletsY_2P();
             cleanItems();
+
+            if(this.player1Drill != null){
+                managePlayer1DrillColisions();
+                updatePlayer1Drill();
+            }
+
+            if(this.player2Drill != null){
+                managePlayer2DrillColisions();
+                updatePlayer2Drill();
+            }
+
             draw();
         }
         if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
@@ -657,6 +686,14 @@ public class GameScreen_2P extends Screen {
             drawManager.drawEntity(bulletY, bulletY.getPositionX(),
                     bulletY.getPositionY());
 
+        if(this.player1Drill != null)
+            drawManager.drawEntity(this.player1Drill, this.player1Drill.getPositionX(),
+                    this.player1Drill.getPositionY());
+
+        if(this.player2Drill != null)
+            drawManager.drawEntity(this.player2Drill, this.player2Drill.getPositionX(),
+                    this.player2Drill.getPositionY());
+
         if (this.SpBullet != null)
             drawManager.drawEntity(this.SpBullet,
                     this.SpBullet.getPositionX(),
@@ -817,6 +854,17 @@ public class GameScreen_2P extends Screen {
         BombPool.recycle(recyclable);
     }
 
+    private void updatePlayer1Drill() {
+        this.player1Drill.update();
+        if(this.player1Drill.getPositionY() < SEPARATION_LINE_HEIGHT || this.player1Drill.getPositionY() > this.height)
+            this.player1Drill = null;
+    }
+
+    private void updatePlayer2Drill() {
+        this.player2Drill.update();
+        if(this.player2Drill.getPositionY() < SEPARATION_LINE_HEIGHT || this.player2Drill.getPositionY() > this.height)
+            this.player2Drill = null;
+    }
 
     private void cleanBulletsY() {
         Set<BulletY> recyclable = new HashSet<BulletY>();
@@ -1283,6 +1331,49 @@ public class GameScreen_2P extends Screen {
         }
     }
 
+    private void managePlayer1DrillColisions() {
+        for(EnemyShip enemyShip : this.enemyShipFormation) {
+            if(!enemyShip.isDestroyed() && checkCollision(this.player1Drill, enemyShip)) {
+                this.score_1P += enemyShip.getPointValue();
+                this.shipsDestroyed++;
+                this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
+            }
+        }
+
+        if (this.enemyShipSpecial != null
+                && !this.enemyShipSpecial.isDestroyed()
+                && checkCollision(this.player1Drill, this.enemyShipSpecial)) {
+            this.score_1P += this.enemyShipSpecial.getPointValue();
+            this.shipsDestroyed++;
+            this.enemyShipSpecial.destroy(this.items);
+            soundEffect.enemyshipspecialDestructionSound();
+            bgm.enemyShipSpecialbgm_stop();
+            if (this.lives_1p < 2.9) this.lives_1p = this.lives_1p + 0.1;
+            this.enemyShipSpecialExplosionCooldown.reset();
+        }
+    }
+
+    private void managePlayer2DrillColisions() {
+        for(EnemyShip enemyShip : this.enemyShipFormation) {
+            if(!enemyShip.isDestroyed() && checkCollision(this.player2Drill, enemyShip)) {
+                this.score_2P += enemyShip.getPointValue();
+                this.shipsDestroyed++;
+                this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
+            }
+        }
+
+        if (this.enemyShipSpecial != null
+                && !this.enemyShipSpecial.isDestroyed()
+                && checkCollision(this.player2Drill, this.enemyShipSpecial)) {
+            this.score_2P += this.enemyShipSpecial.getPointValue();
+            this.shipsDestroyed++;
+            this.enemyShipSpecial.destroy(this.items);
+            soundEffect.enemyshipspecialDestructionSound();
+            bgm.enemyShipSpecialbgm_stop();
+            if (this.lives_2p < 2.9) this.lives_2p = this.lives_2p + 0.1;
+            this.enemyShipSpecialExplosionCooldown.reset();
+        }
+    }
 
     /**
      * Checks if two entities are colliding.

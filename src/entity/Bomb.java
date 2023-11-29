@@ -38,8 +38,4 @@ public class Bomb extends Entity {
         this.speed = speed;
     }
 
-    public final int getSpeed() {
-        return this.speed;
-    }
-
 }

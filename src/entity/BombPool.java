@@ -30,4 +30,5 @@ public final class BombPool {
     public static void recycle(final Set<Bomb> bombs) {
         pool.addAll(bombs);
     }
+
 }

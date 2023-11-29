@@ -73,6 +73,9 @@ public class GameScreen extends Screen {
 	private static final int BOMB_INTERVAL = 1000;
 	private static final int[] DX = new int[] {1, 0, -1, 0, 1, 1, -1, -1};
 	private static final int[] DY = new int[] {0, 1, 0, -1, 1, -1, 1, -1};
+
+	private static final int DRILL_SPEED = -5;
+
 	/** Current game difficulty settings. */
 	private GameSettings gameSettings;
 	/** Current difficulty level number. */
@@ -161,6 +164,8 @@ public class GameScreen extends Screen {
 	/** the number of bomb*/
 	private int bombCount;
 	/** minimum time between bomb launch */
+	/** Drill */
+	private Drill drill = null;
 	private Cooldown bombCooldown;
 	/** Current Value of Enhancement Attack. */
 	private int attackDamage;
@@ -248,7 +253,6 @@ public class GameScreen extends Screen {
 		this.shipColor = gameState.getShipColor();
 		this.nowSkinString = gameState.getNowSkinString();
 		this.bombCount = INIT_BOMB_COUNT;
-
 		this.laserActivate = (gameSettings.getDifficulty() == 1 && getGameState().getLevel() >= 4) || (gameSettings.getDifficulty() > 1);
 		if (gameSettings.getDifficulty() > 1) {
 			LASER_INTERVAL = 3000;
@@ -312,7 +316,6 @@ public class GameScreen extends Screen {
 		this.inputDelay.reset();
 		soundEffect = new SoundEffect();
 		bgm = new BGM();
-
 //		bgm.InGame_bgm_stop();
 		bgm.InGame_bgm_play();
 
@@ -405,6 +408,13 @@ public class GameScreen extends Screen {
 					if(!isboss && inputManager.isKeyDown(KeyEvent.VK_B) && getActivatedType() != 3
 							&& bombCount > 0 && this.ship.shootBomb(this.bombs)) {
 						this.bombCount--;
+
+					}
+
+					if(!isboss && inputManager.isKeyDown(KeyEvent.VK_N) && getActivatedType() != 3
+							&& this.drill == null) {
+						this.drill = new Drill(ship.getPositionX() + ship.getWidth() / 2,
+								ship.getPositionY(), DRILL_SPEED);
 
 					}
 				}
@@ -590,6 +600,10 @@ public class GameScreen extends Screen {
 			cleanBulletsY();
 			cleanBombs();
 			cleanItems();
+			if(this.drill != null){
+				manageDrillColisions();
+				updateDrill();
+			}
 			draw();
 		}
 		if (this.enemyShipFormation.isEmpty() && !this.levelFinished) {
@@ -739,6 +753,8 @@ public class GameScreen extends Screen {
 		for (Bomb bomb : this.bombs)
 			drawManager.drawEntity(bomb, bomb.getPositionX(), bomb.getPositionY());
 
+		if(this.drill != null)
+			drawManager.drawEntity(this.drill, drill.getPositionX(), drill.getPositionY());
 
 		if (this.SpBullet != null){
 			if (!this.SpBullet.getActivate())
@@ -899,6 +915,12 @@ public class GameScreen extends Screen {
 		}
 		this.bombs.removeAll(recyclable);
 		BombPool.recycle(recyclable);
+	}
+
+	private void updateDrill() {
+		this.drill.update();
+		if(this.drill.getPositionY() < SEPARATION_LINE_HEIGHT || this.drill.getPositionY() > this.height)
+			this.drill = null;
 	}
 	/**
 	 * update and Cleans items that end the Living-Time
@@ -1192,6 +1214,28 @@ public class GameScreen extends Screen {
 		}
 		this.bombs.removeAll(recyclableBomb);
 		BombPool.recycle(recyclableBomb);
+	}
+
+	private void manageDrillColisions() {
+		for(EnemyShip enemyShip : this.enemyShipFormation) {
+			if(!enemyShip.isDestroyed() && checkCollision(this.drill, enemyShip)) {
+				this.score += enemyShip.getPointValue();
+				this.shipsDestroyed++;
+				this.enemyShipFormation.destroy(enhanceManager.getlvEnhanceArea(), enemyShip, this.items);
+			}
+		}
+
+		if (this.enemyShipSpecial != null
+				&& !this.enemyShipSpecial.isDestroyed()
+				&& checkCollision(this.drill, this.enemyShipSpecial)) {
+			this.score += this.enemyShipSpecial.getPointValue();
+			this.shipsDestroyed++;
+			this.enemyShipSpecial.destroy(this.items);
+			soundEffect.enemyshipspecialDestructionSound();
+			bgm.enemyShipSpecialbgm_stop();
+			if (this.lives < 2.9) this.lives = this.lives + 0.1;
+			this.enemyShipSpecialExplosionCooldown.reset();
+		}
 	}
 
 	private void areaDestroy(EnemyShip enemyShip) {
