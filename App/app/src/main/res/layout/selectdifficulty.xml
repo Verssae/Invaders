@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="130dp"
         android:fontFamily="@font/blackopsone"
-        android:text="S E L E C T  D I F F I C U L T Y"
+        android:text="SELECT  DIFFICULTY"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
