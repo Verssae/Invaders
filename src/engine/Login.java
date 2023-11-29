@@ -1,11 +1,16 @@
 package engine;
 
+import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
+
 import java.sql.*;
 
+
 public class Login {
-    private  final String url = "jdbc:postgresql://localhost:5432/invaders";
-    private  final String user = "postgres";
-    private  final String password = "89456951asd!";
+    private final String url = "jdbc:postgresql://localhost:5432/invader";
+    private final String user = "t4ek";
+    private final String password = "rladudxor";
+
+    private String USERNAME;
     public Connection connect () {
         Connection conn = null ;
         try {
@@ -36,31 +41,78 @@ public class Login {
         }
     }
 
-    public String loginCheck(Connection conn, String id , String password){
+    public boolean loginCheck(Connection conn, String id , String password){
+        String SQL = " SELECT login_id, login_password, username "
+                + " FROM player "
+                + " WHERE login_id = ? and login_password = ?";
         System.out.println("=======================");
         System.out.println("Login");
         System.out.println("=======================");
-        try {
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM player");
-            String id_data = new String();
-            String password_data = new String();
-            while(rs.next()){
-                id_data= rs.getString(1);
-                password_data = rs.getString(2);
-                if(id.equals(id_data) && password.equals(password_data)){
-                    return rs.getString(3);
+        try(PreparedStatement pstmt = conn.prepareStatement(SQL)) {
+            pstmt.setString(1, id);
+            pstmt.setString(2, password);
+
+            try(ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    this.USERNAME = rs.getString("username");
+                    System.out.println(USERNAME);
+                    System.out.println("login success");
+                    return true;
+                }
+                else{
+                    System.out.println("login fail");
+                    return false;
                 }
             }
-            rs.close();
-            st.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
-        return "fail";
+        return false;
     }
 
-    public void scoreUpdate(Connection conn,String username , int score,int difficulty){
+    public static boolean isUsernameExist(Connection conn, String username){
+        String SQL = "SELECT COUNT(*) FROM player WHERE username = ?";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(SQL)){
+            pstmt.setString(1, username);
+
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    public static boolean registerUser(Connection conn, String id, String password, String username){
+        String SQL = "INSERT INTO player VALUES(?, ?, ?)";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(SQL)){
+            pstmt.setString(1, id);
+            pstmt.setString(2, password);
+            pstmt.setString(3, username);
+
+
+            if(pstmt.executeUpdate() > 0){
+                System.out.println("Register success");
+                return true;
+            }
+            else{
+                System.out.println("Register fail");
+                return false;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    public void scoreUpdate(Connection conn,String username , int score, int difficulty){
         System.out.println("=======================");
         System.out.println("Score update");
         System.out.println("=======================");
@@ -163,14 +215,15 @@ public class Login {
         }
 
     }
-    public void disconnect(Connection conn){
+    public void disconnect(Connection conn) {
         try {
             conn.close();
             System.out.println("Connection is closed successfully.");
-        } catch (SQLException e ){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
+
 
 
 }
