@@ -653,6 +653,9 @@ public final class DrawManager {
 		backBufferGraphics.drawString(scoreString, x, 26);
 	}
 
+
+
+
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
 		backBufferGraphics.setColor(Color.WHITE);
@@ -1019,7 +1022,7 @@ public final class DrawManager {
 	 */
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "P L A Y";
-		String twoplayString = "2 P  P L A Y";
+		String twoplayString = "L O G I N";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
 		String pvpScoresString = "P V P  S C O R E S";
@@ -1258,6 +1261,44 @@ public final class DrawManager {
 				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
 
 	}
+
+	/**
+	 * Draws score menu.
+	 *
+	 * @param screen
+	 *               Screen to draw on.
+	 * @param option
+	 *               Option selected.
+	 */
+	public void drawAuthManage(final Screen screen, final int option) {
+		String SelectString = "Select Mode with W + S, confirm with SPACE.";
+		String OnePlayScoreString = "R e g i s t e r";
+		String TwoPlayScoreString = "L o g i n";
+		String MainMenuString = "M a i n  M e n u";
+
+		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
+		if (option == 41)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, OnePlayScoreString,
+				screen.getHeight() / 3 * 2);
+		if (option == 42)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, TwoPlayScoreString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, MainMenuString, screen.getHeight()
+				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+
+	}
+
 
 	/**
 	 * Draws Recovery select menu.
