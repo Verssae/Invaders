@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Start playing game screen BGM when the activity starts
     @Override
     protected void onStart() {
         super.onStart();
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         mBGMManager.mMediaPlayerForGameScreenBGM.start();
     }
 
+    // Pause the game screen BGM when the activity stops, unless transitioning to another activity
     @Override
     protected void onStop() {
         super.onStop();
