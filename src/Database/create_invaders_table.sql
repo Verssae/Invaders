@@ -1,6 +1,6 @@
 CREATE DATABASE invader;
 
-\c mydatabase;
+\c invader;
 
 
 CREATE TABLE Player (
