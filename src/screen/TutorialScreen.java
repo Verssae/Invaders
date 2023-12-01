@@ -57,6 +57,8 @@ public class TutorialScreen extends Screen{
         drawManager.initDrawing(this);
 
         drawManager.drawTutorial(this);
+        drawManager.drawHorizontalLine(this, this.getHeight()/2 - 20);
+        drawManager.drawVerticalLine(this, this.getWidth()/2 - 1);
 
         drawManager.completeDrawing(this);
     }

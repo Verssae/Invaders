@@ -30,8 +30,7 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
-import entity.Coin;
-import entity.Entity;
+import entity.*;
 import screen.GameScreen;
 import screen.GameScreen_2P;
 import screen.Screen;
@@ -889,6 +888,20 @@ public final class DrawManager {
 		backBufferGraphics.drawLine(0, positionY, screen.getWidth(), positionY);
 		backBufferGraphics.drawLine(0, positionY + 1, screen.getWidth(),
 				positionY + 1);
+	}
+
+	/**
+	 * Draws a thick line from up to down of the screen.
+	 *
+	 * @param screen
+	 *                  Screen to draw on.
+	 * @param positionX
+	 *                  X coordinate of the line.
+	 */
+	public void drawVerticalLine(final Screen screen, final int positionX) {
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawLine(positionX, 0, positionX, screen.getHeight());
+		backBufferGraphics.drawLine(positionX + 1, 0, positionX + 1, screen.getHeight());
 	}
 
 	/**
@@ -2904,9 +2917,24 @@ if (option == 35)
 		String moveRightString = "D / →  :  Move Right";
 		String shootString = "Space Bar  :  Shoot Bullet";
 		String bulletDamageString = "1  Damage";
-		String specialBulletDamageString = "3  Damage";
+		String bulletYDamageString = "3  Damage";
+		String backMainString = "Press \"ESC\" to Main";
 
-		backBufferGraphics.setColor(blinkingColor("GRAY"));
+		Ship ship1 = new Ship(20, 190, "a", Color.WHITE);
+		Ship ship2 = new Ship(244, 190, "a", Color.WHITE);
+		Ship ship3 = new Ship(20, 440, "a", Color.WHITE);
+		Bullet bullet1 = new Bullet(ship1.getPositionX() + ship1.getWidth()/2, 90, -1, 1);
+		BulletY bullet2 = new BulletY(ship2.getPositionX() + ship2.getWidth()/2, 90, -1, 1);
+		this.drawEntity(ship1, ship1.getPositionX(), ship1.getPositionY());
+		this.drawEntity(ship2, ship2.getPositionX(), ship2.getPositionY());
+		this.drawEntity(ship3, ship3.getPositionX(), ship3.getPositionY());
+		this.drawEntity(bullet1, bullet1.getPositionX() - 1, bullet1.getPositionY());
+		this.drawEntity(bullet2, bullet2.getPositionX() - 2, bullet2.getPositionY());
+
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.drawString(bulletDamageString, 60, 100);
+		backBufferGraphics.drawString(bulletYDamageString, 284, 100);
+		backBufferGraphics.drawString(backMainString, 244, 450);
 
 	}
 }
