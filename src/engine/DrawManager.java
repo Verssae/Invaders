@@ -1,23 +1,18 @@
 package engine;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.awt.FontMetrics;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RadialGradientPaint;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.Stroke;
+import entity.Coin;
+import entity.Entity;
+import screen.GameScreen;
+import screen.GameScreen_2P;
+import screen.Screen;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage; // monster animation on a loading box
+import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
@@ -27,14 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
-
-import javax.imageio.ImageIO;
-
-import entity.Coin;
-import entity.Entity;
-import screen.GameScreen;
-import screen.GameScreen_2P;
-import screen.Screen;
 
 
 /**
@@ -140,6 +127,10 @@ public final class DrawManager {
 		BulletY,
 		/** Enemy bullet. */
 		EnemyBullet,
+		/** Player Bomb. */
+		Bomb,
+		/** Player Drill */
+		Drill,
 		/** Enemy bullet goes left diag. */
 		EnemyBulletLeft,
 		/** Enemy bullet goes right diag. */
@@ -275,6 +266,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
+			spriteMap.put(SpriteType.Bomb, new boolean[5][5]);
+			spriteMap.put(SpriteType.Drill, new boolean[2][10]);
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){
@@ -732,6 +725,28 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
+	}
+
+	public void bombsCount(final Screen screen, final int bombsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bombs: " + String.format("%01d", bombsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 340, 60);
+	}
+
+	public void bombsCount_1p(final Screen screen, final int bombsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bombs: " + String.format("%01d", bombsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 360, 60);
+	}
+
+
+	public void bombsCount_2p(final Screen screen, final int bombsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bombs: " + String.format("%01d", bombsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 360, 80);
 	}
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {
