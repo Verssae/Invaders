@@ -19,10 +19,14 @@ public class Ship extends Entity {
 
 	/** Time between shots. */
 	private static int SHOOTING_INTERVAL = 750;
+	/** Time between shooting bomb */
+	private static int SHOOTING_BOMB_INTERVAL = 1000;
 	/** Speed of the bullets shot by the ship. */
 	public static final int BULLET_SPEED = -6;
 	/** Speed of the bullets shot by the ship. */
 	public static final int BULLETY_SPEED = -9;
+	/** Speed of the bombs shot by the ship. */
+	public static final int BOMB_SPEED = -5;
 	/** Movement of the ship for each unit of time. */
 	private static int SPEED = 2;
 
@@ -31,6 +35,9 @@ public class Ship extends Entity {
 	/** Time spent inactive between hits. */
 	public Cooldown destructionCooldown;
 	/** EveryThing of item effect. */
+
+	/** Minimum time between shooting bomb */
+	private Cooldown bombCooldown;
 	private ShipEffect shipEffect;
 
 	/**
@@ -69,6 +76,7 @@ public class Ship extends Entity {
 
 		this.shootingCooldown = Core.getCooldown(SHOOTING_INTERVAL);
 		this.destructionCooldown = Core.getCooldown(1000);
+		this.bombCooldown = Core.getCooldown(SHOOTING_BOMB_INTERVAL);
 	}
 
 	/**
@@ -116,6 +124,16 @@ public class Ship extends Entity {
 		if (this.shootingCooldown.checkFinished()) {
 			this.shootingCooldown.reset();
 			this.shipEffect.shootBulletY(bulletsY, BULLETY_SPEED, ENHANCED_DAMAGE);
+			return true;
+		}
+		return false;
+	}
+
+	public final boolean shootBomb(final Set<Bomb> bombs) {
+		if(this.bombCooldown.checkFinished()) {
+			this.bombCooldown.reset();
+			bombs.add(BombPool.getBomb(this.getPositionX() + this.getWidth() / 2,
+					this.getPositionY(), BOMB_SPEED));
 			return true;
 		}
 		return false;

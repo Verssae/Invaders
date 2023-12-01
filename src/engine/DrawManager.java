@@ -127,6 +127,10 @@ public final class DrawManager {
 		BulletY,
 		/** Enemy bullet. */
 		EnemyBullet,
+		/** Player Bomb. */
+		Bomb,
+		/** Player Drill */
+		Drill,
 		/** Enemy bullet goes left diag. */
 		EnemyBulletLeft,
 		/** Enemy bullet goes right diag. */
@@ -262,6 +266,8 @@ public final class DrawManager {
 			spriteMap.put(SpriteType.Bullet, new boolean[3][5]);
 			spriteMap.put(SpriteType.BulletY, new boolean[5][7]);
 			spriteMap.put(SpriteType.EnemyBullet, new boolean[3][5]);
+			spriteMap.put(SpriteType.Bomb, new boolean[5][5]);
+			spriteMap.put(SpriteType.Drill, new boolean[2][10]);
 			spriteMap.put(SpriteType.EnemyBulletLeft, new boolean[3][5]);
 			spriteMap.put(SpriteType.EnemyBulletRight, new boolean[3][5]);
 			if (Trash_enemyA == 0){
@@ -719,6 +725,28 @@ public final class DrawManager {
 		backBufferGraphics.setColor(Color.WHITE);
 		String text = "Remaining Bullets: " + String.format("%02d", BulletsCount);
 		backBufferGraphics.drawString(text, screen.getWidth() - 180, 60);
+	}
+
+	public void bombsCount(final Screen screen, final int bombsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bombs: " + String.format("%01d", bombsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 340, 60);
+	}
+
+	public void bombsCount_1p(final Screen screen, final int bombsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bombs: " + String.format("%01d", bombsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 360, 60);
+	}
+
+
+	public void bombsCount_2p(final Screen screen, final int bombsCount) {
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		String text = "Remaining Bombs: " + String.format("%01d", bombsCount);
+		backBufferGraphics.drawString(text, screen.getWidth() - 360, 80);
 	}
 
 	public void BulletsCount_1p(final Screen screen, final int BulletsCount) {

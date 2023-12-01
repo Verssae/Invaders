@@ -1,10 +1,7 @@
 package effect;
 
 import engine.Core;
-import entity.Bullet;
-import entity.BulletY;
-import entity.BulletPool;
-import entity.Ship;
+import entity.*;
 
 import java.util.Set;
 
@@ -81,6 +78,7 @@ public class ShipEffect extends Effect{
                     ship.getPositionY(), BULLETY_SPEED, ENHANCED_DAMAGE));
         }
     }
+
     /**
      * attack speed variety effect
      */
