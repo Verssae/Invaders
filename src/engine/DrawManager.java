@@ -2942,21 +2942,25 @@ if (option == 35)
 		String bulletDamageString = "1  Damage";
 		String bulletYDamageString = "3  Damage";
 		String backMainString = "Press \"ESC\" to Main";
+		String bombString = "Destroy 3X3 Area";
 
 		Ship ship1 = new Ship(20, 190, "a", Color.WHITE);
 		Ship ship2 = new Ship(244, 190, "a", Color.WHITE);
 		Ship ship3 = new Ship(20, 440, "a", Color.WHITE);
 		Bullet bullet1 = new Bullet(ship1.getPositionX() + ship1.getWidth()/2, 90, -1, 1);
 		BulletY bullet2 = new BulletY(ship2.getPositionX() + ship2.getWidth()/2, 90, -1, 1);
+		Bomb bomb = new Bomb(ship3.getPositionX() + ship3.getWidth()/2, 340, 1);
 		this.drawEntity(ship1, ship1.getPositionX(), ship1.getPositionY());
 		this.drawEntity(ship2, ship2.getPositionX(), ship2.getPositionY());
 		this.drawEntity(ship3, ship3.getPositionX(), ship3.getPositionY());
 		this.drawEntity(bullet1, bullet1.getPositionX() - 1, bullet1.getPositionY());
 		this.drawEntity(bullet2, bullet2.getPositionX() - 2, bullet2.getPositionY());
+		this.drawEntity(bomb, bomb.getPositionX() - 2, bomb.getPositionY());
 
 		backBufferGraphics.setFont(fontRegular);
 		backBufferGraphics.drawString(bulletDamageString, 60, 100);
 		backBufferGraphics.drawString(bulletYDamageString, 284, 100);
+		backBufferGraphics.drawString(bombString, 60, 350);
 		backBufferGraphics.drawString(backMainString, 244, 450);
 
 	}
