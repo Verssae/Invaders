@@ -23,6 +23,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+
+import entity.*;
+import screen.GameScreen;
+import screen.GameScreen_2P;
+import screen.Screen;
+
 
 /**
  * Manages screen drawing.
@@ -907,6 +914,20 @@ public final class DrawManager {
 	}
 
 	/**
+	 * Draws a thick line from up to down of the screen.
+	 *
+	 * @param screen
+	 *                  Screen to draw on.
+	 * @param positionX
+	 *                  X coordinate of the line.
+	 */
+	public void drawVerticalLine(final Screen screen, final int positionX) {
+		backBufferGraphics.setColor(Color.GREEN);
+		backBufferGraphics.drawLine(positionX, 0, positionX, screen.getHeight());
+		backBufferGraphics.drawLine(positionX + 1, 0, positionX + 1, screen.getHeight());
+	}
+
+	/**
 	 * Draws a circle line.
 	 *
 	 * @param screen
@@ -1069,31 +1090,38 @@ public final class DrawManager {
 		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
+		String TutorialString = "T U T O R I A L";
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, playString,
-				screen.getHeight() / 3 * 2);
+				screen.getHeight() / 3 * 2 - fontRegularMetrics.getHeight() * 2);
 		if (option == 4)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, twoplayString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+				screen.getHeight() / 3 * 2);
 		if (option == 3)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, highScoresString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
+		drawCenteredRegularString(screen, highScoresString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, TutorialString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
 		if (option == 0)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 6);
+		drawCenteredRegularString(screen, exitString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
 
@@ -2905,5 +2933,35 @@ if (option == 35)
 		for (int y = 60; y < screen.getHeight() - 120; y += 4)
 			for (int x = 0; x < screen.getWidth(); x += 24)
 				this.drawEntity(SpriteType.Smog, x, y, 24, 4,blinkingColor("GRAY"));
+	}
+
+	public void drawTutorial(final Screen screen) {
+		String moveLeftString = "A / ←  :  Move Left";
+		String moveRightString = "D / →  :  Move Right";
+		String shootString = "Space Bar  :  Shoot Bullet";
+		String bulletDamageString = "1  Damage";
+		String bulletYDamageString = "3  Damage";
+		String backMainString = "Press \"ESC\" to Main";
+		String bombString = "Destroy 3X3 Area";
+
+		Ship ship1 = new Ship(20, 190, "a", Color.WHITE);
+		Ship ship2 = new Ship(244, 190, "a", Color.WHITE);
+		Ship ship3 = new Ship(20, 440, "a", Color.WHITE);
+		Bullet bullet1 = new Bullet(ship1.getPositionX() + ship1.getWidth()/2, 90, -1, 1);
+		BulletY bullet2 = new BulletY(ship2.getPositionX() + ship2.getWidth()/2, 90, -1, 1);
+		Bomb bomb = new Bomb(ship3.getPositionX() + ship3.getWidth()/2, 340, 1);
+		this.drawEntity(ship1, ship1.getPositionX(), ship1.getPositionY());
+		this.drawEntity(ship2, ship2.getPositionX(), ship2.getPositionY());
+		this.drawEntity(ship3, ship3.getPositionX(), ship3.getPositionY());
+		this.drawEntity(bullet1, bullet1.getPositionX() - 1, bullet1.getPositionY());
+		this.drawEntity(bullet2, bullet2.getPositionX() - 2, bullet2.getPositionY());
+		this.drawEntity(bomb, bomb.getPositionX() - 2, bomb.getPositionY());
+
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.drawString(bulletDamageString, 60, 100);
+		backBufferGraphics.drawString(bulletYDamageString, 284, 100);
+		backBufferGraphics.drawString(bombString, 60, 350);
+		backBufferGraphics.drawString(backMainString, 244, 450);
+
 	}
 }
