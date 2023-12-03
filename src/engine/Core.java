@@ -740,6 +740,12 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing Tutorial screen.");
                     break;
+                case 6:
+                    currentScreen = new TutorialScreen2(width, height, FPS);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " tutorial screen2 menu screen at " + FPS + " fps.");
+                    returnCode = frame.setScreen(currentScreen);
+                    LOGGER.info("Closing Tutorial screen.");
+                    break;
                 default:
                     break;
             }

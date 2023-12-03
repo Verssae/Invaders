@@ -2935,7 +2935,7 @@ if (option == 35)
 				this.drawEntity(SpriteType.Smog, x, y, 24, 4,blinkingColor("GRAY"));
 	}
 
-	public void drawTutorial(final Screen screen) {
+	public void drawTutorial(final Screen screen, int option) {
 		String moveLeftString = "A / ←  :  Move Left";
 		String moveRightString = "D / →  :  Move Right";
 		String shootString = "Space Bar  :  Shoot Bullet";
@@ -2943,6 +2943,8 @@ if (option == 35)
 		String bulletYDamageString = "3  Damage";
 		String backMainString = "Press \"ESC\" to Main";
 		String bombString = "Destroy 3X3 Area";
+		String nextString = "Next Page";
+		String exitString = "Exit";
 
 		Ship ship1 = new Ship(20, 190, "a", Color.WHITE);
 		Ship ship2 = new Ship(244, 190, "a", Color.WHITE);
@@ -2961,7 +2963,36 @@ if (option == 35)
 		backBufferGraphics.drawString(bulletDamageString, 60, 100);
 		backBufferGraphics.drawString(bulletYDamageString, 284, 100);
 		backBufferGraphics.drawString(bombString, 60, 350);
-		backBufferGraphics.drawString(backMainString, 244, 450);
+
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(exitString, 244, 450);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(nextString, 244, 420);
+	}
+
+	public void drawTutorial2(final Screen screen, final int option) {
+
+		String previousString = "Previous Page";
+		String exitString = "Exit";
+
+
+		backBufferGraphics.setFont(fontRegular);
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(exitString, 244, 450);
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(previousString, 244, 420);
 
 	}
 }
