@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.invaders.invadersapp.sound.BGMManager;
+import com.invaders.invadersapp.sound.StoreBGM;
 
 public class MainActivity extends AppCompatActivity {
     /** Title textview. */
