@@ -1117,7 +1117,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, TutorialString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 4);
-		if (option == 5)
+		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -2998,7 +2998,7 @@ if (option == 35)
 		String BackString = "B A C K";
 		String SoundOnString = "S O U N D  O N";
 		String SoundOffString = "S O U N D  O F F";
-		if (setting == 5)
+		if (setting == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -3021,7 +3021,7 @@ if (option == 35)
 	public void drawKeySettingMenu(final Screen screen, final int setting){
 		String BackString = "B A C K";
 		String KeyString = "K E Y";
-		if (setting == 5)
+		if (setting == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));

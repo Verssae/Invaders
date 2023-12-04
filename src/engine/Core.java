@@ -740,7 +740,7 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing Tutorial screen.");
                     break;
-                case 5:
+                case 6:
                     // Setting Screen.
                     currentScreen = new SettingScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " Setting Screen Menu at " + FPS + " fps.");

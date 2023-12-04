@@ -57,11 +57,11 @@ public class SettingScreen_Key extends Screen{
     }
     private void nextMenuItem() {
         if (this.returnCode == 1)
-            this.returnCode = 5;
-        else if (this.returnCode == 5)
+            this.returnCode = 6;
+        else if (this.returnCode == 6)
             this.returnCode = 105;
         else if (this.returnCode == 105)
-            this.returnCode = 5;
+            this.returnCode = 6;
     }
 
     /**
@@ -70,10 +70,10 @@ public class SettingScreen_Key extends Screen{
     private void previousMenuItem() {
         if (this.returnCode == 1)
             this.returnCode = 105;
-        else if (this.returnCode == 5)
+        else if (this.returnCode == 6)
             this.returnCode = 105;
         else if (this.returnCode == 105)
-            this.returnCode = 5;
+            this.returnCode = 6;
     }
     private void draw() {
         drawManager.initDrawing(this);

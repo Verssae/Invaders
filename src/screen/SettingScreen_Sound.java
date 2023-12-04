@@ -58,13 +58,13 @@ public class SettingScreen_Sound extends Screen{
     }
     private void nextMenuItem() {
         if (this.returnCode == 1)
-            this.returnCode = 5;
-        else if (this.returnCode == 5)
+            this.returnCode = 6;
+        else if (this.returnCode == 6)
             this.returnCode = 103;
         else if (this.returnCode == 103)
             this.returnCode = 104;
         else if (this.returnCode ==104)
-            this.returnCode = 5;
+            this.returnCode = 6;
     }
 
     /**
@@ -73,10 +73,10 @@ public class SettingScreen_Sound extends Screen{
     private void previousMenuItem() {
         if (this.returnCode == 1)
             this.returnCode = 104;
-        else if (this.returnCode == 5)
+        else if (this.returnCode == 6)
             this.returnCode = 104;
         else if (this.returnCode == 103)
-            this.returnCode = 5;
+            this.returnCode = 6;
         else if (this.returnCode == 104)
             this.returnCode = 103;
     }
