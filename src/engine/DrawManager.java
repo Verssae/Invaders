@@ -2980,9 +2980,61 @@ if (option == 35)
 
 		String previousString = "Previous Page";
 		String exitString = "Exit";
-
+		String keyGuideString = "Key Guide";
+		String mode1String = "1P Mode";
+		String mode2String = "2P Mode";
+		String p1String = "1P";
+		String p2String = "2P";
+		String moveLeftString = "Move Left";
+		String moveRightString = "Move Right";
+		String shootString = "Shoot Bullet";
+		String bombShootString = "Shoot Bomb";
+		String drillShootString = "Shoot Drill";
+		String mode1moveLeftString = "A / <-";
+		String mode1moveRightString = "D / ->";
+		String aString = "A";
+		String rightString = "->";
+		String dString = "D";
+		String leftString = "<-";
+		String spaceString = "Space Bar";
+		String shiftString = "Shift";
+		String bString = "B";
+		String vString = "V";
+		String rString = "R";
+		String nString = "N";
 
 		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		//frame
+		backBufferGraphics.drawString(mode1String, 150, 90);
+		backBufferGraphics.drawString(mode2String, 290, 90);
+		backBufferGraphics.drawString(p1String, 270, 130);
+		backBufferGraphics.drawString(p2String, 360, 130);
+		backBufferGraphics.drawString(moveLeftString, 10, 170);
+		backBufferGraphics.drawString(moveRightString, 10, 210);
+		backBufferGraphics.drawString(shootString, 10, 250);
+		backBufferGraphics.drawString(bombShootString, 10, 290);
+		backBufferGraphics.drawString(drillShootString, 10, 330);
+		//1P mode
+		backBufferGraphics.drawString(mode1moveLeftString, 160, 170);
+		backBufferGraphics.drawString(mode1moveRightString, 160, 210);
+		backBufferGraphics.drawString(spaceString, 140, 250);
+		backBufferGraphics.drawString(bString, 175, 290);
+		backBufferGraphics.drawString(nString, 175, 330);
+		//2P mode player 1
+		backBufferGraphics.drawString(aString, 275, 170);
+		backBufferGraphics.drawString(dString, 275, 210);
+		backBufferGraphics.drawString(shiftString, 260, 250);
+		backBufferGraphics.drawString(vString, 275, 290);
+		backBufferGraphics.drawString(rString, 275, 330);
+		//2P mode player 2
+		backBufferGraphics.drawString(leftString, 360, 170);
+		backBufferGraphics.drawString(rightString, 360, 210);
+		backBufferGraphics.drawString(spaceString, 330, 250);
+		backBufferGraphics.drawString(bString, 365, 290);
+		backBufferGraphics.drawString(nString, 365, 330);
+
+
 		if (option == 1)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
@@ -2993,6 +3045,9 @@ if (option == 35)
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		backBufferGraphics.drawString(previousString, 244, 420);
+
+		backBufferGraphics.setColor(blinkingColor("GREEN"));
+		drawCenteredBigString(screen, keyGuideString, 50);
 
 	}
 }

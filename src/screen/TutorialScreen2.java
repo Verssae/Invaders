@@ -77,8 +77,6 @@ public class TutorialScreen2 extends Screen{
         drawManager.initDrawing(this);
 
         drawManager.drawTutorial2(this, this.returnCode);
-        drawManager.drawHorizontalLine(this, this.getHeight()/2 - 20);
-        drawManager.drawVerticalLine(this, this.getWidth()/2 - 1);
 
         drawManager.completeDrawing(this);
     }
