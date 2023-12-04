@@ -210,6 +210,7 @@ public class GameScreen extends Screen {
 
 	private int lastSpAt;
 
+
 	/**
 	 * Constructor, establishes the properties of the screen.
 	 *
@@ -318,10 +319,12 @@ public class GameScreen extends Screen {
 		bgm = new BGM();
 //		bgm.InGame_bgm_stop();
 		bgm.InGame_bgm_play();
+		bgm.getIsMuted();
 
 
 		drawManager.initBackgroundTimer(this, SEPARATION_LINE_HEIGHT); // Initializes timer for background animation.
 	}
+
 
 	/**
 	 * Starts the action.

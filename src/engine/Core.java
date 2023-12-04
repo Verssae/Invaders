@@ -3,6 +3,7 @@ package engine;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.logging.Logger;
 
 import entity.Coin;
 import screen.*;
+
 
 /**
  * Implements core game logic. 테스트용
@@ -354,7 +356,7 @@ public final class Core {
                                     enhanceManager, itemManager,
                                     width, height, FPS);
 
-                             
+
                                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                                     + " game screen at " + FPS + " fps.");
                                     returnCode = frame.setScreen(currentScreen);
@@ -746,26 +748,24 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing Tutorial screen2.");
                     break;
-                case 6:
+                case 7:
                     // Setting Screen.
                     currentScreen = new SettingScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " Setting Screen Menu at " + FPS + " fps.");
                     int settingscreen = frame.setScreen(currentScreen);
                     if (settingscreen == 101)
                     {
-                        currentScreen = new SettingScreen_Sound(width, height, FPS);
-                        LOGGER.info("Open " + WIDTH + "x" + HEIGHT
-                                + " Sound Setting Screen" + FPS + " fps");
+                        outgame_bgm.unMuteBGM();
+                        currentScreen = new TitleScreen(width, height, FPS);
+                        LOGGER.info("Sound On, Closing Setting Menu Screen");
                         returnCode = frame.setScreen(currentScreen);
-                        LOGGER.info("Closing Sound Setting Screen");
                     }
                     else if (settingscreen == 102)
                     {
-                        currentScreen = new SettingScreen_Key(width, height, FPS);
-                        LOGGER.info("Open " + WIDTH + "x" + HEIGHT
-                                + " Key Setting Screen" + FPS + " fps");
+                        outgame_bgm.MuteBGM();
+                        currentScreen = new TitleScreen(width, height, FPS);
+                        LOGGER.info("Sound Off, Closing Setting Menu Screen");
                         returnCode = frame.setScreen(currentScreen);
-                        LOGGER.info("Closing Key Setting Screen");
                     }
                     else
                         returnCode = frame.setScreen(currentScreen);

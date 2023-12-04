@@ -13,6 +13,7 @@ public class BGM {
 
     private float originalVolume;
 
+    private static boolean isMuted = false;
     File enemyShipSpecialappearbgm = new File("sound/BackGroundMusic/enemyshipspecial.wav");
 
     public BGM() {
@@ -43,34 +44,25 @@ public class BGM {
         } catch(Exception e) {
             e.printStackTrace();
         }
-//        try {
-//            bgm = new File(BGM_FILE_PATH); // 클래스 변수 할당은 정적 초기화 블록에서 수행
-//            stream = AudioSystem.getAudioInputStream(bgm);
-//            format = stream.getFormat();
-//            info = new DataLine.Info(Clip.class, format);
-//            bgmClip = (Clip) AudioSystem.getLine(info);
-//            bgmClip.open(stream);
-//
-//        } catch (Exception e) {
-//            System.out.println("err : " + e);
-//        }
     }
     /**
      * Play enemyShipSpecial appear BGM
      */
     public void enemyShipSpecialbgm_play(){
-        try{
-            AudioInputStream enemyShipSpecialStream = AudioSystem.getAudioInputStream(enemyShipSpecialappearbgm);
-            AudioFormat enemyShipSpecialFormat = enemyShipSpecialStream.getFormat();
-            DataLine.Info enemyShipSpecialInfo = new DataLine.Info(Clip.class, enemyShipSpecialFormat);
+        if (!isMuted) {
+            try {
+                AudioInputStream enemyShipSpecialStream = AudioSystem.getAudioInputStream(enemyShipSpecialappearbgm);
+                AudioFormat enemyShipSpecialFormat = enemyShipSpecialStream.getFormat();
+                DataLine.Info enemyShipSpecialInfo = new DataLine.Info(Clip.class, enemyShipSpecialFormat);
 
-            enemyShipSpecialbgmCLip = (Clip) AudioSystem.getLine(enemyShipSpecialInfo);
-            enemyShipSpecialbgmCLip.open(enemyShipSpecialStream);
-            bgm_volumedowm();
-            enemyShipSpecialbgmCLip.start();
-            enemyShipSpecialbgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
-        } catch(Exception e) {
-            e.printStackTrace();
+                enemyShipSpecialbgmCLip = (Clip) AudioSystem.getLine(enemyShipSpecialInfo);
+                enemyShipSpecialbgmCLip.open(enemyShipSpecialStream);
+                bgm_volumedowm();
+                enemyShipSpecialbgmCLip.start();
+                enemyShipSpecialbgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -112,26 +104,19 @@ public class BGM {
     }
     public void InGame_bgm_play(){
 //            bgm_volumedowm();
-        InGame_bgmCLip.start();
-        InGame_bgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
+        if (!isMuted) {
+            InGame_bgmCLip.start();
+            InGame_bgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
     }
-    public void OutGame_bgm_play() {
+    public static void OutGame_bgm_play() {
 
-        if (OutGame_bgmCLip != null && !OutGame_bgmCLip.isRunning()) {
+        if (OutGame_bgmCLip != null && !OutGame_bgmCLip.isRunning()&& !isMuted) {
             OutGame_bgmCLip.start();
             OutGame_bgmCLip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
-
-//    public void bgm_play() {
-//        // BGM을 재생합니다.
-//        if (bgmClip != null && !bgmClip.isRunning()) {
-//            bgmClip.start();
-//            bgmClip.loop(Clip.LOOP_CONTINUOUSLY);
-//        }
-//    }
-
-    public void OutGame_bgm_stop() {
+    public static void OutGame_bgm_stop() {
         // BGM 재생을 중지합니다.
         try {
             if (OutGame_bgmCLip != null && OutGame_bgmCLip.isRunning()) {
@@ -142,7 +127,7 @@ public class BGM {
         }
     }
 
-    public void InGame_bgm_stop() {
+    public static void InGame_bgm_stop() {
         // BGM 재생을 중지합니다.
         try {
             if (InGame_bgmCLip != null && InGame_bgmCLip.isRunning()) {
@@ -151,5 +136,19 @@ public class BGM {
         }catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void MuteBGM(){
+        InGame_bgm_stop();
+        OutGame_bgm_stop();
+        isMuted = true;
+    }
+
+    public static void unMuteBGM(){
+        isMuted = false;
+        OutGame_bgm_play();
+    }
+    public static boolean getIsMuted(){
+        return  isMuted;
     }
 }
