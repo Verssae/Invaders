@@ -734,13 +734,13 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing score screen.");
                     break;
-                case 5:
+                case 5: //Tutorial Screen
                     currentScreen = new TutorialScreen(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " tutorial screen menu screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing Tutorial screen.");
                     break;
-                case 6:
+                case 6: //Tutorial Screen2
                     currentScreen = new TutorialScreen2(width, height, FPS);
                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " tutorial screen2 menu screen at " + FPS + " fps.");
                     returnCode = frame.setScreen(currentScreen);

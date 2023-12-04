@@ -1110,7 +1110,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, highScoresString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 5)
+		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -2943,7 +2943,7 @@ if (option == 35)
 		String bulletYDamageString = "3  Damage";
 		String backMainString = "Press \"ESC\" to Main";
 		String bombString = "Destroy 3X3 Area";
-		String nextString = "Next Page";
+		String previousString = "Previous Page";
 		String exitString = "Exit";
 
 		Ship ship1 = new Ship(20, 190, "a", Color.WHITE);
@@ -2973,12 +2973,12 @@ if (option == 35)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(nextString, 244, 420);
+		backBufferGraphics.drawString(previousString, 244, 420);
 	}
 
 	public void drawTutorial2(final Screen screen, final int option) {
 
-		String previousString = "Previous Page";
+		String nextString = "Next Page";
 		String exitString = "Exit";
 		String keyGuideString = "Key Guide";
 		String mode1String = "1P Mode";
@@ -3044,7 +3044,7 @@ if (option == 35)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		backBufferGraphics.drawString(previousString, 244, 420);
+		backBufferGraphics.drawString(nextString, 244, 420);
 
 		backBufferGraphics.setColor(blinkingColor("GREEN"));
 		drawCenteredBigString(screen, keyGuideString, 50);
