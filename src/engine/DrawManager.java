@@ -1110,7 +1110,7 @@ public final class DrawManager {
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, highScoresString,
 				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 5)
+		if (option == 6)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
@@ -2935,7 +2935,7 @@ if (option == 35)
 				this.drawEntity(SpriteType.Smog, x, y, 24, 4,blinkingColor("GRAY"));
 	}
 
-	public void drawTutorial(final Screen screen) {
+	public void drawTutorial(final Screen screen, int option) {
 		String moveLeftString = "A / ←  :  Move Left";
 		String moveRightString = "D / →  :  Move Right";
 		String shootString = "Space Bar  :  Shoot Bullet";
@@ -2943,6 +2943,8 @@ if (option == 35)
 		String bulletYDamageString = "3  Damage";
 		String backMainString = "Press \"ESC\" to Main";
 		String bombString = "Destroy 3X3 Area";
+		String previousString = "Previous Page";
+		String exitString = "Exit";
 
 		Ship ship1 = new Ship(20, 190, "a", Color.WHITE);
 		Ship ship2 = new Ship(244, 190, "a", Color.WHITE);
@@ -2961,7 +2963,91 @@ if (option == 35)
 		backBufferGraphics.drawString(bulletDamageString, 60, 100);
 		backBufferGraphics.drawString(bulletYDamageString, 284, 100);
 		backBufferGraphics.drawString(bombString, 60, 350);
-		backBufferGraphics.drawString(backMainString, 244, 450);
+
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(exitString, 244, 450);
+		if (option == 6)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(previousString, 244, 420);
+	}
+
+	public void drawTutorial2(final Screen screen, final int option) {
+
+		String nextString = "Next Page";
+		String exitString = "Exit";
+		String keyGuideString = "Key Guide";
+		String mode1String = "1P Mode";
+		String mode2String = "2P Mode";
+		String p1String = "1P";
+		String p2String = "2P";
+		String moveLeftString = "Move Left";
+		String moveRightString = "Move Right";
+		String shootString = "Shoot Bullet";
+		String bombShootString = "Shoot Bomb";
+		String drillShootString = "Shoot Drill";
+		String mode1moveLeftString = "A / <-";
+		String mode1moveRightString = "D / ->";
+		String aString = "A";
+		String rightString = "->";
+		String dString = "D";
+		String leftString = "<-";
+		String spaceString = "Space Bar";
+		String shiftString = "Shift";
+		String bString = "B";
+		String vString = "V";
+		String rString = "R";
+		String nString = "N";
+
+		backBufferGraphics.setFont(fontRegular);
+		backBufferGraphics.setColor(Color.WHITE);
+		//frame
+		backBufferGraphics.drawString(mode1String, 150, 90);
+		backBufferGraphics.drawString(mode2String, 290, 90);
+		backBufferGraphics.drawString(p1String, 270, 130);
+		backBufferGraphics.drawString(p2String, 360, 130);
+		backBufferGraphics.drawString(moveLeftString, 10, 170);
+		backBufferGraphics.drawString(moveRightString, 10, 210);
+		backBufferGraphics.drawString(shootString, 10, 250);
+		backBufferGraphics.drawString(bombShootString, 10, 290);
+		backBufferGraphics.drawString(drillShootString, 10, 330);
+		//1P mode
+		backBufferGraphics.drawString(mode1moveLeftString, 160, 170);
+		backBufferGraphics.drawString(mode1moveRightString, 160, 210);
+		backBufferGraphics.drawString(spaceString, 140, 250);
+		backBufferGraphics.drawString(bString, 175, 290);
+		backBufferGraphics.drawString(nString, 175, 330);
+		//2P mode player 1
+		backBufferGraphics.drawString(aString, 275, 170);
+		backBufferGraphics.drawString(dString, 275, 210);
+		backBufferGraphics.drawString(shiftString, 260, 250);
+		backBufferGraphics.drawString(vString, 275, 290);
+		backBufferGraphics.drawString(rString, 275, 330);
+		//2P mode player 2
+		backBufferGraphics.drawString(leftString, 360, 170);
+		backBufferGraphics.drawString(rightString, 360, 210);
+		backBufferGraphics.drawString(spaceString, 330, 250);
+		backBufferGraphics.drawString(bString, 365, 290);
+		backBufferGraphics.drawString(nString, 365, 330);
+
+
+		if (option == 1)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(exitString, 244, 450);
+		if (option == 5)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		backBufferGraphics.drawString(nextString, 244, 420);
+
+		backBufferGraphics.setColor(blinkingColor("GREEN"));
+		drawCenteredBigString(screen, keyGuideString, 50);
 
 	}
 }
