@@ -86,6 +86,7 @@ public class TitleScreen extends Screen {
 	/**
 	 * Shifts the focus to the next menu item.
 	 */
+
 	private void nextMenuItem() {
 		if (this.returnCode == 2)
 			this.returnCode = 4;

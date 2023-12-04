@@ -740,6 +740,32 @@ public final class Core {
                     returnCode = frame.setScreen(currentScreen);
                     LOGGER.info("Closing Tutorial screen.");
                     break;
+                case 5:
+                    // Setting Screen.
+                    currentScreen = new SettingScreen(width, height, FPS);
+                    LOGGER.info("Starting " + WIDTH + "x" + HEIGHT + " Setting Screen Menu at " + FPS + " fps.");
+                    int settingscreen = frame.setScreen(currentScreen);
+                    if (settingscreen == 101)
+                    {
+                        currentScreen = new SettingScreen_Sound(width, height, FPS);
+                        LOGGER.info("Open " + WIDTH + "x" + HEIGHT
+                                + " Sound Setting Screen" + FPS + " fps");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing Sound Setting Screen");
+                    }
+                    else if (settingscreen == 102)
+                    {
+                        currentScreen = new SettingScreen_Key(width, height, FPS);
+                        LOGGER.info("Open " + WIDTH + "x" + HEIGHT
+                                + " Key Setting Screen" + FPS + " fps");
+                        returnCode = frame.setScreen(currentScreen);
+                        LOGGER.info("Closing Key Setting Screen");
+                    }
+                    else
+                        returnCode = frame.setScreen(currentScreen);
+                    LOGGER.info("Closing Setting Menu Screen");
+                    break;
+
                 default:
                     break;
             }
