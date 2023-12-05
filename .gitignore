@@ -167,8 +167,6 @@ pip-log.txt
 #############
 
 log*
-!Login.java
-!LoginScreen.java
 *.ttf
 .checkstyle
 # intelliJ Files

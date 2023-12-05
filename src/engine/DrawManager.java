@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 import entity.Coin;
 import entity.Entity;
 import screen.GameScreen;
+import screen.GameScreen_2P;
 import screen.Screen;
 
 
@@ -619,11 +620,23 @@ public final class DrawManager {
 		backBufferGraphics.fillOval(375,425,55,45);
 	}
 
+	public void drawSoundButton2(GameScreen_2P gamescreen_2P){
+		backBufferGraphics.setColor(Color.WHITE);
+		backBufferGraphics.fillOval(375,425,55,45);
+	}
+
 	public void drawSoundStatus1(GameScreen gamescreen, boolean keyboard) {
 		String statusText = keyboard ? "ON" : "OFF";
 		backBufferGraphics.setColor(Color.BLACK);
 		backBufferGraphics.drawString(statusText, 379, 455);
 	}
+
+	public void drawSoundStatus2(GameScreen_2P gamescreen_2P, boolean keyboard) {
+		String statusText = keyboard ? "ON" : "OFF";
+		backBufferGraphics.setColor(Color.BLACK);
+		backBufferGraphics.drawString(statusText, 379, 455);
+	}
+
 
 	/**
 	 * Draws current score on screen.
@@ -652,9 +665,6 @@ public final class DrawManager {
 		String scoreString = String.format("%04d", score);
 		backBufferGraphics.drawString(scoreString, x, 26);
 	}
-
-
-
 
 	public void drawTimer(final Screen screen, final long elapsedTime) {
 		backBufferGraphics.setFont(fontSmall);
@@ -1022,10 +1032,9 @@ public final class DrawManager {
 	 */
 	public void drawMenu(final Screen screen, final int option) {
 		String playString = "P L A Y";
-		String twoplayString = "L O G I N";
+		String twoplayString = "2 P  P L A Y";
 		String highScoresString = "H I G H  S C O R E S";
 		String exitString = "E X I T";
-		String pvpScoresString = "P V P  S C O R E S";
 
 		if (option == 2)
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
@@ -1050,12 +1059,6 @@ public final class DrawManager {
 		else
 			backBufferGraphics.setColor(blinkingColor("WHITE"));
 		drawCenteredRegularString(screen, exitString, screen.getHeight() / 3
-				* 2 + fontRegularMetrics.getHeight() * 8);
-		if (option == 1000)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, pvpScoresString, screen.getHeight() / 3
 				* 2 + fontRegularMetrics.getHeight() * 6);
 	}
 
@@ -1263,44 +1266,6 @@ public final class DrawManager {
 	}
 
 	/**
-	 * Draws score menu.
-	 *
-	 * @param screen
-	 *               Screen to draw on.
-	 * @param option
-	 *               Option selected.
-	 */
-	public void drawAuthManage(final Screen screen, final int option) {
-		String SelectString = "Select Mode with W + S, confirm with SPACE.";
-		String OnePlayScoreString = "R e g i s t e r";
-		String TwoPlayScoreString = "L o g i n";
-		String MainMenuString = "M a i n  M e n u";
-
-		backBufferGraphics.setColor(blinkingColor("GRAY"));
-		drawCenteredRegularString(screen, SelectString, screen.getHeight() / 8);
-		if (option == 41)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, OnePlayScoreString,
-				screen.getHeight() / 3 * 2);
-		if (option == 42)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, TwoPlayScoreString,
-				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
-		if (option == 1)
-			backBufferGraphics.setColor(blinkingColor("GREEN"));
-		else
-			backBufferGraphics.setColor(blinkingColor("WHITE"));
-		drawCenteredRegularString(screen, MainMenuString, screen.getHeight()
-				/ 3 * 2 + fontRegularMetrics.getHeight() * 4);
-
-	}
-
-
-	/**
 	 * Draws Recovery select menu.
 	 *
 	 * @param screen
@@ -1379,6 +1344,59 @@ public final class DrawManager {
 
 			if(recoveryCoin.getCoin() >= 30){
 			backBufferGraphics.setColor(blinkingColor("GREEN"));
+			} else {backBufferGraphics.setColor(Color.red);}
+
+		}
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, dorecoveryString,
+				screen.getHeight() / 3 * 2);
+		if (option == 52)
+			backBufferGraphics.setColor(blinkingColor("GREEN"));
+		else
+			backBufferGraphics.setColor(blinkingColor("WHITE"));
+		drawCenteredRegularString(screen, notrecoveryString,
+				screen.getHeight() / 3 * 2 + fontRegularMetrics.getHeight() * 2);
+
+
+
+	}
+
+	public void drawRecoveryConfirmPage_2P(GameState_2P gameState,final Screen screen, final int option) {
+		String paymentMessage = "Please pay 150 amount to recover:";
+		backBufferGraphics.setColor(Color.white);
+		drawCenteredRegularString(screen,paymentMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 4);
+
+		GameState_2P recoveryGameState = gameState;
+		Coin recoveryCoin = recoveryGameState.getCoin();
+
+		String coinString = " C O I N : " + recoveryCoin.getCoin();
+
+		if(recoveryCoin.getCoin() >= 30){
+
+			backBufferGraphics.setColor(Color.YELLOW);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "Your coin is enough";
+			backBufferGraphics.setColor(Color.PINK);
+			drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+		} else {
+			backBufferGraphics.setColor(Color.red);
+			drawCenteredBigString(screen, coinString, (screen.getHeight() / 5) + 10);
+
+			String successMessage = "You need more coin to continue";
+			backBufferGraphics.setColor(Color.orange);
+			drawCenteredRegularString(screen, successMessage, screen.getHeight() / 3 + fontRegularMetrics.getHeight() * 6);
+		}
+
+
+		String dorecoveryString = " Y E S ";
+		String notrecoveryString = " N O ";
+
+		if (option == 51){
+
+			if(recoveryCoin.getCoin() >= 30){
+				backBufferGraphics.setColor(blinkingColor("GREEN"));
 			} else {backBufferGraphics.setColor(Color.red);}
 
 		}
@@ -1538,9 +1556,9 @@ public final class DrawManager {
 	 *                         Current character selected for modification.
 	 */
 	public void drawNameInput(final Screen screen, final char[] name,
-			final int nameCharSelected,String username) {
+			final int nameCharSelected) {
 		String newRecordString = "New Record!";
-		String introduceNameString = "username:";
+		String introduceNameString = "Introduce name:";
 
 		backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
 		drawCenteredRegularString(screen, newRecordString, screen.getHeight()
@@ -1556,11 +1574,7 @@ public final class DrawManager {
 						+ fontRegularMetrics.getWidths()[name[1]]
 						+ fontRegularMetrics.getWidths()[name[2]]
 						+ fontRegularMetrics.getWidths()[' ']) / 2;
-		backBufferGraphics.drawString(username,
-				positionX,
-				screen.getHeight() / 4 + fontRegularMetrics.getHeight()
-						* 14);
-		/*
+
 		for (int i = 0; i < 3; i++) {
 			if (i == nameCharSelected)
 				backBufferGraphics.setColor(slowlyChangingColors("GREEN"));
@@ -1578,7 +1592,6 @@ public final class DrawManager {
 					screen.getHeight() / 4 + fontRegularMetrics.getHeight()
 							* 14);
 		}
-		 */
 	}
 
 	/**
@@ -1623,6 +1636,8 @@ public final class DrawManager {
 		drawCenteredBigString(screen, Paused, screen.getHeight() * 3 / 4);
 		drawCenteredBigString(screen, Quit, screen.getHeight() * 5 / 6);
 	}
+
+
 	public void drawDiffScore(final Screen screen, final int difficulty) {
 		String EasyString = "EASY";
 		String NormalString = "NORMAL";
@@ -1655,25 +1670,12 @@ public final class DrawManager {
 		backBufferGraphics.drawString(HardCoreString, screen.getWidth() * 7 / 8
 				- fontRegularMetrics.stringWidth(HardCoreString) / 2, screen.getHeight() * 2/7);
 	}
-
-
 	/**
 	 * Draws high score screen title and instructions.
 	 *
 	 * @param screen
 	 *               Screen to draw on.
 	 */
-	public void drawPvpScoreMenu(final Screen screen) {
-		String highScoreString = "PVP Scores";
-		String instructionsString = "Press SPACE to return";
-
-		backBufferGraphics.setColor(blinkingColor("HIGH_SCORES"));
-		drawCenteredBigString(screen, highScoreString, screen.getHeight() / 8);
-
-		backBufferGraphics.setColor(blinkingColor("GRAY"));
-		drawCenteredRegularString(screen, instructionsString,
-				screen.getHeight() / 5);
-	}
 	public void drawHighScoreMenu(final Screen screen) {
 		String highScoreString = "High Scores";
 		String instructionsString = "Press SPACE to return";
@@ -1706,23 +1708,6 @@ public final class DrawManager {
 					score.getScore());
 			drawCenteredRegularString(screen, scoreString, screen.getHeight()
 					/ 3 + fontRegularMetrics.getHeight() * (i + 1) * 2);
-			i++;
-			if (i >= 5)
-				break;
-		}
-	}
-	public void drawPvpScores(final Screen screen,
-							   final List<Score> highScores) {
-		backBufferGraphics.setColor(blinkingColor("WHITE"));
-		int i = 0;
-		String scoreString = "";
-		String rank[] = {"1st", "2nd", "3th", "4th", "5th"};
-
-		for (Score score : highScores) {
-			scoreString = String.format("%s        %s        %04d", rank[i], score.getName(),
-					score.getScore());
-			drawCenteredRegularString(screen, scoreString, screen.getHeight()
-					/ 5 + fontRegularMetrics.getHeight() * (i + 1) * 2);
 			i++;
 			if (i >= 5)
 				break;

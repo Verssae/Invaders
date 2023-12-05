@@ -4,20 +4,23 @@ import java.awt.event.KeyEvent;
 
 import engine.Cooldown;
 import engine.Core;
-import engine.SoundEffect;
+import engine.GameState_2P;
+import entity.Coin;
 
-public class AuthManageScreen extends Screen{
+public class RandomRewardScreen_2P extends Screen {
     /** Milliseconds between changes in user selection. */
     private static final int SELECTION_TIME = 200;
     /** Time between changes in user selection. */
     private Cooldown selectionCooldown;
-    /** For selection moving sound */
-    private SoundEffect soundEffect;
-
-
+    private Coin coin;
+    private int randomRes;
+    private String rewardTypeString;
+    private String getRewardTypeString;
     /**
      * Constructor, establishes the properties of the screen.
      *
+     * @param gameState
+     *                  Current game state.
      * @param width
      *                  Screen width.
      * @param height
@@ -25,15 +28,16 @@ public class AuthManageScreen extends Screen{
      * @param fps
      *                  Frames per second, frame rate at which the game is run.
      */
-    public AuthManageScreen(int width, int height, int fps) {
+    public RandomRewardScreen_2P(final GameState_2P gameState, int width, int height, int fps, int randomRes, String getRewardTypeString) {
         super(width, height, fps);
 
         // Defaults to play.
-        this.returnCode = 1;
+        this.coin = gameState.getCoin();
+        this.returnCode = 13;
         this.selectionCooldown = Core.getCooldown(SELECTION_TIME);
         this.selectionCooldown.reset();
-
-        soundEffect = new SoundEffect();
+        this.randomRes = randomRes;
+        this.getRewardTypeString = getRewardTypeString;
     }
 
     /**
@@ -56,22 +60,18 @@ public class AuthManageScreen extends Screen{
         draw();
         if (this.selectionCooldown.checkFinished()
                 && this.inputDelay.checkFinished()) {
-            if (inputManager.isKeyDown(KeyEvent.VK_UP)
-                    || inputManager.isKeyDown(KeyEvent.VK_W)) {
-                soundEffect.playButtonClickSound();
+            if (inputManager.isKeyDown(KeyEvent.VK_LEFT)
+                    || inputManager.isKeyDown(KeyEvent.VK_A)) {
                 previousMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_DOWN)
-                    || inputManager.isKeyDown(KeyEvent.VK_S)) {
-                soundEffect.playButtonClickSound();
+            if (inputManager.isKeyDown(KeyEvent.VK_RIGHT)
+                    || inputManager.isKeyDown(KeyEvent.VK_D)) {
                 nextMenuItem();
                 this.selectionCooldown.reset();
             }
-            if (inputManager.isKeyDown(KeyEvent.VK_SPACE)){
-                soundEffect.playSpaceButtonSound();
+            if (inputManager.isKeyDown(KeyEvent.VK_SPACE))
                 this.isRunning = false;
-            }
         }
     }
 
@@ -79,24 +79,24 @@ public class AuthManageScreen extends Screen{
      * Shifts the focus to the next menu item.
      */
     private void nextMenuItem() {
-        if (this.returnCode == 41)
-            this.returnCode = 42;
-        else if (this.returnCode == 42)
-            this.returnCode = 1;
-        else if (this.returnCode == 1)
-            this.returnCode = 41;
+        if (this.returnCode == 13)
+            this.returnCode = 7;
+        else if (this.returnCode == 7)
+            this.returnCode = 2;
+        else
+            this.returnCode = 13;
     }
 
     /**
      * Shifts the focus to the previous menu item.
      */
     private void previousMenuItem() {
-        if (this.returnCode == 41)
-            this.returnCode = 1;
-        else if (this.returnCode == 1)
-            this.returnCode = 42;
-        else if (this.returnCode == 42)
-            this.returnCode = 41;
+        if (this.returnCode == 2)
+            this.returnCode = 7;
+        else if (this.returnCode == 7)
+            this.returnCode = 13;
+        else
+            this.returnCode = 2;
     }
 
     /**
@@ -105,9 +105,8 @@ public class AuthManageScreen extends Screen{
     private void draw() {
         drawManager.initDrawing(this);
 
-        drawManager.drawAuthManage(this, this.returnCode);
-
+        // drawManager.drawTitle(this);
+        drawManager.drawRandomReward(this, this.returnCode, this.getRewardTypeString, this.randomRes);
         drawManager.completeDrawing(this);
     }
 }
-
