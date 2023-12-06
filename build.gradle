@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'pmd'
 }
 repositories {
     mavenCentral()
@@ -20,10 +21,19 @@ sourceSets {
         }
     }
 }
+
+
 test {
     useJUnitPlatform()
 }
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+pmd {
+    toolVersion = "6.55.0"
+    sourceSets = [sourceSets.main, sourceSets.test]
+    reportsDir = file("$buildDir/reports/pmd")
+    ruleSetFiles = files('config/pmd/ruleset.xml')
 }
