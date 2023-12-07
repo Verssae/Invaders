@@ -24,16 +24,5 @@ public class RankingManager {
         return rankingData;
     }
 
-    public static void main(String[] args) {
-        DatabaseConnect database = new DatabaseConnect();
-        Connection conn = database.connect();
-        RankingManager manager = new RankingManager();
-        ArrayList<ArrayList<String>> test = manager.getRankingData(conn,0);
-        for(int i=0 ; i<test.size() ; i++){
-            for(int j=0 ; j<4 ; j++){
-                System.out.print(test.get(i).get(j));
-            }
-            System.out.println();
-        }
-    }
+
 }
