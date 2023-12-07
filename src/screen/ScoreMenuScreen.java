@@ -79,12 +79,10 @@ public class ScoreMenuScreen extends Screen{
      * Shifts the focus to the next menu item.
      */
     private void nextMenuItem() {
-        if (this.returnCode == 31)
-            this.returnCode = 32;
-        else if (this.returnCode == 32)
-            this.returnCode = 1;
-        else if (this.returnCode == 1)
+        if (this.returnCode == 1)
             this.returnCode = 31;
+        else if (this.returnCode == 31)
+            this.returnCode = 1;
     }
 
     /**
@@ -94,8 +92,6 @@ public class ScoreMenuScreen extends Screen{
         if (this.returnCode == 31)
             this.returnCode = 1;
         else if (this.returnCode == 1)
-            this.returnCode = 32;
-        else if (this.returnCode == 32)
             this.returnCode = 31;
     }
 
