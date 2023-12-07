@@ -19,7 +19,7 @@ public class ScoreManager {
                 pSt = conn.prepareStatement("insert into score values(?,?,?)");
                 pSt.setString(1,id);
                 pSt.setInt(2,score);
-                pSt.setInt(3,difficulty);
+                pSt.setInt(3,difficulty+1);
                 pSt.executeUpdate();
                 pSt.close();
             } catch (SQLException e){
@@ -32,7 +32,7 @@ public class ScoreManager {
                 pSt = conn.prepareStatement("insert into score values(?,?,?)");
                 pSt.setString(1,id);
                 pSt.setInt(2,score);
-                pSt.setInt(3,difficulty);
+                pSt.setInt(3,difficulty+1);
                 pSt.executeUpdate();
                 pSt.close();
             } catch (SQLException e){
@@ -45,7 +45,7 @@ public class ScoreManager {
                 pSt = conn.prepareStatement("insert into score values(?,?,?)");
                 pSt.setString(1,id);
                 pSt.setInt(2,score);
-                pSt.setInt(3,difficulty);
+                pSt.setInt(3,difficulty+1);
                 pSt.executeUpdate();
                 pSt.close();
             } catch (SQLException e){
@@ -58,7 +58,7 @@ public class ScoreManager {
                 pSt = conn.prepareStatement("insert into score values(?,?,?)");
                 pSt.setString(1,id);
                 pSt.setInt(2,score);
-                pSt.setInt(3,difficulty);
+                pSt.setInt(3,difficulty+1);
                 pSt.executeUpdate();
                 pSt.close();
             } catch (SQLException e){
