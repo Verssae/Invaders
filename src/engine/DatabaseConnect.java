@@ -3,16 +3,17 @@ package engine;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class DatabaseConnect {
-    private  final String url = "jdbc:postgresql://localhost:5432/invaders";
-    private  final String user = "postgres";
-    private  final String password = "89456951asd!";
-
+    Map<String, String> env = System.getenv();
+    private String dbHost = env.get("DB_HOST");
+    private String dbUser = env.get("DB_USER");
+    private String dbPassword = env.get("DB_PASSWORD");
     public Connection connect () {
         Connection conn = null ;
         try {
-            conn = DriverManager.getConnection(url,user,password);
+            conn = DriverManager.getConnection(dbHost,dbUser,dbPassword);
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println("fail connect");
