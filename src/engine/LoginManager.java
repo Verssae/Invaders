@@ -21,17 +21,17 @@ public class LoginManager {
             ResultSet rs = st.executeQuery("SELECT * FROM client");
             String id_data = new String();
             String password_data = new String();
-            while(rs.next()){
-                id_data= rs.getString(1);
-                password_data = rs.getString(2);
-                if(inputted_id.equals(id_data) && inputted_password.equals(password_data)){
-                    id=rs.getString(1);
-                    password=rs.getString(2);
-                    name=rs.getString(3);
-                    country=rs.getString(4);
-                    return true;
-                }
+            rs.next();
+            id_data= rs.getString(1);
+            password_data = rs.getString(2);
+            if(inputted_id.equals(id_data) && inputted_password.equals(password_data)){
+                id=rs.getString(1);
+                password=rs.getString(2);
+                name=rs.getString(3);
+                country=rs.getString(4);
+                return true;
             }
+
             rs.close();
             st.close();
         } catch (SQLException e){
