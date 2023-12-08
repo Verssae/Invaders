@@ -9,18 +9,16 @@ public class FriendManager {
         PreparedStatement pSt;
 
         try {
-            pSt = conn.prepareStatement("select count(*) from friend_list where user_id = ? and friend_id = ? ");
+            pSt = conn.prepareStatement("select * from friend_list where user_id = ? and friend_id = ? ");
             pSt.setString(1, my_id);
             pSt.setString(2, friend_id);
 
             ResultSet rs = pSt.executeQuery();
-            rs.next();
-            if(rs.getInt(1)==0){
-                pSt = conn.prepareStatement("select count(*) from client where id = ?");
+            if(!rs.next()){
+                pSt = conn.prepareStatement("select * from client where id = ?");
                 pSt.setString(1, friend_id);
                 rs = pSt.executeQuery();
-                rs.next();
-                if(rs.getInt(1)==0){
+                if(!rs.next()){
                     return "존재하지 않는 id입니다.";
                 }
                 else{
@@ -47,13 +45,12 @@ public class FriendManager {
         PreparedStatement pSt;
 
         try {
-            pSt = conn.prepareStatement("select count(*) from friend_list where user_id = ? and friend_id = ? ");
+            pSt = conn.prepareStatement("select * from friend_list where user_id = ? and friend_id = ? ");
             pSt.setString(1, my_id);
             pSt.setString(2, friend_id);
 
             ResultSet rs = pSt.executeQuery();
-            rs.next();
-            if(rs.getInt(1)==1){
+            if(rs.next()){
                 pSt = conn.prepareStatement("delete from friend_list where user_id = ? and friend_id = ?");
                 pSt.setString(1, my_id);
                 pSt.setString(2, friend_id);
