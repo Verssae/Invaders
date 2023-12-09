@@ -31,4 +31,7 @@ public class DatabaseConnect {
             System.out.println(e.getMessage());
         }
     }
+    public String getDbHost(){return dbHost;}
+    public String getDbUser(){ return  dbUser; }
+    public String getDbPassword(){ return dbPassword;}
 }

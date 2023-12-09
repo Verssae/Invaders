@@ -1,6 +1,7 @@
 package engine;
 
 import java.awt.Color;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,8 +118,8 @@ public final class Core {
     private static Boolean isInitMenuScreen = true;
 
     private static int BulletsRemaining;
-
-
+    private static LoginManager login_Manager;
+    private static String user = null;
 
 
     /**
@@ -233,7 +234,7 @@ public final class Core {
                         currentScreen = new GameScreen(gameState,
                                 gameSettings.get(gameState.getLevel() - 1),
                                 enhanceManager, itemManager,
-                                width, height, FPS);
+                                user, width, height, FPS);
                         LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
                                 + " game screen at " + FPS + " fps.");
                         returnCode = frame.setScreen(currentScreen);
@@ -341,7 +342,7 @@ public final class Core {
                                     currentScreen = new GameScreen(gameState,
 								    gameSettings.get(gameState.getLevel()-1),
                                     enhanceManager, itemManager,
-                                    width, height, FPS);
+                                    user, width, height, FPS);
 
                              
                                     LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
@@ -469,6 +470,34 @@ public final class Core {
                     LOGGER.info("Closing high score screen.");
                     break;
                     **/
+
+
+                /**
+                 * Connect title screen to login screen
+                  */
+                case 40:
+                    login_Manager = new LoginManager();
+                    //if user already logined, rejected login request
+                    //And get username
+                    if(login_Manager.get_id() == null){
+                        login_Manager.callLoginScreen();
+                        user = login_Manager.get_name();
+                    }
+                    else{
+                        LOGGER.info("Already logined");
+                    }
+
+                    break;
+
+                /**
+                 * Logout button
+                 */
+                case 41:
+                    if(login_Manager.get_id() == null){
+                        LOGGER.info("Already logouted");
+                    }
+
+                    break;
                 default:
                     break;
             }
