@@ -180,7 +180,7 @@ out
 .gradle
 **/build/
 !src/**/build/
-!build/libs/*.jar
+!build/libs/Invaders.jar
 
 # Ignore Gradle GUI config
 gradle-app.setting
