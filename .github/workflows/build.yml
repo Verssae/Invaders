@@ -3,7 +3,7 @@ name: Build and Release on Tag
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # This triggers on tags starting with 'v'
 
 jobs:
   build:
@@ -11,19 +11,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '11'
 
       - name: Build with Gradle
         run: ./gradlew build
-
-      - name: Create JAR file
-        run: ls ${{ github.workspace }}/build/libs
 
   release:
     needs: build
@@ -39,9 +36,6 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: false
-
-      - name: Check list of file in libs
-        run: ls ${{ github.workspace }}/build/libs
 
       - name: Upload JAR file to release
         id: upload-release-asset

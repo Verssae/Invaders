@@ -37,3 +37,11 @@ pmd {
     reportsDir = file("$buildDir/reports/pmd")
     ruleSetFiles = files('config/pmd/ruleset.xml')
 }
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'engine.Core'
+        )
+    }
+}
