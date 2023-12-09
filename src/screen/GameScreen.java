@@ -160,6 +160,7 @@ public class GameScreen extends Screen {
 	private Map<Color, Boolean> equippedSkins;
 
 	private int BulletsRemaining=99;
+	private String user;
 
 
 
@@ -181,7 +182,7 @@ public class GameScreen extends Screen {
 	 */
 	public GameScreen(final GameState gameState,
 					  final GameSettings gameSettings,
-					  final EnhanceManager enhanceManager, final ItemManager itemManager,
+					  final EnhanceManager enhanceManager, final ItemManager itemManager, String user,
 					  final int width, final int height, final int fps) {
 		super(width, height, fps);
 
@@ -553,7 +554,7 @@ public class GameScreen extends Screen {
 		if (inputManager.isKeyPressedOnce(KeyEvent.VK_1)) {
 			if (itemManager.getShieldCount() > 0 && timer.getElapsedTime() != 0 && ship.getShieldState() != true && !levelFinished)
 			{
-				logger.info("Key number 1 press");	
+				logger.info("Key number 1 press");
 				itemManager.PlusShieldCount(-1);
 				ship.setShieldState(true);
 				ship.update();
@@ -578,7 +579,7 @@ public class GameScreen extends Screen {
 				drawManager.drawBossLivesbar(this, enemyShip.getEnemyLife());
 		}
 		drawManager.drawHorizontalLine(this, SEPARATION_LINE_HEIGHT - 1);
-		drawManager.scoreEmoji(this, this.score);
+		drawManager.username(this, user);
 		drawManager.BulletsCount(this, this.BulletsCount);
 		drawManager.drawLevel(this, this.level);
 		drawManager.drawSoundButton1(this);
@@ -605,7 +606,7 @@ public class GameScreen extends Screen {
 		drawManager.drawGhost(this.levelFinished, this.lives);
 		this.ship.gameEndShipMotion(this.levelFinished, this.lives);
 
-		
+
 		// Countdown to game start.
 		if (!this.inputDelay.checkFinished()) {
 			int countdown = (int) ((INPUT_DELAY
@@ -633,7 +634,7 @@ public class GameScreen extends Screen {
 
 
 
-		}
+	}
 
 
 	/**
@@ -713,7 +714,7 @@ public class GameScreen extends Screen {
 							&& checkCollision(bullet, enemyShip)) {
 						enemyShip.reduceEnemyLife(bullet.getDamage()); // 수정
 						this.logger.info("Attack the enemy with " + bullet.getDamage()
-							+ " of damage.");
+								+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo++;
 						this.score += combo;
@@ -738,7 +739,7 @@ public class GameScreen extends Screen {
 						&& checkCollision(bullet, this.enemyShipSpecial)) {
 					enemyShipSpecial.reduceEnemyLife(bullet.getDamage());
 					this.logger.info("Attack the enemy with " + bullet.getDamage()
-						+ " of damage.");
+							+ " of damage.");
 					this.combo ++;
 					this.score += combo;
 					this.Miss =1;
@@ -827,7 +828,7 @@ public class GameScreen extends Screen {
 							&& checkCollision(bulletY, enemyShip)) {
 						enemyShip.reduceEnemyLife(bulletY.getDamage()); // 수정
 						this.logger.info("Attack the enemy with " + bulletY.getDamage()
-							+ " of damage.");
+								+ " of damage.");
 						soundEffect.playEnemyDestructionSound();
 						this.combo ++;
 						this.score += combo;
@@ -844,7 +845,7 @@ public class GameScreen extends Screen {
 						&& checkCollision(bulletY, this.enemyShipSpecial)) {
 					enemyShipSpecial.reduceEnemyLife(bulletY.getDamage());
 					this.logger.info("Attack the enemy with " + bulletY.getDamage()
-						+ " of damage.");
+							+ " of damage.");
 					this.combo ++;
 					this.score += combo;
 					this.Miss =1;
@@ -903,9 +904,9 @@ public class GameScreen extends Screen {
 	 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.coin, this.lives,
-							this.bulletsShot, this.shipsDestroyed, this.hardcore, 
-							this.shipColor, this.nowSkinString, this.ownedSkins, this.equippedSkins, 
-							this.BulletsRemaining);
+				this.bulletsShot, this.shipsDestroyed, this.hardcore,
+				this.shipColor, this.nowSkinString, this.ownedSkins, this.equippedSkins,
+				this.BulletsRemaining);
 	}
 	public Ship getShip(){
 		return ship;
@@ -913,5 +914,5 @@ public class GameScreen extends Screen {
 	public String getClearCoin() {
 		return this.clearCoin;
 	}
-	
+
 }
