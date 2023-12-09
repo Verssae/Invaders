@@ -178,10 +178,13 @@ out
 # Gradle Files
 # gitignore template from github/gitignore
 .gradle
-**/build/
-!src/**/build/
-!build/libs/Invaders.jar
 
+!build/
+build/*
+!build/libs
+build/libs/*
+!build/libs/Invaders.jar
+!src/**/build/
 # Ignore Gradle GUI config
 gradle-app.setting
 
