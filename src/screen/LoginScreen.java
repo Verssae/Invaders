@@ -57,6 +57,7 @@ public class LoginScreen implements ActionListener{
 
         // Add an ActionListener to the Login Button
         loginButton.addActionListener(this);
+        registerButton.addActionListener(this);
 
         // Add Components to Panel
         panel.add(idLabel);
@@ -94,7 +95,7 @@ public class LoginScreen implements ActionListener{
         }
         //sign up to our database
         else if(e.getSource() == registerButton){
-            //Register Screen 호출
+            RegisterScreen registerScreen = new RegisterScreen();
         }
 
     }
