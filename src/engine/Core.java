@@ -493,7 +493,8 @@ public final class Core {
                  * Logout button
                  */
                 case 41:
-                    if(login_Manager.get_id() == null){
+                    login_Manager = new LoginManager();
+                    if("".equals(login_Manager.get_id()) || login_Manager.get_id() == null){
                         LOGGER.info("Already logouted");
                     }
 

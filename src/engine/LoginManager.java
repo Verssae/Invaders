@@ -54,6 +54,10 @@ public class LoginManager {
     }
 
     public String get_id(){
+
+        if(id == null){
+            return null;
+        }
         return id;
     }
 
@@ -68,5 +72,4 @@ public class LoginManager {
     public String get_country(){
         return country;
     }
-
 }

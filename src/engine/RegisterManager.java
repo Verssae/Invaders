@@ -2,11 +2,18 @@ package engine;
 
 import java.sql.*;
 
+import javax.xml.crypto.Data;
+
 public class RegisterManager {
+    private Connection conn;
+    private DatabaseConnect DBconnect;
+    public RegisterManager(){
+        conn = DBconnect.connect();
+    }
 
 
     //id 중복 체크 중복된다면 true 중복되지 않으면 false 반환
-    public boolean idDuplicationCheck(Connection conn, String inputted_id){
+    public boolean idDuplicationCheck(String inputted_id){
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM client");
@@ -28,10 +35,9 @@ public class RegisterManager {
 
     //회원가입 정보 database에 추가 성공시 true 실패시 false
     public boolean join_membership(
-            Connection conn,
             String inputted_id,String inputted_password ,String inputted_name,String inputted_country){
 
-        if(!this.idDuplicationCheck(conn,inputted_id)){
+        if(!this.idDuplicationCheck(inputted_id)){
             try{
                 PreparedStatement pSt = conn.prepareStatement("insert into client values(?,?,?,?)");
                 pSt.setString(1,inputted_id);
@@ -45,15 +51,5 @@ public class RegisterManager {
             }
         }
         return false;
-    }
-
-
-    public static void main(String[] args) {
-        DatabaseConnect data = new DatabaseConnect();
-        Connection conn = data.connect();
-        RegisterManager login = new RegisterManager();
-        if(login.join_membership(conn,"1","2","3","4")){
-            System.out.println("success");
-        }
     }
 }
