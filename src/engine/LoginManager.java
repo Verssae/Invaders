@@ -1,5 +1,7 @@
 package engine;
 
+import screen.LoginScreen;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +13,13 @@ public class LoginManager {
     private String password;
     private String name;
     private String country;
+    private Connection conn;
+    private DatabaseConnect dbConnect;
+    public LoginManager(){
+        //if call Loginmanager, call database's connecting method
+        conn = dbConnect.connect();
+    }
+
 
     public boolean loginCheck(Connection conn, String inputted_id , String inputted_password){
         System.out.println("=======================");
@@ -19,11 +28,9 @@ public class LoginManager {
         try {
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM client");
-            String id_data = new String();
-            String password_data = new String();
             if(rs.next()){
-                id_data= rs.getString(1);
-                password_data = rs.getString(2);
+                String id_data = rs.getString(1);
+                String password_data = rs.getString(2);
                 if(inputted_id.equals(id_data) && inputted_password.equals(password_data)){
                     id=rs.getString(1);
                     password=rs.getString(2);
@@ -40,6 +47,10 @@ public class LoginManager {
             e.printStackTrace();
         }
         return false;
+    }
+    //Call about Login Screen
+    public void callLoginScreen(){
+        LoginScreen loginScreen = new LoginScreen();
     }
 
     public String get_id(){

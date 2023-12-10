@@ -173,7 +173,8 @@ log*
 *.iml
 *.idea
 out
-
+!src/screen/LoginScreen.java
+!src/engine/LoginManager.java
 
 # Gradle Files
 # gitignore template from github/gitignore
