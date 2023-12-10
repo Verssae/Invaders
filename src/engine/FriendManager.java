@@ -20,25 +20,25 @@ public class FriendManager {
                 pSt.setString(1, friend_id);
                 rs = pSt.executeQuery();
                 if(!rs.next()){
-                    return "존재하지 않는 id입니다.";
+                    return "id does not exist.";
                 }
                 else{
                     pSt = conn.prepareStatement("insert into friend_list values(?,?)");
                     pSt.setString(1, my_id);
                     pSt.setString(2, friend_id);
                     pSt.executeUpdate();
-                    return "친구 추가 완료.";
+                    return "done adding friend.";
                 }
             }
             else{
-                return "이미 친구입니다.";
+                return "already a friend.";
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return "database 연결 실패";
+        return "Please check the database connection status.";
     }
 
     public String deleteFriend(Connection conn, String my_id , String friend_id) {
@@ -60,16 +60,16 @@ public class FriendManager {
                 pSt.setString(1, friend_id);
                 pSt.setString(2, my_id);
                 pSt.executeUpdate();
-                return "친구 삭제 완료.";
+                return "complete friend delete.";
             }
             else{
-                return "친구 목록에 없는 id 입니다.";
+                return "id is not in the friend list.";
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return "database 연결 실패";
+        return "Please check the database connection status.";
 
     }
 
