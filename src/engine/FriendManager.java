@@ -1,6 +1,7 @@
 package engine;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class FriendManager {
 
@@ -70,6 +71,22 @@ public class FriendManager {
         }
         return "database 연결 실패";
 
+    }
+
+    public ArrayList<String> getFriendData(Connection conn, String my_id){
+        ArrayList<String> friendData = new ArrayList<String>();
+
+        try{
+            PreparedStatement pSt = conn.prepareStatement("select friend_id from friend_list where user_id=?");
+            pSt.setString(1,my_id);
+            ResultSet rs =pSt.executeQuery();
+            while(rs.next()){
+                friendData.add(rs.getString(1));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return friendData;
     }
 
 }
