@@ -6,7 +6,7 @@ on:
       - 'v*'  # This triggers on tags starting with 'v'
 
 jobs:
-  build:
+  build_and_release:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,14 +21,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Create Release
         id: create_release
