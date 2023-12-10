@@ -39,7 +39,7 @@ Title Screen               |  Game Screen              | Score Screen
 - IDE : IntelliJ IDEA
 
 ## System Requirements
-Requires Java 7 or better. :)
+Requires Java 11 or better. :)
 
 ### Resources
 
