@@ -1,19 +1,20 @@
 package engine;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Map;
+
 
 public class DatabaseConnect {
-    Map<String, String> env = System.getenv();
-    private String dbHost = env.get("DB_HOST");
-    private String dbUser = env.get("DB_USER");
-    private String dbPassword = env.get("DB_PASSWORD");
+    Dotenv dotenv = Dotenv.load();
+    String dbUrl = dotenv.get("DB_URL");
+    String dbUser = dotenv.get("DB_USER");
+    String dbPassword = dotenv.get("DB_PASSWORD");
     public Connection connect () {
         Connection conn = null ;
         try {
-            conn = DriverManager.getConnection(dbHost,dbUser,dbPassword);
+            conn = DriverManager.getConnection(dbUrl,dbUser,dbPassword);
             System.out.println("Connected to the PostgreSQL server successfully.");
         } catch (SQLException e) {
             System.out.println("fail connect");
@@ -31,7 +32,6 @@ public class DatabaseConnect {
             System.out.println(e.getMessage());
         }
     }
-    public String getDbHost(){return dbHost;}
     public String getDbUser(){ return  dbUser; }
     public String getDbPassword(){ return dbPassword;}
 }
